@@ -4,7 +4,7 @@ import style from './style.scss';
 
 const Header: FunctionalComponent = () => {
     return (
-        <header class={style.header}>
+        <header class='header'>
             <h1>Preact App</h1>
             <nav>
                 <Link activeClassName={style.active} href="/">
