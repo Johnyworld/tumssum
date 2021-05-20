@@ -3,6 +3,7 @@ node_modules
 /*.log
 
 dist
+build
 static
 .cache
 .DS_Store
