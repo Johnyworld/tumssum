@@ -1,15 +1,17 @@
 import { FunctionalComponent, h } from 'preact';
 import { Route, Router } from 'preact-router';
+import { useEffect, useState } from 'preact/hooks';
 import axios from 'axios';
 
 import Home from '../routes/home';
 import Profile from '../routes/profile';
 import NotFoundPage from '../routes/notfound';
 import Header from './header';
-import { useEffect, useState } from 'preact/hooks';
-
+import useStore from '../utils/context/useStore';
 
 const App: FunctionalComponent = () => {
+
+  const { theme, handleChangeTheme } = useStore('mode');
 
   const [ hello, setHello ] = useState('');
 
@@ -19,21 +21,10 @@ const App: FunctionalComponent = () => {
     });
   }, []);
 
-  const setMode = (mode:string) => () => {
-    document.documentElement.setAttribute("data-theme", mode);
-  }
-
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    console.log('Dark!');
-  } else {
-    console.log('Light!');
-  }
-
   return (
     <div id="preact_root">
       <div style={{ height: '100px' }}></div>
-      <button onClick={setMode('dark')}>dark</button>
-      <button onClick={setMode('light')}>light</button>
+      <button onClick={handleChangeTheme}>{theme}</button>
       <p>d</p>
       { hello &&
         <h2>{hello}</h2>
