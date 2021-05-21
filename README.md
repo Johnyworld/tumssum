@@ -12,6 +12,7 @@
 
 - Python & Django
 - MySQL
+- SSR
 
 
 ## CLI Commands
