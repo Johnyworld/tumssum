@@ -49,13 +49,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'tumssum.urls'
+ROOT_URLCONF = 'server.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'build'),
+            os.path.join(BASE_DIR, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'tumssum.wsgi.application'
+WSGI_APPLICATION = 'server.wsgi.application'
 
 
 # Database
@@ -124,7 +124,7 @@ print(os.path.join(BASE_DIR, 'build'))
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'build/static'),
+    os.path.join(BASE_DIR, 'client/build'),
 ]
 
 # Default primary key field type
