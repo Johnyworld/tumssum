@@ -1,26 +1,25 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
-from api.models import User
 from .controllers import userController
+import json
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def users(request):
   if request.method == 'GET':
-    return userController.getUsers(request)
+    return userController.getUsers()
+
+
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+def user(request):
+  reqData = json.loads(request.body)
+  if request.method == 'GET':
+    return userController.getUser(reqData)
 
   elif request.method == 'POST':
-    return userController.postUser(request)
-    
+    return userController.postUser(reqData)
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def user(request, id):
-
-  user = get_object_or_404(User, pk=id)
-
-  if request.method == 'GET':
-    return Response('get user detail!' + id)
   elif request.method == 'PUT':
-    return Response('edit user!' + id)
+    return userController.putUser(reqData)
+
   elif request.method == 'DELETE':
     return Response('remove user!' + id)

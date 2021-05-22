@@ -7,3 +7,8 @@ def getUserJsonFromObject(user):
     'updated_at': user.updated_at,
     'last_login': user.last_login,
   }
+
+def getUserJsonEdited(user, data):
+  return {
+
+  }

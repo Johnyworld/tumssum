@@ -1,10 +1,10 @@
 from rest_framework.response import Response
 from api.models import User
+from django.shortcuts import get_object_or_404
 from ..utils import getUserJsonFromObject
-import json
 
 
-def getUsers(request):
+def getUsers():
   arr = []
   users = User.objects.all()
   for user in users:
@@ -12,8 +12,20 @@ def getUsers(request):
   return Response(arr)
 
 
-def postUser(request):
-  reqData = json.loads(request.body)
+def getUser(reqData):
+  user = get_object_or_404(User, pk=reqData['id'])
+  return Response(getUserJsonFromObject(user))
+
+
+def putUser(reqData):
+  user = get_object_or_404(User, pk=reqData['id'])
+  for k in reqData:
+    setattr(user, k, reqData[k])
+  user.save()
+  return Response(getUserJsonFromObject(user))
+
+
+def postUser(reqData):
   newUserId = None
 
   try:
