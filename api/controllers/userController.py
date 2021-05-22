@@ -1,8 +1,15 @@
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
 from api.models import User
+from ..utils import getUserJsonFromObject
 import json
+
+
+def getUsers(request):
+  arr = []
+  users = User.objects.all()
+  for user in users:
+    arr.append(getUserJsonFromObject(user))
+  return Response(arr)
 
 
 def postUser(request):

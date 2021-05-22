@@ -2,15 +2,15 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from api.models import User
-from . import controllers
+from .controllers import userController
 
 @api_view(['GET', 'POST'])
 def users(request):
   if request.method == 'GET':
-    return Response('get user list!')
+    return userController.getUsers(request)
 
   elif request.method == 'POST':
-    return controllers.postUser(request)
+    return userController.postUser(request)
     
 
 @api_view(['GET', 'PUT', 'DELETE'])
