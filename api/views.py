@@ -22,4 +22,4 @@ def user(request):
     return userController.putUser(reqData)
 
   elif request.method == 'DELETE':
-    return Response('remove user!' + id)
+    return userController.deleteUser(reqData)

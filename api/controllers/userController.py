@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from api.models import User
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from ..utils import getUserJsonFromObject
-
 
 def getUsers():
   arr = []
@@ -23,6 +23,14 @@ def putUser(reqData):
     setattr(user, k, reqData[k])
   user.save()
   return Response(getUserJsonFromObject(user))
+
+
+def deleteUser(reqData):
+  user = get_object_or_404(User, pk=reqData['id'])
+  user.is_deleted = True
+  user.deleted_at = timezone.now()
+  user.save()
+  return Response(True)
 
 
 def postUser(reqData):
