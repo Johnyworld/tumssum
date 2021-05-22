@@ -9,8 +9,3 @@ def getUserJsonFromObject(user):
     'deleted_at': user.deleted_at,
     'last_login': user.last_login,
   }
-
-def getUserJsonEdited(user, data):
-  return {
-
-  }
