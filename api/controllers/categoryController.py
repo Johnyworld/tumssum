@@ -1,8 +1,21 @@
+from api.utils import getCategoriesJsonFromObject, getCategoryGroupJsonFromObject
 from rest_framework.response import Response
+from api.models import Category, CategoryGroup
 
 
 def getCategories(reqData):
-  return Response('get categories')
+  categoryGroupArr = []
+  categoryGroups = CategoryGroup.objects.filter(user=reqData['id'])
+  for categoryGroup in categoryGroups:
+    categories = Category.objects.filter(user=reqData['id'], group=categoryGroup.id)
+    categoryGroupArr.append(
+      getCategoryGroupJsonFromObject(categoryGroup, categories)
+    )
+  categoriesHasNotGroups = Category.objects.filter(user=reqData['id'], group=None)
+  categoryGroupArr.append({
+    'categories': getCategoriesJsonFromObject(categoriesHasNotGroups)
+  })
+  return Response(categoryGroupArr)
 
 
 def postCategory(reqData):

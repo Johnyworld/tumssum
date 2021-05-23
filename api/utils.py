@@ -9,3 +9,26 @@ def getUserJsonFromObject(user):
     'deleted_at': user.deleted_at,
     'last_login': user.last_login,
   }
+
+
+def getCategoryJsonFromObject(category):
+  return {
+    'id': category.id,
+    'title': category.title,
+  }
+
+
+def getCategoriesJsonFromObject(categories):
+  arr = []
+  for category in categories:
+    arr.append(getCategoryJsonFromObject(category))
+  return arr
+
+
+def getCategoryGroupJsonFromObject(group, categories):
+  return {
+    'id': group.id,
+    'title': group.title,
+    'categories': getCategoriesJsonFromObject(categories)
+  }
+
