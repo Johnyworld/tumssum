@@ -38,14 +38,13 @@ def postBank(reqData):
 
 
 def putBank(reqData):
-  # category_id = reqData.get('category_id')
+  bank_id = reqData.get('bank_id')
 
-  # category = get_object_or_404(Category, pk=category_id)
-  # for k in reqData:
-  #   setattr(category, k, reqData[k])
-  # category.save()
-  # return Response(getCategoryJsonFromObject(category))
-  return Response(True)
+  bank = get_object_or_404(Bank, pk=bank_id)
+  for k in reqData:
+    setattr(bank, k, reqData[k])
+  bank.save()
+  return Response(getBankJsonFromObject(bank))
 
 
 def deleteBank(reqData):
@@ -69,14 +68,13 @@ def postBankGroup(reqData):
 
 
 def putBankGroup(reqData):
-  # category_group_id = reqData.get('category_group_id')
+  bank_group_id = reqData.get('bank_group_id')
 
-  # categoryGroup = get_object_or_404(CategoryGroup, pk=category_group_id)
-  # for k in reqData:
-  #   setattr(categoryGroup, k, reqData[k])
-  # categoryGroup.save()
-  # return Response(getCategoryGroupJsonFromObject(categoryGroup))
-  return Response(True)
+  bankGroup = get_object_or_404(BankGroup, pk=bank_group_id)
+  for k in reqData:
+    setattr(bankGroup, k, reqData[k])
+  bankGroup.save()
+  return Response(getBankGroupJsonFromObject(bankGroup))
 
 
 def deleteBankGroup(reqData):
