@@ -48,10 +48,10 @@ def putBank(reqData):
 
 
 def deleteBank(reqData):
-  # category_id = reqData.get('category_id')
+  bank_id = reqData.get('bank_id')
 
-  # category = get_object_or_404(Category, pk=category_id)
-  # category.delete()
+  bank = get_object_or_404(Bank, pk=bank_id)
+  bank.delete()
   return Response(True)
 
 
@@ -78,8 +78,8 @@ def putBankGroup(reqData):
 
 
 def deleteBankGroup(reqData):
-  # category_group_id = reqData.get('category_group_id')
+  bank_group_id = reqData.get('bank_group_id')
 
-  # categoryGroup = get_object_or_404(CategoryGroup, pk=category_group_id)
-  # categoryGroup.delete()
+  bankGroup = get_object_or_404(BankGroup, pk=bank_group_id)
+  bankGroup.delete()
   return Response(True)
