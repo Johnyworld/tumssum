@@ -1,8 +1,9 @@
 from rest_framework.decorators import api_view
-from .controllers import userController, categoryController
+from .controllers import userController, categoryController, bankController
 import json
 
 
+###################### USER ######################
 @api_view(['GET'])
 def users(request):
   if request.method == 'GET':
@@ -25,6 +26,7 @@ def user(request):
     return userController.deleteUser(reqData)
 
 
+###################### CATEGORY ######################
 @api_view(['GET'])
 def categories(request):
   reqData = json.loads(request.body)
@@ -56,3 +58,37 @@ def categoryGroup(request):
 
   elif request.method == 'DELETE':
     return categoryController.deleteCategoryGroup(reqData)
+
+
+###################### BANK ######################
+@api_view(['GET'])
+def banks(request):
+  reqData = json.loads(request.body)
+  if request.method == 'GET':
+    return bankController.getBanks(reqData)
+
+
+@api_view(['POST', 'PUT', 'DELETE'])
+def bank(request):
+  reqData = json.loads(request.body)
+  if request.method == 'POST':
+    return bankController.postBank(reqData)
+
+  elif request.method == 'PUT':
+    return bankController.putBank(reqData)
+
+  elif request.method == 'DELETE':
+    return bankController.deleteBank(reqData)
+
+
+@api_view(['POST', 'PUT', 'DELETE'])
+def bankGroup(request):
+  reqData = json.loads(request.body)
+  if request.method == 'POST':
+    return bankController.postBankGroup(reqData)
+
+  elif request.method == 'PUT':
+    return bankController.putBankGroup(reqData)
+
+  elif request.method == 'DELETE':
+    return bankController.deleteBankGroup(reqData)
