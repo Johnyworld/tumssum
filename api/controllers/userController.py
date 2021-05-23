@@ -34,19 +34,7 @@ def deleteUser(reqData):
 
 
 def postUser(reqData):
-  newUserId = None
-
-  try:
-    lastUser = User.objects.latest('created_at')
-  except(User.DoesNotExist):
-    newUserId = 1 
-  except(KeyError):
-    return Response('Error')
-  else:
-    newUserId = lastUser.id + 1
-    
   newUser = User(
-    id = newUserId,
     email = reqData.get('email'),
     password = reqData.get('password'),
     username = reqData.get('username'),

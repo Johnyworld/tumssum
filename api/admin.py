@@ -31,7 +31,7 @@ class CategoryGroupAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
-  list_display = ('title', 'group', 'id')
+  list_display = ('title', 'group', 'user', 'id')
   search_fields = ['title']
 
 
