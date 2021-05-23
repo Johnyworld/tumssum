@@ -1,14 +1,10 @@
 from django.contrib import admin
-from .models import User, CategoryGroup, Category, CategoryLink, BankGroup, Bank
+from .models import User, CategoryGroup, Category, BankGroup, Bank, Month, Budget, Account
 
 
 
 class CategoryInline(admin.TabularInline):
   model = Category
-  extra = 1
-
-class CategoryLinkInline(admin.TabularInline):
-  model = CategoryLink
   extra = 1
 
 class BankInline(admin.TabularInline):
@@ -24,7 +20,7 @@ class UserAdmin(admin.ModelAdmin):
   #   (None,               { 'fields': ['username'] }),
   #   ('Email', { 'fields': ['email'] })
   # ]
-  inlines = [CategoryLinkInline, BankInline]
+  inlines = [CategoryInline, BankInline]
   list_filter = ['is_deleted', 'created_at']
   search_fields = ['email', 'username']
 
@@ -35,13 +31,8 @@ class CategoryGroupAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
-  list_display = ('title', 'id')
+  list_display = ('title', 'group', 'id')
   search_fields = ['title']
-
-
-class CategoryLinkAdmin(admin.ModelAdmin):
-  list_display = ('group', 'user')
-  search_fields = ['user', 'group']
 
 
 class BankGroupAdmin(admin.ModelAdmin):
@@ -54,12 +45,28 @@ class BankAdmin(admin.ModelAdmin):
   search_fields = ['title']
 
 
+class MonthAdmin(admin.ModelAdmin):
+  list_display = ('date', 'bank', 'user', 'carry_over', 'total_account')
+  search_fields = ['title']
+
+
+class BudgetAdmin(admin.ModelAdmin):
+  list_display = ('date', 'user', 'date', 'category', 'budget')
+  search_fields = ['title']
+
+
+class AccountAdmin(admin.ModelAdmin):
+  list_display = ('title', 'user', 'category', 'bank', 'account', 'datetime')
+  search_fields = ['title']
+
+
+
 # Register your models here.
 admin.site.register(User, UserAdmin)
 admin.site.register(CategoryGroup, CategoryGroupAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(CategoryLink, CategoryLinkAdmin)
 admin.site.register(BankGroup, BankGroupAdmin)
 admin.site.register(Bank, BankAdmin)
-# admin.site.register(Month)
-# admin.site.register(Account)
+admin.site.register(Month, MonthAdmin)
+admin.site.register(Budget)
+admin.site.register(Account, AccountAdmin)
