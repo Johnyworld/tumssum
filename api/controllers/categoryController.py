@@ -32,7 +32,7 @@ def postCategory(reqData):
     title = title,
   )
   newCategory.save()
-  return Response(newCategory.id)
+  return Response(getCategoryJsonFromObject(newCategory))
 
 
 def putCategory(reqData):

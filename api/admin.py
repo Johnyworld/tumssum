@@ -41,7 +41,7 @@ class BankGroupAdmin(admin.ModelAdmin):
 
 
 class BankAdmin(admin.ModelAdmin):
-  list_display = ('title', 'id', 'user', 'balance')
+  list_display = ('title', 'group', 'balance', 'user', 'id')
   search_fields = ['title']
 
 

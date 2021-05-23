@@ -22,18 +22,19 @@ def getBanks(reqData):
 
 
 def postBank(reqData):
-  # user_id = reqData.get('user_id')
-  # category_group_id = reqData.get('category_group_id')
-  # title = reqData.get('title')
+  user_id = reqData.get('user_id')
+  bank_group_id = reqData.get('bank_group_id')
+  title = reqData.get('title')
+  balance = reqData.get('balance')
 
-  # newCategory = Category(
-  #   user_id = user_id,
-  #   group_id = category_group_id if category_group_id else None,
-  #   title = title,
-  # )
-  # newCategory.save()
-  # return Response(newCategory.id)
-  return Response(True)
+  newBank = Bank(
+    user_id = user_id,
+    group_id = bank_group_id if bank_group_id else None,
+    title = title,
+    balance = balance,
+  )
+  newBank.save()
+  return Response(getBankJsonFromObject(newBank))
 
 
 def putBank(reqData):
@@ -56,16 +57,15 @@ def deleteBank(reqData):
 
 
 def postBankGroup(reqData):
-  # user_id = reqData.get('user_id')
-  # title = reqData.get('title')
+  user_id = reqData.get('user_id')
+  title = reqData.get('title')
 
-  # newCategoryGroup = CategoryGroup(
-  #   user_id = user_id,
-  #   title = title,
-  # )
-  # newCategoryGroup.save()
-  # return Response(getCategoryGroupJsonFromObject(newCategoryGroup))
-  return Response(True)
+  newBankGroup = BankGroup(
+    user_id = user_id,
+    title = title,
+  )
+  newBankGroup.save()
+  return Response(getBankGroupJsonFromObject(newBankGroup))
 
 
 def putBankGroup(reqData):
