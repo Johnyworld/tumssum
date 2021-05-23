@@ -1,7 +1,7 @@
-from api.utils import getCategoriesJsonFromObject, getCategoryGroupJsonFromObject
+from django.shortcuts import get_object_or_404
+from api.utils import getCategoriesJsonFromObject, getCategoryGroupJsonFromObject, getCategoryJsonFromObject
 from rest_framework.response import Response
 from api.models import Category, CategoryGroup
-import json
 
 
 def getCategories(reqData):
@@ -23,12 +23,12 @@ def getCategories(reqData):
 
 def postCategory(reqData):
   user_id = reqData.get('user_id')
-  group_id = reqData.get('group_id')
+  category_group_id = reqData.get('category_group_id')
   title = reqData.get('title')
 
   newCategory = Category(
     user_id = user_id,
-    group_id = group_id if group_id else None,
+    group_id = category_group_id if category_group_id else None,
     title = title,
   )
   newCategory.save()
@@ -36,7 +36,13 @@ def postCategory(reqData):
 
 
 def putCategory(reqData):
-  return Response('put category')
+  category_id = reqData.get('category_id')
+
+  category = get_object_or_404(Category, pk=category_id)
+  for k in reqData:
+    setattr(category, k, reqData[k])
+  category.save()
+  return Response(getCategoryJsonFromObject(category))
 
 
 def deleteCategory(reqData):
@@ -45,18 +51,24 @@ def deleteCategory(reqData):
 
 def postCategoryGroup(reqData):
   user_id = reqData.get('user_id')
-  group_id = reqData.get('group_id')
+  title = reqData.get('title')
 
   newCategoryGroup = CategoryGroup(
     user_id = user_id,
-    title = group_id,
+    title = title,
   )
   newCategoryGroup.save()
-  return Response('post category group')
+  return Response(getCategoryGroupJsonFromObject(newCategoryGroup))
 
 
 def putCategoryGroup(reqData):
-  return Response('put category group')
+  category_group_id = reqData.get('category_group_id')
+
+  categoryGroup = get_object_or_404(CategoryGroup, pk=category_group_id)
+  for k in reqData:
+    setattr(categoryGroup, k, reqData[k])
+  categoryGroup.save()
+  return Response(getCategoryGroupJsonFromObject(categoryGroup))
 
 
 def deleteCategoryGroup(reqData):

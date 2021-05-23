@@ -1,6 +1,6 @@
 def getUserJsonFromObject(user):
   return {
-    'id': user.id,
+    'user_id': user.id,
     'email': user.email,
     'username': user.username,
     'is_deleted': user.is_deleted,
@@ -12,10 +12,13 @@ def getUserJsonFromObject(user):
 
 
 def getCategoryJsonFromObject(category):
-  return {
-    'id': category.id,
+  data = {
+    'category_id': category.id,
     'title': category.title,
   }
+  if category.group is not None:
+    data['category_group_id'] = category.group.id
+  return data
 
 
 def getCategoriesJsonFromObject(categories):
@@ -25,10 +28,12 @@ def getCategoriesJsonFromObject(categories):
   return arr
 
 
-def getCategoryGroupJsonFromObject(group, categories):
-  return {
-    'id': group.id,
+def getCategoryGroupJsonFromObject(group, categories=None):
+  data = {
+    'category_group_id': group.id,
     'title': group.title,
-    'categories': getCategoriesJsonFromObject(categories)
   }
+  if categories is not None:
+    data['categories'] = getCategoriesJsonFromObject(categories)
+  return data
 
