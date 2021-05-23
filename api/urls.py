@@ -12,4 +12,7 @@ urlpatterns = [
   path('banks/', views.banks, name='banks'),
   path('bank/', views.bank, name='bank'),
   path('bank-group/', views.bankGroup, name='bankGroup'),
+
+  path('budgets/', views.budgets, name='budgets'),
+  path('budget/', views.budget, name='budget'),
 ]
