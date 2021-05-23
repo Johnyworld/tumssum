@@ -46,7 +46,11 @@ def putCategory(reqData):
 
 
 def deleteCategory(reqData):
-  return Response('delete category')
+  category_id = reqData.get('category_id')
+
+  category = get_object_or_404(Category, pk=category_id)
+  category.delete()
+  return Response(True)
 
 
 def postCategoryGroup(reqData):
@@ -72,4 +76,8 @@ def putCategoryGroup(reqData):
 
 
 def deleteCategoryGroup(reqData):
-  return Response('delete category group')
+  category_group_id = reqData.get('category_group_id')
+
+  categoryGroup = get_object_or_404(CategoryGroup, pk=category_group_id)
+  categoryGroup.delete()
+  return Response(True)
