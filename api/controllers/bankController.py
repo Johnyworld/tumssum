@@ -1,25 +1,24 @@
 from django.shortcuts import get_object_or_404
-from api.utils import getCategoriesJsonFromObject, getCategoryGroupJsonFromObject, getCategoryJsonFromObject
+from api.utils import getBankJsonFromObject, getBanksJsonFromObject, getBankGroupJsonFromObject
 from rest_framework.response import Response
-from api.models import Category, CategoryGroup
+from api.models import BankGroup, Bank
 
 
 def getBanks(reqData):
-  # user_id = reqData.get('user_id')
+  user_id = reqData.get('user_id')
 
-  # categoryGroupArr = []
-  # categoryGroups = CategoryGroup.objects.filter(user=user_id)
-  # for categoryGroup in categoryGroups:
-  #   categories = Category.objects.filter(user=user_id, group=categoryGroup.id)
-  #   categoryGroupArr.append(
-  #     getCategoryGroupJsonFromObject(categoryGroup, categories)
-  #   )
-  # categoriesHasNotGroups = Category.objects.filter(user=user_id, group=None)
-  # categoryGroupArr.append({
-  #   'categories': getCategoriesJsonFromObject(categoriesHasNotGroups)
-  # })
-  # return Response(categoryGroupArr)
-  return Response(True)
+  results = []
+  bankGroups = BankGroup.objects.filter(user=user_id)
+  for bankGroup in bankGroups:
+    banks = Bank.objects.filter(user=user_id, group=bankGroup.id)
+    results.append(
+      getBankGroupJsonFromObject(bankGroup, banks)
+    )
+  banksHasNotGroups = Bank.objects.filter(user=user_id, group=None)
+  results.append({
+    'banks': getBanksJsonFromObject(banksHasNotGroups)
+  })
+  return Response(results)
 
 
 def postBank(reqData):
