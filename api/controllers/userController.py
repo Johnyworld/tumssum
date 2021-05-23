@@ -13,12 +13,16 @@ def getUsers():
 
 
 def getUser(reqData):
-  user = get_object_or_404(User, pk=reqData['id'])
+  user_id = reqData.get('user_id')
+
+  user = get_object_or_404(User, pk=user_id)
   return Response(getUserJsonFromObject(user))
 
 
 def putUser(reqData):
-  user = get_object_or_404(User, pk=reqData['id'])
+  user_id = reqData.get('user_id')
+
+  user = get_object_or_404(User, pk=user_id)
   for k in reqData:
     setattr(user, k, reqData[k])
   user.save()
@@ -26,7 +30,9 @@ def putUser(reqData):
 
 
 def deleteUser(reqData):
-  user = get_object_or_404(User, pk=reqData['id'])
+  user_id = reqData.get('user_id')
+
+  user = get_object_or_404(User, pk=user_id)
   user.is_deleted = True
   user.deleted_at = timezone.now()
   user.save()
@@ -34,10 +40,14 @@ def deleteUser(reqData):
 
 
 def postUser(reqData):
+  email = reqData.get('email')
+  password = reqData.get('password')
+  username = reqData.get('username')
+
   newUser = User(
-    email = reqData.get('email'),
-    password = reqData.get('password'),
-    username = reqData.get('username'),
+    email = email,
+    password = password,
+    username = username,
   )
   newUser.save()
-  return Response(newUser.id)
+  return Response(getUserJsonFromObject(newUser))
