@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from api.utils.getJsonFromObject import getAccountsFromObject, getAccountFromObject
 from api.models import Account
 from rest_framework.response import Response
@@ -49,8 +50,18 @@ def postAccount(reqData):
 
 
 def putAccount(reqData):
-  return Response(True)
+  account_id = reqData.get('account_id')
+
+  account = get_object_or_404(Account, pk=account_id)
+  for k in reqData:
+    setattr(account, k, reqData[k])
+  account.save()
+  return Response(getAccountFromObject(account))
 
 
 def deleteAccount(reqData):
+  account_id = reqData.get('account_id')
+
+  account = get_object_or_404(Account, pk=account_id)
+  account.delete()
   return Response(True)
