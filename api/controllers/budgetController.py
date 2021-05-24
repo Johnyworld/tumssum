@@ -25,8 +25,9 @@ def postBudget(reqData):
       user_id = user_id,
       category_id = category_id,
       budget = budget,
-      date = date,
     )
+    if date is not None:
+      newBudget.date = date
     newBudget.save()
     return Response(getBudgetFromObject(newBudget))
   else:

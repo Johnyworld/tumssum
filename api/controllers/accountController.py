@@ -1,13 +1,13 @@
-from api.utils.getJsonFromObject import getAccountsFromObject
+from api.utils.getJsonFromObject import getAccountsFromObject, getAccountFromObject
 from api.models import Account
 from rest_framework.response import Response
 
 
 def getAccounts(reqData):
   user_id = reqData.get('user_id')
-  category_id = reqData.get('category_id')
-  bank_id = reqData.get('bank_id')
-  month_id = reqData.get('month_id')
+  category_id = reqData.get('category_id') # Not Required
+  bank_id = reqData.get('bank_id') # Not Required
+  month_id = reqData.get('month_id') # Not Required
   
   results1 = Account.objects.filter(user_id = user_id)
   results2 = results1.filter(category_id = category_id) if category_id != None else results1
@@ -18,7 +18,34 @@ def getAccounts(reqData):
 
 
 def postAccount(reqData):
-  return Response(True)
+  title = reqData.get('title')
+  account = reqData.get('account')
+  datetime = reqData.get('datetime')
+  user_id = reqData.get('user_id')
+  memo = reqData.get('memo') # Not Required
+  location = reqData.get('location') # Not Required
+  category_id = reqData.get('category_id') # Not Required
+  bank_id = reqData.get('bank_id') # Not Required
+  month_id = reqData.get('month_id') # Not Required
+
+  newAccount = Account(
+    title = title,
+    account = account,
+    datetime = datetime,
+    user_id = user_id,
+    category_id = category_id,
+    bank_id = bank_id,
+    month_id = month_id,
+  )
+
+  if memo is not None:
+    newAccount.memo = memo
+  if location is not None:
+    newAccount.location = location
+
+  newAccount.save()
+
+  return Response(getAccountFromObject(newAccount))
 
 
 def putAccount(reqData):
