@@ -2,21 +2,26 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
+  # Require fields
   username = models.CharField(max_length=20)
   email = models.CharField(max_length=40)
   password = models.CharField(max_length=40)
-  created_at = models.DateTimeField(auto_now_add=True)
-  updated_at = models.DateTimeField(auto_now=True)
+  # Not Require fields
   deleted_at = models.DateTimeField(blank=True, null=True)
   last_login = models.DateTimeField(blank=True, null=True)
   is_deleted = models.BooleanField(default=False)
+  # Dates
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
   def __str__(self):
     return self.username
 
 
 class CategoryGroup(models.Model):
+  # Require fields
   title = models.CharField(max_length=20)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
+  # Dates
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
   def __str__(self):
@@ -24,9 +29,13 @@ class CategoryGroup(models.Model):
 
 
 class Category(models.Model):
+  # Require fields
   title = models.CharField(max_length=20)
+  # Required Relations
   user = models.ForeignKey(User, on_delete=models.CASCADE)
+  # Not Required Relations
   group = models.ForeignKey(CategoryGroup, on_delete=models.CASCADE, blank=True, null=True)
+  # Dates
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
   def __str__(self):
@@ -34,8 +43,11 @@ class Category(models.Model):
 
 
 class BankGroup(models.Model):
+  # Require fields
   title = models.CharField(max_length=20)
+  # Required Relations
   user = models.ForeignKey(User, on_delete=models.CASCADE)
+  # Dates
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
   def __str__(self):
@@ -43,10 +55,14 @@ class BankGroup(models.Model):
 
 
 class Bank(models.Model):
+  # Require fields
   title = models.CharField(max_length=20)
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
-  group = models.ForeignKey(BankGroup, on_delete=models.CASCADE, blank=True, null=True)
   balance = models.IntegerField()
+  # Required Relations
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  # Not Required Relations
+  group = models.ForeignKey(BankGroup, on_delete=models.CASCADE, blank=True, null=True)
+  # Dates
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True) 
   def __str__(self):
@@ -54,11 +70,14 @@ class Bank(models.Model):
 
 
 class Month(models.Model):
+  # Require fields
   date = models.CharField(max_length=7)
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
-  bank = models.ForeignKey(Bank, on_delete=models.CASCADE)
   carry_over = models.IntegerField()
   total_account = models.IntegerField()
+  # Required Relations
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  bank = models.ForeignKey(Bank, on_delete=models.CASCADE)
+  # Dates
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True) 
   def __str__(self):
@@ -66,10 +85,14 @@ class Month(models.Model):
 
 
 class Budget(models.Model):
-  date = models.CharField(max_length=7, blank=True, null=True)
+  # Require fields
+  budget = models.IntegerField()
+  # Required Relations
   category = models.ForeignKey(Category, on_delete=models.CASCADE)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
-  budget = models.IntegerField()
+  # Not Require fields
+  date = models.CharField(max_length=7, blank=True)
+  # Dates
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True) 
   def __str__(self):
@@ -77,15 +100,20 @@ class Budget(models.Model):
 
 
 class Account(models.Model):
+  # Require fields
   title = models.CharField(max_length=40)
-  memo = models.CharField(max_length=256, blank=True, null=True)
-  location = models.TextField(blank=True, null=True)
+  account = models.IntegerField()
+  datetime = models.DateTimeField()
+  # Required Relations
   user = models.ForeignKey(User, on_delete=models.CASCADE)
+  # Not Require fields
+  memo = models.CharField(max_length=256, blank=True)
+  location = models.CharField(max_length=512, blank=True)
+  # Not Required Relations
   category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
   bank = models.ForeignKey(Bank, on_delete=models.CASCADE, blank=True, null=True)
   month = models.ForeignKey(Month, on_delete=models.CASCADE, blank=True, null=True)
-  datetime = models.DateTimeField()
-  account = models.IntegerField()
+  # Dates
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True) 
   def __str__(self):

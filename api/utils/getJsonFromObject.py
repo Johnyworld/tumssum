@@ -87,3 +87,29 @@ def getBudgetsFromObject(budgets):
     arr.append(getBudgetFromObject(budget))
   return arr
 
+
+###################### BUDGET #####################
+def getAccountFromObject(account):
+  data = {
+    'account_id': account.id,
+    'title': account.title,
+    'memo': account.memo,
+    'location': account.location,
+    'datetime': account.datetime,
+    'account': account.account,
+    'created_at': account.created_at,
+    'updated_at': account.updated_at,
+  }
+  if account.category is not None:
+    data['category'] = { 'category_id': account.category.id, 'title': account.category.title }
+  if account.bank is not None:
+    data['bank'] = { 'bank_id': account.bank.id, 'title': account.bank.title }
+  if account.month is not None:
+    data['month'] = { 'month_id': account.month.id, 'date': account.month.date }
+  return data
+
+def getAccountsFromObject(accounts):
+  arr = [];
+  for account in accounts:
+    arr.append(getAccountFromObject(account))
+  return arr
