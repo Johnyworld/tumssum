@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from api.utils import getCategoriesJsonFromObject, getCategoryGroupJsonFromObject, getCategoryJsonFromObject
+from api.utils.getJsonFromObject import getCategoriesJsonFromObject, getCategoryGroupJsonFromObject, getCategoryJsonFromObject
 from rest_framework.response import Response
 from api.models import Category, CategoryGroup
 

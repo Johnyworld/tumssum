@@ -1,3 +1,4 @@
+
 ###################### USER #####################
 def getUserJsonFromObject(user):
   return {
@@ -67,3 +68,22 @@ def getBankGroupJsonFromObject(group, banks=None):
   if banks is not None:
     data['banks'] = getBanksJsonFromObject(banks)
   return data
+
+
+###################### BUDGET #####################
+def getBudgetFromObject(budget):
+  return {
+    'budget_id': budget.id,
+    'date': budget.date,
+    'budget': budget.budget,
+    'category': budget.category.id,
+    'created_at': budget.created_at,
+    'updated_at': budget.updated_at,
+  }
+
+def getBudgetsFromObject(budgets):
+  arr = [];
+  for budget in budgets:
+    arr.append(getBudgetFromObject(budget))
+  return arr
+

@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from api.utils import getBankJsonFromObject, getBanksJsonFromObject, getBankGroupJsonFromObject
+from api.utils.getJsonFromObject import getBankJsonFromObject, getBanksJsonFromObject, getBankGroupJsonFromObject
 from rest_framework.response import Response
 from api.models import BankGroup, Bank
 

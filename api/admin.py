@@ -51,7 +51,7 @@ class MonthAdmin(admin.ModelAdmin):
 
 
 class BudgetAdmin(admin.ModelAdmin):
-  list_display = ('date', 'user', 'date', 'category', 'budget')
+  list_display = ('date', 'user', 'category', 'budget')
   search_fields = ['title']
 
 
@@ -68,5 +68,5 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(BankGroup, BankGroupAdmin)
 admin.site.register(Bank, BankAdmin)
 admin.site.register(Month, MonthAdmin)
-admin.site.register(Budget)
+admin.site.register(Budget, BudgetAdmin)
 admin.site.register(Account, AccountAdmin)

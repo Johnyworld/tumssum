@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from api.models import User
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from ..utils import getUserJsonFromObject
+from api.utils.getJsonFromObject import getUserJsonFromObject
 
 def getUsers():
   arr = []
