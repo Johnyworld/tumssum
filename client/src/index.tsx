@@ -1,5 +1,6 @@
 import { h, render } from 'preact';
 import App from './components/app';
+import 'preact/debug';
 import './style/index.scss';
 
 import axios from 'axios';
