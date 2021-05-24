@@ -1,7 +1,5 @@
 import { FunctionalComponent, h } from 'preact';
 import { Route, Router } from 'preact-router';
-import { useEffect, useState } from 'preact/hooks';
-import axios from 'axios';
 
 import Home from '../routes/home';
 import Profile from '../routes/profile';
@@ -11,25 +9,14 @@ import useStore from '../utils/context/useStore';
 
 const App: FunctionalComponent = () => {
 
-  const { theme, handleChangeTheme } = useStore('mode');
-
-  const [ hello, setHello ] = useState('');
-
-  useEffect(() => {
-    axios.get('/api/hello').then(res=> {
-      setHello(res.data);
-    });
-  }, []);
+  console.log('===== app', );
 
   return (
     <div id="preact_root">
       <div style={{ height: '100px' }}></div>
-      <button onClick={handleChangeTheme}>{theme}</button>
-      <p>d</p>
-      { hello &&
-        <h2>{hello}</h2>
-      }
       <Header />
+      <Acomp />
+      <Bcomp />
       <Router>
         <Route path="/" component={Home} />
         <Route path="/profile/" component={Profile} user="me" />
@@ -39,5 +26,18 @@ const App: FunctionalComponent = () => {
     </div>
   );
 };
+
+const Acomp = () => {
+  const { theme, handleChangeTheme } = useStore('mode');
+  return (
+    <button onClick={handleChangeTheme}>{theme}</button>
+  )
+}
+
+const Bcomp = () => {
+  return (
+    <button>Hello</button>
+  )
+}
 
 export default App;

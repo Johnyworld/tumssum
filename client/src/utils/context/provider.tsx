@@ -1,5 +1,5 @@
 import { h, createContext, FunctionalComponent, Context } from 'preact';
-import createModeStore, { ModeStore } from '../../features/mode/createModeStore';
+import modeStore, { ModeStore } from '../../features/mode/modeStore';
 
 export interface GlobalContextInterface {
   mode: ModeStore;
@@ -11,7 +11,7 @@ export const GlobalContext: Context<GlobalContextInterface> = createContext({} a
 
 const Provider: FunctionalComponent = ({ children }) => {
 
-  const mode = createModeStore();
+  const mode = modeStore();
 
   const stores = {
     mode,
