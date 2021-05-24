@@ -1,5 +1,5 @@
 from rest_framework.decorators import api_view
-from .controllers import userController, categoryController, bankController, budgetController
+from .controllers import userController, categoryController, bankController, budgetController, accountController
 import json
 
 
@@ -112,3 +112,24 @@ def budget(request):
 
   elif request.method == 'DELETE':
     return budgetController.deleteBudget(reqData)
+
+
+###################### Budget ######################
+@api_view(['GET'])
+def accounts(request):
+  reqData = json.loads(request.body)
+  if request.method == 'GET':
+    return accountController.getAccounts(reqData)
+
+
+@api_view(['POST', 'PUT', 'DELETE'])
+def account(request):
+  reqData = json.loads(request.body)
+  if request.method == 'POST':
+    return accountController.postAccount(reqData)
+
+  elif request.method == 'PUT':
+    return accountController.putAccount(reqData)
+
+  elif request.method == 'DELETE':
+    return accountController.deleteAccount(reqData)
