@@ -31,7 +31,23 @@ class CategoryGroupSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = CategoryGroup
-    fields = ['id', 'title', 'user', 'created_at', 'updated_at', 'categories']
+    fields = '__all__'
+    extra_fields = ['categories']
+
+
+class BankSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Bank
+    fields = '__all__'
+
+
+class BankGroupSerializer(serializers.ModelSerializer):
+  banks = BankSerializer(many=True, read_only=True)
+
+  class Meta:
+    model = BankGroup
+    fields = '__all__'
+    extra_fields = ['banks']
 
 
 ###################### BANK #####################

@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from api.utils.serializers import getBankJsonFromObject, getBanksJsonFromObject, getBankGroupJsonFromObject
+from api.utils.serializers import BankGroupSerializer, BankSerializer
 from rest_framework.response import Response
 from api.models import BankGroup, Bank
 
@@ -7,18 +7,16 @@ from api.models import BankGroup, Bank
 def getBanks(reqData):
   user_id = reqData.get('user_id')
 
-  results = []
   bankGroups = BankGroup.objects.filter(user=user_id)
-  for bankGroup in bankGroups:
-    banks = Bank.objects.filter(user=user_id, group=bankGroup.id)
-    results.append(
-      getBankGroupJsonFromObject(bankGroup, banks)
-    )
-  banksHasNotGroups = Bank.objects.filter(user=user_id, group=None)
-  results.append({
-    'banks': getBanksJsonFromObject(banksHasNotGroups)
-  })
-  return Response(results)
+  banksNoGroup = Bank.objects.filter(user=user_id, group=None)
+
+  bankGroupsData = BankGroupSerializer(bankGroups, many=True).data
+  banksNoroupData = BankSerializer(banksNoGroup, many=True).data
+
+  merge = list(bankGroupsData)
+  merge.append({ 'banks' : banksNoroupData})
+
+  return Response(merge)
 
 
 def postBank(reqData):
@@ -27,14 +25,13 @@ def postBank(reqData):
   title = reqData.get('title')
   balance = reqData.get('balance')
 
-  newBank = Bank(
+  newBank = Bank.objects.create(
     user_id = user_id,
     group_id = bank_group_id if bank_group_id else None,
     title = title,
     balance = balance,
   )
-  newBank.save()
-  return Response(getBankJsonFromObject(newBank))
+  return Response(BankSerializer(newBank, many=False).data)
 
 
 def putBank(reqData):
@@ -44,7 +41,7 @@ def putBank(reqData):
   for k in reqData:
     setattr(bank, k, reqData[k])
   bank.save()
-  return Response(getBankJsonFromObject(bank))
+  return Response(BankSerializer(bank, many=False).data)
 
 
 def deleteBank(reqData):
@@ -59,12 +56,11 @@ def postBankGroup(reqData):
   user_id = reqData.get('user_id')
   title = reqData.get('title')
 
-  newBankGroup = BankGroup(
+  newBankGroup = BankGroup.objects.create(
     user_id = user_id,
     title = title,
   )
-  newBankGroup.save()
-  return Response(getBankGroupJsonFromObject(newBankGroup))
+  return Response(BankGroupSerializer(newBankGroup, many=False).data)
 
 
 def putBankGroup(reqData):
@@ -74,7 +70,7 @@ def putBankGroup(reqData):
   for k in reqData:
     setattr(bankGroup, k, reqData[k])
   bankGroup.save()
-  return Response(getBankGroupJsonFromObject(bankGroup))
+  return Response(BankGroupSerializer(bankGroup, many=False).data)
 
 
 def deleteBankGroup(reqData):

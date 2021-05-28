@@ -46,7 +46,7 @@ class Bank(models.Model):
   # Required Relations
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   # Not Required Relations
-  group = models.ForeignKey(BankGroup, on_delete=models.CASCADE, blank=True, null=True)
+  group = models.ForeignKey(BankGroup, related_name='banks', on_delete=models.CASCADE, blank=True, null=True)
   # Dates
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True) 

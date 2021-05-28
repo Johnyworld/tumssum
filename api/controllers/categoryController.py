@@ -8,8 +8,15 @@ def getCategories(reqData):
   user_id = reqData.get('user_id')
 
   categoryGroups = CategoryGroup.objects.filter(user=user_id)
-  groupSerializer = CategoryGroupSerializer(instance=categoryGroups, many=True).data
-  return Response(groupSerializer)
+  categoriesNoGroup = Category.objects.filter(user=user_id, group=None)
+
+  categoryGroupsData = CategoryGroupSerializer(categoryGroups, many=True).data
+  categoriesNoGroupData = CategorySerializer(categoriesNoGroup, many=True).data
+
+  merge = list(categoryGroupsData)
+  merge.append({ 'categories': categoriesNoGroupData })
+
+  return Response(merge)
 
 
 def postCategory(reqData):
