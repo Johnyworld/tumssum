@@ -50,51 +50,11 @@ class BankGroupSerializer(serializers.ModelSerializer):
     extra_fields = ['banks']
 
 
-###################### BANK #####################
-def getBankJsonFromObject(bank):
-  data = {
-    'bank_id': bank.id,
-    'balance': bank.balance,
-    'title': bank.title,
-  }
-  if bank.group is not None:
-    data['bank_group_id'] = bank.group.id
-  return data
+class BudgetSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Budget
+    fields = '__all__'
 
-
-def getBanksJsonFromObject(banks):
-  arr = []
-  for bank in banks:
-    arr.append(getBankJsonFromObject(bank))
-  return arr
-
-
-def getBankGroupJsonFromObject(group, banks=None):
-  data = {
-    'bank_group_id': group.id,
-    'title': group.title,
-  }
-  if banks is not None:
-    data['banks'] = getBanksJsonFromObject(banks)
-  return data
-
-
-###################### BUDGET #####################
-def getBudgetFromObject(budget):
-  return {
-    'budget_id': budget.id,
-    'date': budget.date,
-    'budget': budget.budget,
-    'category': budget.category.id,
-    'created_at': budget.created_at,
-    'updated_at': budget.updated_at,
-  }
-
-def getBudgetsFromObject(budgets):
-  arr = [];
-  for budget in budgets:
-    arr.append(getBudgetFromObject(budget))
-  return arr
 
 
 ###################### BUDGET #####################
