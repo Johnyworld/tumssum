@@ -56,29 +56,12 @@ class BudgetSerializer(serializers.ModelSerializer):
     fields = '__all__'
 
 
+class AccountSerializer(serializers.ModelSerializer):
+  category_title = serializers.ReadOnlyField(source='category.title')
+  bank_title = serializers.ReadOnlyField(source='bank.title')
 
-###################### BUDGET #####################
-def getAccountFromObject(account):
-  data = {
-    'account_id': account.id,
-    'title': account.title,
-    'memo': account.memo,
-    'location': account.location,
-    'datetime': account.datetime,
-    'account': account.account,
-    'created_at': account.created_at,
-    'updated_at': account.updated_at,
-  }
-  if account.category is not None:
-    data['category'] = { 'category_id': account.category.id, 'title': account.category.title }
-  if account.bank is not None:
-    data['bank'] = { 'bank_id': account.bank.id, 'title': account.bank.title }
-  if account.month is not None:
-    data['month'] = { 'month_id': account.month.id, 'date': account.month.date }
-  return data
+  class Meta:
+    model = Account
+    fields = '__all__'
+    extra_fields = ['category_title', 'bank_title']
 
-def getAccountsFromObject(accounts):
-  arr = [];
-  for account in accounts:
-    arr.append(getAccountFromObject(account))
-  return arr

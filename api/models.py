@@ -95,7 +95,7 @@ class Account(models.Model):
   memo = models.CharField(max_length=256, blank=True)
   location = models.CharField(max_length=512, blank=True)
   # Not Required Relations
-  category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
+  category = models.ForeignKey(Category, related_name='category', on_delete=models.CASCADE, blank=True, null=True)
   bank = models.ForeignKey(Bank, on_delete=models.CASCADE, blank=True, null=True)
   month = models.ForeignKey(Month, on_delete=models.CASCADE, blank=True, null=True)
   # Dates

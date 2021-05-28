@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from api.utils.serializers import getAccountsFromObject, getAccountFromObject
+from api.utils.serializers import AccountSerializer
 from api.models import Account
 from rest_framework.response import Response
 
@@ -15,7 +15,7 @@ def getAccounts(reqData):
   results3 = results2.filter(bank_id = bank_id) if bank_id != None else results2
   results4 = results3.filter(month_id = month_id) if month_id != None else results3
 
-  return Response(getAccountsFromObject(results4))
+  return Response(AccountSerializer(results4, many=True).data)
 
 
 def postAccount(reqData):
@@ -34,19 +34,16 @@ def postAccount(reqData):
     account = account,
     datetime = datetime,
     user_id = user_id,
+    memo = memo if memo != None else '',
+    location = location if location != None else '',
     category_id = category_id,
     bank_id = bank_id,
     month_id = month_id,
   )
 
-  if memo is not None:
-    newAccount.memo = memo
-  if location is not None:
-    newAccount.location = location
-
   newAccount.save()
 
-  return Response(getAccountFromObject(newAccount))
+  return Response(AccountSerializer(newAccount, many=False).data)
 
 
 def putAccount(reqData):
@@ -56,7 +53,7 @@ def putAccount(reqData):
   for k in reqData:
     setattr(account, k, reqData[k])
   account.save()
-  return Response(getAccountFromObject(account))
+  return Response(AccountSerializer(account, many=False).data)
 
 
 def deleteAccount(reqData):
