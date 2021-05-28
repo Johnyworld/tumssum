@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from api.utils.getJsonFromObject import getCategoriesJsonFromObject, getCategoryGroupJsonFromObject, getCategoryJsonFromObject
+from api.utils.serializers import CategoryGroupSerializer, CategorySerializer
 from rest_framework.response import Response
 from api.models import Category, CategoryGroup
 
@@ -7,18 +7,9 @@ from api.models import Category, CategoryGroup
 def getCategories(reqData):
   user_id = reqData.get('user_id')
 
-  results = []
   categoryGroups = CategoryGroup.objects.filter(user=user_id)
-  for categoryGroup in categoryGroups:
-    categories = Category.objects.filter(user=user_id, group=categoryGroup.id)
-    results.append(
-      getCategoryGroupJsonFromObject(categoryGroup, categories)
-    )
-  categoriesHasNotGroups = Category.objects.filter(user=user_id, group=None)
-  results.append({
-    'categories': getCategoriesJsonFromObject(categoriesHasNotGroups)
-  })
-  return Response(results)
+  groupSerializer = CategoryGroupSerializer(instance=categoryGroups, many=True).data
+  return Response(groupSerializer)
 
 
 def postCategory(reqData):
@@ -26,13 +17,12 @@ def postCategory(reqData):
   category_group_id = reqData.get('category_group_id')
   title = reqData.get('title')
 
-  newCategory = Category(
+  newCategory = Category.objects.create(
     user_id = user_id,
     group_id = category_group_id if category_group_id else None,
     title = title,
   )
-  newCategory.save()
-  return Response(getCategoryJsonFromObject(newCategory))
+  return Response(CategorySerializer(newCategory, many=False).data)
 
 
 def putCategory(reqData):
@@ -42,7 +32,7 @@ def putCategory(reqData):
   for k in reqData:
     setattr(category, k, reqData[k])
   category.save()
-  return Response(getCategoryJsonFromObject(category))
+  return Response(CategorySerializer(category, many=False).data)
 
 
 def deleteCategory(reqData):
@@ -57,12 +47,11 @@ def postCategoryGroup(reqData):
   user_id = reqData.get('user_id')
   title = reqData.get('title')
 
-  newCategoryGroup = CategoryGroup(
+  newCategoryGroup = CategoryGroup.objects.create(
     user_id = user_id,
     title = title,
   )
-  newCategoryGroup.save()
-  return Response(getCategoryGroupJsonFromObject(newCategoryGroup))
+  return Response(CategoryGroupSerializer(newCategoryGroup, many=False).data)
 
 
 def putCategoryGroup(reqData):
@@ -72,7 +61,7 @@ def putCategoryGroup(reqData):
   for k in reqData:
     setattr(categoryGroup, k, reqData[k])
   categoryGroup.save()
-  return Response(getCategoryGroupJsonFromObject(categoryGroup))
+  return Response(CategoryGroupSerializer(categoryGroup, many=False).data)
 
 
 def deleteCategoryGroup(reqData):

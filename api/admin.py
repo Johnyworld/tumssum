@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, CategoryGroup, Category, BankGroup, Bank, Month, Budget, Account
+from .models import *
 
 
 
@@ -7,22 +7,10 @@ class CategoryInline(admin.TabularInline):
   model = Category
   extra = 1
 
+
 class BankInline(admin.TabularInline):
   model = Bank
   extra = 1
-
-
-
-class UserAdmin(admin.ModelAdmin):
-  # readonly_fields = ('id')
-  list_display = ('username', 'id', 'email', 'created_at', 'is_deleted')
-  # fieldsets = [
-  #   (None,               { 'fields': ['username'] }),
-  #   ('Email', { 'fields': ['email'] })
-  # ]
-  inlines = [CategoryInline, BankInline]
-  list_filter = ['is_deleted', 'created_at']
-  search_fields = ['email', 'username']
 
 
 class CategoryGroupAdmin(admin.ModelAdmin):
@@ -62,7 +50,6 @@ class AccountAdmin(admin.ModelAdmin):
 
 
 # Register your models here.
-admin.site.register(User, UserAdmin)
 admin.site.register(CategoryGroup, CategoryGroupAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(BankGroup, BankGroupAdmin)

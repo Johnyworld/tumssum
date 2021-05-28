@@ -1,22 +1,19 @@
 from rest_framework.response import Response
 from api.models import User
 from django.shortcuts import get_object_or_404
-from django.utils import timezone
-from api.utils.getJsonFromObject import getUserJsonFromObject
+from django.contrib.auth.hashers import make_password
+from api.utils.serializers import UserSerializer
 
 def getUsers():
-  arr = []
   users = User.objects.all()
-  for user in users:
-    arr.append(getUserJsonFromObject(user))
-  return Response(arr)
+  return Response(UserSerializer(users, many=True).data)
 
 
 def getUser(reqData):
   user_id = reqData.get('user_id')
 
   user = get_object_or_404(User, pk=user_id)
-  return Response(getUserJsonFromObject(user))
+  return Response(UserSerializer(user).data)
 
 
 def putUser(reqData):
@@ -26,15 +23,14 @@ def putUser(reqData):
   for k in reqData:
     setattr(user, k, reqData[k])
   user.save()
-  return Response(getUserJsonFromObject(user))
+  return Response(UserSerializer(user).data)
 
 
 def deleteUser(reqData):
   user_id = reqData.get('user_id')
 
   user = get_object_or_404(User, pk=user_id)
-  user.is_deleted = True
-  user.deleted_at = timezone.now()
+  user.is_active = False
   user.save()
   return Response(True)
 
@@ -42,12 +38,12 @@ def deleteUser(reqData):
 def postUser(reqData):
   email = reqData.get('email')
   password = reqData.get('password')
-  username = reqData.get('username')
+  name = reqData.get('name')
 
-  newUser = User(
+  newUser = User.objects.create(
+    username = email,
     email = email,
-    password = password,
-    username = username,
+    first_name = name,
+    password = make_password(password),
   )
-  newUser.save()
-  return Response(getUserJsonFromObject(newUser))
+  return Response(UserSerializer(newUser).data)

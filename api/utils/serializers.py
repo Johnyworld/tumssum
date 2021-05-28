@@ -1,44 +1,37 @@
-
-###################### USER #####################
-def getUserJsonFromObject(user):
-  return {
-    'user_id': user.id,
-    'email': user.email,
-    'username': user.username,
-    'is_deleted': user.is_deleted,
-    'created_at': user.created_at,
-    'updated_at': user.updated_at,
-    'deleted_at': user.deleted_at,
-    'last_login': user.last_login,
-  }
+from rest_framework import serializers
+from ..models import *
 
 
-###################### CATEGORY #####################
-def getCategoryJsonFromObject(category):
-  data = {
-    'category_id': category.id,
-    'title': category.title,
-  }
-  if category.group is not None:
-    data['category_group_id'] = category.group.id
-  return data
+class UserSerializer(serializers.ModelSerializer):
+  name = serializers.SerializerMethodField(read_only=True)
+  is_admin = serializers.SerializerMethodField(read_only=True)
+
+  class Meta:
+    model = User
+    fields = ['id', 'username', 'email', 'name', 'is_admin']
+
+  def get_is_admin(self, obj):
+    return obj.is_staff
+  
+  def get_name(self, obj):
+    name = obj.first_name
+    if name == '':
+      name = obj.email
+    return name
 
 
-def getCategoriesJsonFromObject(categories):
-  arr = []
-  for category in categories:
-    arr.append(getCategoryJsonFromObject(category))
-  return arr
+class CategorySerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Category
+    fields = '__all__'
 
 
-def getCategoryGroupJsonFromObject(group, categories=None):
-  data = {
-    'category_group_id': group.id,
-    'title': group.title,
-  }
-  if categories is not None:
-    data['categories'] = getCategoriesJsonFromObject(categories)
-  return data
+class CategoryGroupSerializer(serializers.ModelSerializer):
+  categories = CategorySerializer(many=True, read_only=True)
+
+  class Meta:
+    model = CategoryGroup
+    fields = ['id', 'title', 'user', 'created_at', 'updated_at', 'categories']
 
 
 ###################### BANK #####################

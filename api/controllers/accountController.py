@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from api.utils.getJsonFromObject import getAccountsFromObject, getAccountFromObject
+from api.utils.serializers import getAccountsFromObject, getAccountFromObject
 from api.models import Account
 from rest_framework.response import Response
 
