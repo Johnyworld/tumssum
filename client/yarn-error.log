@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.22.10/libexec/bin/yarn.js add @types/redux-preact
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.22.10/libexec/bin/yarn.js add transform-remove-console -D
 
 PATH: 
   /Library/Frameworks/Python.framework/Versions/3.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fredux-preact: Not found
+  Error: https://registry.yarnpkg.com/transform-remove-console: Not found
       at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:66988:18)
       at Request.self.callback (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:140749:22)
       at Request.emit (events.js:315:20)
@@ -53,7 +53,8 @@ npm manifest:
       "axios": "^0.21.1",
       "preact": "^10.3.1",
       "preact-render-to-string": "^5.1.4",
-      "preact-router": "^3.2.1"
+      "preact-router": "^3.2.1",
+      "react-redux": "^7.2.4"
     },
     "devDependencies": {
       "@babel/core": "^7.14.2",
@@ -72,6 +73,11 @@ npm manifest:
       "sass-loader": "^10.2.0",
       "sirv-cli": "^1.0.0-next.3",
       "typescript": "^3.7.5"
+    },
+    "alias": {
+      "react": "preact/compat",
+      "react-dom": "preact/compat",
+      "local-module": "./custom/modules"
     },
     "jest": {
       "preset": "jest-preset-preact",
@@ -1002,7 +1008,7 @@ Lockfile:
       "@babel/helper-validator-option" "^7.12.17"
       "@babel/plugin-transform-typescript" "^7.13.0"
   
-  "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+  "@babel/runtime@^7.12.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
     version "7.14.0"
     resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.0.tgz#46794bc20b612c5f75e62dd071e24dfd95f1cbe6"
     integrity sha512-JELkvo/DlpNdJ7dlyw/eY7E0suy5i5GQH+Vlxaq1nsNJ+H7f4Vtv3jMeCEgRhZZQFXTjldYfQgv2qmM6M1v5wA==
@@ -1468,6 +1474,14 @@ Lockfile:
     dependencies:
       "@types/node" "*"
   
+  "@types/hoist-non-react-statics@^3.3.0":
+    version "3.3.1"
+    resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
+    integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
+    dependencies:
+      "@types/react" "*"
+      hoist-non-react-statics "^3.3.0"
+  
   "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
     version "2.0.3"
     resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.3.tgz#4ba8ddb720221f432e443bd5f9117fd22cfd4762"
@@ -1534,6 +1548,16 @@ Lockfile:
     version "1.5.4"
     resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
     integrity sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==
+  
+  "@types/react-redux@^7.1.16":
+    version "7.1.16"
+    resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-7.1.16.tgz#0fbd04c2500c12105494c83d4a3e45c084e3cb21"
+    integrity sha512-f/FKzIrZwZk7YEO9E1yoxIuDNRiDducxkFlkw/GNMGEnK9n4K8wJzlJBghpSuOVDgEUHoDkDF7Gi9lHNQR4siw==
+    dependencies:
+      "@types/hoist-non-react-statics" "^3.3.0"
+      "@types/react" "*"
+      hoist-non-react-statics "^3.3.0"
+      redux "^4.0.0"
   
   "@types/react@*":
     version "17.0.6"
@@ -5332,6 +5356,13 @@ Lockfile:
       minimalistic-assert "^1.0.0"
       minimalistic-crypto-utils "^1.0.1"
   
+  hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
+    version "3.3.2"
+    resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
+    integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
+    dependencies:
+      react-is "^16.7.0"
+  
   hoopy@^0.1.4:
     version "0.1.4"
     resolved "https://registry.yarnpkg.com/hoopy/-/hoopy-0.1.4.tgz#609207d661100033a9a9402ad3dea677381c1b1d"
@@ -8986,7 +9017,7 @@ Lockfile:
       minimist "^1.2.0"
       strip-json-comments "~2.0.1"
   
-  react-is@^16.8.1:
+  react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8.1:
     version "16.13.1"
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
     integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
@@ -8995,6 +9026,18 @@ Lockfile:
     version "17.0.2"
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
     integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
+  
+  react-redux@^7.2.4:
+    version "7.2.4"
+    resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.4.tgz#1ebb474032b72d806de2e0519cd07761e222e225"
+    integrity sha512-hOQ5eOSkEJEXdpIKbnRyl04LhaWabkDPV+Ix97wqQX3T3d2NQ8DUblNXXtNMavc7DpswyQM6xfaN4HQDKNY2JA==
+    dependencies:
+      "@babel/runtime" "^7.12.1"
+      "@types/react-redux" "^7.1.16"
+      hoist-non-react-statics "^3.3.2"
+      loose-envify "^1.4.0"
+      prop-types "^15.7.2"
+      react-is "^16.13.1"
   
   react-refresh@0.8.3:
     version "0.8.3"

@@ -6,6 +6,8 @@ import Profile from '../routes/profile';
 import NotFoundPage from '../routes/notfound';
 import Header from './header';
 import useStore from '../utils/context/useStore';
+import { useAppSelector, useAppDispatch } from '../hooks'
+import { increment } from '../counterSlice';
 
 const App: FunctionalComponent = () => {
 
@@ -15,6 +17,7 @@ const App: FunctionalComponent = () => {
     <div id="preact_root">
       <div style={{ height: '100px' }}></div>
       <button onClick={handleChangeTheme}>{theme}</button>
+      <Counter />
       <Header />
       <Router>
         <Route path="/" component={Home} />
@@ -25,5 +28,16 @@ const App: FunctionalComponent = () => {
     </div>
   );
 };
+
+const Counter = () => {
+  const count = useAppSelector(state => state.counter.value)
+  const dispatch = useAppDispatch()
+
+  const handleClick = () => {
+    dispatch(increment());
+  }
+
+  return <button onClick={handleClick}>{count}</button>
+}
 
 export default App;
