@@ -5,18 +5,15 @@ import Home from '../routes/home';
 import Profile from '../routes/profile';
 import NotFoundPage from '../routes/notfound';
 import Header from './header';
-import useStore from '../utils/context/useStore';
-import { useAppSelector, useAppDispatch } from '../hooks'
+import { useSelector, useDispatch } from '../hooks'
 import { increment } from '../counterSlice';
+import { changeTheme } from '~features/mode/modeSlice';
 
 const App: FunctionalComponent = () => {
-
-  const { theme, handleChangeTheme } = useStore('mode');
-
   return (
     <div id="preact_root">
       <div style={{ height: '100px' }}></div>
-      <button onClick={handleChangeTheme}>{theme}</button>
+      <Theme />
       <Counter />
       <Header />
       <Router>
@@ -29,9 +26,18 @@ const App: FunctionalComponent = () => {
   );
 };
 
+const Theme = () => {
+  const theme = useSelector(state => state.mode.theme)
+  const dispatch = useDispatch()
+  console.log('===== theme', theme);
+
+  return <button onClick={() => dispatch(changeTheme())}>{theme}</button>
+}
+
 const Counter = () => {
-  const count = useAppSelector(state => state.counter.value)
-  const dispatch = useAppDispatch()
+  const count = useSelector(state => state.counter.value)
+  const dispatch = useDispatch()
+  console.log('===== count', count);
 
   const handleClick = () => {
     dispatch(increment());
