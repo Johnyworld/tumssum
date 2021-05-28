@@ -5,8 +5,7 @@ import Home from '../routes/home';
 import Profile from '../routes/profile';
 import NotFoundPage from '../routes/notfound';
 import Header from './header';
-import { useSelector, useDispatch } from '../hooks'
-import { increment } from '../counterSlice';
+import { useSelector, useDispatch } from '~utils/redux/hooks'
 import { changeTheme } from '~features/mode/modeSlice';
 
 const App: FunctionalComponent = () => {
@@ -14,7 +13,6 @@ const App: FunctionalComponent = () => {
     <div id="preact_root">
       <div style={{ height: '100px' }}></div>
       <Theme />
-      <Counter />
       <Header />
       <Router>
         <Route path="/" component={Home} />
@@ -32,18 +30,6 @@ const Theme = () => {
   console.log('===== theme', theme);
 
   return <button onClick={() => dispatch(changeTheme())}>{theme}</button>
-}
-
-const Counter = () => {
-  const count = useSelector(state => state.counter.value)
-  const dispatch = useDispatch()
-  console.log('===== count', count);
-
-  const handleClick = () => {
-    dispatch(increment());
-  }
-
-  return <button onClick={handleClick}>{count}</button>
 }
 
 export default App;
