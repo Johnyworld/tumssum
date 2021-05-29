@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "prestart": "cp -rf public/* dist/",
     "start": "parcel src/index.html --port 3000",
     "prebuild": "rm -rf build",
     "build": "parcel build src/index.html src/index.tsx --out-dir build --no-content-hash --no-source-maps --detailed-report",
+    "postbuild": "cp -rf public/* build/",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "test": "jest ./tests"
   },
@@ -22,7 +24,10 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.1",
     "axios": "^0.21.1",
+    "i18next": "^20.3.1",
+    "i18next-xhr-backend": "^3.2.2",
     "preact": "^10.3.1",
+    "preact-i18next": "^11.8.5",
     "preact-render-to-string": "^5.1.4",
     "preact-router": "^3.2.1",
     "react-redux": "^7.2.4"
