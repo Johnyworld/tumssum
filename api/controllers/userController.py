@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import make_password
 from api.utils.serializers import UserSerializer
 
+
 def getUsers():
   users = User.objects.all()
   return Response(UserSerializer(users, many=True).data)

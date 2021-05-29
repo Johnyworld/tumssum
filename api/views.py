@@ -1,6 +1,8 @@
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 from .utils.serializers import UserSerializerWithToken
 from .controllers import userController, categoryController, bankController, budgetController, accountController
 import json
@@ -25,19 +27,25 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 ###################### USER ######################
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def users(request):
   if request.method == 'GET':
     return userController.getUsers()
 
 
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+@api_view(['POST'])
+def register(request):
+  reqData = json.loads(request.body)
+  if request.method == 'POST':
+    return userController.postUser(reqData)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def user(request):
   reqData = json.loads(request.body)
   if request.method == 'GET':
     return userController.getUser(reqData)
-
-  elif request.method == 'POST':
-    return userController.postUser(reqData)
 
   elif request.method == 'PUT':
     return userController.putUser(reqData)
