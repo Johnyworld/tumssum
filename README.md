@@ -7,25 +7,31 @@
 - Preact
 - Typescript
 - SASS
+- i18next
+- Storybook
 
 ### Backend
 
 - Python & Django
 - MySQL
 - SSR
+- Docker
+- AWS EC2
+- AWS RDS
 
 
 ## CLI Commands
 
 ### Frontend
 
-- `npm install`: Installs dependencies
-- `npm run start`: Run a development, with Parcel Builder
-- `npm run lint`: Pass TypeScript files using ESLint
-- `npm run test`: Run Jest and Enzyme with
+- `client/npm install`: Installs dependencies
+- `client/npm run start`: Run a development, with Parcel Builder
+- `client/npm run build`: Run a production build, with Parcel Builder
+- `client/npm run lint`: Pass TypeScript files using ESLint
+- `client/npm run test`: Run Jest and Enzyme with
     [`enzyme-adapter-preact-pure`](https://github.com/preactjs/enzyme-adapter-preact-pure) for your tests
 
 ### Backend
 
+- `cd venv/bin && source activate`: Run a virtual env.
 - `python3 manage.py runserver`: Run a development.
-- `python3 manage.py startapp`: Create App.
