@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework_simplejwt.tokens import RefreshToken
 from ..models import *
 
 
@@ -18,6 +19,17 @@ class UserSerializer(serializers.ModelSerializer):
     if name == '':
       name = obj.email
     return name
+
+
+class UserSerializerWithToken(UserSerializer):
+  token = serializers.SerializerMethodField(read_only=True)
+  class Meta:
+    model = User
+    fields = ['id', 'username', 'email', 'name', 'is_admin', 'token']
+
+  def get_token(self, obj):
+    token = RefreshToken.for_user(obj)
+    return str(token)
 
 
 class CategorySerializer(serializers.ModelSerializer):
