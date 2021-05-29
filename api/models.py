@@ -58,10 +58,8 @@ class Month(models.Model):
   # Require fields
   date = models.CharField(max_length=7)
   carry_over = models.IntegerField()
-  total_account = models.IntegerField()
   # Required Relations
   user = models.ForeignKey(User, on_delete=models.CASCADE)
-  bank = models.ForeignKey(Bank, on_delete=models.CASCADE)
   # Dates
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True) 
