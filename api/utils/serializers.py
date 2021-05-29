@@ -62,6 +62,12 @@ class BankGroupSerializer(serializers.ModelSerializer):
     extra_fields = ['banks']
 
 
+class MonthSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Month
+    fields = '__all__'
+
+
 class BudgetSerializer(serializers.ModelSerializer):
   class Meta:
     model = Budget

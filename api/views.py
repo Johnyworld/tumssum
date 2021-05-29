@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 from .utils.serializers import UserSerializerWithToken
-from .controllers import userController, categoryController, bankController, budgetController, accountController
+from .controllers import userController, categoryController, bankController, budgetController, accountController, monthController
 import json
 
 
@@ -120,6 +120,14 @@ def bankGroup(request):
 
   elif request.method == 'DELETE':
     return bankController.deleteBankGroup(reqData)
+
+
+###################### Month ######################
+@api_view(['GET'])
+def month(request):
+  reqData = json.loads(request.body)
+  if request.method == 'GET':
+    return monthController.getMonth(reqData)
 
 
 ###################### Budget ######################

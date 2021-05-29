@@ -29,6 +29,8 @@ def postAccount(reqData):
   bank_id = reqData.get('bank_id') # Not Required
   month_id = reqData.get('month_id') # Not Required
 
+  # TODO Month _id 는 parameter 로 받지 말고 Month 에서 date (from datetime) 로 검색해서 찾아내자
+
   newAccount = Account(
     title = title,
     account = account,
