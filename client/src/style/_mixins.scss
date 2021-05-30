@@ -1,0 +1,40 @@
+@import "./variables";
+
+@import "./variables";
+
+
+@mixin minMobileLand {
+  @media (min-width: #{$bp-mobile}) {
+    @content;
+  }
+}
+
+@mixin minTablet {
+  @media (min-width: #{$bp-tablet}) {
+    @content;
+  }
+}
+
+@mixin minDesktop {
+  @media (min-width: #{$bp-desktop}) {
+    @content;
+  }
+}
+
+@mixin maxMobilePort {
+  @media (max-width: #{$bp-mobile - 1px}) {
+    @content;
+  }
+}
+
+@mixin maxMobileLand {
+  @media (max-width: #{$bp-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin maxTablet {
+  @media (max-width: #{$bp-desktop - 1px}) {
+    @content;
+  }
+}

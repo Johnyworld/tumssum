@@ -1,3 +1,5 @@
+@import "./mixins";
+
 html, body {
 	height: 100%;
 	width: 100%;
@@ -15,4 +17,17 @@ html, body {
 
 * {
 	box-sizing: border-box;
+}
+
+
+@include maxMobilePort {
+	body {
+		background: red;
+	}
+}
+
+@include minTablet {
+	body {
+		background: green;
+	}
 }
