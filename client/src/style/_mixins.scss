@@ -1,7 +1,5 @@
 @import "./variables";
 
-@import "./variables";
-
 
 @mixin minMobileLand {
   @media (min-width: #{$bp-mobile}) {

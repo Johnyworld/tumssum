@@ -10,12 +10,20 @@ import { changeTheme } from '~features/mode/modeSlice';
 import useInput from '~hooks/useInput';
 import { login, logout } from '~features/user/userSlice';
 import { useTranslation } from 'preact-i18next';
+import { useEffect } from 'preact/hooks';
+import { getThemeColor } from '~style/theme';
+
 
 const App: FunctionalComponent = () => {
   const { t, i18n } = useTranslation();
+
+
+  useEffect(() => {
+  }, [])
   return (
     <div id="preact_root">
       <div style={{ height: '100px' }}></div>
+      <button onClick={() => console.log(getThemeColor('pen'))}>Get Color</button>
       <button onClick={() => i18n.changeLanguage('ko')}>KO</button>
       <button onClick={() => i18n.changeLanguage('en')}>EN</button>
       <button onClick={() => i18n.changeLanguage('jp')}>JP</button>
