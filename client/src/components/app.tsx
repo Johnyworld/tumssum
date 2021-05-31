@@ -10,24 +10,22 @@ import { changeTheme } from '~features/mode/modeSlice';
 import useInput from '~hooks/useInput';
 import { login, logout } from '~features/user/userSlice';
 import { useTranslation } from 'preact-i18next';
-import { useEffect } from 'preact/hooks';
-import { getThemeColor } from '~style/theme';
+import useThemeColors from '~hooks/useTheme';
 
 
 const App: FunctionalComponent = () => {
   const { t, i18n } = useTranslation();
+  const themeColors = useThemeColors(['pen', 'bg'])
 
+  console.log('===== app', themeColors);
 
-  useEffect(() => {
-  }, [])
   return (
     <div id="preact_root">
       <div style={{ height: '100px' }}></div>
-      <button onClick={() => console.log(getThemeColor('pen'))}>Get Color</button>
       <button onClick={() => i18n.changeLanguage('ko')}>KO</button>
       <button onClick={() => i18n.changeLanguage('en')}>EN</button>
       <button onClick={() => i18n.changeLanguage('jp')}>JP</button>
-      <p>{t('hello')}</p>
+      <p style={{ backgroundColor: themeColors.pen }}>{t('hello')}</p>
       <Theme />
       <Auth />
       <Header />
@@ -42,6 +40,7 @@ const App: FunctionalComponent = () => {
 };
 
 const Auth = () => {
+  console.log('===== auth', );
 
   const { userInfo, loading, error } = useSelector(state=> state.user);
   const [ email, changeEmail, setEmail ] = useInput('');
