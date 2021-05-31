@@ -15,9 +15,6 @@ import useThemeColors from '~hooks/useTheme';
 
 const App: FunctionalComponent = () => {
   const { t, i18n } = useTranslation();
-  const themeColors = useThemeColors(['pen', 'bg'])
-
-  console.log('===== app', themeColors);
 
   return (
     <div id="preact_root">
@@ -25,8 +22,9 @@ const App: FunctionalComponent = () => {
       <button onClick={() => i18n.changeLanguage('ko')}>KO</button>
       <button onClick={() => i18n.changeLanguage('en')}>EN</button>
       <button onClick={() => i18n.changeLanguage('jp')}>JP</button>
-      <p style={{ backgroundColor: themeColors.pen }}>{t('hello')}</p>
+      <p>{t('hello')}</p>
       <Theme />
+      <ThemeColor />
       <Auth />
       <Header />
       <Router>
@@ -73,6 +71,13 @@ const Auth = () => {
       {error && <p>{error}</p>}
     </form>
   )
+}
+
+const ThemeColor = () => {
+  const themeColors = useThemeColors(['pen', 'bg']);
+
+  console.log('===== themeColor', themeColors);
+  return <p style={{ backgroundColor: themeColors.pen }}>HAHAHA</p>
 }
 
 const Theme = () => {

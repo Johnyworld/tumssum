@@ -1,5 +1,4 @@
 import { Colors, Color } from 'types';
-import { useEffect, useState } from 'preact/hooks';
 import { useSelector } from '~utils/redux/hooks';
 
 
@@ -11,15 +10,8 @@ const getThemeColors = (colors: Color[]) => {
 }
 
 const useThemeColors = (colors: Color[]) => {
-  const theme = useSelector(state => state.mode.theme);
-  const [themeColors, setThemeColors] = useState<Colors>(getThemeColors(colors));
-
-  useEffect(() => {
-    const newThemeColors: Colors = getThemeColors(colors)
-    setThemeColors(newThemeColors);
-  }, [theme]);
-
-  return themeColors;
+  useSelector(state => state.mode.theme);
+  return getThemeColors(colors);
 }
 
 export default useThemeColors;
