@@ -16,8 +16,8 @@
 - MySQL
 - SSR
 - Docker
-- AWS EC2
-- AWS RDS
+- AWS EC2 (Ubunto 20.04 LTS)
+- AWS RDS (MySQL)
 
 
 ## CLI Commands
