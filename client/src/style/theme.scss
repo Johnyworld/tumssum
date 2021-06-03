@@ -1,18 +1,29 @@
+$common-theme: (
+	weight-bold: 700,
+	color-white: #fff,
+	color-black: #000,
+);
+
 $light-theme: (
 	color-pen: #000,
-	color-bg: rgb(243,243,243),
+	color-paper: #fff,
 	color-primary: #8d72d7,
 );
 
 $dark-theme: (
-	color-pen: #c1bfbd,
-	color-bg: #161718,
+	color-pen: #fff,
+	color-paper: #161718,
 	color-primary: #8d72d7,
 );
 
 :root{
+
+	@each $key, $value in $common-theme {
+		#{"--" + $key}: #{$value};
+	}
+
 	@each $key, $value in $light-theme {
-			#{"--" + $key}: #{$value};
+		#{"--" + $key}: #{$value};
 	}
 }
 

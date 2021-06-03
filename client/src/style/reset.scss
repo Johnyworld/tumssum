@@ -15,6 +15,15 @@ html, body {
 	background: var(--color-bg);
 }
 
+body, button {
+	font-size: 14px;
+}
+
+a, button {
+	cursor: pointer;
+}
+
+
 * {
 	box-sizing: border-box;
 }

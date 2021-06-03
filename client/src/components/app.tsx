@@ -11,6 +11,7 @@ import useInput from '~hooks/useInput';
 import { login, logout } from '~features/user/userSlice';
 import { useTranslation } from 'preact-i18next';
 import useThemeColors from '~hooks/useTheme';
+import Button from './elements/button';
 
 
 const App: FunctionalComponent = () => {
@@ -85,7 +86,7 @@ const Theme = () => {
   const dispatch = useDispatch()
   console.log('===== theme', theme);
 
-  return <button onClick={() => dispatch(changeTheme())}>{theme}</button>
+  return <Button onClick={() => dispatch(changeTheme())}>{theme}</Button>
 }
 
 export default App;

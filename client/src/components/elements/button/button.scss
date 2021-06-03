@@ -1,0 +1,12 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 1rem;
+  border: none;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-weight: var(--weight-bold);
+  outline: none;
+}
