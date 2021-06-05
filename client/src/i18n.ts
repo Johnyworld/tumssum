@@ -12,7 +12,7 @@ i18n.use(backend).use(initReactI18next).init({
     escapeValue: false
   },
   backend: {
-    loadPath: '/{{lng}}.json'
+    loadPath: process.env.NODE_ENV === 'development' ? '/{{lng}}.json' : '/static/{{lng}}.json',
   }
 })
 
