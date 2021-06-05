@@ -1,0 +1,14 @@
+[Unit]
+Description=uWSGI service
+
+[Service]
+ExecStart=/home/ubuntu/tumssum/venv/bin/uwsgi -i /home/ubuntu/tumssum/server/wsgi.ini
+
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

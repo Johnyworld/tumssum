@@ -1,0 +1,19 @@
+server {
+    listen 80;
+    server_name *.compute.amazonaws.com;
+    charset utf-8;
+    client_max_body_size 128M;
+
+    location /static/ {
+        root /home/ubuntu/tumssum/client/build;
+    }
+
+    location ~ \.(jpg|png|js|css) {
+        root /home/ubuntu/tumssum/client/build;
+    }
+
+    location / {
+        uwsgi_pass  unix:///tmp/mysite.sock;
+        include     uwsgi_params;
+    }
+}

@@ -1,0 +1,14 @@
+[0;1;31m●[0m uwsgi.service - uWSGI service
+     Loaded: loaded (/etc/systemd/system/uwsgi.service; enabled; vendor preset: enabled)
+     Active: [0;1;31mfailed[0m (Result: exit-code) since Sat 2021-06-05 06:31:41 UTC; 10s ago
+   Main PID: 35893 (code=exited, status=1/FAILURE)
+     Status: "initializing uWSGI"
+
+Jun 05 06:31:41 ip-172-31-7-231 systemd[1]: [0;1;39m[0;1;31m[0;1;39muwsgi.service: Main process exited, code=exited, status=1/FAILURE[0m
+Jun 05 06:31:41 ip-172-31-7-231 systemd[1]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185muwsgi.service: Failed with result 'exit-code'.[0m
+Jun 05 06:31:41 ip-172-31-7-231 systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start uWSGI service.[0m
+Jun 05 06:31:41 ip-172-31-7-231 systemd[1]: uwsgi.service: Scheduled restart job, restart counter is at 5.
+Jun 05 06:31:41 ip-172-31-7-231 systemd[1]: Stopped uWSGI service.
+Jun 05 06:31:41 ip-172-31-7-231 systemd[1]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185muwsgi.service: Start request repeated too quickly.[0m
+Jun 05 06:31:41 ip-172-31-7-231 systemd[1]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185muwsgi.service: Failed with result 'exit-code'.[0m
+Jun 05 06:31:41 ip-172-31-7-231 systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start uWSGI service.[0m
