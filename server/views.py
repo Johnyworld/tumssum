@@ -5,7 +5,7 @@ def index(request):
     'page_name': 'Tumssum',
   })
 
-def profile(request):
+def profile(request, id):
   return render(request, 'index.html', {
-    'page_name': 'Profile',
+    'page_name': 'Profile | ' + id  if id else 'Profile',
   })
