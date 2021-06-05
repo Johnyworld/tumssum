@@ -5,11 +5,7 @@ server {
     client_max_body_size 128M;
 
     location /static/ {
-        root /home/ubuntu/tumssum/client/build;
-    }
-
-    location ~ \.(jpg|png|js|css) {
-        root /home/ubuntu/tumssum/client/build;
+        alias /static/
     }
 
     location / {
