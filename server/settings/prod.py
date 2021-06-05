@@ -16,7 +16,11 @@ def get_secret(setting, secrets=secrets):
 
 
 DEBUG = False
-ALLOWED_HOSTS = ['http://localhost:3000']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    '13.125.22.200',
+]
 
 
 # Database
