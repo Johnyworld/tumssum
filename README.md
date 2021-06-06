@@ -33,5 +33,5 @@
 
 ### Backend
 
-- `cd venv/bin && source activate`: Run a virtual env.
-- `python3 manage.py runserver`: Run a development.
+- `source venv/bin/activate`: Run a virtual env.
+- `python3 manage.py runserver --settings=server.settings.local`: Run a development.
