@@ -5,6 +5,7 @@ declare module 'types' {
 
   export interface Colors {
     pen: string;
+    paper: string;
     bg: string;
     primary: string;
   }

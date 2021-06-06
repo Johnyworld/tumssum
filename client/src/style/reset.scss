@@ -1,4 +1,4 @@
-@import "./mixins";
+@import "~src/style/mixins";
 
 html, body {
 	height: 100%;
@@ -29,14 +29,14 @@ a, button {
 }
 
 
-@include maxMobilePort {
-	body {
-		background: red;
-	}
-}
+// @include maxMobilePort {
+// 	body {
+// 		background: red;
+// 	}
+// }
 
-@include minTablet {
-	body {
-		background: green;
-	}
-}
+// @include minTablet {
+// 	body {
+// 		background: green;
+// 	}
+// }

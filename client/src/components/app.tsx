@@ -75,10 +75,10 @@ const Auth = () => {
 }
 
 const ThemeColor = () => {
-  const themeColors = useThemeColors(['pen', 'bg']);
+  const themeColors = useThemeColors(['paper', 'pen', 'bg']);
 
   console.log('===== themeColor', themeColors);
-  return <p style={{ backgroundColor: themeColors.pen }}>HAHAHA</p>
+  return <p style={{ backgroundColor: themeColors.paper }}>HAHAHA</p>
 }
 
 const Theme = () => {
