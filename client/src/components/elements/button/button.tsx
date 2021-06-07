@@ -11,10 +11,10 @@ export interface ButtonProps extends JSXInternal.DOMAttributes<HTMLButtonElement
   onClick?: h.JSX.MouseEventHandler<HTMLButtonElement>;
 }
 
-const button: FunctionalComponent<ButtonProps> = ({ children, color, fluid, disabled, type, onClick }) => {
+const button: FunctionalComponent<ButtonProps> = ({ children, color='primary', fluid, disabled, type, onClick }) => {
   return (
     <button
-      class={`button ${fluid ? 'fluid' : ''}`}
+      class={`button ${fluid ? 'fluid' : ''} ${color ? `bgc-${color}` : ''}`}
       children={children}
       disabled={disabled}
       type={type}
