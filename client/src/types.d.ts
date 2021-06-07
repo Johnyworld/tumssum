@@ -4,6 +4,8 @@ declare module 'types' {
   }
 
   export interface Colors {
+    white: string;
+    black: string;
     pen: string;
     paper: string;
     bg: string;

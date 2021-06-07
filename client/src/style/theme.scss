@@ -1,36 +1,55 @@
 $common-theme: (
-	weight-bold: 700,
-	color-white: #fff,
-	color-black: #000,
+	white: #fff,
+	black: #000,
 );
 
 $light-theme: (
-	color-pen: #000,
-	color-paper: #fff,
-	color-bg: #f0f0f3,
-	color-primary: #8d72d7,
+	pen: #000,
+	paper: #fff,
+	bg: #f0f0f3,
+	primary: #8d72d7,
 );
 
 $dark-theme: (
-	color-pen: #fff,
-	color-paper: #212225,
-	color-bg: #161718,
-	color-primary: #8d72d7,
+	pen: #fff,
+	paper: #212225,
+	bg: #161718,
+	primary: #8d72d7,
 );
+
+@each $key, $value in $common-theme {
+	.bgc-#{''+$key} {
+		background-color: var(--color-#{$key})
+	}
+	.c-#{''+$key} {
+		color: var(--color-#{$key})
+	}
+}
+
+@each $key, $value in $light-theme {
+	.bgc-#{''+$key} {
+		background-color: var(--color-#{$key})
+	}
+	.c-#{''+$key} {
+		color: var(--color-#{$key})
+	}
+}
 
 :root{
 
+	--weight-bold: 700;
+
 	@each $key, $value in $common-theme {
-		#{"--" + $key}: #{$value};
+		#{"--color-" + $key}: #{$value};
 	}
 
 	@each $key, $value in $light-theme {
-		#{"--" + $key}: #{$value};
+		#{"--color-" + $key}: #{$value};
 	}
 }
 
 [data-theme="dark"] {
 	@each $key, $value in $dark-theme {
-		#{"--" + $key}: #{$value};
+		#{"--color-" + $key}: #{$value};
 	}
 }
