@@ -7,7 +7,7 @@
     "start": "parcel src/index.html --port 3000",
     "prebuild": "rm -rf build",
     "build": "parcel build src/index.html src/index.tsx --out-dir build --no-content-hash --no-source-maps --detailed-report",
-    "postbuild": "mkdir -p build && mv build/sw.js ../templates && cp -rf public/*/* build/",
+    "postbuild": "mkdir -p build && mv build/sw.js ../templates && cp -rf public/*/* build/ && mv build/favicon.*.ico build/favicon.ico",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "test": "jest ./tests",
     "storybook": "start-storybook -p 6006",
