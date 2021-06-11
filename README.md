@@ -9,6 +9,7 @@
 - SASS
 - i18next
 - Storybook
+- PWA
 
 ### Backend
 
@@ -16,8 +17,10 @@
 - MySQL
 - SSR
 - Docker
-- AWS EC2 (Ubunto 20.04 LTS)
+- AWS EC2 (Ubunto 20.04 LTS) with Elastic IP
 - AWS RDS (MySQL)
+- AWS Route 53
+
 
 
 ## CLI Commands

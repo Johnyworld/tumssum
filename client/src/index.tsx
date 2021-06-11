@@ -19,18 +19,18 @@ render(
   </Suspense>
 , app!);
 
-window.addEventListener('load', () => {
-  registerSW();
-})
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    registerSW();
+  })
+}
 
 const registerSW = async () => {
-  if ('serviceWorker' in navigator) {
-    try {
-      await navigator.serviceWorker.register('./sw.ts', {
-        scope: '/'
-      });
-    } catch {
-      console.log('SW registration failed');
-    }
+  try {
+    await navigator.serviceWorker.register('./sw.ts', {
+      scope: '/'
+    });
+  } catch {
+    console.log('SW registration failed');
   }
 }

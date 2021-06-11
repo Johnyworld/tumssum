@@ -18,6 +18,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 from django.views.static import serve
+from django.views.generic import TemplateView
+from django.views.decorators.cache import cache_control
 from . import views
 
 
@@ -29,4 +31,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     # url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.base.STATIC_ROOT}),
     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.base.STATIC_ROOT}),
+    url(r'^sw.js', cache_control(max_age=2592000)(TemplateView.as_view(
+        template_name='sw.js',
+        content_type='application/javascript',
+    )), name='sw.js'),
 ]
