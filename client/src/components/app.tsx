@@ -12,6 +12,7 @@ import { login, logout } from '~features/user/userSlice';
 import { useTranslation } from 'preact-i18next';
 import useThemeColors from '~hooks/useTheme';
 import Button from './elements/button';
+import axios from 'axios';
 
 
 const App: FunctionalComponent = () => {
@@ -27,6 +28,7 @@ const App: FunctionalComponent = () => {
       <Theme />
       <ThemeColor />
       <Auth />
+      <KakaoLogin />
       <Header />
       <Router>
         <Route path="/" component={Home} />
@@ -73,6 +75,21 @@ const Auth = () => {
     </form>
   )
 }
+
+
+const KAKAO_REST_KEY = process.env.REACT_APP_KAKAO_REST_KEY;
+
+const KakaoLogin = () => {
+
+  return (
+    <div>
+      <a target='_blank' href='http://localhost:8000/api/login/kakao'>
+        <button>Kakao Login</button>
+      </a>
+    </div>
+  )
+}
+
 
 const ThemeColor = () => {
   const themeColors = useThemeColors(['paper', 'pen', 'bg']);
