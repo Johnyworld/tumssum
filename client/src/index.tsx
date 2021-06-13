@@ -20,9 +20,11 @@ render(
 , app!);
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    registerSW();
-  })
+  if ( process.env.NODE_ENV === 'production' ) {
+    window.addEventListener('load', () => {
+      registerSW();
+    })
+  }
 }
 
 const registerSW = async () => {
