@@ -1,6 +1,5 @@
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { Route, Router } from 'preact-router';
-
 import Home from '../routes/home';
 import Profile from '../routes/profile';
 import NotFoundPage from '../routes/notfound';
@@ -15,7 +14,13 @@ import Button from './elements/button';
 import axios from 'axios';
 
 
+const KAKAO_JS_KEY = process.env.REACT_APP_KAKAO_JS_KEY;
+const { Kakao } = window as any;
+Kakao.init(KAKAO_JS_KEY);
+Kakao.isInitialized();
+
 const App: FunctionalComponent = () => {
+
   const { t, i18n } = useTranslation();
 
   return (
@@ -41,7 +46,6 @@ const App: FunctionalComponent = () => {
 };
 
 const Auth = () => {
-  console.log('===== auth', );
 
   const { userInfo, loading, error } = useSelector(state=> state.user);
   const [ email, changeEmail, setEmail ] = useInput('');
@@ -77,12 +81,52 @@ const Auth = () => {
 }
 
 
-const KAKAO_REST_KEY = process.env.REACT_APP_KAKAO_REST_KEY;
 
-const KakaoLogin = () => {
+const KakaoLogin: FunctionalComponent = () => {
+
+  const { Kakao } = window as any;
+
+  console.log('===== kakao', Kakao);
+  console.log('===== auth', Kakao.Auth);
+
+  const signIn = () => {
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.defaults.xsrfHeaderName = "X-CSRFToken"; // 서버에 CSFR 토큰을 넘겨야 함.
+    Kakao.Auth.login({
+      scope: 'profile',
+      success: (res: any) => {
+        console.log('first res:', res)
+        Kakao.Auth.setAccessToken(res.access_token);
+
+        // const csrftoken = Cookies.get('csrftoken');
+        axios.post('/api/login/kakao/', {
+          access_token: res.access_token,
+          headers:{
+            "Access-Control-Allow-Origin": '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          //  'X-CSRFToken': csrftoken
+          },
+        })
+        .then((res) => {
+          if (res.status === 203) { // 가입되지 않은 사용자일 경우 회원가입 부분으로 넘김
+            window.alert("register");
+          } else if (res.status === 200) { // 가입된 사용자일 경우 로그인 성공 처리
+            window.alert("login completed");
+            console.log('===== res', res);
+          }
+        })
+        .catch((err) => console.log(err))
+      }, 
+      fail: (err: any) => {
+          console.error(err);
+      }
+    });
+  };
 
   return (
     <div>
+      <button onClick={signIn} type='button'>Kakao Frontend Login</button>
       <a target='_blank' href='http://localhost:8000/api/login/kakao'>
         <button>Kakao Login</button>
       </a>
