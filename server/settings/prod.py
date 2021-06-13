@@ -1,16 +1,5 @@
-from django.core.exceptions import ImproperlyConfigured
+from api.utils.secret import get_secret
 from .base import *
-import json
-secret_file = os.path.join(BASE_DIR, 'env.json')
-with open(secret_file) as f:
-    secrets = json.loads(f.read())
-
-def get_secret(setting, secrets=secrets):
-    try:
-        return secrets[setting]
-    except KeyError:
-        error_msg = "Set the {} environment variable".format(setting)
-        raise ImproperlyConfigured(error_msg)
 
 
 DJANGO_DB_NAME = get_secret("DJANGO_DB_NAME")
@@ -24,11 +13,11 @@ DJANGO_DOMAIN = get_secret("DJANGO_DOMAIN")
 
 DEBUG = False
 ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    '*.compute.amazonaws.com',
-    DJANGO_EC2_IP,
-    DJANGO_DOMAIN,
+  '127.0.0.1',
+  'localhost',
+  '*.compute.amazonaws.com',
+  DJANGO_EC2_IP,
+  DJANGO_DOMAIN,
 ]
 
 
