@@ -48,6 +48,22 @@ class KakaoLogin(SocialLoginView):
   callback_url = REDIRECT_URI
 
 
+def sendEmail(request):
+  if request.method == 'GET':
+    email = request.GET.get('email')
+    try:
+      user = User.objects.get(email = email)
+      user.set_password('A9ffjdsdf73D')
+      user.save()
+      return JsonResponse({}, status=200)
+
+    except User.DoesNotExist:
+      return JsonResponse({}, status=204)
+
+  elif request.method == 'POST':
+    reqData = json.loads(request.body)
+
+
 
 def kakao_callback(request):
   reqData = json.loads(request.body)

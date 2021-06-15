@@ -8,20 +8,24 @@ const userInfo = localStorage.getItem('userInfo');
 
 interface UserState {
   userInfo: User | null;
+  sent: boolean;
   loading: boolean;
   error: string;
 }
 
 const initialState: UserState = {
   userInfo: userInfo ? JSON.parse(userInfo) : null,
+  sent: false,
   loading: false,
   error: '',
 }
 
 
-export const login = createAsyncThunk('user/login', async ({ email, password }: any) => {
-  const { data } = await axios.post('/api/login/', { username: email, password });
-  return data;
+export const sendEmail = createAsyncThunk('user/sendEmail', async ({ email }: any) => {
+  const res = await axios.get(`/api/login/send?email=${email}`);
+  if ( res.status === 200 ) return res.data;
+  if ( res.status === 204 ) throw 'error_user_does_not_exists';
+  else throw res.status
 });
 
 
@@ -33,22 +37,21 @@ const userSlice = createSlice({
       state.userInfo = payload; 
       localStorage.setItem('userInfo', JSON.stringify(payload));
     },
+    set: (state, {payload}: PayloadAction<User>) => {
+      state.userInfo = payload; 
+      localStorage.setItem('userInfo', JSON.stringify(payload));
+    },
     logout: (state) => {
       state.userInfo = null;
       localStorage.removeItem('userInfo');
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(login.pending, (state, { payload }) => {
-      state.loading = true;
-    });
-    builder.addCase(login.fulfilled, (state, { payload }) => {
-      state.userInfo = payload;
-      state.error = '';
+    builder.addCase(sendEmail.fulfilled, (state, { payload }) => {
+      state.sent = true;
       state.loading = false;
-      localStorage.setItem('userInfo', JSON.stringify(payload));
     });
-    builder.addCase(login.rejected, (state, { error }) => {
+    builder.addCase(sendEmail.rejected, (state, { error }) => {
       state.error = error.message || '';
       state.loading = false;
     });
@@ -56,6 +59,6 @@ const userSlice = createSlice({
 });
 
 
-export const { socialLogin, logout } = userSlice.actions;
+export const { socialLogin, set, logout } = userSlice.actions;
 
 export default userSlice.reducer;

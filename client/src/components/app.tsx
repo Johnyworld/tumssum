@@ -7,11 +7,13 @@ import Header from './header';
 import { useSelector, useDispatch } from '~utils/redux/hooks'
 import { changeTheme } from '~features/mode/modeSlice';
 import useInput from '~hooks/useInput';
-import { login, logout, socialLogin } from '~features/user/userSlice';
+import { set, logout, sendEmail, socialLogin } from '~features/user/userSlice';
 import { useTranslation } from 'preact-i18next';
 import useThemeColors from '~hooks/useTheme';
 import Button from './elements/button';
 import axios from 'axios';
+import { useEffect } from 'preact/hooks';
+import { useLocation } from 'wouter';
 
 
 const KAKAO_JS_KEY = process.env.REACT_APP_KAKAO_JS_KEY;
@@ -19,9 +21,10 @@ const { Kakao } = window as any;
 Kakao.init(KAKAO_JS_KEY);
 Kakao.isInitialized();
 
-const App: FunctionalComponent = () => {
+const App: FunctionalComponent = ({  }) => {
 
   const { t, i18n } = useTranslation();
+
 
   return (
     <div id="preact_root">
@@ -36,6 +39,7 @@ const App: FunctionalComponent = () => {
       <Header />
       <Router>
         <Route path="/" component={Home} />
+        <Route path="/login" component={TokenLogin} />
         <Route path="/profile/" component={Profile} user="me" />
         <Route path="/profile/:user" component={Profile} />
         <NotFoundPage default />
@@ -44,11 +48,35 @@ const App: FunctionalComponent = () => {
   );
 };
 
+const getQueryObj = <T extends {}> (search: string): T => {
+  const arr = window.location.search.substr(1).split('&');
+  return arr.reduce((prev, curr) => {
+    const split = curr.split('=');
+    return { ...prev, [split[0]]: split[1] }
+  }, {} as T);
+}
+
+const TokenLogin: FunctionalComponent = () => {
+  const dispatch = useDispatch();
+  const [_, setLocation] = useLocation();
+  const queryObj = getQueryObj<{ email: string, token: string }>(window.location.search);
+  useEffect(() => {
+    axios.post('/api/login/', { username: queryObj.email, password: queryObj.token }).then(res => {
+      dispatch(set(res.data));
+      setLocation('/');
+    }).catch(res => {
+      setLocation('/');
+    });
+  }, []);
+  return null
+}
+
+
 const Auth = () => {
 
-  const { userInfo, loading, error } = useSelector(state=> state.user);
+  const { t } = useTranslation();
+  const { userInfo, sent, loading, error } = useSelector(state=> state.user);
   const [ email, changeEmail, setEmail ] = useInput('');
-  const [ password, changePassword, setPassword ] = useInput('');
   const dispatch = useDispatch();
 
 
@@ -58,9 +86,8 @@ const Auth = () => {
       dispatch(logout());
 
     } else {
-      dispatch(login({ email, password }));
+      dispatch(sendEmail({ email }));
       setEmail('');
-      setPassword('');
     }
   }
 
@@ -70,12 +97,12 @@ const Auth = () => {
         ? <button disabled={loading} type='submit'>logout</button>
         : <Fragment>
             <input value={email} onChange={changeEmail} ></input>
-            <input value={password} type='password' onChange={changePassword} ></input>
             <button disabled={loading} type='submit'>login</button>
             <KakaoLogin />
           </Fragment>
       }
-      {error && <p>{error}</p>}
+      {error && <p>{t(error)}</p>}
+      {sent && <p>{'이메일을 전송했습니다.'}</p>}
     </form>
   )
 }
