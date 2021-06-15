@@ -160,7 +160,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # ALLAUTH
 SITE_ID = 2
 REST_USE_JWT = True
-ACCOUNT_ADAPTER = 'api.views.AccountAdapter'
 
 
 # Internationalization

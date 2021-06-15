@@ -3,8 +3,7 @@ from . import views
 
 urlpatterns = [
   path('login/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
-  path('login/kakao/', views.kakao_login, name='kakao_login'),
-  path('login/kakao/callback/', views.kakao_callback, name='kakao_callback'),
+  path('login/kakao/', views.kakao_callback, name='kakao_login'),
   path('login/kakao/finish/', views.KakaoLogin.as_view(), name='kakao_finish'),
   path('register/', views.register, name='register'),
 
