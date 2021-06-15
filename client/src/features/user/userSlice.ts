@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { User } from 'types';
 
@@ -29,6 +29,10 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    socialLogin: (state, { payload }:PayloadAction<User>) => {
+      state.userInfo = payload; 
+      localStorage.setItem('userInfo', JSON.stringify(payload));
+    },
     logout: (state) => {
       state.userInfo = null;
       localStorage.removeItem('userInfo');
@@ -52,6 +56,6 @@ const userSlice = createSlice({
 });
 
 
-export const { logout } = userSlice.actions;
+export const { socialLogin, logout } = userSlice.actions;
 
 export default userSlice.reducer;

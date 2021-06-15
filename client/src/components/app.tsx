@@ -7,7 +7,7 @@ import Header from './header';
 import { useSelector, useDispatch } from '~utils/redux/hooks'
 import { changeTheme } from '~features/mode/modeSlice';
 import useInput from '~hooks/useInput';
-import { login, logout } from '~features/user/userSlice';
+import { login, logout, socialLogin } from '~features/user/userSlice';
 import { useTranslation } from 'preact-i18next';
 import useThemeColors from '~hooks/useTheme';
 import Button from './elements/button';
@@ -33,7 +33,6 @@ const App: FunctionalComponent = () => {
       <Theme />
       <ThemeColor />
       <Auth />
-      <KakaoLogin />
       <Header />
       <Router>
         <Route path="/" component={Home} />
@@ -73,6 +72,7 @@ const Auth = () => {
             <input value={email} onChange={changeEmail} ></input>
             <input value={password} type='password' onChange={changePassword} ></input>
             <button disabled={loading} type='submit'>login</button>
+            <KakaoLogin />
           </Fragment>
       }
       {error && <p>{error}</p>}
@@ -85,9 +85,7 @@ const Auth = () => {
 const KakaoLogin: FunctionalComponent = () => {
 
   const { Kakao } = window as any;
-
-  console.log('===== kakao', Kakao);
-  console.log('===== auth', Kakao.Auth);
+  const dispatch = useDispatch();
 
   const signIn = () => {
     axios.defaults.xsrfCookieName = "csrftoken";
@@ -110,10 +108,8 @@ const KakaoLogin: FunctionalComponent = () => {
         })
         .then((res) => {
           if (res.status === 203) { // 가입되지 않은 사용자일 경우 회원가입 부분으로 넘김
-            window.alert("register");
           } else if (res.status === 200) { // 가입된 사용자일 경우 로그인 성공 처리
-            window.alert("login completed");
-            console.log('===== res', res);
+            dispatch(socialLogin(res.data));
           }
         })
         .catch((err) => console.log(err))
@@ -125,12 +121,7 @@ const KakaoLogin: FunctionalComponent = () => {
   };
 
   return (
-    <div>
-      <button onClick={signIn} type='button'>Kakao Frontend Login</button>
-      <a target='_blank' href='http://localhost:8000/api/login/kakao'>
-        <button>Kakao Login</button>
-      </a>
-    </div>
+    <button onClick={signIn} type='button'>Kakao Frontend Login</button>
   )
 }
 
