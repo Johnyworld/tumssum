@@ -5,6 +5,8 @@ ALLOWED_HOSTS = [
   '*',
 ]
 
+SITE_URL = 'http://localhost:3000'
+
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

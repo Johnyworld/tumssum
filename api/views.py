@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -6,6 +7,8 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from .utils.serializers import UserSerializer, UserSerializerWithToken
 from .controllers import userController, categoryController, bankController, budgetController, accountController, monthController
 from api.utils.secret import get_secret
@@ -14,6 +17,7 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from allauth.socialaccount.models import SocialAccount
 from allauth.account.adapter import DefaultAccountAdapter
 from dj_rest_auth.registration.views import SocialLoginView
+from django.conf import settings
 
 # from django.conf import settings
 # from allauth.socialaccount.models import SocialAccount
@@ -52,12 +56,26 @@ def sendEmail(request):
   if request.method == 'GET':
     email = request.GET.get('email')
     try:
+      # 유저가 존재할 경우 토큰 이메일 전송
+      token = 'A9ffjdsdf73D'
+      url = settings.SITE_URL
       user = User.objects.get(email = email)
-      user.set_password('A9ffjdsdf73D')
+      user.set_password(token)
       user.save()
+      html_message = render_to_string('mail_template.html', { 'url': url, 'email': email, 'token': token, 'name': user.first_name})
+      plain_message = strip_tags(html_message)
+      send_mail(
+        '틈씀이에 로그인합니다.',
+        plain_message,
+        'johnyworld@nate.com',
+        ['johnyworld@naver.com'],
+        fail_silently=False,
+        html_message=html_message,
+      )
       return JsonResponse({}, status=200)
 
     except User.DoesNotExist:
+      # 유저가 존재하지 않을 경우 204 코드 전달
       return JsonResponse({}, status=204)
 
   elif request.method == 'POST':

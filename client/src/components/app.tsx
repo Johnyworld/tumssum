@@ -7,12 +7,12 @@ import Header from './header';
 import { useSelector, useDispatch } from '~utils/redux/hooks'
 import { changeTheme } from '~features/mode/modeSlice';
 import useInput from '~hooks/useInput';
-import { set, logout, sendEmail, socialLogin } from '~features/user/userSlice';
+import { setUser, logout } from '~features/user/userSlice';
 import { useTranslation } from 'preact-i18next';
 import useThemeColors from '~hooks/useTheme';
 import Button from './elements/button';
 import axios from 'axios';
-import { useEffect } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import { useLocation } from 'wouter';
 
 
@@ -24,7 +24,6 @@ Kakao.isInitialized();
 const App: FunctionalComponent = ({  }) => {
 
   const { t, i18n } = useTranslation();
-
 
   return (
     <div id="preact_root">
@@ -62,7 +61,7 @@ const TokenLogin: FunctionalComponent = () => {
   const queryObj = getQueryObj<{ email: string, token: string }>(window.location.search);
   useEffect(() => {
     axios.post('/api/login/', { username: queryObj.email, password: queryObj.token }).then(res => {
-      dispatch(set(res.data));
+      dispatch(setUser(res.data));
       setLocation('/');
     }).catch(res => {
       setLocation('/');
@@ -75,19 +74,37 @@ const TokenLogin: FunctionalComponent = () => {
 const Auth = () => {
 
   const { t } = useTranslation();
-  const { userInfo, sent, loading, error } = useSelector(state=> state.user);
+  const { userInfo } = useSelector(state=> state.user);
   const [ email, changeEmail, setEmail ] = useInput('');
   const dispatch = useDispatch();
-
+  const [ sent, setSent ] = useState(false);
+  const [ error, setError ] = useState('');
+  const [ loading, setLoading ] = useState(false);
 
   const handleSubmit = (e: h.JSX.TargetedEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if ( userInfo ) {
-      dispatch(logout());
-
-    } else {
-      dispatch(sendEmail({ email }));
-      setEmail('');
+    if ( !loading ) {
+      if ( userInfo ) {
+        dispatch(logout());
+  
+      } else {
+        setLoading(true);
+        axios.get(`/api/login/send?email=${email}`).then(res => {
+          if ( res.status === 200 ) {
+            setSent(true);
+            setEmail('');
+            setError('');
+            setLoading(false);
+          } else {
+            setSent(false);
+            setError('error_user_does_not_exists');
+            setLoading(false);
+          }
+        }).catch(res => {
+          setSent(false);
+          setLoading(false);
+        })
+      }
     }
   }
 
@@ -98,9 +115,10 @@ const Auth = () => {
         : <Fragment>
             <input value={email} onChange={changeEmail} ></input>
             <button disabled={loading} type='submit'>login</button>
-            <KakaoLogin />
+            <KakaoLogin disabled={loading} />
           </Fragment>
       }
+      {loading && <p>Loading...</p>}
       {error && <p>{t(error)}</p>}
       {sent && <p>{'이메일을 전송했습니다.'}</p>}
     </form>
@@ -109,7 +127,7 @@ const Auth = () => {
 
 
 
-const KakaoLogin: FunctionalComponent = () => {
+const KakaoLogin: FunctionalComponent<{disabled?: boolean}> = ({ disabled }) => {
 
   const { Kakao } = window as any;
   const dispatch = useDispatch();
@@ -136,7 +154,7 @@ const KakaoLogin: FunctionalComponent = () => {
         .then((res) => {
           if (res.status === 203) { // 가입되지 않은 사용자일 경우 회원가입 부분으로 넘김
           } else if (res.status === 200) { // 가입된 사용자일 경우 로그인 성공 처리
-            dispatch(socialLogin(res.data));
+            dispatch(setUser(res.data));
           }
         })
         .catch((err) => console.log(err))
@@ -148,7 +166,7 @@ const KakaoLogin: FunctionalComponent = () => {
   };
 
   return (
-    <button onClick={signIn} type='button'>Kakao Frontend Login</button>
+    <button disabled={disabled} onClick={signIn} type='button'>Kakao Frontend Login</button>
   )
 }
 
