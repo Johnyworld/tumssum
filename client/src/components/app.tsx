@@ -1,5 +1,5 @@
 import { Fragment, FunctionalComponent, h } from 'preact';
-import { Route, Router } from 'preact-router';
+import { Link, Route, Router } from 'preact-router';
 import Home from '../routes/home';
 import Profile from '../routes/profile';
 import NotFoundPage from '../routes/notfound';
@@ -32,13 +32,17 @@ const App: FunctionalComponent = ({  }) => {
       <button onClick={() => i18n.changeLanguage('en')}>EN</button>
       <button onClick={() => i18n.changeLanguage('jp')}>JP</button>
       <p>{t('hello')}</p>
+      <Link href='/'>Home</Link>
+      <Link href='/register'>Register</Link>
+      <Link href='/login'>Login</Link>
       <Theme />
       <ThemeColor />
-      <Auth />
       <Header />
       <Router>
         <Route path="/" component={Home} />
-        <Route path="/login" component={TokenLogin} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/confirm" component={ConfirmToken} />
         <Route path="/profile/" component={Profile} user="me" />
         <Route path="/profile/:user" component={Profile} />
         <NotFoundPage default />
@@ -55,7 +59,7 @@ const getQueryObj = <T extends {}> (search: string): T => {
   }, {} as T);
 }
 
-const TokenLogin: FunctionalComponent = () => {
+const ConfirmToken: FunctionalComponent = () => {
   const dispatch = useDispatch();
   const [_, setLocation] = useLocation();
   const queryObj = getQueryObj<{ email: string, token: string }>(window.location.search);
@@ -70,16 +74,43 @@ const TokenLogin: FunctionalComponent = () => {
   return null
 }
 
+const Register = () => {
 
-const Auth = () => {
+  const [ name, changeName ] = useInput('');
+  const [ email, changeEmail ] = useInput('');
+  const [_, setLocation] = useLocation();
 
+  const handleSubmit = (e: h.JSX.TargetedEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    axios.post('/api/register/', { name, email }).then(res => {
+      alert('회원 가입 완료!')
+      setLocation(`/login?email=${email}`);
+    })
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <p>이름</p>
+      <input required value={name} onChange={changeName} />
+      <p>이메일</p>
+      <input required value={email} onChange={changeEmail} type='email' />
+      <button type='submit' children='Submit' />
+      <button type='button' children='Go' onClick={() => setLocation(`/login?email=${email}`)} />
+    </form>
+  )
+}
+
+const Login = () => {
+
+  const queryObj = getQueryObj<{ email: string }>(window.location.search);
   const { t } = useTranslation();
   const { userInfo } = useSelector(state=> state.user);
-  const [ email, changeEmail, setEmail ] = useInput('');
+  const [ email, changeEmail, setEmail ] = useInput(queryObj.email || '');
   const dispatch = useDispatch();
   const [ sent, setSent ] = useState(false);
   const [ error, setError ] = useState('');
   const [ loading, setLoading ] = useState(false);
+
 
   const handleSubmit = (e: h.JSX.TargetedEvent<HTMLFormElement>) => {
     e.preventDefault();
