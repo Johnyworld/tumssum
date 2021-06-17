@@ -22,18 +22,23 @@ Kakao.isInitialized();
 
 const App: FunctionalComponent = ({  }) => {
 
+  const { userInfo } = useSelector(state=> state.user);
   const { t, i18n } = useTranslation();
 
   return (
     <div id="preact_root">
       <div style={{ height: '100px' }}></div>
-      <button onClick={() => i18n.changeLanguage('ko')}>KO</button>
-      <button onClick={() => i18n.changeLanguage('en')}>EN</button>
-      <button onClick={() => i18n.changeLanguage('jp')}>JP</button>
-      <p>{t('hello')}</p>
-      <Link href='/'>Home</Link>
-      <Link href='/register'>Register</Link>
-      <Link href='/login'>Login</Link>
+      <div>
+        <button onClick={() => i18n.changeLanguage('ko')}>KO</button>
+        <button onClick={() => i18n.changeLanguage('en')}>EN</button>
+        <button onClick={() => i18n.changeLanguage('jp')}>JP</button>
+      </div>
+      { userInfo && <p>{userInfo.name}님 {t('hello')}</p> }
+      <div>
+        <Link style={{ padding: '4px 0', display: 'inline-block', marginRight: '4px' }} href='/'>Home</Link>
+        <Link style={{ padding: '4px 0', display: 'inline-block', marginRight: '4px' }} href='/register'>Register</Link>
+        <Link style={{ padding: '4px 0', display: 'inline-block' }} href='/login'>Login</Link>
+      </div>
       <Theme />
       <ThemeColor />
       <Header />

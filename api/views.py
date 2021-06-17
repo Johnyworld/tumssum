@@ -67,8 +67,8 @@ def sendEmail(request):
       send_mail(
         '틈씀이에 로그인합니다.',
         plain_message,
-        'johnyworld@nate.com',
-        ['johnyworld@naver.com'],
+        'ssamgah@gmail.com',
+        [email],
         fail_silently=False,
         html_message=html_message,
       )
