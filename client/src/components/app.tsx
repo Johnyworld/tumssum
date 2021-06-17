@@ -1,5 +1,5 @@
 import { Fragment, FunctionalComponent, h } from 'preact';
-import { Link, Route, Router } from 'preact-router';
+import { Link, Route, Router, route } from 'preact-router';
 import Home from '../routes/home';
 import Profile from '../routes/profile';
 import NotFoundPage from '../routes/notfound';
@@ -13,7 +13,6 @@ import useThemeColors from '~hooks/useTheme';
 import Button from './elements/button';
 import axios from 'axios';
 import { useEffect, useState } from 'preact/hooks';
-import { useLocation } from 'wouter';
 
 
 const KAKAO_JS_KEY = process.env.REACT_APP_KAKAO_JS_KEY;
@@ -51,7 +50,7 @@ const App: FunctionalComponent = ({  }) => {
   );
 };
 
-const getQueryObj = <T extends {}> (search: string): T => {
+const getQueryObj = <T extends {}> (): T => {
   const arr = window.location.search.substr(1).split('&');
   return arr.reduce((prev, curr) => {
     const split = curr.split('=');
@@ -61,14 +60,13 @@ const getQueryObj = <T extends {}> (search: string): T => {
 
 const ConfirmToken: FunctionalComponent = () => {
   const dispatch = useDispatch();
-  const [_, setLocation] = useLocation();
-  const queryObj = getQueryObj<{ email: string, token: string }>(window.location.search);
+  const queryObj = getQueryObj<{ email: string, token: string }>();
   useEffect(() => {
     axios.post('/api/login/', { username: queryObj.email, password: queryObj.token }).then(res => {
       dispatch(setUser(res.data));
-      setLocation('/');
+      route('/');
     }).catch(res => {
-      setLocation('/');
+      route('/');
     });
   }, []);
   return null
@@ -78,13 +76,15 @@ const Register = () => {
 
   const [ name, changeName ] = useInput('');
   const [ email, changeEmail ] = useInput('');
-  const [_, setLocation] = useLocation();
+
+  // const a = useHistory();
+  // console.log('===== app', a.location);
 
   const handleSubmit = (e: h.JSX.TargetedEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios.post('/api/register/', { name, email }).then(res => {
       alert('회원 가입 완료!')
-      setLocation(`/login?email=${email}`);
+      route(`/login?email=${email}`);
     })
   }
 
@@ -95,14 +95,13 @@ const Register = () => {
       <p>이메일</p>
       <input required value={email} onChange={changeEmail} type='email' />
       <button type='submit' children='Submit' />
-      <button type='button' children='Go' onClick={() => setLocation(`/login?email=${email}`)} />
     </form>
   )
 }
 
 const Login = () => {
 
-  const queryObj = getQueryObj<{ email: string }>(window.location.search);
+  const queryObj = getQueryObj<{ email: string }>();
   const { t } = useTranslation();
   const { userInfo } = useSelector(state=> state.user);
   const [ email, changeEmail, setEmail ] = useInput(queryObj.email || '');
