@@ -12,10 +12,12 @@ import { useTranslation } from 'preact-i18next';
 import useThemeColors from '~hooks/useTheme';
 import Button from './elements/button';
 import axios from 'axios';
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 
 
-const KAKAO_JS_KEY = process.env.REACT_APP_KAKAO_JS_KEY;
+const KAKAO_JS_KEY = process.env.KAKAO_JS_KEY;
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_EMAIL = process.env.GOOGLE_CLIENT_EMAIL;
 const { Kakao } = window as any;
 Kakao.init(KAKAO_JS_KEY);
 Kakao.isInitialized();
@@ -151,6 +153,7 @@ const Login = () => {
             <input value={email} onChange={changeEmail} ></input>
             <button disabled={loading} type='submit'>login</button>
             <KakaoLogin disabled={loading} />
+            <GoogleLogin disabled={loading} />
           </Fragment>
       }
       {loading && <p>Loading...</p>}
@@ -160,6 +163,74 @@ const Login = () => {
   )
 }
 
+
+const GoogleLogin: FunctionalComponent<{disabled?: boolean}> = ({ disabled }) => {
+  
+  const id = 'google-jssdk';
+  const googleLoginBtn = useRef(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    createScript();
+    return () => removeScript();
+  }, [googleLoginBtn.current])
+
+  const googleSDK = () => {
+    let { gapi } = window as any;
+    gapi.load('auth2', () => {
+      const auth2 = gapi.auth2.init({
+        client_id: GOOGLE_CLIENT_ID,
+        scope: 'profile email',
+      });
+      //버튼 클릭시 사용자 정보 불러오기
+      auth2.attachClickHandler(googleLoginBtn.current, {}, (googleUser: any) => {
+        axios.post('/api/login/google/', {
+          access_token: googleUser.mc.access_token,
+          email: googleUser.dt.Nt,
+          name: googleUser.dt.Ue,
+        })
+        .then((res) => {
+          if (res.status === 203) { // 가입되지 않은 사용자일 경우 회원가입 부분으로 넘김
+          } else if (res.status === 200) { // 가입된 사용자일 경우 로그인 성공 처리
+            dispatch(setUser(res.data));
+          }
+        })
+        .catch((err) => console.log(err))
+      }, (error: any) => { alert(JSON.stringify(error, undefined, 2)) });
+    });
+  }
+
+  const createScript = () => {
+    const id = 'google-jssdk';
+    if (!document.getElementById(id)) {
+      let js;
+      const fjs = document.getElementsByTagName('script')[0];
+      if (document.getElementById(id)) {
+        return;
+      }
+      js = document.createElement('script');
+      js.id = id;
+      js.onload = () => {
+        googleSDK();
+      }
+      js.src = "https://apis.google.com/js/platform.js?onload=googleSDKLoaded";
+      if ( fjs && fjs.parentNode ) {
+        fjs.parentNode.insertBefore(js, fjs);
+      }
+    }
+  }
+
+  const removeScript = () => {
+    const script = document.getElementById(id);
+    script?.remove();
+  }
+
+  return (
+    <div ref={googleLoginBtn} >
+      <button disabled={disabled} type='button'>Google Login</button>
+    </div>
+  )
+}
 
 
 const KakaoLogin: FunctionalComponent<{disabled?: boolean}> = ({ disabled }) => {
