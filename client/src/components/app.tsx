@@ -12,7 +12,7 @@ import { useTranslation } from 'preact-i18next';
 import useThemeColors from '~hooks/useTheme';
 import Button from './elements/button';
 import axios from 'axios';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { StateUpdater, useEffect, useRef, useState } from 'preact/hooks';
 
 
 const KAKAO_JS_KEY = process.env.KAKAO_JS_KEY;
@@ -152,8 +152,8 @@ const Login = () => {
         : <Fragment>
             <input value={email} onChange={changeEmail} ></input>
             <button disabled={loading} type='submit'>login</button>
-            <KakaoLogin disabled={loading} />
-            <GoogleLogin disabled={loading} />
+            <KakaoLogin disabled={loading} setLoading={setLoading} />
+            <GoogleLogin disabled={loading} setLoading={setLoading} />
           </Fragment>
       }
       {loading && <p>Loading...</p>}
@@ -164,7 +164,7 @@ const Login = () => {
 }
 
 
-const GoogleLogin: FunctionalComponent<{disabled?: boolean}> = ({ disabled }) => {
+const GoogleLogin: FunctionalComponent<{disabled?: boolean; setLoading: StateUpdater<boolean>}> = ({ disabled, setLoading }) => {
   
   const id = 'google-jssdk';
   const googleLoginBtn = useRef(null);
@@ -184,6 +184,7 @@ const GoogleLogin: FunctionalComponent<{disabled?: boolean}> = ({ disabled }) =>
       });
       //버튼 클릭시 사용자 정보 불러오기
       auth2.attachClickHandler(googleLoginBtn.current, {}, (googleUser: any) => {
+        setLoading(true);
         axios.post('/api/login/google/', {
           access_token: googleUser.mc.access_token,
           email: googleUser.dt.Nt,
@@ -194,8 +195,12 @@ const GoogleLogin: FunctionalComponent<{disabled?: boolean}> = ({ disabled }) =>
           } else if (res.status === 200) { // 가입된 사용자일 경우 로그인 성공 처리
             dispatch(setUser(res.data));
           }
+          setLoading(false);
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err)
+          setLoading(false);
+        })
       }, (error: any) => { alert(JSON.stringify(error, undefined, 2)) });
     });
   }
@@ -226,14 +231,12 @@ const GoogleLogin: FunctionalComponent<{disabled?: boolean}> = ({ disabled }) =>
   }
 
   return (
-    <div ref={googleLoginBtn} >
-      <button disabled={disabled} type='button'>Google Login</button>
-    </div>
+    <button ref={googleLoginBtn} disabled={disabled} type='button'>Google Login</button>
   )
 }
 
 
-const KakaoLogin: FunctionalComponent<{disabled?: boolean}> = ({ disabled }) => {
+const KakaoLogin: FunctionalComponent<{disabled?: boolean; setLoading: StateUpdater<boolean>}> = ({ disabled, setLoading }) => {
 
   const { Kakao } = window as any;
   const dispatch = useDispatch();
@@ -244,9 +247,8 @@ const KakaoLogin: FunctionalComponent<{disabled?: boolean}> = ({ disabled }) => 
     Kakao.Auth.login({
       scope: 'profile',
       success: (res: any) => {
-        console.log('first res:', res)
         Kakao.Auth.setAccessToken(res.access_token);
-
+        setLoading(true);
         // const csrftoken = Cookies.get('csrftoken');
         axios.post('/api/login/kakao/', {
           access_token: res.access_token,
@@ -262,11 +264,15 @@ const KakaoLogin: FunctionalComponent<{disabled?: boolean}> = ({ disabled }) => 
           } else if (res.status === 200) { // 가입된 사용자일 경우 로그인 성공 처리
             dispatch(setUser(res.data));
           }
+          setLoading(false);
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err)
+          setLoading(false);
+        })
       }, 
       fail: (err: any) => {
-          console.error(err);
+        console.error(err);
       }
     });
   };
