@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
   path('login/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
   path('login/send/', views.sendEmail, name='send_email'),
+  path('login/google/', views.google_callback, name='google_login'),
+  path('login/google/finish/', views.GoogleLogin.as_view(), name='google_finish'),
   path('login/kakao/', views.kakao_callback, name='kakao_login'),
   path('login/kakao/finish/', views.KakaoLogin.as_view(), name='kakao_finish'),
   path('register/', views.register, name='register'),

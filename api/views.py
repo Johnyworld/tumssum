@@ -12,6 +12,7 @@ from django.utils.html import strip_tags
 from .utils.serializers import UserSerializer, UserSerializerWithToken
 from .controllers import userController, categoryController, bankController, budgetController, accountController, monthController
 from api.utils.secret import get_secret
+from allauth.socialaccount.providers.google import views as google_view
 from allauth.socialaccount.providers.kakao import views as kakao_view
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from allauth.socialaccount.models import SocialAccount
@@ -45,6 +46,11 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class MyTokenObtainPairView(TokenObtainPairView):
   serializer_class = MyTokenObtainPairSerializer
 
+
+class GoogleLogin(SocialLoginView):
+  adapter_class = google_view.GoogleOAuth2Adapter
+  client_class = OAuth2Client
+  callback_url = REDIRECT_URI
 
 class KakaoLogin(SocialLoginView):
   adapter_class = kakao_view.KakaoOAuth2Adapter
@@ -82,6 +88,52 @@ def sendEmail(request):
     reqData = json.loads(request.body)
 
 
+def google_callback(request):
+  reqData = json.loads(request.body)
+  email = reqData.get('email')
+  name = reqData.get('name')
+  access_token = reqData.get('access_token')
+  try:
+    user = User.objects.get(email=email) # 기존에 가입된 유저의 Provider가 kakao가 아니면 에러 발생, 맞으면 로그인
+    # 다른 SNS로 가입된 유저
+    social_user = SocialAccount.objects.get(user=user)
+    if social_user is None:
+      return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
+    if social_user.provider != 'google':
+      return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
+    # 기존에 Google로 가입된 유저
+    data = {'access_token': access_token}
+    accept = requests.post(
+      "http://127.0.0.1:8000/api/login/google/finish/", data=data)
+    accept_status = accept.status_code
+    if accept_status != 200:
+      return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
+    accept_json = accept.json()
+    accept_json.pop('user', None)
+    accept_json['access'] = accept_json.pop('access_token', None)
+    accept_json['refresh'] = accept_json.pop('refresh_token', None)
+    user = User.objects.get(username=email)
+    return JsonResponse(dict(accept_json, **UserSerializer(user).data))
+
+  except User.DoesNotExist: # 기존에 가입된 유저가 없으면 새로 가입
+    data = {'access_token': access_token}
+    accept = requests.post(
+      "http://127.0.0.1:8000/api/login/google/finish/", data=data)
+    accept_status = accept.status_code
+    if accept_status != 200:
+      return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
+    # user의 pk, email, first name, last name과 Access Token, Refresh token 가져옴
+    accept_json = accept.json()
+    accept_json.pop('user', None)
+    accept_json['access'] = accept_json.pop('access_token', None)
+    accept_json['refresh'] = accept_json.pop('refresh_token', None)
+    user = User.objects.get(username=email)
+    setattr(user, 'first_name', name)
+    user.save()
+    return JsonResponse(dict(accept_json, **UserSerializer(user).data))
+    # return JsonResponse({ 'name': 'world' })
+
+
 
 def kakao_callback(request):
   reqData = json.loads(request.body)
@@ -110,7 +162,6 @@ def kakao_callback(request):
       return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
     # 기존에 Google로 가입된 유저
     data = {'access_token': access_token}
-    print('==== LOGIN!')
     accept = requests.post(
       "http://127.0.0.1:8000/api/login/kakao/finish/", data=data)
     accept_status = accept.status_code
@@ -124,7 +175,6 @@ def kakao_callback(request):
     return JsonResponse(dict(accept_json, **UserSerializer(user).data))
 
   except User.DoesNotExist: # 기존에 가입된 유저가 없으면 새로 가입
-    print('==== REGISTER!')
     data = {'access_token': access_token}
     accept = requests.post(
       "http://127.0.0.1:8000/api/login/kakao/finish/", data=data)
