@@ -18,5 +18,7 @@ declare module 'types' {
     primary: string;
   }
 
+
   export type Color = keyof Colors;
+  export type Size = 'tiny' | 'small' | 'regular' | 'medium' | 'large' | 'big' | 'huge';
 }
