@@ -1,36 +1,63 @@
 @import "~src/style/mixins";
 
-p {
-	padding: 0;
-	margin: 0;
-}
-
 html, body {
 	height: 100%;
 	width: 100%;
 	padding: 0;
 	margin: 0;
 	font-family: 'Helvetica Neue', arial, sans-serif;
-	font-weight: 400;
+	font-weight: var(--weight-regular);;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: #000;
 	color: var(--color-pen);
 	background: rgb(243,243,243);
-	background: var(--color-bg);
+	background: var(--color-paper);
+}
+
+h1, h2, h3, h4, h5, h6, p, div {
+	padding: 0;
+	margin: 0;
 }
 
 body, button {
-	font-size: 14px;
+	font-size: var(--font-regular);
 }
 
 a, button {
 	cursor: pointer;
 }
 
+a {
+	color: var(--color-primary);
+}
 
 * {
 	box-sizing: border-box;
+}
+
+h1 {
+	font-size: var(--font-huge);
+}
+
+h2 {
+	font-size: var(--font-big);
+}
+
+h3 {
+	font-size: var(--font-large);
+}
+
+h4 {
+	font-size: var(--font-medium);
+}
+
+h5 {
+	font-size: var(--font-regular);
+}
+
+h6 {
+	font-size: var(--font-small);
 }
 
 
