@@ -1,4 +1,28 @@
+@import "~src/style/mixins";
+
 /********* Block States *********/
+.p-small {
+  padding: .5rem;
+}
+
+.p-regular {
+  padding: 1rem;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex.end {
+  justify-content: flex-end;
+}
+
+.flex.start {
+  justify-content: flex-start;
+}
+
 .fluid {
   width: 100%;
 }
