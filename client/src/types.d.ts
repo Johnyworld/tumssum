@@ -16,6 +16,9 @@ declare module 'types' {
     paper: string;
     bg: string;
     primary: string;
+    gray_strong: string,
+    gray: string,
+    gray_weak: string,
   }
 
 

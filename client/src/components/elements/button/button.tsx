@@ -16,7 +16,7 @@ export interface ButtonProps extends JSXInternal.DOMAttributes<HTMLButtonElement
 const button: FunctionalComponent<ButtonProps> = ({ children, class: className, color='primary', size='regular', fluid, disabled, type, onClick }) => {
   return (
     <button
-      class={`button ${className} ${fluid ? 'fluid' : ''} ${size} ${color ? `bgc-${color}` : ''}`}
+      class={`button ${className || ''} ${fluid ? 'fluid' : ''} ${size} ${color ? `bgc-${color}` : ''}`.trim()}
       children={children}
       disabled={disabled}
       type={type}

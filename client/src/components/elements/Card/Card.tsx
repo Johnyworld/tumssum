@@ -9,10 +9,10 @@ export interface CardProps extends JSXInternal.DOMAttributes<HTMLDivElement> {
 
 const Card: FunctionalComponent<CardProps> = ({ children, class: className, padding='regular' }) => {
 
-	const paddingClassName = padding === 'none' ? '' : `p-${padding}`
+	const paddingClassName = padding === 'none' ? '' : `p-${padding}`;
 
 	return (
-		<div class={`card ${className} ${paddingClassName} `}>
+		<div class={`card ${className || ''} ${paddingClassName} `.trim()}>
 			{children}
 		</div>
 	)

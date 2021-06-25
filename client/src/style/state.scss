@@ -48,6 +48,11 @@
   &:not(:last-child) { margin-bottom: 1rem; }
 }
 
+.mv-medium {
+  &:not(:first-child) { margin-top: 1.25rem; }
+  &:not(:last-child) { margin-bottom: 1.25rem; }
+}
+
 .mv-big {
   &:not(:first-child) { margin-top: 2.5rem; }
   &:not(:last-child) { margin-bottom: 2.5rem; }

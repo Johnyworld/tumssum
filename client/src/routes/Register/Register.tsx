@@ -4,6 +4,7 @@ import { Link, route } from 'preact-router';
 import { useState } from 'preact/hooks';
 import Button from '~components/elements/Button';
 import Card from '~components/elements/Card';
+import Input from '~components/elements/Input';
 import GoogleLogin from '~features/socialLogin/GoogleLogin';
 import KakaoLogin from '~features/socialLogin/KakaoLogin';
 import useInput from '~hooks/useInput';
@@ -36,15 +37,9 @@ const Register = () => {
 			<Link style={{ padding: '4px 0', display: 'inline-block', marginRight: '4px' }} href='/'>Home</Link>
       <div class='gap-regular mv-big'>
         <Card class='gap-regular'>
-          <div>
-            <p>이름</p>
-            <input required value={name} onChange={changeName} />
-          </div>
-          <div>
-            <p>이메일</p>
-            <input required value={email} onChange={changeEmail} type='email' />
-          </div>
-          <Button fluid type='submit' children='Submit' />
+          <Input name='name' value={name} onChange={changeName} label='이름' placeholder='이름을 입력하세요...' fluid />
+          <Input name='email' value={email} onChange={changeEmail} label='이메일' placeholder='이메일을 입력하세요...' fluid type='email' />
+          <Button class='mv-medium' fluid type='submit' children='Submit' />
         </Card>
         <Card class='gap-regular'>
           <Link href='/login'>로그인</Link>

@@ -11,6 +11,7 @@ import { getQueryObj } from '~utils/location';
 import { Link } from 'preact-router';
 import Card from '~components/elements/Card';
 import Button from '~components/elements/Button';
+import Input from '~components/elements/Input';
 
 
 const Login: FunctionalComponent = () => {
@@ -58,10 +59,7 @@ const Login: FunctionalComponent = () => {
           { userInfo
             ? <Button fluid class='gap-regular' disabled={loading} type='submit'>logout</Button>
             : <Fragment>
-                <div>
-                  <p>이메일</p>
-                  <input value={email} onChange={changeEmail} ></input>
-                </div>
+                <Input name='email' value={email} onChange={changeEmail} label='이메일' placeholder='이메일을 입력하세요...' fluid type='email' />
                 <Button fluid disabled={loading} type='submit'>login</Button>
               </Fragment>
           }
