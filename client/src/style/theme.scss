@@ -8,6 +8,7 @@ $light-theme: (
 	paper: #fff,
 	bg: #f0f0f3,
 	primary: #8d72d7,
+	gray_weak: #d0d2d8,
 );
 
 $dark-theme: (
@@ -15,6 +16,7 @@ $dark-theme: (
 	paper: #212225,
 	bg: #161718,
 	primary: #8d72d7,
+	gray_weak: #27282a,
 );
 
 @each $key, $value in $common-theme {
@@ -37,8 +39,6 @@ $dark-theme: (
 
 :root{
 
-	--wrapper-width: 900px;
-
 	--font-tiny: 0.625rem;
 	--font-small: 0.75rem;
 	--font-regular: 0.875rem;
@@ -50,6 +50,8 @@ $dark-theme: (
 	--weight-thin: 100;
 	--weight-regular: 400;
 	--weight-bold: 700;
+
+	--shadow-small: 0 2px 2px rgba(0, 0, 0, 0.08);
 
 	@each $key, $value in $common-theme {
 		#{"--color-" + $key}: #{$value};
