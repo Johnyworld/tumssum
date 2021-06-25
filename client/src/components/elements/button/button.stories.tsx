@@ -8,6 +8,7 @@ export default {
   component: Button,
   argTypes: {
     color: { control: { type: 'select', options: [ 'primary', 'black' ] as Color[] }},
+    size: { control: { type: 'select', options: [ 'regular', 'large' ] }},
     type: { control: { type: 'select', options: [ 'button', 'submit' ] }},
     onClick: { action: 'onClick' },
   },
@@ -17,9 +18,8 @@ const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  color: 'primary',
-  fluid: false,
-  children: '버튼',
   type: 'button',
+  children: 'Button',
+  fluid: false,
   disabled: false,
 };
