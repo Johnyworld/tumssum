@@ -10,7 +10,6 @@ import GoogleLogin from '~features/socialLogin/GoogleLogin';
 import { getQueryObj } from '~utils/location';
 import { Link } from 'preact-router';
 import Card from '~components/elements/Card';
-import './Login.scss';
 
 
 const Login: FunctionalComponent = () => {
@@ -51,7 +50,7 @@ const Login: FunctionalComponent = () => {
   }
 
   return (
-    <form class='page-login wrap narrow' onSubmit={handleSubmit}>
+    <form class='page-login text-center wrap narrow' onSubmit={handleSubmit}>
 			<Link style={{ padding: '4px 0', display: 'inline-block', marginRight: '4px' }} href='/'>Home</Link>
       <div class='gap-big'>
         <Card class='gap-regular'>
