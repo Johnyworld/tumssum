@@ -51,16 +51,18 @@ const Login: FunctionalComponent = () => {
   }
 
   return (
-    <form class='page-login text-center wrap narrow' onSubmit={handleSubmit}>
+    <form class='page-login text-center wrap wrap-narrow' onSubmit={handleSubmit}>
 			<Link style={{ padding: '4px 0', display: 'inline-block', marginRight: '4px' }} href='/'>Home</Link>
-      <div class='gap-big'>
+      <div class='mv-big gap-regular'>
         <Card class='gap-regular'>
           { userInfo
             ? <Button fluid class='gap-regular' disabled={loading} type='submit'>logout</Button>
             : <Fragment>
-                <p>이메일</p>
-                <input value={email} onChange={changeEmail} ></input>
-                <Button fluid class='gap-regular' disabled={loading} type='submit'>login</Button>
+                <div>
+                  <p>이메일</p>
+                  <input value={email} onChange={changeEmail} ></input>
+                </div>
+                <Button fluid disabled={loading} type='submit'>login</Button>
               </Fragment>
           }
         </Card>

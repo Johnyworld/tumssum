@@ -23,7 +23,7 @@ const App: FunctionalComponent = () => {
 
   return (
     <div id="preact_root">
-      <div class='flex end p-regular'>
+      <div class='flex flex-end p-regular'>
         <button onClick={() => i18n.changeLanguage('ko')}>KO</button>
         <button onClick={() => i18n.changeLanguage('en')}>EN</button>
         <button onClick={() => i18n.changeLanguage('jp')}>JP</button>

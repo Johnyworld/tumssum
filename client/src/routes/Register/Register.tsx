@@ -32,15 +32,19 @@ const Register = () => {
   }
 
   return (
-    <form class='page-register text-center wrap narrow' onSubmit={handleSubmit}>
+    <form class='page-register text-center wrap wrap-narrow' onSubmit={handleSubmit}>
 			<Link style={{ padding: '4px 0', display: 'inline-block', marginRight: '4px' }} href='/'>Home</Link>
-      <div class='gap-big'>
+      <div class='gap-regular mv-big'>
         <Card class='gap-regular'>
-          <p>이름</p>
-          <input required value={name} onChange={changeName} />
-          <p>이메일</p>
-          <input required value={email} onChange={changeEmail} type='email' />
-          <Button class='gap-regular' fluid type='submit' children='Submit' />
+          <div>
+            <p>이름</p>
+            <input required value={name} onChange={changeName} />
+          </div>
+          <div>
+            <p>이메일</p>
+            <input required value={email} onChange={changeEmail} type='email' />
+          </div>
+          <Button fluid type='submit' children='Submit' />
         </Card>
         <Card class='gap-regular'>
           <Link href='/login'>로그인</Link>
