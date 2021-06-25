@@ -9,6 +9,8 @@ import KakaoLogin from '~features/socialLogin/KakaoLogin';
 import GoogleLogin from '~features/socialLogin/GoogleLogin';
 import { getQueryObj } from '~utils/location';
 import { Link } from 'preact-router';
+import Card from '~components/elements/Card';
+import './Login.scss';
 
 
 const Login: FunctionalComponent = () => {
@@ -49,17 +51,24 @@ const Login: FunctionalComponent = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form class='page-login wrap narrow' onSubmit={handleSubmit}>
 			<Link style={{ padding: '4px 0', display: 'inline-block', marginRight: '4px' }} href='/'>Home</Link>
-      { userInfo
-        ? <button disabled={loading} type='submit'>logout</button>
-        : <Fragment>
-            <input value={email} onChange={changeEmail} ></input>
-            <button disabled={loading} type='submit'>login</button>
-            <KakaoLogin disabled={loading} setLoading={setLoading} />
-            <GoogleLogin disabled={loading} setLoading={setLoading} />
-          </Fragment>
-      }
+      <div class='gap-big'>
+        <Card class='gap-regular'>
+          { userInfo
+            ? <button disabled={loading} type='submit'>logout</button>
+            : <Fragment>
+                <input value={email} onChange={changeEmail} ></input>
+                <button disabled={loading} type='submit'>login</button>
+              </Fragment>
+          }
+        </Card>
+        <Card class='gap-regular'>
+          <Link href='/register'>가입하기</Link>
+        </Card>
+      </div>
+      <KakaoLogin disabled={loading} setLoading={setLoading} />
+      <GoogleLogin disabled={loading} setLoading={setLoading} />
       {loading && <p>Loading...</p>}
       {error && <p>{t(error)}</p>}
       {sent && <p>{'이메일을 전송했습니다.'}</p>}

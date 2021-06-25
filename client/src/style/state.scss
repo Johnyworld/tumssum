@@ -1,12 +1,40 @@
 @import "~src/style/mixins";
 
 /********* Block States *********/
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.wrap.narrow {
+  max-width: 400px;
+}
+
 .p-small {
   padding: .5rem;
 }
 
 .p-regular {
+  padding: .5rem;
+}
+
+.p-regular {
   padding: 1rem;
+}
+
+.gap-small {
+  &:not(:first-child) { margin-top: .5rem; }
+  &:not(:last-child) { margin-bottom: .5rem; }
+}
+
+.gap-regular {
+  &:not(:first-child) { margin-top: 1rem; }
+  &:not(:last-child) { margin-bottom: 1rem; }
+}
+
+.gap-big {
+  &:not(:first-child) { margin-top: 2.5rem; }
+  &:not(:last-child) { margin-bottom: 2.5rem; }
 }
 
 .flex {
@@ -36,10 +64,7 @@ button.diabled {
   cursor: not-allowed; 
 }
 
-.gap-small {
-  &:not(:first-child) { margin-top: .5rem; }
-  &:not(:last-child) { margin-bottom: .5rem; }
-}
+
 
 /********* Font States *********/
 .pre {
