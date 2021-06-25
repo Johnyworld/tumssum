@@ -1,39 +1,36 @@
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { Link, Route, Router, route } from 'preact-router';
-import Home from '../routes/home';
-import Profile from '../routes/profile';
-import NotFoundPage from '../routes/notfound';
-import Header from './header';
+import Home from '../routes/Home';
+import NotFoundPage from '../routes/NotFound';
 import { useSelector, useDispatch } from '~utils/redux/hooks'
 import { changeTheme } from '~features/mode/modeSlice';
 import useInput from '~hooks/useInput';
 import { setUser, logout } from '~features/user/userSlice';
 import { useTranslation } from 'preact-i18next';
 import useThemeColors from '~hooks/useTheme';
-import Button from './elements/button';
+import Button from './elements/Button';
 import axios from 'axios';
 import { StateUpdater, useEffect, useRef, useState } from 'preact/hooks';
 
 
 const KAKAO_JS_KEY = process.env.KAKAO_JS_KEY;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-const GOOGLE_CLIENT_EMAIL = process.env.GOOGLE_CLIENT_EMAIL;
 const { Kakao } = window as any;
 Kakao.init(KAKAO_JS_KEY);
 Kakao.isInitialized();
 
-const App: FunctionalComponent = ({  }) => {
+const App: FunctionalComponent = () => {
 
   const { userInfo } = useSelector(state=> state.user);
   const { t, i18n } = useTranslation();
 
   return (
     <div id="preact_root">
-      <div style={{ height: '100px' }}></div>
-      <div>
+      <div class='flex end p-regular'>
         <button onClick={() => i18n.changeLanguage('ko')}>KO</button>
         <button onClick={() => i18n.changeLanguage('en')}>EN</button>
         <button onClick={() => i18n.changeLanguage('jp')}>JP</button>
+        <Theme />
       </div>
       { userInfo && <p>{userInfo.name}님 {t('hello')}</p> }
       <div>
@@ -41,16 +38,12 @@ const App: FunctionalComponent = ({  }) => {
         <Link style={{ padding: '4px 0', display: 'inline-block', marginRight: '4px' }} href='/register'>Register</Link>
         <Link style={{ padding: '4px 0', display: 'inline-block' }} href='/login'>Login</Link>
       </div>
-      <Theme />
       <ThemeColor />
-      <Header />
       <Router>
         <Route path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/confirm" component={ConfirmToken} />
-        <Route path="/profile/" component={Profile} user="me" />
-        <Route path="/profile/:user" component={Profile} />
         <NotFoundPage default />
       </Router>
     </div>

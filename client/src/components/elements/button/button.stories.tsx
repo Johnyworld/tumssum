@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import Button, { ButtonProps } from './button';
+import Button, { ButtonProps } from './Button';
 import { Story, Meta } from '@storybook/preact';
 import { Color } from 'types';
 

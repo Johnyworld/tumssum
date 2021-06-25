@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { JSXInternal } from 'preact/src/jsx';
 import { Color } from 'types';
-import './button.scss';
+import './Button.scss';
 
 export interface ButtonProps extends JSXInternal.DOMAttributes<HTMLButtonElement> {
   color?: Color;
