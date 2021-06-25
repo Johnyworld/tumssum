@@ -2,6 +2,7 @@ import axios from 'axios';
 import { h } from 'preact';
 import { Link, route } from 'preact-router';
 import { useState } from 'preact/hooks';
+import Button from '~components/elements/Button';
 import Card from '~components/elements/Card';
 import GoogleLogin from '~features/socialLogin/GoogleLogin';
 import KakaoLogin from '~features/socialLogin/KakaoLogin';
@@ -39,7 +40,7 @@ const Register = () => {
           <input required value={name} onChange={changeName} />
           <p>이메일</p>
           <input required value={email} onChange={changeEmail} type='email' />
-          <button type='submit' children='Submit' />
+          <Button class='gap-regular' fluid type='submit' children='Submit' />
         </Card>
         <Card class='gap-regular'>
           <Link href='/login'>로그인</Link>

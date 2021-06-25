@@ -3,7 +3,7 @@ import { JSXInternal } from 'preact/src/jsx';
 import './Card.scss';
 
 export interface CardProps extends JSXInternal.DOMAttributes<HTMLDivElement> {
-	class: string;
+	class?: string;
 	padding?: 'none' | 'small' | 'regular';
 }
 

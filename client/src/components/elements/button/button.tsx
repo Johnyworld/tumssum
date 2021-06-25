@@ -4,17 +4,19 @@ import { Color } from 'types';
 import './Button.scss';
 
 export interface ButtonProps extends JSXInternal.DOMAttributes<HTMLButtonElement> {
+  class?: string;
   color?: Color;
+  size?: 'regular' | 'large';
   fluid?: boolean;
   disabled?: boolean;
   type?: 'button' | 'submit';
   onClick?: h.JSX.MouseEventHandler<HTMLButtonElement>;
 }
 
-const button: FunctionalComponent<ButtonProps> = ({ children, color='primary', fluid, disabled, type, onClick }) => {
+const button: FunctionalComponent<ButtonProps> = ({ children, class: className, color='primary', size='regular', fluid, disabled, type, onClick }) => {
   return (
     <button
-      class={`button ${fluid ? 'fluid' : ''} ${color ? `bgc-${color}` : ''}`}
+      class={`button ${className} ${fluid ? 'fluid' : ''} ${size} ${color ? `bgc-${color}` : ''}`}
       children={children}
       disabled={disabled}
       type={type}

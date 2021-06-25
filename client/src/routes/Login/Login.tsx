@@ -10,6 +10,7 @@ import GoogleLogin from '~features/socialLogin/GoogleLogin';
 import { getQueryObj } from '~utils/location';
 import { Link } from 'preact-router';
 import Card from '~components/elements/Card';
+import Button from '~components/elements/Button';
 
 
 const Login: FunctionalComponent = () => {
@@ -55,10 +56,11 @@ const Login: FunctionalComponent = () => {
       <div class='gap-big'>
         <Card class='gap-regular'>
           { userInfo
-            ? <button disabled={loading} type='submit'>logout</button>
+            ? <Button fluid class='gap-regular' disabled={loading} type='submit'>logout</Button>
             : <Fragment>
+                <p>이메일</p>
                 <input value={email} onChange={changeEmail} ></input>
-                <button disabled={loading} type='submit'>login</button>
+                <Button fluid class='gap-regular' disabled={loading} type='submit'>login</Button>
               </Fragment>
           }
         </Card>
