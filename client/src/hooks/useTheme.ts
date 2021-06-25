@@ -9,6 +9,11 @@ const getThemeColors = (colors: Color[]) => {
   }, {} as Colors);
 }
 
+/**
+ * ### USAGE
+ * const themeColors = useThemeColors(['paper', 'pen', 'bg']);
+ * themeColors.paper
+ */
 const useThemeColors = (colors: Color[]) => {
   useSelector(state => state.mode.theme);
   return getThemeColors(colors);
