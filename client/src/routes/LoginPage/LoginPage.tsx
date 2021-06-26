@@ -40,9 +40,9 @@ const LoginPage: FunctionalComponent = () => {
     <form class='page-login t-center wrap wrap-narrow' onSubmit={handleSubmit}>
       <AuthLogo />
       <div class='mv-big gap-regular'>
-        <h3 class='c-pencel'>로그인</h3>
+        <h3 class='c-pencel'>{t('auth_word_login')}</h3>
         <Card class='gap-regular'>
-          <Input name='email' value={email} onChange={changeEmail} label='이메일' placeholder='이메일을 입력하세요...' fluid type='email' />
+          <Input name='email' value={email} onChange={changeEmail} label={t('auth_word_email')} placeholder={t('auth_word_email_placeholder')} fluid type='email' />
           <Button fluid disabled={loading} type='submit'>login</Button>
           { login.loading &&
             <p>{t('LOADING_SEND_EMAIL')}</p>
@@ -55,7 +55,7 @@ const LoginPage: FunctionalComponent = () => {
           }
         </Card>
         <Card class='gap-regular'>
-          <Link href='/register'>회원가입</Link>
+          <Link href='/register'>{t('auth_word_register')}</Link>
         </Card>
       </div>
 

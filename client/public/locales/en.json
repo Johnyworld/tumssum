@@ -1,5 +1,16 @@
 {
+  "LOADING_SEND_EMAIL": "Sending email...",
   "OK_SENT_EMAIL": "An email has been sent.",
+  "OK_USER_REGISTERED": "Welcome! You have completed your registration. please log in.",
   "ERR_USER_DOES_NOT_EXISTS": "User does not exists.",
-  "hello": "Hello"
+  "ERR_USER_DOES_EXISTS": "This user aleady exists.",
+  "ERR_UNKNOWN": "Unknown error! please contact administer.",
+  "auth_word_login": "Log in",
+  "auth_word_register": "Register",
+  "auth_word_name": "Name",
+  "auth_word_name_placeholder": "Please enter your name.",
+  "auth_word_email": "Email",
+  "auth_word_email_placeholder": "Please enter your email.",
+  "auth_register_is_aleady_user": "Do you already have an account?",
+  "auth_register_is_first_visit": "Is this your first visit?"
 }

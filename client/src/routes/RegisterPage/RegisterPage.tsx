@@ -40,17 +40,17 @@ const RegisterPage = () => {
     <form class='page-register t-center wrap wrap-narrow' onSubmit={handleSubmit}>
       <AuthLogo />
       <div class='gap-regular mv-big'>
-        <h3 class='c-pencel'>{t('hello')}</h3>
+        <h3 class='c-pencel'>{t('auth_word_register')}</h3>
         <Card class='gap-regular'>
-          <Input name='name' value={name} onChange={changeName} label='이름' placeholder='이름을 입력하세요...' fluid />
-          <Input name='email' value={email} onChange={changeEmail} label='이메일' placeholder='이메일을 입력하세요...' fluid type='email' />
+          <Input name='name' value={name} onChange={changeName} label={t('auth_word_name')} placeholder={t('auth_word_name_placeholder')} fluid />
+          <Input name='email' value={email} onChange={changeEmail} label={t('auth_word_email')} placeholder={t('auth_word_email_placeholder')} fluid type='email' />
           <Button fluid type='submit' children='Submit' />
           { register.error.code &&
             <p class='c-red t-bold'>{register.error.message}</p>
           }
         </Card>
         <Card class='gap-regular'>
-          <Link href='/login'>로그인</Link>
+          <Link href='/login'>{t('auth_word_login')}</Link>
         </Card>
       </div>
       {( loading || register.loading ) && <p>Loading...</p>}

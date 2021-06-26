@@ -1,5 +1,16 @@
 {
+  "LOADING_SEND_EMAIL": "이메일 보내는 중...",
   "OK_SENT_EMAIL": "이메일을 전송했습니다.",
+  "OK_USER_REGISTERED": "환영합니다! 회원가입을 완료했습니다. 로그인 페이지로 이동합니다.",
   "ERR_USER_DOES_NOT_EXISTS": "존재하지 않는 유저입니다.",
-  "hello": "안녕하세요."
+  "ERR_USER_DOES_EXISTS": "이미 존재하는 유저입니다.",
+  "ERR_UNKNOWN": "알 수 없는 에러가 발생했습니다. 관리자에게 문의 바랍니다.",
+  "auth_word_login": "로그인",
+  "auth_word_register": "회원가입",
+  "auth_word_name": "이름",
+  "auth_word_name_placeholder": "이름을 입력하세요.",
+  "auth_word_email": "이메일",
+  "auth_word_email_placeholder": "이메일을 입력하세요.",
+  "auth_register_is_aleady_user": "이미 회원이신가요?",
+  "auth_register_is_first_visit": "처음 방문하셨나요?"
 }
