@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.http import JsonResponse
+from django.http.response import HttpResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -78,11 +79,13 @@ def sendEmail(request):
         fail_silently=False,
         html_message=html_message,
       )
-      return JsonResponse({}, status=200)
+      res = { 'ok': True, 'code': 'OK_SENT_EMAIL' }
+      return JsonResponse(res, status=200)
 
     except User.DoesNotExist:
       # 유저가 존재하지 않을 경우 204 코드 전달
-      return JsonResponse({}, status=204)
+      res = { 'ok': False, 'code': 'ERR_USER_DOES_NOT_EXISTS' }
+      return JsonResponse(res)
 
   elif request.method == 'POST':
     reqData = json.loads(request.body)

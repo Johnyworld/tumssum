@@ -1,4 +1,5 @@
 {
-  "error_user_does_not_exists": "User does not exists.",
+  "OK_SENT_EMAIL": "An email has been sent.",
+  "ERR_USER_DOES_NOT_EXISTS": "User does not exists.",
   "hello": "Hello"
 }

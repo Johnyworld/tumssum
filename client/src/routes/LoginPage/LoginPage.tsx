@@ -16,27 +16,24 @@ const LoginPage: FunctionalComponent = () => {
 	const queryObj = getQueryObj<{ email: string }>();
   const { t } = useTranslation();
   const [ email, changeEmail, setEmail ] = useInput(queryObj.email || '');
-  const [ sent, setSent ] = useState(false);
-  const [ error, setError ] = useState('');
+  const [ code, setCode ] = useState('');
   const [ loading, setLoading ] = useState(false);
 
   const handleSubmit = (e: h.JSX.TargetedEvent<HTMLFormElement>) => {
     e.preventDefault();
     if ( !loading ) {
       setLoading(true);
-      axios.get(`/api/login/send?email=${email}`).then(res => {
-        if ( res.status === 200 ) {
-          setSent(true);
+      axios.get(`/api/login/send?email=${email}`).then((res: any) => {
+        if ( res.ok === true ) {
           setEmail('');
-          setError('');
+          setCode(res.code);
           setLoading(false);
         } else {
-          setSent(false);
-          setError('error_user_does_not_exists');
+          setCode(res.code);
           setLoading(false);
         }
       }).catch(res => {
-        setSent(false);
+        setCode(res.code);
         setLoading(false);
       })
     }
@@ -48,10 +45,9 @@ const LoginPage: FunctionalComponent = () => {
       <div class='mv-big gap-regular'>
         <h3 class='c-pencel'>로그인</h3>
         <Card class='gap-regular'>
-          <Fragment>
-            <Input name='email' value={email} onChange={changeEmail} label='이메일' placeholder='이메일을 입력하세요...' fluid type='email' />
-            <Button fluid disabled={loading} type='submit'>login</Button>
-          </Fragment>
+          <Input name='email' value={email} onChange={changeEmail} label='이메일' placeholder='이메일을 입력하세요...' fluid type='email' />
+          <Button fluid disabled={loading} type='submit'>login</Button>
+          {code && <p class={`c-${code.includes('ERR') ? 'red' : 'green'}`}>{t(code)}</p>}
         </Card>
         <Card class='gap-regular'>
           <Link href='/register'>회원가입</Link>
@@ -60,9 +56,6 @@ const LoginPage: FunctionalComponent = () => {
 
       <SocialLogin disabled={loading} setLoading={setLoading} /> 
 
-      {loading && <p>Loading...</p>}
-      {error && <p>{t(error)}</p>}
-      {sent && <p>{'이메일을 전송했습니다.'}</p>}
     </form>
   )
 }

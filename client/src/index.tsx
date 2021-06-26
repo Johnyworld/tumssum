@@ -8,6 +8,10 @@ import axios from 'axios';
 import { store } from '~utils/redux/store';
 import './i18n'
 
+axios.interceptors.response.use(function (response) {
+  return response.data;
+})
+
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_PROXY : '';
 
 const app = document.getElementById('app');

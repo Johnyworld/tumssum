@@ -1,4 +1,5 @@
 {
-  "error_user_does_not_exists": "존재하지 않는 유저입니다.",
+  "OK_SENT_EMAIL": "이메일을 전송했습니다.",
+  "ERR_USER_DOES_NOT_EXISTS": "존재하지 않는 유저입니다.",
   "hello": "안녕하세요."
 }
