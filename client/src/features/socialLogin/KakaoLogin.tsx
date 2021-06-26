@@ -4,6 +4,7 @@ import axios from 'axios';
 import { setUser } from '~features/user/userSlice';
 import { useDispatch } from '~utils/redux/hooks';
 import Button from '~components/elements/Button';
+import { route } from 'preact-router';
 
 
 const KakaoLogin: FunctionalComponent<{disabled?: boolean; setLoading: StateUpdater<boolean>}> = ({ disabled, setLoading }) => {
@@ -33,6 +34,7 @@ const KakaoLogin: FunctionalComponent<{disabled?: boolean; setLoading: StateUpda
           if (res.status === 203) { // 가입되지 않은 사용자일 경우 회원가입 부분으로 넘김
           } else if (res.status === 200) { // 가입된 사용자일 경우 로그인 성공 처리
             dispatch(setUser(res.data));
+            route('/');
           }
           setLoading(false);
         })

@@ -2,12 +2,14 @@ import { FunctionalComponent, h } from 'preact';
 import { Route, Router } from 'preact-router';
 import Home from '../routes/Home';
 import NotFoundPage from '../routes/NotFound';
-import { useSelector } from '~utils/redux/hooks'
+import { useDispatch, useSelector } from '~utils/redux/hooks'
 import { useTranslation } from 'preact-i18next';
 import Login from '~routes/Login';
 import ConfirmToken from '~routes/ConfirmToken/ConfirmToken';
 import Register from '~routes/Register';
 import ThemeChanger from '~features/theme/ThemeChanger';
+import { logout } from '~features/user/userSlice';
+import Button from './elements/Button';
 
 
 const KAKAO_JS_KEY = process.env.KAKAO_JS_KEY;
@@ -20,6 +22,11 @@ const App: FunctionalComponent = () => {
 
   const { userInfo } = useSelector(state=> state.user);
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  }
 
   return (
     <div id="preact_root">
@@ -30,13 +37,26 @@ const App: FunctionalComponent = () => {
         <ThemeChanger />
       </div>
       { userInfo && <p>{userInfo.name}님 {t('hello')}</p> }
-      <Router>
-        <Route path="/" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/confirm" component={ConfirmToken} />
-        <NotFoundPage default />
-      </Router>
+
+      { userInfo && <Button onClick={handleLogout} fluid class='gap-regular' type='submit'>logout</Button> }
+
+      { !userInfo &&
+        <Router>
+          <Route path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/confirm" component={ConfirmToken} />
+          <NotFoundPage default />
+        </Router>
+      }
+
+      { userInfo &&
+        <Router>
+          <Route path="/" component={Home} />
+          <NotFoundPage default />
+        </Router>
+      }
+
     </div>
   );
 };
