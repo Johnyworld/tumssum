@@ -18,3 +18,7 @@
 .button.fluid {
   display: flex;
 }
+
+.button.disabled {
+  cursor: not-allowed;
+}
