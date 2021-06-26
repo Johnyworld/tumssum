@@ -37,7 +37,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <form class='page-register t-center wrap wrap-narrow' onSubmit={handleSubmit}>
+    <form style={{ marginTop: '8rem' }} class='page-register t-center wrap wrap-narrow' onSubmit={handleSubmit}>
       <AuthLogo />
       <div class='gap-regular mv-big'>
         <h3 class='c-pencel'>{t('auth_word_register')}</h3>
@@ -50,7 +50,7 @@ const RegisterPage = () => {
           }
         </Card>
         <Card class='gap-regular'>
-          <Link href='/login'>{t('auth_word_login')}</Link>
+          {t('auth_register_is_first_visit')} <Link class='t-underline' href='/login'>{t('auth_word_login')}</Link>
         </Card>
       </div>
       {( loading || register.loading ) && <p>Loading...</p>}

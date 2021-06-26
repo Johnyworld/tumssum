@@ -23,12 +23,17 @@ const App: FunctionalComponent = () => {
     dispatch(logout());
   }
 
+  const handleChangeLanguage = (lang: string) => () => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem('language', lang);
+    document.documentElement.setAttribute("lang", lang);
+  }
+
   return (
     <div id="preact_root">
       <div class='flex flex-end p-regular'>
-        <button onClick={() => i18n.changeLanguage('ko')}>KO</button>
-        <button onClick={() => i18n.changeLanguage('en')}>EN</button>
-        <button onClick={() => i18n.changeLanguage('jp')}>JP</button>
+        <button onClick={handleChangeLanguage('ko')}>KO</button>
+        <button onClick={handleChangeLanguage('en')}>EN</button>
         <ThemeChanger />
       </div>
       { userInfo && <p>{userInfo.name}님 {t('hello')}</p> }

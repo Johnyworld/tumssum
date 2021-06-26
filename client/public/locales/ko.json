@@ -12,5 +12,7 @@
   "auth_word_email": "이메일",
   "auth_word_email_placeholder": "이메일을 입력하세요.",
   "auth_register_is_aleady_user": "이미 회원이신가요?",
-  "auth_register_is_first_visit": "처음 방문하셨나요?"
+  "auth_register_is_first_visit": "처음 방문하셨나요?",
+  "auth_social_kakao": "카카오 계정으로 계속",
+  "auth_social_google": "구글 계정으로 계속"
 }

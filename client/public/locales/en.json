@@ -12,5 +12,7 @@
   "auth_word_email": "Email",
   "auth_word_email_placeholder": "Please enter your email.",
   "auth_register_is_aleady_user": "Do you already have an account?",
-  "auth_register_is_first_visit": "Is this your first visit?"
+  "auth_register_is_first_visit": "Is this your first visit?",
+  "auth_social_kakao": "Continue with Kakao",
+  "auth_social_google": "Continue with Google"
 }

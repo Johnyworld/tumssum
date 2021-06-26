@@ -37,7 +37,7 @@ const LoginPage: FunctionalComponent = () => {
   }
 
   return (
-    <form class='page-login t-center wrap wrap-narrow' onSubmit={handleSubmit}>
+    <form style={{ marginTop: '8rem' }} class='page-login t-center wrap wrap-narrow' onSubmit={handleSubmit}>
       <AuthLogo />
       <div class='mv-big gap-regular'>
         <h3 class='c-pencel'>{t('auth_word_login')}</h3>
@@ -55,7 +55,7 @@ const LoginPage: FunctionalComponent = () => {
           }
         </Card>
         <Card class='gap-regular'>
-          <Link href='/register'>{t('auth_word_register')}</Link>
+          {t('auth_register_is_aleady_user')} <Link class='t-underline' href='/register'>{t('auth_word_register')}</Link>
         </Card>
       </div>
 

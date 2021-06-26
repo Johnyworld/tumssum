@@ -5,10 +5,12 @@ import { setUser } from '~features/user/userSlice';
 import { useDispatch } from '~utils/redux/hooks';
 import Button from '~components/elements/Button';
 import { route } from 'preact-router';
+import { useTranslation } from 'preact-i18next';
 
 
 const GoogleLogin: FunctionalComponent<{disabled?: boolean; setLoading: StateUpdater<boolean>}> = ({ disabled, setLoading }) => {
   
+  const { t } = useTranslation();
   const id = 'google-jssdk';
   const googleLoginBtn = useRef(null);
   const dispatch = useDispatch();
@@ -82,7 +84,7 @@ const GoogleLogin: FunctionalComponent<{disabled?: boolean; setLoading: StateUpd
         <path d="M5.59749 8.47485L3.75065 7.07261L2.86571 6.40442C2.7599 6.62087 2.66371 6.84674 2.57714 7.07261C2.21162 7.97607 2 8.96423 2 9.99004C2 11.0158 2.21162 12.004 2.57714 12.9075C2.66371 13.1333 2.7599 13.3592 2.87533 13.5757L3.75065 12.9075L5.59749 11.5052C5.43397 11.0347 5.33778 10.5171 5.33778 9.99004C5.33778 9.46302 5.43397 8.95482 5.59749 8.47485Z" fill="#F9BB00"/>
         <path d="M10.1665 2C10.1569 2 10.1473 2 10.1377 2C6.95378 2.01882 4.21238 3.79751 2.86572 6.40438L3.74105 7.07257L5.58789 8.47482C5.60713 8.44658 5.62636 8.42776 5.62636 8.39953C5.7995 7.91956 6.0496 7.46783 6.3574 7.07257C7.23273 5.94324 8.589 5.19035 10.128 5.18094C10.1377 5.18094 10.1473 5.18094 10.1569 5.18094C11.3593 5.18094 12.4366 5.58562 13.2831 6.37615L15.6108 4.09867L15.6301 4.07985C14.2257 2.79053 12.3693 2 10.1665 2Z" fill="#E74133"/>
       </svg>
-      Google Login
+      {t('auth_social_google')}
     </Button>
   )
 }
