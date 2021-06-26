@@ -3,10 +3,8 @@ import useInput from '~hooks/useInput';
 import { useTranslation } from 'preact-i18next';
 import axios from 'axios';
 import { useState } from 'preact/hooks';
-import KakaoLogin from '~features/socialLogin/KakaoLogin';
-import GoogleLogin from '~features/socialLogin/GoogleLogin';
 import { getQueryObj } from '~utils/location';
-import { Link, route } from 'preact-router';
+import { Link } from 'preact-router';
 import Card from '~components/elements/Card';
 import Button from '~components/elements/Button';
 import Input from '~components/elements/Input';
@@ -14,7 +12,7 @@ import AuthLogo from '~components/items/AuthLogo';
 import SocialLogin from '~features/socialLogin/SocialLogin';
 
 
-const Login: FunctionalComponent = () => {
+const LoginPage: FunctionalComponent = () => {
 	const queryObj = getQueryObj<{ email: string }>();
   const { t } = useTranslation();
   const [ email, changeEmail, setEmail ] = useInput(queryObj.email || '');
@@ -69,4 +67,4 @@ const Login: FunctionalComponent = () => {
   )
 }
 
-export default Login;
+export default LoginPage;

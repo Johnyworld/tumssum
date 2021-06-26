@@ -6,7 +6,7 @@ import { getQueryObj } from '~utils/location';
 import { useDispatch } from '~utils/redux/hooks';
 
 
-const ConfirmToken = () => {
+const ConfirmTokenPage = () => {
   const dispatch = useDispatch();
   const queryObj = getQueryObj<{ email: string, token: string }>();
   useEffect(() => {
@@ -20,4 +20,4 @@ const ConfirmToken = () => {
   return null
 }
 
-export default ConfirmToken;
+export default ConfirmTokenPage;

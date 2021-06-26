@@ -1,22 +1,17 @@
 import { FunctionalComponent, h } from 'preact';
 import { Route, Router } from 'preact-router';
-import Home from '../routes/Home';
-import NotFoundPage from '../routes/NotFound';
 import { useDispatch, useSelector } from '~utils/redux/hooks'
 import { useTranslation } from 'preact-i18next';
-import Login from '~routes/Login';
-import ConfirmToken from '~routes/ConfirmToken/ConfirmToken';
-import Register from '~routes/Register';
-import ThemeChanger from '~features/theme/ThemeChanger';
 import { logout } from '~features/user/userSlice';
+import ThemeChanger from '~features/theme/ThemeChanger';
 import Button from './elements/Button';
 
+import IntroPage from '../routes/IntroPage';
+import NotFoundPage from '../routes/NotFoundPage';
+import LoginPage from '~routes/LoginPage';
+import RegisterPage from '~routes/RegisterPage';
+import ConfirmToken from '~routes/ConfirmTokenPage/ConfirmTokenPage';
 
-const KAKAO_JS_KEY = process.env.KAKAO_JS_KEY;
-
-const { Kakao } = window as any;
-Kakao.init(KAKAO_JS_KEY);
-Kakao.isInitialized();
 
 const App: FunctionalComponent = () => {
 
@@ -42,9 +37,9 @@ const App: FunctionalComponent = () => {
 
       { !userInfo &&
         <Router>
-          <Route path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
+          <Route path="/" component={IntroPage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
           <Route path="/confirm" component={ConfirmToken} />
           <NotFoundPage default />
         </Router>
@@ -52,7 +47,7 @@ const App: FunctionalComponent = () => {
 
       { userInfo &&
         <Router>
-          <Route path="/" component={Home} />
+          <Route path="/" component={IntroPage} />
           <NotFoundPage default />
         </Router>
       }

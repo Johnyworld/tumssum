@@ -1,7 +1,7 @@
 import { FunctionalComponent, h } from 'preact';
 import { Link } from 'preact-router/match';
 
-const Notfound: FunctionalComponent = () => {
+const NotFoundPage: FunctionalComponent = () => {
     return (
         <div>
             <h1>Error 404</h1>
@@ -13,4 +13,4 @@ const Notfound: FunctionalComponent = () => {
     );
 };
 
-export default Notfound;
+export default NotFoundPage;

@@ -10,7 +10,7 @@ import SocialLogin from '~features/socialLogin/SocialLogin';
 import useInput from '~hooks/useInput';
 
 
-const Register = () => {
+const RegisterPage = () => {
 
   const [ name, changeName ] = useInput('');
   const [ email, changeEmail ] = useInput('');
@@ -55,4 +55,4 @@ const Register = () => {
   )
 }
 
-export default Register;
+export default RegisterPage;
