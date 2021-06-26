@@ -8,10 +8,7 @@ import { route } from 'preact-router';
 import { useTranslation } from 'preact-i18next';
 
 
-const KAKAO_JS_KEY = process.env.KAKAO_JS_KEY;
-const { Kakao } = window as any;
-Kakao.init(KAKAO_JS_KEY);
-Kakao.isInitialized();
+;
 
 
 const KakaoLogin: FunctionalComponent<{disabled?: boolean; setLoading: StateUpdater<boolean>}> = ({ disabled, setLoading }) => {
@@ -38,21 +35,22 @@ const KakaoLogin: FunctionalComponent<{disabled?: boolean; setLoading: StateUpda
           //  'X-CSRFToken': csrftoken
           },
         })
-        .then((res) => {
-          if (res.status === 203) { // 가입되지 않은 사용자일 경우 회원가입 부분으로 넘김
-          } else if (res.status === 200) { // 가입된 사용자일 경우 로그인 성공 처리
+        .then((res: any) => {
+          console.log('===== KakaoLogin', res);
+          if (res.ok && !res.code) {
             dispatch(setUser(res.data));
             route('/');
           }
           setLoading(false);
         })
         .catch((err) => {
-          console.log(err)
+          console.warn(err)
           setLoading(false);
         })
       }, 
       fail: (err: any) => {
         console.error(err);
+        setLoading(false);
       }
     });
   };

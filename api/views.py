@@ -101,22 +101,26 @@ def google_callback(request):
     # 다른 SNS로 가입된 유저
     social_user = SocialAccount.objects.get(user=user)
     if social_user is None:
-      return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
+      res = { 'ok': False, 'code': 'email exists but not social user' }
+      return JsonResponse(res, status=status.HTTP_400_BAD_REQUEST)
     if social_user.provider != 'google':
-      return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
+      res = { 'ok': False, 'code': 'no matching social type' }
+      return JsonResponse(res, status=status.HTTP_400_BAD_REQUEST)
     # 기존에 Google로 가입된 유저
     data = {'access_token': access_token}
     accept = requests.post(
       "http://127.0.0.1:8000/api/login/google/finish/", data=data)
     accept_status = accept.status_code
     if accept_status != 200:
-      return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
+      res = { 'ok': False, 'code': 'failed to signin' }
+      return JsonResponse(res, status=accept_status)
     accept_json = accept.json()
     accept_json.pop('user', None)
     accept_json['access'] = accept_json.pop('access_token', None)
     accept_json['refresh'] = accept_json.pop('refresh_token', None)
     user = User.objects.get(username=email)
-    return JsonResponse(dict(accept_json, **UserSerializer(user).data))
+    res = { 'ok': True, 'data': dict(accept_json, **UserSerializer(user).data) }
+    return JsonResponse(res)
 
   except User.DoesNotExist: # 기존에 가입된 유저가 없으면 새로 가입
     data = {'access_token': access_token}
@@ -124,7 +128,8 @@ def google_callback(request):
       "http://127.0.0.1:8000/api/login/google/finish/", data=data)
     accept_status = accept.status_code
     if accept_status != 200:
-      return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
+      res = { 'ok': False, 'code': 'failed to signup' }
+      return JsonResponse(res, status=accept_status)
     # user의 pk, email, first name, last name과 Access Token, Refresh token 가져옴
     accept_json = accept.json()
     accept_json.pop('user', None)
@@ -133,7 +138,8 @@ def google_callback(request):
     user = User.objects.get(username=email)
     setattr(user, 'first_name', name)
     user.save()
-    return JsonResponse(dict(accept_json, **UserSerializer(user).data))
+    res = { 'ok': True, 'data': dict(accept_json, **UserSerializer(user).data) }
+    return JsonResponse(res)
     # return JsonResponse({ 'name': 'world' })
 
 
@@ -160,22 +166,26 @@ def kakao_callback(request):
     # 다른 SNS로 가입된 유저
     social_user = SocialAccount.objects.get(user=user)
     if social_user is None:
-      return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
+      res = { 'ok': False, 'code': 'email exists but not social user' }
+      return JsonResponse(res, status=status.HTTP_400_BAD_REQUEST)
     if social_user.provider != 'kakao':
-      return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
+      res = { 'ok': False, 'code': 'no matching social type' }
+      return JsonResponse(res, status=status.HTTP_400_BAD_REQUEST)
     # 기존에 Google로 가입된 유저
     data = {'access_token': access_token}
     accept = requests.post(
       "http://127.0.0.1:8000/api/login/kakao/finish/", data=data)
     accept_status = accept.status_code
     if accept_status != 200:
-      return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
+      res = { 'ok': False, 'code': 'failed to signin' }
+      return JsonResponse(res, status=accept_status)
     accept_json = accept.json()
     accept_json.pop('user', None)
     accept_json['access'] = accept_json.pop('access_token', None)
     accept_json['refresh'] = accept_json.pop('refresh_token', None)
     user = User.objects.get(username=email)
-    return JsonResponse(dict(accept_json, **UserSerializer(user).data))
+    res = { 'ok': True, 'data': dict(accept_json, **UserSerializer(user).data) }
+    return JsonResponse(res)
 
   except User.DoesNotExist: # 기존에 가입된 유저가 없으면 새로 가입
     data = {'access_token': access_token}
@@ -183,7 +193,8 @@ def kakao_callback(request):
       "http://127.0.0.1:8000/api/login/kakao/finish/", data=data)
     accept_status = accept.status_code
     if accept_status != 200:
-      return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
+      res = { 'ok': False, 'code': 'failed to signup' }
+      return JsonResponse(res, status=accept_status)
     # user의 pk, email, first name, last name과 Access Token, Refresh token 가져옴
     accept_json = accept.json()
     accept_json.pop('user', None)
@@ -192,7 +203,8 @@ def kakao_callback(request):
     user = User.objects.get(username=email)
     setattr(user, 'first_name', nickname)
     user.save()
-    return JsonResponse(dict(accept_json, **UserSerializer(user).data))
+    res = { 'ok': True, 'data': dict(accept_json, **UserSerializer(user).data) }
+    return JsonResponse(res)
 
 
 
