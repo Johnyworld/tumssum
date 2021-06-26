@@ -12,6 +12,7 @@ import { Link } from 'preact-router';
 import Card from '~components/elements/Card';
 import Button from '~components/elements/Button';
 import Input from '~components/elements/Input';
+import AuthLogo from '~components/items/AuthLogo';
 
 
 const Login: FunctionalComponent = () => {
@@ -52,9 +53,10 @@ const Login: FunctionalComponent = () => {
   }
 
   return (
-    <form class='page-login text-center wrap wrap-narrow' onSubmit={handleSubmit}>
-			<Link style={{ padding: '4px 0', display: 'inline-block', marginRight: '4px' }} href='/'>Home</Link>
+    <form class='page-login t-center wrap wrap-narrow' onSubmit={handleSubmit}>
+      <AuthLogo />
       <div class='mv-big gap-regular'>
+        <h2 class='c-pencel'>로그인</h2>
         <Card class='gap-regular'>
           { userInfo
             ? <Button fluid class='gap-regular' disabled={loading} type='submit'>logout</Button>
@@ -65,11 +67,15 @@ const Login: FunctionalComponent = () => {
           }
         </Card>
         <Card class='gap-regular'>
-          <Link href='/register'>가입하기</Link>
+          <Link href='/register'>회원가입</Link>
         </Card>
       </div>
-      <KakaoLogin disabled={loading} setLoading={setLoading} />
-      <GoogleLogin disabled={loading} setLoading={setLoading} />
+
+      <div class='gap-small'>
+        <KakaoLogin disabled={loading} setLoading={setLoading} />
+        <GoogleLogin disabled={loading} setLoading={setLoading} />
+      </div>
+
       {loading && <p>Loading...</p>}
       {error && <p>{t(error)}</p>}
       {sent && <p>{'이메일을 전송했습니다.'}</p>}
