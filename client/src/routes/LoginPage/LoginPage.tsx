@@ -1,4 +1,4 @@
-import { h, FunctionalComponent, Fragment } from 'preact';
+import { h, FunctionalComponent } from 'preact';
 import useInput from '~hooks/useInput';
 import { useTranslation } from 'preact-i18next';
 import { useState } from 'preact/hooks';
@@ -16,7 +16,6 @@ const LoginPage: FunctionalComponent = () => {
 	const queryObj = getQueryObj<{ email: string }>();
   const { t } = useTranslation();
   const [ email, changeEmail, setEmail ] = useInput(queryObj.email || '');
-  const [ loading, setLoading ] = useState(false);
   const [ sent, setSent ] = useState(false);
 
   const login = useFetch({
@@ -30,11 +29,12 @@ const LoginPage: FunctionalComponent = () => {
 
   const handleSubmit = (e: h.JSX.TargetedEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if ( !loading && !login.loading ) {
+    if ( !login.loading ) {
       setSent(false);
       login.call();
     }
   }
+
 
   return (
     <form style={{ marginTop: '8rem' }} class='page-login t-center wrap wrap-narrow' onSubmit={handleSubmit}>
@@ -43,7 +43,7 @@ const LoginPage: FunctionalComponent = () => {
         <h3 class='c-pencel'>{t('auth_word_login')}</h3>
         <Card class='gap-regular'>
           <Input name='email' value={email} onChange={changeEmail} label={t('auth_word_email')} placeholder={t('auth_word_email_placeholder')} fluid type='email' />
-          <Button fluid disabled={loading} type='submit'>login</Button>
+          <Button fluid disabled={login.loading} type='submit'>login</Button>
           { login.loading &&
             <p>{t('LOADING_SEND_EMAIL')}</p>
           }
@@ -59,7 +59,7 @@ const LoginPage: FunctionalComponent = () => {
         </Card>
       </div>
 
-      <SocialLogin disabled={loading} setLoading={setLoading} /> 
+      <SocialLogin /> 
 
     </form>
   )

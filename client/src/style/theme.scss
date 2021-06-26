@@ -12,6 +12,7 @@ $light-theme: (
 	gray_strong: #7F8489,
 	gray: #a4aaaf,
 	gray_weak: #d0d2d8,
+	dim: rgba(255, 255, 255, 0.3),
 );
 
 $dark-theme: (
@@ -23,6 +24,7 @@ $dark-theme: (
 	gray_strong: #6d7175,
 	gray: #45484b,
 	gray_weak: #37383b,
+	dim: rgba(0, 0, 0, 0.7),
 );
 
 @each $key, $value in $common-theme {

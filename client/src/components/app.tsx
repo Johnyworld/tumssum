@@ -10,12 +10,14 @@ import LoginPage from '~routes/LoginPage';
 import RegisterPage from '~routes/RegisterPage';
 import ConfirmToken from '~routes/ConfirmTokenPage/ConfirmTokenPage';
 import HomePage from '~routes/HomePage';
+import Portal from './Portal';
+import FullLoader from './items/FullLoader';
 
 
 const App: FunctionalComponent = () => {
 
   const { userInfo } = useSelector(state=> state.user);
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   const handleChangeLanguage = (lang: string) => () => {
     i18n.changeLanguage(lang);
@@ -30,7 +32,8 @@ const App: FunctionalComponent = () => {
         <button onClick={handleChangeLanguage('en')}>EN</button>
         <ThemeChanger />
       </div>
-      { userInfo && <p>{userInfo.name}님 {t('hello')}</p> }
+
+      <FullLoader />
 
       { !userInfo &&
         <Router>

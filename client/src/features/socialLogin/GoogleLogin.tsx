@@ -6,9 +6,10 @@ import { useDispatch } from '~utils/redux/hooks';
 import Button from '~components/elements/Button';
 import { route } from 'preact-router';
 import { useTranslation } from 'preact-i18next';
+import { changeFullLoading } from '~features/mode/modeSlice';
 
 
-const GoogleLogin: FunctionalComponent<{disabled?: boolean; setLoading: StateUpdater<boolean>}> = ({ disabled, setLoading }) => {
+const GoogleLogin: FunctionalComponent = () => {
   
   const { t } = useTranslation();
   const id = 'google-jssdk';
@@ -29,7 +30,7 @@ const GoogleLogin: FunctionalComponent<{disabled?: boolean; setLoading: StateUpd
       });
       //버튼 클릭시 사용자 정보 불러오기
       auth2.attachClickHandler(googleLoginBtn.current, {}, (googleUser: any) => {
-        setLoading(true);
+        dispatch(changeFullLoading(true));
         axios.post('/api/login/google/', {
           access_token: googleUser.mc.access_token,
           email: googleUser.dt.Nt,
@@ -40,11 +41,11 @@ const GoogleLogin: FunctionalComponent<{disabled?: boolean; setLoading: StateUpd
             dispatch(setUser(res.data));
             route('/');
           }
-          setLoading(false);
+          dispatch(changeFullLoading(false));
         })
         .catch((err) => {
           console.log(err)
-          setLoading(false);
+          dispatch(changeFullLoading(false));
         })
       }, (error: any) => { alert(JSON.stringify(error, undefined, 2)) });
     });
@@ -78,7 +79,7 @@ const GoogleLogin: FunctionalComponent<{disabled?: boolean; setLoading: StateUpd
   return (
 
     <div ref={googleLoginBtn}>
-      <Button fluid color='paper' style={{ color: 'var(--color-pen)', border: '1px solid var(--color-gray_weak)' }} disabled={disabled} type='button'>
+      <Button fluid color='paper' style={{ color: 'var(--color-pen)', border: '1px solid var(--color-gray_weak)' }} type='button'>
         <svg style={{ marginRight: '.25rem' }} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M17.8617 8.54065H10.1665V11.6369H14.5624C14.4758 12.1074 14.293 12.5309 14.0429 12.9168C13.764 13.3591 13.3889 13.745 12.9271 14.0461L15.5627 16.0507C16.4862 15.2225 17.1691 14.1591 17.5731 12.9168C17.8521 12.0792 17.9963 11.1569 17.9963 10.1782C18.0156 9.6041 17.9579 9.05826 17.8617 8.54065Z" fill="#3E82F1"/>
           <path d="M12.9368 14.0461C12.2057 14.5261 11.2727 14.8084 10.1665 14.8084C10.1569 14.8084 10.1473 14.8084 10.1377 14.8084C8.59862 14.799 7.24235 14.0461 6.36702 12.9168C6.05922 12.5121 5.80912 12.0698 5.63598 11.5898C5.62636 11.5616 5.61674 11.5428 5.60712 11.5145L3.75067 12.9168L2.86572 13.585C3.50057 14.8178 4.46247 15.8624 5.62636 16.6247C6.9153 17.4717 8.46395 17.9799 10.128 17.9799C10.1377 17.9799 10.1473 17.9799 10.1569 17.9799C12.3596 17.9799 14.2161 17.2647 15.5627 16.0413L12.9368 14.0461Z" fill="#32A753"/>

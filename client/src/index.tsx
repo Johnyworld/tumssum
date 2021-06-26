@@ -8,10 +8,6 @@ import axios from 'axios';
 import { store } from '~utils/redux/store';
 import './i18n'
 
-const KAKAO_JS_KEY = process.env.KAKAO_JS_KEY;
-const { Kakao } = window as any;
-Kakao.init(KAKAO_JS_KEY);
-Kakao.isInitialized()
 
 axios.interceptors.response.use(function (response) {
   return response.data;

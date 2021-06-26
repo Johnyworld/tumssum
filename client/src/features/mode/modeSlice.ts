@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type Theme = 'light' | 'dark'
 
@@ -17,6 +17,7 @@ document.documentElement.setAttribute("data-theme", defaultTheme);
 
 const initialState = {
   theme: defaultTheme,
+  fullLoading: false,
 }
 
 export const modeSlice = createSlice({
@@ -28,10 +29,13 @@ export const modeSlice = createSlice({
       localStorage.setItem('theme', newTheme);
       document.documentElement.setAttribute("data-theme", newTheme);
       state.theme = newTheme;
+    },
+    changeFullLoading: (state, {payload}: PayloadAction<boolean>) => {
+      state.fullLoading = payload;
     }
   }
 })
 
-export const { changeTheme } = modeSlice.actions
+export const { changeTheme, changeFullLoading } = modeSlice.actions
 
 export default modeSlice.reducer;

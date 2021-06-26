@@ -1,5 +1,6 @@
 {
   "LOADING_SEND_EMAIL": "이메일 보내는 중...",
+  "LOADING_PLEASE_WAIT": "잠시만 기다려주세요...",
   "OK_SENT_EMAIL": "이메일을 전송했습니다.",
   "OK_USER_REGISTERED": "환영합니다! 회원가입을 완료했습니다. 로그인 페이지로 이동합니다.",
   "ERR_USER_DOES_NOT_EXISTS": "존재하지 않는 유저입니다.",

@@ -1,5 +1,6 @@
 {
   "LOADING_SEND_EMAIL": "Sending email...",
+  "LOADING_PLEASE_WAIT": "Please wait...",
   "OK_SENT_EMAIL": "An email has been sent.",
   "OK_USER_REGISTERED": "Welcome! You have completed your registration. please log in.",
   "ERR_USER_DOES_NOT_EXISTS": "User does not exists.",
