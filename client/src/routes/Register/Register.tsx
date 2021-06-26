@@ -39,7 +39,7 @@ const Register = () => {
         <Card class='gap-regular'>
           <Input name='name' value={name} onChange={changeName} label='이름' placeholder='이름을 입력하세요...' fluid />
           <Input name='email' value={email} onChange={changeEmail} label='이메일' placeholder='이메일을 입력하세요...' fluid type='email' />
-          <Button class='mv-medium' fluid type='submit' children='Submit' />
+          <Button fluid type='submit' children='Submit' />
         </Card>
         <Card class='gap-regular'>
           <Link href='/login'>로그인</Link>
