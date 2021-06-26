@@ -88,8 +88,24 @@ button.diabled {
 
 
 /********* Font States *********/
-.text-center { 
+.t-center { 
   text-align: center;
+}
+
+.t-left { 
+  text-align: left;
+}
+
+.t-right {
+  text-align: right;
+}
+
+.t-italic {
+  font-style: italic;
+}
+
+.t-underline {
+  text-decoration: underline;
 }
 
 .pre {

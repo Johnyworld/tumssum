@@ -1,10 +1,9 @@
 import { h, FunctionalComponent } from 'preact';
 import { JSXInternal } from 'preact/src/jsx';
-import { Color } from 'types';
+import { Color, DefaultProps } from 'types';
 import './Button.scss';
 
-export interface ButtonProps extends JSXInternal.DOMAttributes<HTMLButtonElement> {
-  class?: string;
+export interface ButtonProps extends DefaultProps, JSXInternal.DOMAttributes<HTMLButtonElement> {
   color?: Color;
   size?: 'regular' | 'large';
   fluid?: boolean;
@@ -13,9 +12,10 @@ export interface ButtonProps extends JSXInternal.DOMAttributes<HTMLButtonElement
   onClick?: h.JSX.MouseEventHandler<HTMLButtonElement>;
 }
 
-const button: FunctionalComponent<ButtonProps> = ({ children, class: className, color='primary', size='regular', fluid, disabled, type, onClick }) => {
+const button: FunctionalComponent<ButtonProps> = ({ children, class: className, style, color='primary', size='regular', fluid, disabled, type, onClick }) => {
   return (
     <button
+      style={style}
       class={`button ${className || ''} ${fluid ? 'fluid' : ''} ${size} ${color ? `bgc-${color}` : ''}`.trim()}
       children={children}
       disabled={disabled}

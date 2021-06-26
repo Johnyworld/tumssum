@@ -1,8 +1,8 @@
 import { h, FunctionalComponent } from 'preact';
+import { DefaultProps } from 'types';
 import './Input.scss';
 
-export interface InputProps {
-	class?: string;
+export interface InputProps extends DefaultProps {
 	containerClass?: string;
 	name: string;	
 	type?: 'text' | 'number' | 'email' | 'password',
@@ -15,12 +15,13 @@ export interface InputProps {
 	onChange?: h.JSX.GenericEventHandler<HTMLInputElement>;
 }
 
-const Input: FunctionalComponent<InputProps> = ({ children, class:className, name, containerClass, type, label, value, placeholder, fluid, required, readOnly, onChange }) => {
+const Input: FunctionalComponent<InputProps> = ({ children, class:className, style, name, containerClass, type, label, value, placeholder, fluid, required, readOnly, onChange }) => {
 	return (
 		<div class={`input-container ${containerClass || ''} ${fluid ? 'fluid' : ''}`.trim()}>
 			<label>{label}</label>
 			<input
-				class={`input ${className || ''} ${fluid ? 'fluid' : ''}`.trim()}
+				class={`input ${className || ''}`.trim()}
+				style={style}
 				name={name}
 				type={type}
 				value={value}

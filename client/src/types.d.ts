@@ -13,6 +13,7 @@ declare module 'types' {
     white: string;
     black: string;
     pen: string;
+    pencel: string;
     paper: string;
     bg: string;
     primary: string;
@@ -21,6 +22,10 @@ declare module 'types' {
     gray_weak: string,
   }
 
+  export interface DefaultProps {
+    class?: string;
+    style?: h.JSX.CSSProperties;
+  }
 
   export type Color = keyof Colors;
   export type Size = 'tiny' | 'small' | 'regular' | 'medium' | 'large' | 'big' | 'huge';

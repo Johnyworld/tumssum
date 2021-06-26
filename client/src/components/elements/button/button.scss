@@ -1,5 +1,5 @@
 .button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   height: 40px;
@@ -13,4 +13,8 @@
 
 .button.large {
   height: 52px; 
+}
+
+.button.fluid {
+  display: flex;
 }
