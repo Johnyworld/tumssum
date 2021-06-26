@@ -94,6 +94,18 @@
   text-align: right;
 }
 
+.t-bold {
+  font-weight: var(--weight-bold);
+}
+
+.t-regular {
+  font-weight: var(--weight-regular);
+}
+
+.t-thin {
+  font-weight: var(--weight-thin);
+}
+
 .t-italic {
   font-style: italic;
 }

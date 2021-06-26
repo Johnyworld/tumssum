@@ -79,7 +79,7 @@ def sendEmail(request):
         fail_silently=False,
         html_message=html_message,
       )
-      res = { 'ok': True, 'code': 'OK_SENT_EMAIL' }
+      res = { 'ok': True, 'data': True }
       return JsonResponse(res, status=200)
 
     except User.DoesNotExist:
