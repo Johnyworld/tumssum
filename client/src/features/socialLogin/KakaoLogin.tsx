@@ -7,6 +7,12 @@ import Button from '~components/elements/Button';
 import { route } from 'preact-router';
 
 
+const KAKAO_JS_KEY = process.env.KAKAO_JS_KEY;
+const { Kakao } = window as any;
+Kakao.init(KAKAO_JS_KEY);
+Kakao.isInitialized();
+
+
 const KakaoLogin: FunctionalComponent<{disabled?: boolean; setLoading: StateUpdater<boolean>}> = ({ disabled, setLoading }) => {
 
   const { Kakao } = window as any;

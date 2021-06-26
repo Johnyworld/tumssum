@@ -6,8 +6,7 @@ import Button from '~components/elements/Button';
 import Card from '~components/elements/Card';
 import Input from '~components/elements/Input';
 import AuthLogo from '~components/items/AuthLogo';
-import GoogleLogin from '~features/socialLogin/GoogleLogin';
-import KakaoLogin from '~features/socialLogin/KakaoLogin';
+import SocialLogin from '~features/socialLogin/SocialLogin';
 import useInput from '~hooks/useInput';
 
 
@@ -37,7 +36,7 @@ const Register = () => {
     <form class='page-register t-center wrap wrap-narrow' onSubmit={handleSubmit}>
       <AuthLogo />
       <div class='gap-regular mv-big'>
-        <h2 class='c-pencel'>회원가입</h2>
+        <h3 class='c-pencel'>회원가입</h3>
         <Card class='gap-regular'>
           <Input name='name' value={name} onChange={changeName} label='이름' placeholder='이름을 입력하세요...' fluid />
           <Input name='email' value={email} onChange={changeEmail} label='이메일' placeholder='이메일을 입력하세요...' fluid type='email' />
@@ -50,10 +49,7 @@ const Register = () => {
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
 
-      <div class='gap-small'>
-        <KakaoLogin disabled={loading} setLoading={setLoading} />
-        <GoogleLogin disabled={loading} setLoading={setLoading} />
-      </div>
+      <SocialLogin disabled={loading} setLoading={setLoading} /> 
 
     </form>
   )

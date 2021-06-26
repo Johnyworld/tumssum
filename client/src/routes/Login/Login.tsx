@@ -11,6 +11,7 @@ import Card from '~components/elements/Card';
 import Button from '~components/elements/Button';
 import Input from '~components/elements/Input';
 import AuthLogo from '~components/items/AuthLogo';
+import SocialLogin from '~features/socialLogin/SocialLogin';
 
 
 const Login: FunctionalComponent = () => {
@@ -47,7 +48,7 @@ const Login: FunctionalComponent = () => {
     <form class='page-login t-center wrap wrap-narrow' onSubmit={handleSubmit}>
       <AuthLogo />
       <div class='mv-big gap-regular'>
-        <h2 class='c-pencel'>로그인</h2>
+        <h3 class='c-pencel'>로그인</h3>
         <Card class='gap-regular'>
           <Fragment>
             <Input name='email' value={email} onChange={changeEmail} label='이메일' placeholder='이메일을 입력하세요...' fluid type='email' />
@@ -59,10 +60,7 @@ const Login: FunctionalComponent = () => {
         </Card>
       </div>
 
-      <div class='gap-small'>
-        <KakaoLogin disabled={loading} setLoading={setLoading} />
-        <GoogleLogin disabled={loading} setLoading={setLoading} />
-      </div>
+      <SocialLogin disabled={loading} setLoading={setLoading} /> 
 
       {loading && <p>Loading...</p>}
       {error && <p>{t(error)}</p>}
