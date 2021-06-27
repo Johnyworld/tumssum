@@ -1,0 +1,11 @@
+@import "~src/style/mixins";
+
+.auth-page {
+	padding-top: 10rem;
+}
+
+@include maxMobilePort {
+	.auth-page {
+		padding-top: 3rem;
+	}
+}

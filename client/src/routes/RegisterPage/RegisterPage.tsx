@@ -35,11 +35,11 @@ const RegisterPage = () => {
 
 
   return (
-    <form style={{ marginTop: '8rem' }} class='page-register t-center wrap wrap-narrow' onSubmit={handleSubmit}>
+    <form class='page-register auth-page t-center wrap wrap-narrow' onSubmit={handleSubmit}>
       <AuthLogo />
       <div class='gap-regular mv-big'>
         <h3 class='c-pencel'>{t('auth_word_register')}</h3>
-        <Card class='gap-regular'>
+        <Card class='gap-regular hide-mobile'>
           <Input name='name' value={name} onChange={changeName} label={t('auth_word_name')} placeholder={t('auth_word_name_placeholder')} fluid />
           <Input name='email' value={email} onChange={changeEmail} label={t('auth_word_email')} placeholder={t('auth_word_email_placeholder')} fluid type='email' />
           <Button disabled={register.loading} fluid type='submit' children='Submit' />
@@ -47,7 +47,7 @@ const RegisterPage = () => {
             <p class='c-red t-bold'>{register.error.message}</p>
           }
         </Card>
-        <Card class='gap-regular'>
+        <Card class='gap-regular hide-mobile'>
           {t('auth_register_is_first_visit')} <Link class='t-underline' href='/login'>{t('auth_word_login')}</Link>
         </Card>
       </div>
