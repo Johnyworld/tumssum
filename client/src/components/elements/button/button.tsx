@@ -1,6 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { JSXInternal } from 'preact/src/jsx';
 import { Color, DefaultProps } from 'types';
+import { getClassNames } from '~utils/classNames';
 import './Button.scss';
 
 export interface ButtonProps extends DefaultProps, JSXInternal.DOMAttributes<HTMLButtonElement> {
@@ -13,10 +14,11 @@ export interface ButtonProps extends DefaultProps, JSXInternal.DOMAttributes<HTM
 }
 
 const button: FunctionalComponent<ButtonProps> = ({ children, class: className, style, color='primary', size='regular', fluid, disabled, type, onClick }) => {
+
   return (
     <button
       style={style}
-      class={`button ${className || ''} ${fluid ? 'fluid' : ''} ${disabled ? 'disabled' : ''} ${size} ${color ? `bgc-${color}` : ''}`.trim()}
+      class={getClassNames([ 'button', className, [fluid, 'fluid'], [disabled, 'disabled'], size, [color, `bgc-${color}`] ])}
       children={children}
       disabled={disabled}
       type={type}

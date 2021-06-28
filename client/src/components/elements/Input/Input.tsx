@@ -1,5 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { DefaultProps } from 'types';
+import { getClassNames } from '~utils/classNames';
 import './Input.scss';
 
 export interface InputProps extends DefaultProps {
@@ -17,10 +18,10 @@ export interface InputProps extends DefaultProps {
 
 const Input: FunctionalComponent<InputProps> = ({ children, class:className, style, name, containerClass, type, label, value, placeholder, fluid, required, readOnly, onChange }) => {
 	return (
-		<div class={`input-container ${containerClass || ''} ${fluid ? 'fluid' : ''}`.trim()}>
+		<div class={getClassNames([ 'input-container', containerClass, [fluid, 'fluid'] ])}>
 			<label>{label}</label>
 			<input
-				class={`input ${className || ''}`.trim()}
+				class={getClassNames([ 'input', className ])}
 				style={style}
 				name={name}
 				type={type}
