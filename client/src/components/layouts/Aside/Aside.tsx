@@ -9,9 +9,9 @@ interface Props {
 
 const Aside: FunctionalComponent<Props> = ({ wide, alignRight }) => {
 	return (
-		<div class={getClassNames(['aside', [wide, 'aside-wide'], [alignRight, 'aside-right']])}>
+		<aside class={getClassNames(['aside', [wide, 'aside-wide'], [alignRight, 'aside-right']])}>
 			Hello Aside
-		</div>
+		</aside>
 	)
 }
 
