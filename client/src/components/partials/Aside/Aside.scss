@@ -1,0 +1,17 @@
+.aside {
+	width: 250px;
+	background-color: var(--color-paper);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.aside-wide {
+	width: 320px;
+}
+
+.aside-right {
+	left: auto;
+	right: 0;
+}
