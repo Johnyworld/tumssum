@@ -5,7 +5,9 @@ import Aside from '~components/layouts/Aside';
 const PageContainer: FunctionalComponent = ({ children }) => {
 	return (
 		<Fragment>
-			<Aside />
+			<Aside>
+
+			</Aside>
 			<main style={{ paddingLeft: '250px' }}>
 				{children}
 			</main>

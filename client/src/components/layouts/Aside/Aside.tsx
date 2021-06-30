@@ -7,10 +7,10 @@ interface Props {
 	alignRight?: boolean;
 }
 
-const Aside: FunctionalComponent<Props> = ({ wide, alignRight }) => {
+const Aside: FunctionalComponent<Props> = ({ children, wide, alignRight }) => {
 	return (
 		<aside class={getClassNames(['aside', [wide, 'aside-wide'], [alignRight, 'aside-right']])}>
-			Hello Aside
+			{children}
 		</aside>
 	)
 }
