@@ -140,4 +140,20 @@
   word-break: keep-all;
 }
 
+@include maxMobile {
+  .hide-mobile {
+    display: none;
+  }
+}
 
+@include maxTablet {
+  .hide-tablet {
+    display: none;
+  }
+}
+
+@include maxLaptop {
+  .hide-laptop {
+    display: none;
+  }
+}

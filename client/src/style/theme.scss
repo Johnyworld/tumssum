@@ -61,6 +61,8 @@ $dark-theme: (
 
 	--shadow-small: 0 2px 2px rgba(0, 0, 0, 0.08);
 
+	--layer-header: 20;
+
 	@each $key, $value in $common-theme {
 		#{"--color-" + $key}: #{$value};
 	}

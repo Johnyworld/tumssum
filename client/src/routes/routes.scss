@@ -4,7 +4,7 @@
 	padding-top: 10rem;
 }
 
-@include maxMobilePort {
+@include maxTablet {
 	.auth-page {
 		padding-top: 3rem;
 	}

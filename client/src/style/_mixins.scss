@@ -1,38 +1,38 @@
 @import "./variables";
 
 
-@mixin minMobileLand {
-  @media (min-width: #{$bp-mobile}) {
+@mixin minMobil {
+  @media (min-width: #{$bp-1}) {
     @content;
   }
 }
 
 @mixin minTablet {
-  @media (min-width: #{$bp-tablet}) {
+  @media (min-width: #{$bp-2}) {
     @content;
   }
 }
 
-@mixin minDesktop {
-  @media (min-width: #{$bp-desktop}) {
+@mixin minLaptop {
+  @media (min-width: #{$bp-3}) {
     @content;
   }
 }
 
-@mixin maxMobilePort {
-  @media (max-width: #{$bp-mobile - 1px}) {
-    @content;
-  }
-}
-
-@mixin maxMobileLand {
-  @media (max-width: #{$bp-tablet - 1px}) {
+@mixin maxMobile {
+  @media (max-width: #{$bp-1 - 1px}) {
     @content;
   }
 }
 
 @mixin maxTablet {
-  @media (max-width: #{$bp-desktop - 1px}) {
+  @media (max-width: #{$bp-2 - 1px}) {
+    @content;
+  }
+}
+
+@mixin maxLaptop {
+  @media (max-width: #{$bp-3 - 1px}) {
     @content;
   }
 }
