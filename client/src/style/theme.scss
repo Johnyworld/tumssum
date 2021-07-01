@@ -63,6 +63,8 @@ $dark-theme: (
 
 	--layer-header: 20;
 
+	--header-height: 60px;
+
 	@each $key, $value in $common-theme {
 		#{"--color-" + $key}: #{$value};
 	}

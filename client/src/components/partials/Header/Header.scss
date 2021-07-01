@@ -3,7 +3,7 @@
 .header {
 	position: fixed;
 	background-color: var(--color-paper);
-	height: 60px;
+	height: var(--header-height);
 	width: 100%;
 	top: 0;
 	z-index: var(--layer-header);
