@@ -4,6 +4,12 @@
 	padding-top: 10rem;
 }
 
+@include minLaptop {
+	.home-page-contents {
+		padding-right: 320px;
+	}
+}
+
 @include maxTablet {
 	.auth-page {
 		padding-top: 3rem;

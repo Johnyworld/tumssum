@@ -1,6 +1,7 @@
 import { h, FunctionalComponent, Fragment } from 'preact';
 import Aside from '~components/layouts/Aside';
 import Header from '~components/partials/Header';
+import './PageContainer.scss';
 
 
 const PageContainer: FunctionalComponent = ({ children }) => {
@@ -10,7 +11,7 @@ const PageContainer: FunctionalComponent = ({ children }) => {
 			<Aside class='hide-tablet'>
 
 			</Aside>
-			<main style={{ paddingLeft: '250px' }}>
+			<main class='page-container'>
 				{children}
 			</main>
 		</Fragment>

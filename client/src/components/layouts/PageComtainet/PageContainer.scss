@@ -1,0 +1,7 @@
+@import '~src/style/mixins';
+
+@include minTablet {
+	.page-container {
+		padding-left: 250px;
+	}
+}
