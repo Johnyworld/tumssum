@@ -1,0 +1,16 @@
+@import '~src/style/mixins';
+
+.header {
+	position: fixed;
+	background-color: var(--color-paper);
+	height: 60px;
+	width: 100%;
+	top: 0;
+	z-index: var(--layer-header);
+}
+
+@include minTablet {
+	.header {
+		display: none;
+	}
+}
