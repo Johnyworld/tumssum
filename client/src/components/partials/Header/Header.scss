@@ -1,7 +1,7 @@
 @import '~src/style/mixins';
 
 .header {
-	position: fixed;
+	position: sticky;
 	background-color: var(--color-paper);
 	height: var(--header-height);
 	width: 100%;
