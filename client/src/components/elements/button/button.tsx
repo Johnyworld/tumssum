@@ -13,7 +13,7 @@ export interface ButtonProps extends DefaultProps, JSXInternal.DOMAttributes<HTM
   onClick?: h.JSX.MouseEventHandler<HTMLButtonElement>;
 }
 
-const button: FunctionalComponent<ButtonProps> = ({ children, class: className, style, color='primary', size='regular', fluid, disabled, type, onClick }) => {
+const Button: FunctionalComponent<ButtonProps> = ({ children, class: className, style, color='primary', size='regular', fluid, disabled, type, onClick }) => {
 
   return (
     <button
@@ -27,4 +27,4 @@ const button: FunctionalComponent<ButtonProps> = ({ children, class: className, 
   )
 }
 
-export default button;
+export default Button;
