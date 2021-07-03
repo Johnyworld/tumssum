@@ -10,6 +10,7 @@ import RegisterPage from '~routes/RegisterPage';
 import ConfirmToken from '~routes/ConfirmTokenPage/ConfirmTokenPage';
 import HomePage from '~routes/HomePage';
 import FullLoader from './items/FullLoader';
+import BudgetPage from '~routes/BudgetPage';
 
 
 const App: FunctionalComponent = () => {
@@ -46,6 +47,7 @@ const App: FunctionalComponent = () => {
       { userInfo &&
         <Router>
           <Route path="/" component={HomePage} />
+          <Route path="/budget" component={BudgetPage} />
           <NotFoundPage default />
         </Router>
       }
