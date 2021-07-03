@@ -27,8 +27,20 @@
   padding: .5rem;
 }
 
-.p-regular {
+.p-medium {
   padding: 1rem;
+}
+
+.p-large {
+  padding: 1.5rem;
+}
+
+.p-big {
+  padding: 2rem;
+}
+
+.p-huge {
+  padding: 3rem;
 }
 
 .gap-small {
@@ -154,6 +166,12 @@
 
 @include maxLaptop {
   .hide-laptop {
+    display: none;
+  }
+}
+
+@include maxDesktop {
+  .hide-desktop {
     display: none;
   }
 }
