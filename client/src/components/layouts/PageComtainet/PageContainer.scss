@@ -1,5 +1,9 @@
 @import '~src/style/mixins';
 
+.page-container {
+	background-color: var(--color-paper);
+	min-height: 100vh;
+}
 
 @include minTablet {
 	.page-container {
