@@ -11,6 +11,8 @@ import ConfirmToken from '~routes/ConfirmTokenPage/ConfirmTokenPage';
 import HomePage from '~routes/HomePage';
 import FullLoader from './items/FullLoader';
 import BudgetPage from '~routes/BudgetPage';
+import CategoryPage from '~routes/CategoryPage';
+import BankPage from '~routes/BankPage';
 
 
 const App: FunctionalComponent = () => {
@@ -48,6 +50,8 @@ const App: FunctionalComponent = () => {
         <Router>
           <Route path="/" component={HomePage} />
           <Route path="/budget" component={BudgetPage} />
+          <Route path="/category" component={CategoryPage} />
+          <Route path="/bank" component={BankPage} />
           <NotFoundPage default />
         </Router>
       }

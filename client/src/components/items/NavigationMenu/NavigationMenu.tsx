@@ -25,7 +25,7 @@ const NavigationMenu: FunctionalComponent<NavigationMenuProps> = ({ class: class
 					<li class={getClassNames([ 'navigation-menu-item', [isSelected, 'selected'] ])} key={item.id} >
 						<Link href={`/${item.id === 'home' ? '' : item.id}`}>
 							<IconText
-								icon='home'
+								icon={item.icon}
 								text={item.text}
 								color={isSelected ? 'white' : 'pen'}
 							/>

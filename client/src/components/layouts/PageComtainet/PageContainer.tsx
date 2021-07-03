@@ -20,7 +20,9 @@ const PageContainer: FunctionalComponent = ({ children }) => {
 					selected={path}
 					list={[
 						{ id: 'home', text: 'Home', icon: 'home' },
-						{ id: 'budget', text: 'Budget', icon: 'home' },
+						{ id: 'budget', text: 'Budget', icon: 'card' },
+						{ id: 'category', text: 'Category', icon: 'menu' },
+						{ id: 'bank', text: 'Bank', icon: 'storage' },
 					]}
 				/>
 			</Aside>
