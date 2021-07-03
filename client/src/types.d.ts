@@ -35,4 +35,9 @@ declare module 'types' {
 
   export type IconType = typeof icons[number];
 
+  export interface SelectMenuItem {
+    id: string;
+    text: string;
+  }
+
 }
