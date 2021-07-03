@@ -1,7 +1,7 @@
 @import "./variables";
 
 
-@mixin minMobil {
+@mixin minMobile {
   @media (min-width: #{$bp-1}) {
     @content;
   }
@@ -15,6 +15,12 @@
 
 @mixin minLaptop {
   @media (min-width: #{$bp-3}) {
+    @content;
+  }
+}
+
+@mixin minDesktop {
+  @media (min-width: #{$bp-4}) {
     @content;
   }
 }
@@ -36,3 +42,10 @@
     @content;
   }
 }
+
+@mixin maxDesktop {
+  @media (max-width: #{$bp-4 - 1px}) {
+    @content;
+  }
+}
+

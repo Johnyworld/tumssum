@@ -27,7 +27,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 					{ userInfo && <Button onClick={handleLogout} fluid class='gap-regular' type='submit'>logout</Button> }
 					{ userInfo && `Hello ${userInfo.name}`}
 				</div>
-				<Aside class='hide-laptop' alignRight wide />
+				<Aside class='hide-desktop' alignRight wide />
 			</div>
 		</PageContainer>
 	)
