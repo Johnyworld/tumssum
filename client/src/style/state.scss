@@ -82,19 +82,7 @@
   &:not(:last-child) { margin-bottom: 4rem; }
 }
 
-.flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.flex-end {
-  justify-content: flex-end;
-}
-
-.flex-start {
-  justify-content: flex-start;
-}
 
 .fluid {
   width: 100%;
@@ -104,53 +92,6 @@
   opacity: .5;
 }
 
-
-/********* Font States *********/
-.t-center { 
-  text-align: center;
-}
-
-.t-left { 
-  text-align: left;
-}
-
-.t-right {
-  text-align: right;
-}
-
-.t-bold {
-  font-weight: var(--weight-bold);
-}
-
-.t-regular {
-  font-weight: var(--weight-regular);
-}
-
-.t-thin {
-  font-weight: var(--weight-thin);
-}
-
-.t-italic {
-  font-style: italic;
-}
-
-.t-underline {
-  text-decoration: underline;
-}
-
-.pre {
-  white-space: pre-line;
-}
-
-.ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.keep-word {
-  word-break: keep-all;
-}
 
 @include maxMobile {
   .hide-mobile {

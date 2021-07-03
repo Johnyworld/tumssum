@@ -1,0 +1,39 @@
+@import '~src/style/mixins';
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-inline {
+  display: inline-flex;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.flex-start {
+  justify-content: flex-start;
+}
+
+.flex-gap-tiny {
+	> *:not(:first-child) {
+		margin-left: .25rem;
+	}
+}
+
+.flex-gap-small {
+	> *:not(:first-child) {
+		margin-left: .5rem;
+	}
+}
+
+@include maxMobile {
+	.flex-column-mobile {
+		flex-direction: column;	
+		justify-content: flex-start;
+		align-items: flex-start;
+	}
+}

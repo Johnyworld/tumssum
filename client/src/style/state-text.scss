@@ -1,0 +1,53 @@
+.f-medium {
+	font-size: var(--font-medium);
+}
+
+.fw-bold {
+  font-weight: var(--weight-bold);
+}
+
+.fw-regular {
+  font-weight: var(--weight-regular);
+}
+
+.fw-thin {
+  font-weight: var(--weight-thin);
+}
+
+.f-italic {
+  font-style: italic;
+}
+
+.t-center { 
+  text-align: center;
+}
+
+.t-left { 
+  text-align: left;
+}
+
+.t-right {
+  text-align: right;
+}
+
+.t-underline {
+  text-decoration: underline;
+}
+
+.t-fit {
+  line-height: 1;
+}
+
+.pre {
+  white-space: pre-line;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.keep-word {
+  word-break: keep-all;
+}

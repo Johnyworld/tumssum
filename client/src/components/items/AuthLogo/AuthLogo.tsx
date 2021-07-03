@@ -6,7 +6,7 @@ const AuthLogo: FunctionalComponent = () => {
 	return (
 		<div>
 			<Link href='/'>
-				<h1 class='c-primary t-italic'>tumssum</h1>
+				<h1 class='c-primary f-italic'>tumssum</h1>
 			</Link>
 			<p class='c-gray'>직접 쓰는 가계부</p>
 		</div>
