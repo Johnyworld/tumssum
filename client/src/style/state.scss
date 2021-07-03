@@ -19,16 +19,20 @@
 	transform: translate(-50%, -50%);
 }
 
+.p-tiny {
+  padding: .25rem;
+}
+
 .p-small {
   padding: .5rem;
 }
 
 .p-regular {
-  padding: .5rem;
+  padding: 1rem;
 }
 
 .p-medium {
-  padding: 1rem;
+  padding: 1.25rem;
 }
 
 .p-large {
