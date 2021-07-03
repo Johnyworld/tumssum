@@ -1,4 +1,6 @@
 declare module 'types' {
+  import { icons } from "~components/elements/Icon/Icon";
+
   export interface User {
     id: string;
     username: string;
@@ -28,5 +30,9 @@ declare module 'types' {
   }
 
   export type Color = keyof Colors;
+
   export type Size = 'tiny' | 'small' | 'regular' | 'medium' | 'large' | 'big' | 'huge';
+
+  export type IconType = typeof icons[number];
+
 }
