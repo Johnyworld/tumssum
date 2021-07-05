@@ -3,12 +3,15 @@ import Logo from '~components/elements/Logo';
 import NavigationMenu from '~components/items/NavigationMenu';
 import Aside from '~components/layouts/Aside';
 import Header from '~components/partials/Header';
+import { getCalendar } from '~hooks/useCalendar';
 import './PageContainer.scss';
 
 
 const PageContainer: FunctionalComponent = ({ children }) => {
 
 	const path = window.location.pathname.split('/')[1] || 'home';
+
+	console.log('===== Calendar', getCalendar(2021, 6));
 
 	return (
 		<Fragment>
