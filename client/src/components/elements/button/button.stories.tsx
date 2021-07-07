@@ -7,7 +7,7 @@ export default {
   title: 'Elements/Button',
   component: Button,
   argTypes: {
-    color: { control: { type: 'select', options: [ 'primary', 'black' ] as Color[] }},
+    color: { control: { type: 'select', options: [ 'primary', 'black', 'gray' ] as Color[] }},
     size: { control: { type: 'select', options: [ 'regular', 'large' ] }},
     type: { control: { type: 'select', options: [ 'button', 'submit' ] }},
     onClick: { action: 'onClick' },

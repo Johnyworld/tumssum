@@ -9,6 +9,7 @@ export interface IconProps {
 }
 
 export const icons = [
+	'calendar',
 	'card',
 	'menu',
 	'storage',
@@ -19,6 +20,11 @@ export const icons = [
 const getSVG = (as: IconType, color: string, strokeWidth: number) => {
 	const c = `var(--color-${color})`;
 	switch (as) {
+
+		case 'calendar': return <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke={c} stroke-width={strokeWidth} />
+			<path d="M1 6L15 6" stroke={c} stroke-width={strokeWidth} />
+		</svg>
 
 		case 'card': return <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<rect x="0.5" y="2.5" width="15" height="11" rx="1.5" stroke={c} stroke-width={strokeWidth} />
