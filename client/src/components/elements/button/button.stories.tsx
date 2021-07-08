@@ -8,7 +8,8 @@ export default {
   component: Button,
   argTypes: {
     color: { control: { type: 'select', options: [ 'primary', 'black', 'gray' ] as Color[] }},
-    size: { control: { type: 'select', options: [ 'regular', 'large' ] }},
+    size: { control: { type: 'select', options: [ 'small', 'regular', 'large' ] }},
+    paddingX: { control: { type: 'select', options: [ 'narrow', 'normal', 'wide' ] }},
     type: { control: { type: 'select', options: [ 'button', 'submit' ] }},
     onClick: { action: 'onClick' },
   },

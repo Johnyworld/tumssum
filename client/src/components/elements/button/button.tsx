@@ -6,19 +6,20 @@ import './Button.scss';
 
 export interface ButtonProps extends DefaultProps, JSXInternal.DOMAttributes<HTMLButtonElement> {
   color?: Color;
-  size?: 'regular' | 'large';
+  size?: 'small' | 'regular' | 'large';
+  paddingX?: 'regular' | 'normal' | 'wide';
   fluid?: boolean;
   disabled?: boolean;
   type?: 'button' | 'submit';
   onClick?: h.JSX.MouseEventHandler<HTMLButtonElement>;
 }
 
-const Button: FunctionalComponent<ButtonProps> = ({ children, class: className, style, color='primary', size='regular', fluid, disabled, type, onClick }) => {
+const Button: FunctionalComponent<ButtonProps> = ({ children, class: className, style, color='primary', size, paddingX, fluid, disabled, type, onClick }) => {
 
   return (
     <button
       style={style}
-      class={getClassNames([ 'button', className, [fluid, 'fluid'], [disabled, 'disabled'], size, [color, `bgc-${color}`] ])}
+      class={getClassNames([ 'button', className, [fluid, 'button-fluid'], [disabled, 'button-disabled'], [size, `button-${size}`], [paddingX, `button-${paddingX}`], [color, `bgc-${color}`] ])}
       children={children}
       disabled={disabled}
       type={type}

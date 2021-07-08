@@ -11,14 +11,27 @@
   outline: none;
 }
 
-.button.large {
+.button-small {
+  height: 32px; 
+}
+
+.button-large {
   height: 52px; 
 }
 
-.button.fluid {
-  display: flex;
+.button-narrow {
+  padding: 0 .5rem;
 }
 
-.button.disabled {
+.button-wide {
+  padding: 0 2rem;
+}
+
+.button-fluid {
+  display: flex;
+  width: 100%;
+}
+
+.button-disabled {
   cursor: not-allowed;
 }
