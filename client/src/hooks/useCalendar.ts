@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
-interface CalendarData {
-	/** YYYY-MM-DD */
-	date: string;
-	data: any;
-}
+// interface CalendarData {
+// 	/** YYYY-MM-DD */
+// 	date: string;
+// 	data: any;
+// }
 
-interface UseCalendar<S> {
-	data: CalendarData[];	
-}
+// interface UseCalendar<S> {
+// 	data: CalendarData[];	
+// }
 
 const basicyear = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
@@ -97,9 +97,20 @@ export const getCalendar = ( year: number, month: number ) => {
 	return calendar
 }
 
-export default <S>({ data }: UseCalendar<S>) => {
+export default <S>() => {
+
+	const calendar = getCalendar(2021, 6);
+	console.log('===== useCalendar', calendar);
 	
 	const [] = useState<S>();
 
-	return {};
+	const handleGrep = (each: number) => () => {
+		console.log('===== Grep', each);
+	}
+
+	const handleDrop = (each: number) => () => {
+		console.log('===== Drop', each);
+	}
+
+	return { calendar, handleGrep, handleDrop };
 }
