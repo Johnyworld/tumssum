@@ -1,14 +1,23 @@
-import { useState } from 'react';
+import { useState } from "preact/hooks";
 
-// interface CalendarData {
-// 	/** YYYY-MM-DD */
-// 	date: string;
-// 	data: any;
-// }
+export interface CalendarData {
+	/** YYYY-MM-DD */
+	id: string;
+	date: string;
+	data: string;
+}
 
-// interface UseCalendar<S> {
-// 	data: CalendarData[];	
-// }
+interface DayItem { 
+	each: number,
+	date: string,
+	isThisMonth: boolean,	
+	data?: CalendarData[];
+}
+
+interface UseCalendar {
+	data: CalendarData[];
+	onUpdate: (i: number, data: CalendarData) => void;
+}
 
 const basicyear = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
@@ -17,10 +26,22 @@ const isLeap = ( year: number ) => {
 	else return 0;
 }
 
-export const getCalendar = ( year: number, month: number ) => {
+const getDataAligned = (data: CalendarData[]) => {
+	const results: {[x:string]: CalendarData[]} = {}
+	for ( const item of data ) {
+		if (!results[item.date]) results[item.date] = [];
+		results[item.date].push(item);
+	}
+	return results;
+}
+
+export const getCalendar = ( year: number, month: number, data: CalendarData[] ) => {
+
+	const alignedData = getDataAligned(data);
+
 	const YEAR = year;
 	const MONTH = month;
-	let calendar: {each: number, date: string, isThisMonth: boolean}[][] = [[]];
+	let calendar: DayItem[][] = [[]];
 	let sum = 365;
 	let week = 0;
 	let k;
@@ -78,11 +99,13 @@ export const getCalendar = ( year: number, month: number ) => {
 		} else {
 			// 이번달 날짜
 			const YMD = `${YEAR}-${MONTH+1>9?MONTH+1:`0${MONTH+1}`}-${i>9?i:`0${i}`}`
-			thisWeek.push({
+			const dayItem: DayItem = {
 				each: i,
 				date: YMD,
 				isThisMonth: true,
-			});
+			}
+			if ( alignedData[YMD] ) dayItem.data = alignedData[YMD];
+			thisWeek.push(dayItem);
 		}
 
 		// 6일 기준 루핑
@@ -97,19 +120,24 @@ export const getCalendar = ( year: number, month: number ) => {
 	return calendar
 }
 
-export default <S>() => {
+export default ({ data, onUpdate }: UseCalendar) => {
 
-	const calendar = getCalendar(2021, 6);
+	const [ greped, setGreped ] = useState('');
+	const calendar = getCalendar(2021, 6, data);
 	console.log('===== useCalendar', calendar);
 	
-	const [] = useState<S>();
-
-	const handleGrep = (each: number) => () => {
-		console.log('===== Grep', each);
+	const handleGrep = (id: string) => () => {
+		console.log('===== Grep', id);
+		setGreped(id);
 	}
 
-	const handleDrop = (each: number) => () => {
-		console.log('===== Drop', each);
+	const handleDrop = (date: string) => () => {
+		console.log('===== Drop', date);
+		if (greped) {
+			const grepedIndex = data.findIndex(item => item.id === greped);
+			onUpdate(grepedIndex, { date } as CalendarData);
+		}
+		setGreped('');
 	}
 
 	return { calendar, handleGrep, handleDrop };
