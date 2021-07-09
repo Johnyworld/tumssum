@@ -1,5 +1,5 @@
 import { h } from "preact";
-import { useState } from "preact/hooks";
+import { useCallback, useState } from "preact/hooks";
 
 export interface CalendarData {
 	/** YYYY-MM-DD */
@@ -15,7 +15,7 @@ export interface GrappingCalendarData extends CalendarData {
 	height: number;
 }
 
-interface DayItem { 
+export interface DayItem { 
 	each: number,
 	date: string,
 	isThisMonth: boolean,	
@@ -134,15 +134,15 @@ export default ({ data, onUpdate }: UseCalendar) => {
 	const [ grappingPos, setGrappingPos ] = useState<{x: number, y: number}>({ x: 0, y: 0 });
 	const calendar = getCalendar(2021, 6, data);
 
-	const handleDragging = (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+	const handleDragging = useCallback((e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
 		if (grapping) {
 			const x = e.clientX - grapping.x;
 			const y = e.clientY - grapping.y;
 			setGrappingPos({ x, y });
 		}
-	}
+	}, [grapping]);
 	
-	const handleGrep = (id: string) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+	const handleGrap = useCallback((id: string) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
 		const grappingItem = data.find(item => item.id === id);
 		if ( grappingItem ) {
 			const rect = e.currentTarget.getBoundingClientRect();
@@ -154,15 +154,15 @@ export default ({ data, onUpdate }: UseCalendar) => {
 				...grappingItem
 			});
 		}
-	}
+	}, [data])
 
-	const handleDrop = (date: string) => () => {
+	const handleDrop = useCallback((date: string) => () => {
 		if (grapping) {
 			const grepedIndex = data.findIndex(item => item.id === grapping.id);
 			onUpdate(grepedIndex, { date } as CalendarData);
 		}
 		setGrapping(null);
-	}
+	}, [data, grapping])
 
-	return { calendar, grapping, grappingPos, handleGrep, handleDrop, handleDragging };
+	return { calendar, grapping, grappingPos, handleGrap, handleDrop, handleDragging };
 }

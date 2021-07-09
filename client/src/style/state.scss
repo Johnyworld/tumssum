@@ -47,6 +47,13 @@
   padding: 3rem;
 }
 
+.gap-tiny {
+  > * {
+    &:not(:first-child) { margin-top: .25rem; }
+    &:not(:last-child) { margin-bottom: .25rem; } 
+  }
+}
+
 .gap-small {
   > * {
     &:not(:first-child) { margin-top: .5rem; }

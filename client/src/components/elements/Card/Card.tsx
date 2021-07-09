@@ -10,12 +10,14 @@ export interface CardProps extends DefaultProps, JSXInternal.DOMAttributes<HTMLD
 }
 
 
-
-const Card: FunctionalComponent<CardProps> = ({ children, class: className, style, padding='regular', hideMobile }) => {
+const Card: FunctionalComponent<CardProps> = ({ children, class: className, style, padding='regular', hideMobile, onMouseDown }) => {
 	return (
-		<div style={style} class={getClassNames([ 'card', className, [padding !== 'none', `p-${padding}`], [hideMobile, 'hide-mobile'], ])}>
-			{children}
-		</div>
+		<div
+			style={style}
+			class={getClassNames([ 'card', className, [padding !== 'none', `p-${padding}`], [hideMobile, 'hide-mobile'], ])}
+			onMouseDown={onMouseDown}
+			children={children}
+		/>
 	)
 }
 

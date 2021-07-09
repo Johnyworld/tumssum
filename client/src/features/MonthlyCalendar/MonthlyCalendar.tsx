@@ -1,8 +1,8 @@
 import { h, FunctionalComponent } from 'preact';
 import { useState } from 'preact/hooks';
-import useCalendar, { CalendarData } from '~hooks/useCalendar';
+import Card from '~components/elements/Card';
+import useCalendar, { CalendarData, DayItem, GrappingCalendarData } from '~hooks/useCalendar';
 import useList from '~hooks/useList';
-import { getClassNames } from '~utils/classNames';
 import './MonthlyCalendar.scss';
 
 interface MonthlyCalendarProps {
@@ -17,23 +17,26 @@ const MonthlyCalendar: FunctionalComponent<MonthlyCalendarProps> = ({  }) => {
 		{ id: '3', date: '2021-07-12', data: 'data 3' },
 	]);
 
-	const { calendar, grapping, grappingPos, handleDrop, handleGrep, handleDragging } = useCalendar({ data: list, onUpdate: handleUpdate });
+	const { calendar, grapping, grappingPos, handleDrop, handleGrap, handleDragging } = useCalendar({ data: list, onUpdate: handleUpdate });
 
 	return (
 		<div class='monthly-calendar' onMouseMove={handleDragging}>
+			
 			{ calendar.map(row => (
 				<div class='monthly-calendar-row'>
 					{ row.map(col => {
 						const [ hover, setHover ] = useState(false);
+						const handleHover = () => setHover(true);
+						const handleHoverOut = () => setHover(false);
 						return (
-							<div class='monthly-calendar-col' onMouseEnter={(e) => setHover(true)} onMouseLeave={() => setHover(false)} onMouseUp={handleDrop(col.date)}>
-								{col.each}
-								{col.data && col.data.map(item => (
-									<div class='monthly-calendar-item p-small' onMouseDown={handleGrep(item.id)} >
-										{item.data}
-									</div>
-								))}
+							<div class='monthly-calendar-col gap-tiny' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={handleDrop(col.date)}>
+								<p class='t-right'>{col.each}</p>
 								{grapping && hover && <div class='monthly-calendar-col-grapping' />}
+								{col.data && col.data.map(item => (
+									<Card padding='small' onMouseDown={handleGrap(item.id)} onClick={() => {}} >
+										{item.data}
+									</Card>
+								))}
 							</div>
 						)
 					})}
@@ -41,12 +44,13 @@ const MonthlyCalendar: FunctionalComponent<MonthlyCalendarProps> = ({  }) => {
 			))}
 
 			{ grapping &&
-				<div style={{ left: grappingPos.x, top: grappingPos.y, width: grapping.width, height: grapping.height }} class='monthly-calendar-grapping monthly-calendar-item' >
+				<Card padding='small' class='monthly-calendar-grapping' style={{ left: grappingPos.x, top: grappingPos.y, width: grapping.width, height: grapping.height }} >
 					{grapping.data}
-				</div>
+				</Card>
 			}
 		</div>
 	)
 }
+
 
 export default MonthlyCalendar;

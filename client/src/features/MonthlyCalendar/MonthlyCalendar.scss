@@ -15,7 +15,7 @@
 .monthly-calendar-col {
 	position: relative;
 	flex: 1 0 0px;
-	min-height: 120px;
+	min-height: 100px;
 	padding: .5rem;
 	background-color: var(--color-bg);
 	border-bottom: 1px solid var(--color-gray_weak);
@@ -30,16 +30,11 @@
   user-select: none;
 }
 
-.monthly-calendar-item {
-	border: 1px solid var(--color-gray_weak);
-	background-color: var(--color-paper);
-}
-
 .monthly-calendar-col-grapping {
 	position: absolute;
-	top: 0;
+	top: -.25rem;
+	bottom: -.25rem;
 	left: 0;
-	bottom: 0;
 	width: 100%;
 	opacity: .3;
 	background-color: var(--color-primary);;
