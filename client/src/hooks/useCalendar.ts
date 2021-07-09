@@ -1,3 +1,4 @@
+import { h } from "preact";
 import { useState } from "preact/hooks";
 
 export interface CalendarData {
@@ -5,6 +6,13 @@ export interface CalendarData {
 	id: string;
 	date: string;
 	data: string;
+}
+
+export interface GrappingCalendarData extends CalendarData {
+	x: number;
+	y: number;
+	width: number;
+	height: number;
 }
 
 interface DayItem { 
@@ -122,23 +130,39 @@ export const getCalendar = ( year: number, month: number, data: CalendarData[] )
 
 export default ({ data, onUpdate }: UseCalendar) => {
 
-	const [ greped, setGreped ] = useState('');
+	const [ grapping, setGrapping ] = useState<GrappingCalendarData | null>(null);
+	const [ grappingPos, setGrappingPos ] = useState<{x: number, y: number}>({ x: 0, y: 0 });
 	const calendar = getCalendar(2021, 6, data);
-	console.log('===== useCalendar', calendar);
+
+	const handleDragging = (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+		if (grapping) {
+			const x = e.clientX - grapping.x;
+			const y = e.clientY - grapping.y;
+			setGrappingPos({ x, y });
+		}
+	}
 	
-	const handleGrep = (id: string) => () => {
-		console.log('===== Grep', id);
-		setGreped(id);
+	const handleGrep = (id: string) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+		const grappingItem = data.find(item => item.id === id);
+		if ( grappingItem ) {
+			const rect = e.currentTarget.getBoundingClientRect();
+			setGrapping({
+				x: e.clientX - rect.x,
+				y: e.clientY - rect.y,
+				width: rect.width,
+				height: rect.height,
+				...grappingItem
+			});
+		}
 	}
 
 	const handleDrop = (date: string) => () => {
-		console.log('===== Drop', date);
-		if (greped) {
-			const grepedIndex = data.findIndex(item => item.id === greped);
+		if (grapping) {
+			const grepedIndex = data.findIndex(item => item.id === grapping.id);
 			onUpdate(grepedIndex, { date } as CalendarData);
 		}
-		setGreped('');
+		setGrapping(null);
 	}
 
-	return { calendar, handleGrep, handleDrop };
+	return { calendar, grapping, grappingPos, handleGrep, handleDrop, handleDragging };
 }
