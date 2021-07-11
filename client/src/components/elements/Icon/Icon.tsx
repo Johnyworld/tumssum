@@ -1,14 +1,18 @@
 import { h, FunctionalComponent } from 'preact';
 import { Color, IconType } from 'types';
+import { getClassNames } from '~utils/classNames';
 import './Icon.scss';
 
 export interface IconProps {
 	as: IconType;
 	strokeWidth?: number;
 	color?: Color;
+	onClick?: () => void;
 }
 
 export const icons = [
+	'arrowLeft',
+	'arrowRight',
 	'calendar',
 	'card',
 	'menu',
@@ -17,10 +21,18 @@ export const icons = [
 ] as const;
 
 
-const getSVG = (as: IconType, color: string, strokeWidth: number) => {
+const getSVG = (as: IconType, color: Color, strokeWidth: number) => {
 	const c = `var(--color-${color})`;
 	switch (as) {
 
+		case 'arrowLeft': return <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M11 1L4 8L11 15" stroke={c} stroke-width={strokeWidth} />
+		</svg>
+
+		case 'arrowRight': return <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M5 15L12 8L5 1" stroke={c} stroke-width={strokeWidth} />
+		</svg>
+		
 		case 'calendar': return <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke={c} stroke-width={strokeWidth} />
 			<path d="M1 6L15 6" stroke={c} stroke-width={strokeWidth} />
@@ -60,9 +72,9 @@ const getSVG = (as: IconType, color: string, strokeWidth: number) => {
 }
 
 
-const Icon: FunctionalComponent<IconProps> = ({ as, strokeWidth=1, color='pen' }) => {
+const Icon: FunctionalComponent<IconProps> = ({ as, strokeWidth=1, color='pen', onClick }) => {
 	return (
-		<div class='icon'>
+		<div class={getClassNames(['icon', [!!onClick, 'icon-clickable']])} onClick={onClick}>
 			{getSVG(as, color, strokeWidth)}
 		</div>
 	)

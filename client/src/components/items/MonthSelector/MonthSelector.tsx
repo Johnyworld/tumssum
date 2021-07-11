@@ -1,4 +1,5 @@
 import { h, FunctionalComponent } from 'preact';
+import Icon from '~components/elements/Icon';
 
 interface MonthSelectorProps {
 	date: string;
@@ -23,9 +24,9 @@ const MonthSelector: FunctionalComponent<MonthSelectorProps> = ({ date, onChange
 
 	return (
 		<div class='flex'>
-			<button children='<' onClick={handleChangePrev} />
+			<Icon as='arrowLeft' color='pen' onClick={handleChangePrev} />
 			<p>{date}</p>
-			<button children='>' onClick={handleChangeNext} />
+			<Icon as='arrowRight' color='pen' onClick={handleChangeNext} />
 		</div>
 	)
 }
