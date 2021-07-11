@@ -15,7 +15,7 @@ const FullLoader: FunctionalComponent<Props> = ({  }) => {
 		!fullLoading ? null :
 			<Portal>
 				<Dim>
-					<p class='position-center'>Loading...</p>
+					<p class='pos-center'>Loading...</p>
 				</Dim>
 			</Portal>
 	)

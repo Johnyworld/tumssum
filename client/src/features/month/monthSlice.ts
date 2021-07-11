@@ -19,10 +19,13 @@ export const monthSlice = createSlice({
 		},
 		changeMonthNext: (state) => {
 			state.date = getMonthDate(state.date, +1);
+		},
+		changeMonthToday: (state) => {
+			state.date = new Date().toISOString();
 		}
   }
 })
 
-export const { changeMonthNext, changeMonthPrev } = monthSlice.actions
+export const { changeMonthNext, changeMonthPrev, changeMonthToday } = monthSlice.actions
 
 export default monthSlice.reducer;

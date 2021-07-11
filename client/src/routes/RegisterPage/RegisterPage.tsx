@@ -44,7 +44,7 @@ const RegisterPage = () => {
           <Input name='email' value={email} onChange={changeEmail} label={t('auth_word_email')} placeholder={t('auth_word_email_placeholder')} fluid type='email' />
           <Button disabled={register.loading} fluid type='submit' children='Submit' />
           { register.error.code &&
-            <p class='c-red fw-bold'>{register.error.message}</p>
+            <p class='c-red f-bold'>{register.error.message}</p>
           }
         </Card>
         <Card class='gap-regular' hideMobile>

@@ -1,6 +1,5 @@
 @import "~src/style/mixins";
 
-/********* Block States *********/
 .wrap {
   max-width: 900px;
   padding-left: 1rem;
@@ -12,11 +11,15 @@
   max-width: 400px;
 }
 
-.position-center {
+.pos-center {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .transparent-1 {
@@ -112,17 +115,12 @@
 }
 
 
-@include maxMobile {
-  .hide-mobile {
+@include maxDesktop {
+  .hide-desktop {
     display: none;
   }
 }
 
-@include maxTablet {
-  .hide-tablet {
-    display: none;
-  }
-}
 
 @include maxLaptop {
   .hide-laptop {
@@ -130,8 +128,150 @@
   }
 }
 
-@include maxDesktop {
-  .hide-desktop {
+
+@include maxTablet {
+  .p-none-tablet {
+    padding: 0;
+  }
+
+  .p-tiny-tablet {
+    padding: .25rem;
+  }
+  
+  .p-small-tablet {
+    padding: .5rem;
+  }
+  
+  .p-regular-tablet {
+    padding: 1rem;
+  }
+  
+  .p-medium-tablet {
+    padding: 1.25rem;
+  }
+  
+  .p-large-tablet {
+    padding: 1.5rem;
+  }
+  
+  .p-big-tablet {
+    padding: 2rem;
+  }
+  
+  .p-huge-tablet {
+    padding: 3rem;
+  }
+
+  .mv-none-tablet {
+    &:not(:first-child) { margin-top: 0; }
+    &:not(:last-child) { margin-bottom: 0; }
+  }
+  
+  .mv-small-tablet {
+    &:not(:first-child) { margin-top: .5rem; }
+    &:not(:last-child) { margin-bottom: .5rem; }
+  }
+
+  .mv-regular-tablet {
+    &:not(:first-child) { margin-top: 1rem; }
+    &:not(:last-child) { margin-bottom: 1rem; }
+  }
+  
+  .mv-medium-tablet {
+    &:not(:first-child) { margin-top: 1.5rem; }
+    &:not(:last-child) { margin-bottom: 1.5rem; }
+  }
+  
+  .mv-large-tablet {
+    &:not(:first-child) { margin-top: 2rem; }
+    &:not(:last-child) { margin-bottom: 2rem; }
+  }
+  
+  .mv-big-tablet {
+    &:not(:first-child) { margin-top: 2.5rem; }
+    &:not(:last-child) { margin-bottom: 2.5rem; }
+  }
+  
+  .mv-huge-tablet {
+    &:not(:first-child) { margin-top: 4rem; }
+    &:not(:last-child) { margin-bottom: 4rem; }
+  }
+
+  .hide-tablet {
+    display: none;
+  }
+}
+
+
+@include maxMobile {
+  .p-none-mobile {
+    padding: 0;
+  }
+
+  .p-tiny-mobile {
+    padding: .25rem;
+  }
+  
+  .p-small-mobile {
+    padding: .5rem;
+  }
+  
+  .p-regular-mobile {
+    padding: 1rem;
+  }
+  
+  .p-medium-mobile {
+    padding: 1.25rem;
+  }
+  
+  .p-large-mobile {
+    padding: 1.5rem;
+  }
+  
+  .p-big-mobile {
+    padding: 2rem;
+  }
+  
+  .p-huge-mobile {
+    padding: 3rem;
+  }
+
+  .mv-none-mobile {
+    &:not(:first-child) { margin-top: 0; }
+    &:not(:last-child) { margin-bottom: 0; }
+  }
+  
+  .mv-small-mobile {
+    &:not(:first-child) { margin-top: .5rem; }
+    &:not(:last-child) { margin-bottom: .5rem; }
+  }
+
+  .mv-regular-mobile {
+    &:not(:first-child) { margin-top: 1rem; }
+    &:not(:last-child) { margin-bottom: 1rem; }
+  }
+  
+  .mv-medium-mobile {
+    &:not(:first-child) { margin-top: 1.5rem; }
+    &:not(:last-child) { margin-bottom: 1.5rem; }
+  }
+  
+  .mv-large-mobile {
+    &:not(:first-child) { margin-top: 2rem; }
+    &:not(:last-child) { margin-bottom: 2rem; }
+  }
+  
+  .mv-big-mobile {
+    &:not(:first-child) { margin-top: 2.5rem; }
+    &:not(:last-child) { margin-bottom: 2.5rem; }
+  }
+  
+  .mv-huge-mobile {
+    &:not(:first-child) { margin-top: 4rem; }
+    &:not(:last-child) { margin-bottom: 4rem; }
+  }
+  
+  .hide-mobile {
     display: none;
   }
 }
