@@ -4,13 +4,13 @@ import Card from '~components/elements/Card';
 import useCalendar, { CalendarData, DayItem, GrappingCalendarData } from '~hooks/useCalendar';
 import useList from '~hooks/useList';
 import { getClassNames } from '~utils/classNames';
+import { useSelector } from '~utils/redux/hooks';
 import './MonthlyCalendar.scss';
 
-interface MonthlyCalendarProps {
-	date: string;
-}
 
-const MonthlyCalendar: FunctionalComponent<MonthlyCalendarProps> = ({ date }) => {
+const MonthlyCalendar: FunctionalComponent = () => {
+
+	const date = useSelector(state=> state.month.date);
 
 	const { list, handleUpdate } = useList<CalendarData>([
 		{ id: '1', date: '2021-07-10', data: 'data 1' },

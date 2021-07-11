@@ -4,39 +4,26 @@ import './MonthSelector.scss';
 
 interface MonthSelectorProps {
 	date: string;
-	onChangeDate: (newDate: string) => void;
+	onPrev: () => void;
+	onNext: () => void;
 }
 
-const getMonthDate = (date: string, sum: number) => {
-	const then = new Date(date);
-	then.setMonth(then.getMonth() + sum);
-	return then.toISOString();
-}
-
-const MonthSelector: FunctionalComponent<MonthSelectorProps> = ({ date, onChangeDate }) => {
+const MonthSelector: FunctionalComponent<MonthSelectorProps> = ({ date, onPrev, onNext }) => {
 
 	const split = date.split('-');
 	const YYYY = split[0];
 	const MM = split[1];
 
-	const handleChangePrev = () => {
-		onChangeDate(getMonthDate(date, -1));
-	}
-
-	const handleChangeNext = () => {
-		onChangeDate(getMonthDate(date, +1));
-	}
-
 	return (
 		<div class='month-selector'>
 
-			<div class='month-selector-icon never-drag' onClick={handleChangePrev}>
+			<div class='month-selector-icon never-drag' onClick={onPrev}>
 				<Icon as='arrowLeft' color='pen' />
 			</div>
 
 			<h1 class='month-selector-date'>{YYYY}. {MM}</h1>
 
-			<div class='month-selector-icon never-drag' onClick={handleChangeNext}>
+			<div class='month-selector-icon never-drag' onClick={onNext}>
 				<Icon as='arrowRight' color='pen' />
 			</div>
 
