@@ -1,0 +1,41 @@
+@import '~src/style/mixins';
+
+.month-selector {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	position: relative;
+	height: var(--header-height);
+}
+
+.month-selector-date {
+	position: absolute;
+	left: 0;
+	padding: 0 1rem;
+}
+
+.month-selector-icons {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.month-selector-icon {
+	width: var(--header-height);
+	height: var(--header-height);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+
+@include minTablet {
+	.month-selector {
+		justify-content: center;
+	}
+	.month-selector-date {
+		position: static;
+		padding: 0 2rem;
+	}
+}

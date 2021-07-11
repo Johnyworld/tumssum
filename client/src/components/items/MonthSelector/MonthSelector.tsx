@@ -1,5 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import Icon from '~components/elements/Icon';
+import './MonthSelector.scss';
 
 interface MonthSelectorProps {
 	date: string;
@@ -14,6 +15,10 @@ const getMonthDate = (date: string, sum: number) => {
 
 const MonthSelector: FunctionalComponent<MonthSelectorProps> = ({ date, onChangeDate }) => {
 
+	const split = date.split('-');
+	const YYYY = split[0];
+	const MM = split[1];
+
 	const handleChangePrev = () => {
 		onChangeDate(getMonthDate(date, -1));
 	}
@@ -23,10 +28,18 @@ const MonthSelector: FunctionalComponent<MonthSelectorProps> = ({ date, onChange
 	}
 
 	return (
-		<div class='flex'>
-			<Icon as='arrowLeft' color='pen' onClick={handleChangePrev} />
-			<p>{date}</p>
-			<Icon as='arrowRight' color='pen' onClick={handleChangeNext} />
+		<div class='month-selector'>
+
+			<div class='month-selector-icon never-drag' onClick={handleChangePrev}>
+				<Icon as='arrowLeft' color='pen' />
+			</div>
+
+			<h1 class='month-selector-date'>{YYYY}. {MM}</h1>
+
+			<div class='month-selector-icon never-drag' onClick={handleChangeNext}>
+				<Icon as='arrowRight' color='pen' />
+			</div>
+
 		</div>
 	)
 }

@@ -1,9 +1,9 @@
 import { h, FunctionalComponent } from 'preact';
-import { Color, IconType } from 'types';
+import { Color, DefaultProps, IconType } from 'types';
 import { getClassNames } from '~utils/classNames';
 import './Icon.scss';
 
-export interface IconProps {
+export interface IconProps extends DefaultProps {
 	as: IconType;
 	strokeWidth?: number;
 	color?: Color;
@@ -72,9 +72,9 @@ const getSVG = (as: IconType, color: Color, strokeWidth: number) => {
 }
 
 
-const Icon: FunctionalComponent<IconProps> = ({ as, strokeWidth=1, color='pen', onClick }) => {
+const Icon: FunctionalComponent<IconProps> = ({ class: className, as, strokeWidth=1, color='pen', onClick }) => {
 	return (
-		<div class={getClassNames(['icon', [!!onClick, 'icon-clickable']])} onClick={onClick}>
+		<div class={getClassNames(['icon', className, [!!onClick, 'icon-clickable']])} onClick={onClick}>
 			{getSVG(as, color, strokeWidth)}
 		</div>
 	)
