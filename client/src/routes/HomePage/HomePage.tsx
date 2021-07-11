@@ -4,7 +4,7 @@ import Button from '~components/elements/Button';
 import MonthSelector from '~components/items/MonthSelector';
 import Aside from '~components/layouts/Aside';
 import PageContainer from '~components/layouts/PageComtainet/PageContainer';
-import MonthlyCalendar from '~features/MonthlyCalendar';
+import MonthlyCalendar from '~features/month/MonthlyCalendar';
 import { logout } from '~features/user/userSlice';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 
