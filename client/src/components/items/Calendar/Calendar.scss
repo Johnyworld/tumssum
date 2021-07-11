@@ -1,0 +1,35 @@
+.calendar-grapping {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	pointer-events: none;
+	opacity: .5;
+}
+
+.calendar-row {
+	display: flex;
+}
+
+.calendar-col {
+	position: relative;
+	flex: 1 0 0px;
+	min-height: 100px;
+	padding: .5rem;
+	background-color: var(--color-bg);
+	border-bottom: 1px solid var(--color-gray_weak);
+	&:not(:first-child) {
+		border-left: 1px solid var(--color-gray_weak);
+	}
+}
+
+.calendar-col-grapping {
+	position: absolute;
+	top: -.25rem;
+	bottom: -.25rem;
+	left: 0;
+	width: 100%;
+	opacity: .3;
+	background-color: var(--color-primary);;
+}

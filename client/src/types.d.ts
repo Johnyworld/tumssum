@@ -1,6 +1,11 @@
 declare module 'types' {
   import { icons } from "~components/elements/Icon/Icon";
 
+  export interface Vec2 {
+    x: number,
+    y: number
+  }
+
   export interface User {
     id: string;
     username: string;

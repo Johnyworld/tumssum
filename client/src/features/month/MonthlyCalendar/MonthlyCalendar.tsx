@@ -1,16 +1,16 @@
 import { h, FunctionalComponent } from 'preact';
-import { useState } from 'preact/hooks';
-import Card from '~components/elements/Card';
-import useCalendar, { CalendarData, DayItem, GrappingCalendarData } from '~hooks/useCalendar';
+import Calendar from '~components/items/Calendar';
+import MonthSelector from '~components/items/MonthSelector';
+import useCalendar, { CalendarData } from '~hooks/useCalendar';
 import useList from '~hooks/useList';
-import { getClassNames } from '~utils/classNames';
-import { useSelector } from '~utils/redux/hooks';
-import './MonthlyCalendar.scss';
+import { useDispatch, useSelector } from '~utils/redux/hooks';
+import { changeMonthNext, changeMonthPrev } from '../monthSlice';
 
 
 const MonthlyCalendar: FunctionalComponent = () => {
 
 	const date = useSelector(state=> state.month.date);
+	const dispatch = useDispatch();
 
 	const { list, handleUpdate } = useList<CalendarData>([
 		{ id: '1', date: '2021-07-10', data: 'data 1' },
@@ -18,41 +18,30 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		{ id: '3', date: '2021-07-12', data: 'data 3' },
 	]);
 
-	const { calendar, grapping, grappingPos, handleDrop, handleGrap, handleDragging } = useCalendar({
+	const { calendar, grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useCalendar({
 		date,
 		data: list,
 		onUpdate: handleUpdate
 	});
 
 	return (
-		<div class='monthly-calendar' onMouseMove={handleDragging}>
-			
-			{ calendar.map(row => (
-				<div class='monthly-calendar-row'>
-					{ row.map(col => {
-						const [ hover, setHover ] = useState(false);
-						const handleHover = () => setHover(true);
-						const handleHoverOut = () => setHover(false);
-						return (
-							<div class='monthly-calendar-col never-drag gap-tiny' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={handleDrop(col.date)}>
-								<p class={getClassNames([ 't-right', [!col.isThisMonth, 'transparent-1'] ])}>{col.each}</p>
-								{grapping && hover && <div class='monthly-calendar-col-grapping' />}
-								{col.data && col.data.map(item => (
-									<Card padding='small' onMouseDown={handleGrap(item.id)} onClick={() => {}} >
-										{item.data}
-									</Card>
-								))}
-							</div>
-						)
-					})}
-				</div>	
-			))}
+		<div class='monthly-calendar' >
 
-			{ grapping &&
-				<Card padding='small' class='monthly-calendar-grapping' style={{ left: grappingPos.x, top: grappingPos.y, width: grapping.width, height: grapping.height }} >
-					{grapping.data}
-				</Card>
-			}
+			<MonthSelector
+				date={date}
+				onPrev={() => dispatch(changeMonthPrev())}
+				onNext={() => dispatch(changeMonthNext())}
+			/>
+			
+			<Calendar
+				calendar={calendar}
+				grapping={grapping}
+				grappingPos={grappingPos}
+				onGrap={handleGrap}
+				onDrop={handleDrop}
+				onDragging={handleDragging}
+			/>
+			
 		</div>
 	)
 }

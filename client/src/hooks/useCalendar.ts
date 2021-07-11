@@ -1,5 +1,6 @@
 import { h } from "preact";
 import { useCallback, useState } from "preact/hooks";
+import { Vec2 } from "types";
 
 export interface CalendarData {
 	/** YYYY-MM-DD */
@@ -132,7 +133,7 @@ export const getCalendar = ( year: number, month: number, data: CalendarData[] )
 export default ({ date, data, onUpdate }: UseCalendar) => {
 
 	const [ grapping, setGrapping ] = useState<GrappingCalendarData | null>(null);
-	const [ grappingPos, setGrappingPos ] = useState<{x: number, y: number}>({ x: 0, y: 0 });
+	const [ grappingPos, setGrappingPos ] = useState<Vec2>({ x: 0, y: 0 });
 	const then = new Date(date);
 	const calendar = getCalendar(then.getFullYear(), then.getMonth(), data);
 
