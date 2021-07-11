@@ -1,18 +1,20 @@
 import { h, FunctionalComponent } from 'preact';
-import { Color, IconType } from 'types';
+import { Color, DefaultProps, IconType } from 'types';
 import Icon from '~components/elements/Icon';
+import { getClassNames } from '~utils/classNames';
 
-export interface IconTextProps {
+export interface IconTextProps extends DefaultProps {
 	icon: IconType;
 	text: string;
 	color?: Color;
+	onClick?: () => void;
 }
 
-const IconText: FunctionalComponent<IconTextProps> = ({ icon, text, color='pen' }) => {
+const IconText: FunctionalComponent<IconTextProps> = ({ class: className, icon, text, color='pen', onClick }) => {
 	return (
-		<div class='flex flex-inline flex-gap-small'>
-			<Icon color={color} as={icon} strokeWidth={2} />
-			<p class={'t-fit f-medium fw-bold' + ` c-${color}`}>{text}</p>
+		<div class={getClassNames([ 'icon-text', 'flex', 'flex-inline', 'flex-gap-small', className ])} onClick={onClick}>
+			<Icon class={'icon-text-icon'} color={color} as={icon} />
+			<p class={'icon-text-p t-fit' + ` c-${color}`}>{text}</p>
 		</div>
 	)
 }

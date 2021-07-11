@@ -18,11 +18,13 @@ const PageContainer: FunctionalComponent = ({ children }) => {
 				<NavigationMenu
 					class='mv-large'
 					selected={path}
+					direction='column'
+					menuItemType='box'
 					list={[
-						{ id: 'home', text: 'Home', icon: 'home' },
-						{ id: 'budget', text: 'Budget', icon: 'card' },
-						{ id: 'category', text: 'Category', icon: 'menu' },
-						{ id: 'bank', text: 'Bank', icon: 'storage' },
+						{ id: 'home', text: 'Home', icon: 'home', href: '/' },
+						{ id: 'budget', text: 'Budget', icon: 'card', href: '/budget' },
+						{ id: 'category', text: 'Category', icon: 'menu', href: '/category' },
+						{ id: 'bank', text: 'Bank', icon: 'storage', href: '/bank' },
 					]}
 				/>
 			</Aside>
