@@ -1,19 +1,24 @@
-.calendar {
+.calendar-container {
 	border: 1px solid var(--color-gray_weaker);
-}
-
-.calendar-grapping {
-	position: fixed;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	pointer-events: none;
-	opacity: .5;
 }
 
 .calendar-row {
 	display: flex;
+}
+
+.calendar-day {
+	flex: 1 0 0px;
+	padding: .125rem;
+	text-align: center;
+	color: var(--color-gray);
+	&:first-child {
+		color: var(--color-red);
+		opacity: .7;
+	}
+	&:last-child {
+		color: var(--color-primary);
+		opacity: .7;
+	}
 }
 
 .calendar-col {
@@ -36,4 +41,14 @@
 	width: 100%;
 	opacity: .3;
 	background-color: var(--color-primary);;
+}
+
+.calendar-grapping {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	pointer-events: none;
+	opacity: .5;
 }

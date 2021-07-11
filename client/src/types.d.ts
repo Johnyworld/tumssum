@@ -24,9 +24,11 @@ declare module 'types' {
     paper: string;
     bg: string;
     primary: string;
+    red: string;
     gray_strong: string,
     gray: string,
     gray_weak: string,
+    gray_weaker: string,
   }
 
   export interface DefaultProps {
