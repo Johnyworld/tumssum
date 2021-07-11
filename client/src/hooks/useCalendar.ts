@@ -23,6 +23,7 @@ export interface DayItem {
 }
 
 interface UseCalendar {
+	date: string;
 	data: CalendarData[];
 	onUpdate: (i: number, data: CalendarData) => void;
 }
@@ -128,11 +129,12 @@ export const getCalendar = ( year: number, month: number, data: CalendarData[] )
 	return calendar
 }
 
-export default ({ data, onUpdate }: UseCalendar) => {
+export default ({ date, data, onUpdate }: UseCalendar) => {
 
 	const [ grapping, setGrapping ] = useState<GrappingCalendarData | null>(null);
 	const [ grappingPos, setGrappingPos ] = useState<{x: number, y: number}>({ x: 0, y: 0 });
-	const calendar = getCalendar(2021, 6, data);
+	const then = new Date(date);
+	const calendar = getCalendar(then.getFullYear(), then.getMonth(), data);
 
 	const handleDragging = useCallback((e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
 		if (grapping) {

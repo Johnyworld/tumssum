@@ -3,13 +3,14 @@ import { useState } from 'preact/hooks';
 import Card from '~components/elements/Card';
 import useCalendar, { CalendarData, DayItem, GrappingCalendarData } from '~hooks/useCalendar';
 import useList from '~hooks/useList';
+import { getClassNames } from '~utils/classNames';
 import './MonthlyCalendar.scss';
 
 interface MonthlyCalendarProps {
-
+	date: string;
 }
 
-const MonthlyCalendar: FunctionalComponent<MonthlyCalendarProps> = ({  }) => {
+const MonthlyCalendar: FunctionalComponent<MonthlyCalendarProps> = ({ date }) => {
 
 	const { list, handleUpdate } = useList<CalendarData>([
 		{ id: '1', date: '2021-07-10', data: 'data 1' },
@@ -17,7 +18,11 @@ const MonthlyCalendar: FunctionalComponent<MonthlyCalendarProps> = ({  }) => {
 		{ id: '3', date: '2021-07-12', data: 'data 3' },
 	]);
 
-	const { calendar, grapping, grappingPos, handleDrop, handleGrap, handleDragging } = useCalendar({ data: list, onUpdate: handleUpdate });
+	const { calendar, grapping, grappingPos, handleDrop, handleGrap, handleDragging } = useCalendar({
+		date,
+		data: list,
+		onUpdate: handleUpdate
+	});
 
 	return (
 		<div class='monthly-calendar' onMouseMove={handleDragging}>
@@ -30,7 +35,7 @@ const MonthlyCalendar: FunctionalComponent<MonthlyCalendarProps> = ({  }) => {
 						const handleHoverOut = () => setHover(false);
 						return (
 							<div class='monthly-calendar-col never-drag gap-tiny' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={handleDrop(col.date)}>
-								<p class='t-right'>{col.each}</p>
+								<p class={getClassNames([ 't-right', [!col.isThisMonth, 'transparent-1'] ])}>{col.each}</p>
 								{grapping && hover && <div class='monthly-calendar-col-grapping' />}
 								{col.data && col.data.map(item => (
 									<Card padding='small' onMouseDown={handleGrap(item.id)} onClick={() => {}} >

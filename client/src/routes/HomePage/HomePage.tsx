@@ -30,7 +30,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 			<div class='home-page'>
 				<div class='home-page-contents'>
 					<MonthSelector date={date} onChangeDate={handleChangeDate} />
-					<MonthlyCalendar />
+					<MonthlyCalendar date={date} />
 					{ userInfo && <Button onClick={handleLogout} fluid class='gap-regular' type='submit'>logout</Button> }
 					{ userInfo && `Hello ${userInfo.name}`}
 				</div>
