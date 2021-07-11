@@ -27,8 +27,6 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		onUpdate: handleUpdate
 	});
 
-	console.log('===== MonthlyCalendar', calendar);
-
 	return (
 		<div class='monthly-calendar' >
 

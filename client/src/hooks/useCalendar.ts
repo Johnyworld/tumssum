@@ -29,7 +29,6 @@ interface UseCalendar {
 	onUpdate: (i: number, data: CalendarData) => void;
 }
 
-const basicyear = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
 const isLeap = ( year: number ) => {
 	if ((( year % 4 === 0 ) && !( year % 100 === 0 )) || ( year % 400 === 0 )) return 1;
@@ -49,6 +48,7 @@ export const getCalendar = ( year: number, month: number, data: CalendarData[] )
 
 	const alignedData = getDataAligned(data);
 
+	const basicyear = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 	const YEAR = year;
 	const MONTH = month;
 	let calendar: DayItem[][] = [[]];
