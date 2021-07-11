@@ -72,7 +72,15 @@ export const getCalendar = ( year: number, month: number, data: CalendarData[] )
 
 	// 1일의 요일
 	k = sum % 7;
-	// const result = Math.floor(YEAR*365 + Math.floor(YEAR/4) - Math.floor(YEAR/100) + Math.floor(YEAR/400));
+
+	// 이번달, 이전달 총 몇일
+	const daysCountThisAndLastMonth = k + basicyear[MONTH];
+
+	// 달력에 보여질 weeks 개수
+	const weeksCount = Math.floor((daysCountThisAndLastMonth-1) / 7) + 1;
+
+	// 다음달 날짜를 몇개를 보여줘야 하는지
+	const nextMonthDaysCount = weeksCount*7 - daysCountThisAndLastMonth;
 
 	// 이전 달 날짜 채우기
 	for ( let j=0; j<k; j++) {
@@ -87,10 +95,8 @@ export const getCalendar = ( year: number, month: number, data: CalendarData[] )
 			isThisMonth: false,
 		});
 	}
-	
-	const untilNextMonth = 35 - basicyear[MONTH] - k;
 
-	for ( let i=1; i<=basicyear[MONTH]+untilNextMonth; i++) {
+	for ( let i=1; i<=basicyear[MONTH]+nextMonthDaysCount; i++) {
 		const thisWeek = calendar[week];
 
 		if ( i > basicyear[MONTH] ) {
@@ -127,7 +133,7 @@ export const getCalendar = ( year: number, month: number, data: CalendarData[] )
 		k++;
 	}
 
-	return calendar
+	return calendar;
 }
 
 export default ({ date, data, onUpdate }: UseCalendar) => {
