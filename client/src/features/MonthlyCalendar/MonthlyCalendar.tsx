@@ -29,7 +29,7 @@ const MonthlyCalendar: FunctionalComponent<MonthlyCalendarProps> = ({  }) => {
 						const handleHover = () => setHover(true);
 						const handleHoverOut = () => setHover(false);
 						return (
-							<div class='monthly-calendar-col gap-tiny' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={handleDrop(col.date)}>
+							<div class='monthly-calendar-col never-drag gap-tiny' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={handleDrop(col.date)}>
 								<p class='t-right'>{col.each}</p>
 								{grapping && hover && <div class='monthly-calendar-col-grapping' />}
 								{col.data && col.data.map(item => (

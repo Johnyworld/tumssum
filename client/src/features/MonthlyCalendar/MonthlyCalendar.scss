@@ -22,12 +22,6 @@
 	&:not(:first-child) {
 		border-left: 1px solid var(--color-gray_weak);
 	}
-
-	-ms-user-select: none; 
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
 }
 
 .monthly-calendar-col-grapping {
