@@ -12,7 +12,7 @@ export interface IconTextProps extends DefaultProps {
 
 const IconText: FunctionalComponent<IconTextProps> = ({ class: className, icon, text, color='pen', onClick }) => {
 	return (
-		<div class={getClassNames([ 'icon-text', 'flex', 'flex-inline', 'flex-gap-small', className ])} onClick={onClick}>
+		<div class={getClassNames([ 'icon-text', 'flex', 'flex-start', 'flex-gap-small', className ])} onClick={onClick}>
 			<Icon class={'icon-text-icon'} color={color} as={icon} />
 			<p class={'icon-text-p t-fit' + ` c-${color}`}>{text}</p>
 		</div>

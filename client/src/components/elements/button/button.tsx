@@ -7,7 +7,7 @@ import './Button.scss';
 export interface ButtonProps extends DefaultProps, JSXInternal.DOMAttributes<HTMLButtonElement> {
   color?: Color;
   size?: 'small' | 'regular' | 'large';
-  paddingX?: 'regular' | 'normal' | 'wide';
+  paddingX?: 'narrow' | 'normal' | 'wide';
   fluid?: boolean;
   disabled?: boolean;
   type?: 'button' | 'submit';

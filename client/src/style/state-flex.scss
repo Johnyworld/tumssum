@@ -30,6 +30,12 @@
 	}
 }
 
+.flex-gap-regular {
+	> *:not(:first-child) {
+		margin-left: 1rem;
+	}
+}
+
 @include maxMobile {
 	.flex-column-mobile {
 		flex-direction: column;	

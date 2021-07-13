@@ -1,5 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { useState } from 'preact/hooks';
+import Button from '~components/elements/Button';
 import Calendar from '~components/items/Calendar';
 import MonthSelector from '~components/items/MonthSelector';
 import NavigationMenu from '~components/items/NavigationMenu';
@@ -46,8 +47,9 @@ const MonthlyCalendar: FunctionalComponent = () => {
 						{ id: 'bank', text: 'Bank', icon: 'storage' },
 					]}
 				/>
-				<div>
-					<p class='f-bold pointer' onClick={() => dispatch(changeMonthToday())}>Today</p>
+				<div class='flex flex-gap-regular' style={{ paddingRight: '.5rem' }}>
+					<p class='f-bold t-fit pointer' onClick={() => dispatch(changeMonthToday())}>Today</p>
+					<Button size='small' children='+ 새로 추가' />
 				</div>
 			</div>
 			
