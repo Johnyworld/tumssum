@@ -11,5 +11,5 @@ export default <S>(initialList?: S[]) => {
 		setList(tempList);
 	}
 	
-	return { list, handleUpdate };
+	return { list, setList, handleUpdate };
 }

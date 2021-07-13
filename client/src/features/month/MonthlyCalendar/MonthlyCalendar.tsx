@@ -7,6 +7,7 @@ import MonthSelector from '~components/items/MonthSelector';
 import NavigationMenu from '~components/items/NavigationMenu';
 import useCalendar from '~hooks/useCalendar';
 import useFetch from '~hooks/useFetch';
+import useList from '~hooks/useList';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import { changeMonthNext, changeMonthPrev, changeMonthToday } from '../monthSlice';
 
@@ -18,16 +19,21 @@ const MonthlyCalendar: FunctionalComponent = () => {
 	const dispatch = useDispatch();
 	const [selected, setSelected] = useState('calendar');
 
-	const accounts = useFetch<Account[]>({
+	const { list, setList, handleUpdate } = useList<Account>([]);
+
+	useFetch<Account[]>({
 		method: 'GET',
 		url: `/api/accounts/`,
 		params: { user_id: user!.id },
+		onSuccess: data => {
+			setList(data);
+		}
 	});
 
 	const { calendar, grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useCalendar({
 		date,
-		data: accounts.data || [],
-		onUpdate: (i, data) => {console.log(i, data)}
+		data: list || [],
+		onUpdate: handleUpdate
 	});
 
 	return (

@@ -13,7 +13,7 @@ interface UseFetchParams<S> {
 	url: string;
 	params: {},
 	onError?: (error: ErrorObj) => void;
-	onSuccess?: (data: S | null) => void;
+	onSuccess?: (data: S) => void;
 }
 
 const useFetch = <S>({ method, url, params, onError, onSuccess }:UseFetchParams<S>) => {
