@@ -11,28 +11,32 @@ interface ErrorObj {
 interface UseFetchParams<S> {
 	method: 'GET' | 'POST' | 'PUT' | 'DELETE';
 	url: string;
-	fetchWithCallOnly?: boolean;
+	params: {},
 	onError?: (error: ErrorObj) => void;
 	onSuccess?: (data: S | null) => void;
 }
 
-const useFetch = <S>({ method, url, onError, onSuccess }:UseFetchParams<S>) => {
+const useFetch = <S>({ method, url, params, onError, onSuccess }:UseFetchParams<S>) => {
 
 	const { t } = useTranslation();
 	const [data, setData] = useState<S | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<ErrorObj>({ code: '', message: '' });
 
-	const fetching = (reqData?: any) => {
+	const fetching = (reqData?: any, params?: any) => {
 
 		if (loading) return;
 		setLoading(true);
+
+		console.log(':: REQUEST :: ', method, url, { reqData, params });
 
 		axios({
 			method,
 			url,
 			data: reqData,
+			params,
 		}).then((res: any) => {
+			console.log(':: RESPONSE :: ', res);
 			if (res.ok && !res.code) {
 				res.data && setData(res.data);
 				setError({ code: '', message: '' });
@@ -55,6 +59,10 @@ const useFetch = <S>({ method, url, onError, onSuccess }:UseFetchParams<S>) => {
 		if (error.code && onError) onError(error);
 		else if (data && onSuccess) onSuccess(data);
 	}, [data, loading, error]);
+
+	useEffect(() => {
+		if (params) fetching(null, params);
+	}, []);
 
 
 	const call = (reqData?: any) => {
