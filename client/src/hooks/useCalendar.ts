@@ -1,15 +1,8 @@
 import { h } from "preact";
 import { useCallback, useState } from "preact/hooks";
-import { Vec2 } from "types";
+import { Account, Vec2 } from "types";
 
-export interface CalendarData {
-	/** YYYY-MM-DD */
-	id: string;
-	date: string;
-	data: string;
-}
-
-export interface GrappingCalendarData extends CalendarData {
+export interface GrappingCalendarData extends Account {
 	x: number;
 	y: number;
 	width: number;
@@ -20,13 +13,13 @@ export interface DayItem {
 	each: number,
 	date: string,
 	isThisMonth: boolean,	
-	data?: CalendarData[];
+	data?: Account[];
 }
 
 interface UseCalendar {
 	date: string;
-	data: CalendarData[];
-	onUpdate: (i: number, data: CalendarData) => void;
+	data: Account[];
+	onUpdate: (i: number, data: Account) => void;
 }
 
 
@@ -35,16 +28,17 @@ const isLeap = ( year: number ) => {
 	else return 0;
 }
 
-const getDataAligned = (data: CalendarData[]) => {
-	const results: {[x:string]: CalendarData[]} = {}
+const getDataAligned = (data: Account[]) => {
+	const results: {[x:string]: Account[]} = {}
 	for ( const item of data ) {
-		if (!results[item.date]) results[item.date] = [];
-		results[item.date].push(item);
+		const date = item.datetime.split('T')[0];
+		if (!results[date]) results[date] = [];
+		results[date].push(item);
 	}
 	return results;
 }
 
-export const getCalendar = ( year: number, month: number, data: CalendarData[] ) => {
+export const getCalendar = ( year: number, month: number, data: Account[] ) => {
 
 	const alignedData = getDataAligned(data);
 
@@ -151,7 +145,7 @@ export default ({ date, data, onUpdate }: UseCalendar) => {
 		}
 	}, [grapping]);
 	
-	const handleGrap = useCallback((id: string) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+	const handleGrap = useCallback((id: number) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
 		const grappingItem = data.find(item => item.id === id);
 		if ( grappingItem ) {
 			const rect = e.currentTarget.getBoundingClientRect();
@@ -168,7 +162,8 @@ export default ({ date, data, onUpdate }: UseCalendar) => {
 	const handleDrop = useCallback((date: string) => () => {
 		if (grapping) {
 			const grepedIndex = data.findIndex(item => item.id === grapping.id);
-			onUpdate(grepedIndex, { date } as CalendarData);
+			const newDatetime = date + 'T' + grapping.datetime.split('T')[1]
+			onUpdate(grepedIndex, { datetime: newDatetime } as Account);
 		}
 		setGrapping(null);
 	}, [data, grapping])

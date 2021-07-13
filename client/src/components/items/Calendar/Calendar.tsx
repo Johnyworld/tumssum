@@ -10,7 +10,7 @@ interface CalendarProps {
 	calendar: DayItem[][];
 	grapping: GrappingCalendarData | null;
 	grappingPos: Vec2;
-	onGrap: (id: string) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
+	onGrap: (id: number) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onDrop: (date: string) => () => void;
 	onDragging: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 }
@@ -40,7 +40,7 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ calendar, grapping, grap
 									{grapping && hover && <div class='calendar-col-grapping' />}
 									{col.data && col.data.map(item => (
 										<Card padding='small' onMouseDown={onGrap(item.id)} onClick={() => {}} >
-											{item.data}
+											{item.title}
 										</Card>
 									))}
 								</div>
@@ -52,7 +52,7 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ calendar, grapping, grap
 
 			{ grapping &&
 				<Card padding='small' class='calendar-grapping' style={{ left: grappingPos.x, top: grappingPos.y, width: grapping.width, height: grapping.height }} >
-					{grapping.data}
+					{grapping.title}
 				</Card>
 			}
 		</div>
