@@ -24,14 +24,11 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		params: { user_id: user!.id },
 	});
 
-	if (!accounts.data) return null;
-
 	const { calendar, grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useCalendar({
 		date,
-		data: accounts.data,
+		data: accounts.data || [],
 		onUpdate: (i, data) => {console.log(i, data)}
 	});
-
 
 	return (
 		<div class='monthly-calendar' >
