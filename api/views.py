@@ -336,9 +336,8 @@ def budget(request):
 ###################### Budget ######################
 @api_view(['GET'])
 def accounts(request):
-  reqData = json.loads(request.body)
   if request.method == 'GET':
-    return accountController.getAccounts(reqData)
+    return accountController.getAccounts(request)
 
 
 @api_view(['POST', 'PUT', 'DELETE'])

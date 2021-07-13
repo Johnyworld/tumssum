@@ -1,21 +1,23 @@
+from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
 from api.utils.serializers import AccountSerializer
 from api.models import Account
 from rest_framework.response import Response
 
 
-def getAccounts(reqData):
-  user_id = reqData.get('user_id')
-  category_id = reqData.get('category_id') # Not Required
-  bank_id = reqData.get('bank_id') # Not Required
-  month_id = reqData.get('month_id') # Not Required
+def getAccounts(request):
+  user_id = request.GET.get('user_id')
+  category_id = request.GET.get('category_id') # Not Required
+  bank_id = request.GET.get('bank_id') # Not Required
+  month_id = request.GET.get('month_id') # Not Required
   
   results1 = Account.objects.filter(user_id = user_id)
   results2 = results1.filter(category_id = category_id) if category_id != None else results1
   results3 = results2.filter(bank_id = bank_id) if bank_id != None else results2
   results4 = results3.filter(month_id = month_id) if month_id != None else results3
 
-  return Response(AccountSerializer(results4, many=True).data)
+  res = { 'ok': True, 'data': AccountSerializer(results4, many=True).data }
+  return JsonResponse(res)
 
 
 def postAccount(reqData):
