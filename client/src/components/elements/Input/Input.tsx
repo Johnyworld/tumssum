@@ -13,10 +13,13 @@ export interface InputProps extends DefaultProps {
 	fluid?: boolean;
 	required?: boolean;
 	readOnly?: boolean;
+	min?: number;
+	max?: number;
+	maxLength?: number;
 	onChange?: h.JSX.GenericEventHandler<HTMLInputElement>;
 }
 
-const Input: FunctionalComponent<InputProps> = ({ children, class:className, style, name, containerClass, type, label, value, placeholder, fluid, required, readOnly, onChange }) => {
+const Input: FunctionalComponent<InputProps> = ({ children, class:className, style, name, containerClass, type, label, value, placeholder, fluid, required, readOnly, min, max, maxLength, onChange }) => {
 	return (
 		<div class={getClassNames([ 'input-container', containerClass, [fluid, 'input-container-fluid'] ])}>
 			<label>{label}</label>
@@ -29,6 +32,9 @@ const Input: FunctionalComponent<InputProps> = ({ children, class:className, sty
 				placeholder={placeholder}
 				required={required}
 				readOnly={readOnly}
+				min={min}
+				max={max}
+				maxLength={maxLength}
 				children={children}
 				onChange={onChange}
 			/>
