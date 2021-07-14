@@ -333,7 +333,7 @@ def budget(request):
     return budgetController.deleteBudget(reqData)
 
 
-###################### Budget ######################
+###################### Accounts ######################
 @api_view(['GET'])
 def accounts(request):
   if request.method == 'GET':

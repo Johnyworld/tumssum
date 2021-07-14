@@ -47,7 +47,8 @@ def postAccount(reqData):
 
   newAccount.save()
 
-  return Response(AccountSerializer(newAccount, many=False).data)
+  res = { 'ok': True, 'data': AccountSerializer(newAccount, many=False).data }
+  return JsonResponse(res)
 
 
 def putAccount(reqData):

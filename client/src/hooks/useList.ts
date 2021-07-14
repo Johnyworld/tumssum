@@ -10,6 +10,10 @@ export default <S>(initialList?: S[]) => {
 		tempList[index] = { ...tempList[index], ...newData };
 		setList(tempList);
 	}
-	
-	return { list, setList, handleUpdate };
+
+	const handleAdd = (newData: S) => {
+		setList([ ...list, newData ]);
+	}
+
+	return { list, setList, handleUpdate, handleAdd };
 }
