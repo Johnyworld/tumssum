@@ -39,8 +39,9 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ calendar, grapping, grap
 									<p class={getClassNames([ 't-right', [!col.isThisMonth, 'c-gray'] ])}>{col.each}</p>
 									{grapping && hover && <div class='calendar-col-grapping' />}
 									{col.data && col.data.map(item => (
-										<Card padding='small' onMouseDown={onGrap(item.id)} onClick={() => {}} >
-											{item.title}
+										<Card padding='tiny' onMouseDown={onGrap(item.id)} onClick={() => {}} >
+											<p class='f-small f-bold'>{item.title}</p>
+											<p class='f-small t-right c-red'>{item.account}</p>
 										</Card>
 									))}
 								</div>
@@ -52,7 +53,8 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ calendar, grapping, grap
 
 			{ grapping &&
 				<Card padding='small' class='calendar-grapping' style={{ left: grappingPos.x, top: grappingPos.y, width: grapping.width, height: grapping.height }} >
-					{grapping.title}
+					<p class='f-small f-bold'>{grapping.title}</p>
+					<p class='f-small t-right c-red'>{grapping.account}</p>
 				</Card>
 			}
 		</div>

@@ -5,7 +5,7 @@ import { getClassNames } from '~utils/classNames';
 import './Card.scss';
 
 export interface CardProps extends DefaultProps, JSXInternal.DOMAttributes<HTMLDivElement> {
-	padding?: 'none' | 'small' | 'regular';
+	padding?: 'none' | 'tiny' | 'small' | 'regular';
 	hideMobile?: boolean;
 }
 
