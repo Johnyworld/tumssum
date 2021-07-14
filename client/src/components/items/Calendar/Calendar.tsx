@@ -4,6 +4,7 @@ import { Vec2 } from 'types';
 import Card from '~components/elements/Card';
 import { DayItem, GrappingCalendarData } from '~hooks/useCalendar';
 import { getClassNames } from '~utils/classNames';
+import AccountItem from '../AccountItem';
 import './Calendar.scss';
 
 interface CalendarProps {
@@ -39,10 +40,12 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ calendar, grapping, grap
 									<p class={getClassNames([ 't-right', [!col.isThisMonth, 'c-gray'] ])}>{col.each}</p>
 									{grapping && hover && <div class='calendar-col-grapping' />}
 									{col.data && col.data.map(item => (
-										<Card padding='tiny' onMouseDown={onGrap(item.id)} onClick={() => {}} >
-											<p class='f-small f-bold'>{item.title}</p>
-											<p class='f-small t-right c-red'>{item.account}</p>
-										</Card>
+										<AccountItem
+											title={item.title}
+											amount={item.account}
+											onClick={() => {}}
+											onMouseDown={onGrap(item.id)}
+										/>
 									))}
 								</div>
 							)
@@ -52,10 +55,12 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ calendar, grapping, grap
 			</div>
 
 			{ grapping &&
-				<Card padding='small' class='calendar-grapping' style={{ left: grappingPos.x, top: grappingPos.y, width: grapping.width, height: grapping.height }} >
-					<p class='f-small f-bold'>{grapping.title}</p>
-					<p class='f-small t-right c-red'>{grapping.account}</p>
-				</Card>
+				<AccountItem
+					title={grapping.title}
+					amount={grapping.account}
+					class='calendar-grapping'
+					style={{ left: grappingPos.x, top: grappingPos.y, width: grapping.width, height: grapping.height }} 
+				/>
 			}
 		</div>
 	)
