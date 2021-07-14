@@ -6,7 +6,8 @@ export default {
 	title: 'Items/NavigationMenu',
 	component: NavigationMenu,
 	argTypes: {
-	
+    direction: { control: { type: 'select', options: [ 'column', 'row' ]}},
+    menuItemType: { control: { type: 'select', options: [ 'text', 'box' ]}},
 	}
 } as Meta;
 
@@ -16,7 +17,7 @@ export const Default = Template.bind({});
 Default.args = {
 	list: [
 		{ id: 'home', text: 'Home', icon: 'home' },
-		{ id: 'budget', text: 'Budget', icon: 'home' },
+		{ id: 'budget', text: 'Budget', icon: 'storage' },
 	],
 	selected: 'home',
 };
