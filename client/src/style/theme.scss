@@ -1,3 +1,5 @@
+@import './variables';
+
 $common-theme: (
 	white: #fff,
 	black: #000,
@@ -63,9 +65,16 @@ $dark-theme: (
 	--weight-regular: 400;
 	--weight-bold: 700;
 
+	--bp-1: #{$bp-1};
+	--bp-2: #{$bp-2};
+	--bp-3: #{$bp-3};
+	--bp-4: #{$bp-4};
+
 	--shadow-small: 0 2px 2px rgba(0, 0, 0, 0.08);
 
+	--layer-modal: 30;
 	--layer-header: 20;
+	--layer-on: 1;
 
 	--header-height: 60px;
 
