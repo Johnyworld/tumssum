@@ -15,6 +15,10 @@ interface ModalHeaderProps extends DefaultProps {
 	onClose: () => void;
 }
 
+interface ModalContentProps extends DefaultProps {
+	padding?: boolean;
+}
+
 interface ModalFooterProps extends DefaultProps {
 	flexEnd?: boolean;
 	padding?: boolean;
@@ -26,7 +30,7 @@ const Modal: FunctionalComponent<ModalProps> = ({ children, isOpen }) => {
 		<Portal>
 			<div class='modal'>
 				<div class='modal-dim' />
-				<div class='modal-content'>
+				<div class='modal-container'>
 					{children}
 				</div>
 			</div>
@@ -36,16 +40,24 @@ const Modal: FunctionalComponent<ModalProps> = ({ children, isOpen }) => {
 
 export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, class: className, heading, onClose }) => {
 	return (
-		<div class={getClassNames([ 'modal-header flex p-regular', className ])} style={style} >
+		<div class={getClassNames([ 'modal-header flex p-large p-regular-mobile', className ])} style={style} >
 			<h3>{heading}</h3>
 			<Icon size='medium' as='x' onClick={onClose} />
 		</div>
 	)
 }
 
+export const ModalContent: FunctionalComponent<ModalContentProps> = ({ children, style, class: className, padding }) => {
+	return (
+		<div class={getClassNames([ 'modal-content', className, [padding, 'p-large p-regular-mobile'] ])} style={style}>
+			{children}
+		</div>
+	)
+}
+
 export const ModalFooter: FunctionalComponent<ModalFooterProps> = ({ children, style, class: className, flexEnd, padding }) => {
 	return (
-		<div class={getClassNames([ 'modal-footer', className, [flexEnd, 'flex flex-end flex-gap-small'], [padding, 'p-regular'] ])} style={style}>
+		<div class={getClassNames([ 'modal-footer', className, [flexEnd, 'flex flex-end flex-gap-small'], [padding, 'p-large p-regular-mobile'] ])} style={style}>
 			{children}
 		</div>
 	)
@@ -53,5 +65,6 @@ export const ModalFooter: FunctionalComponent<ModalFooterProps> = ({ children, s
 
 export default Object.assign(Modal, {
   Header: ModalHeader,
+  Content: ModalContent,
 	Footer: ModalFooter,
 });
