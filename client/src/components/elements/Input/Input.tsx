@@ -1,10 +1,9 @@
-import { h, FunctionalComponent } from 'preact';
+import { h, FunctionalComponent, Ref } from 'preact';
 import { DefaultProps } from 'types';
 import { getClassNames } from '~utils/classNames';
 import './Input.scss';
 
 export interface InputProps extends DefaultProps {
-	containerClass?: string;
 	name: string;	
 	type?: 'text' | 'number' | 'email' | 'password',
 	label?: string;
@@ -13,18 +12,19 @@ export interface InputProps extends DefaultProps {
 	fluid?: boolean;
 	required?: boolean;
 	readOnly?: boolean;
+	removeAutoComplete?: boolean;
 	min?: number;
 	max?: number;
 	maxLength?: number;
+	inputRef?: Ref<HTMLInputElement>
 	onChange?: h.JSX.GenericEventHandler<HTMLInputElement>;
 }
 
-const Input: FunctionalComponent<InputProps> = ({ children, class:className, style, name, containerClass, type, label, value, placeholder, fluid, required, readOnly, min, max, maxLength, onChange }) => {
+const Input: FunctionalComponent<InputProps> = ({ children, class: className, style, name, type, label, value, placeholder, fluid, required, readOnly, removeAutoComplete, min, max, maxLength, inputRef, onChange }) => {
 	return (
-		<div class={getClassNames([ 'input-container', containerClass, [fluid, 'input-container-fluid'] ])}>
+		<div class={getClassNames([ 'input', className, [fluid, 'input-fluid'] ])}>
 			<label>{label}</label>
 			<input
-				class={getClassNames([ 'input', className ])}
 				style={style}
 				name={name}
 				type={type}
@@ -32,11 +32,13 @@ const Input: FunctionalComponent<InputProps> = ({ children, class:className, sty
 				placeholder={placeholder}
 				required={required}
 				readOnly={readOnly}
+				autoComplete={removeAutoComplete ? 'off' : undefined}
 				min={min}
 				max={max}
 				maxLength={maxLength}
 				children={children}
 				onChange={onChange}
+				ref={inputRef}
 			/>
 		</div>
 	)
