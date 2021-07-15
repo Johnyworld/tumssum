@@ -73,3 +73,12 @@ h5 {
 h6 {
 	font-size: var(--font-small);
 }
+
+input {
+	outline: none;
+	border-radius: 0;
+}
+
+input::placeholder {
+	color: var(--color-gray_weak);
+}

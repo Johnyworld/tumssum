@@ -22,9 +22,10 @@ export interface InputProps extends DefaultProps {
 
 const Input: FunctionalComponent<InputProps> = ({ children, class: className, style, name, type, label, value, placeholder, fluid, required, readOnly, removeAutoComplete, min, max, maxLength, inputRef, onChange }) => {
 	return (
-		<div class={getClassNames([ 'input', className, [fluid, 'input-fluid'] ])}>
-			<label>{label}</label>
+		<div class={getClassNames([ 'input', 'input-container', className, [fluid, 'input-container-fluid'] ])}>
+			{ label && <label class='input-label'>{label}</label> }
 			<input
+				class='input-box'
 				style={style}
 				name={name}
 				type={type}
