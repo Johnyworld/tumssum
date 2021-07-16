@@ -1,11 +1,14 @@
 import { h, FunctionalComponent } from 'preact';
-import { useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { Account } from 'types';
 import Button from '~components/elements/Button';
+import DatePicker from '~components/elements/DatePicker';
 import Input from '~components/elements/Input';
+import Selector from '~components/elements/Selector/Selector';
 import Calendar from '~components/items/Calendar';
 import MonthSelector from '~components/items/MonthSelector';
 import NavigationMenu from '~components/items/NavigationMenu';
+import Modal from '~components/layouts/Modal';
 import useCalendar from '~hooks/useCalendar';
 import useFetch from '~hooks/useFetch';
 import useInput from '~hooks/useInput';
@@ -22,6 +25,8 @@ const MonthlyCalendar: FunctionalComponent = () => {
 	const dispatch = useDispatch();
 	const toggleCreateModal = useToggle();
 	const [selected, setSelected] = useState('calendar');
+	const [create, setCreate] = useState('minus');
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	const [title, handleChangeTitle] = useInput('');
 	const [amount, handleChangeAmount] = useInput('');
@@ -42,6 +47,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		url: '/api/account/',
 		onSuccess: data => {
 			handleAdd(data);
+			toggleCreateModal.handleOff();
 		}
 	});
 
@@ -51,25 +57,23 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		onUpdate: handleUpdate,
 	});
 
-	const handleCreateAccount = () => {
+	const handleCreateAccount: h.JSX.GenericEventHandler<HTMLFormElement> = (e) => {
+		e.preventDefault();
 		if (createNewAccount.loading) return;
 		createNewAccount.call({
 			user_id: user!.id,
 			title,
-			account: amount,
+			account: create === 'minus' ? -amount : amount,
 			datetime: new Date().toISOString(),
 		})
 	}
 
-	// const handleCreateAccount = (title: string, amount: number, datetime: string) => {
-	// 	if (createNewAccount.loading) return;
-	// 	createNewAccount.call({
-	// 		user_id: user!.id,
-	// 		title,
-	// 		account: amount,
-	// 		datetime,
-	// 	})
-	// }
+
+	useEffect(() => {
+		if (inputRef.current && toggleCreateModal.checked) {
+			inputRef.current.focus();
+		}
+	}, [inputRef.current, toggleCreateModal.checked]);
 
 	return (
 		<div class='monthly-calendar' >
@@ -92,13 +96,12 @@ const MonthlyCalendar: FunctionalComponent = () => {
 				/>
 				<div class='flex flex-gap-regular' style={{ paddingRight: '.5rem' }}>
 					<p class='f-bold t-fit pointer' onClick={() => dispatch(changeMonthToday())}>Today</p>
-					<Button size='small' onClick={handleCreateAccount} children='+ 새로 추가' />
+					<Button size='small' onClick={toggleCreateModal.handleOn} children='+ 새로 추가' />
 				</div>
 			</div>
 
-			<Input name='title' label='title' value={title} onChange={handleChangeTitle} />
-			<Input name='amount' label='amount' value={amount} onChange={handleChangeAmount} />
-			
+			<DatePicker date={new Date().toISOString()} onChange={(date) => console.log('DATE', date)} />
+
 			<Calendar
 				calendar={calendar}
 				grapping={grapping}
@@ -107,6 +110,30 @@ const MonthlyCalendar: FunctionalComponent = () => {
 				onDrop={handleDrop}
 				onDragging={handleDragging}
 			/>
+
+			<Modal isOpen={toggleCreateModal.checked} >
+				<form onSubmit={handleCreateAccount}>
+					<Modal.Header heading='새 기록 추가하기' onClose={toggleCreateModal.handleOff} />
+					<Modal.Content padding class='gap-regular'>
+						<Selector
+							fluid
+							label='지출/수입'
+							selected={create}
+							onChange={(id) => () => setCreate(id)}
+							list={[
+								{ id: 'minus', text: '지출' },
+								{ id: 'plus', text: '수입' },
+							]}
+						/>
+						<Input fluid required name='title' label='제목' placeholder='무엇을 지출/수입 하셨나요?' value={title} onChange={handleChangeTitle} inputRef={inputRef} />
+						<Input fluid required name='amount' label='금액' placeholder='금액을 입력하세요.' value={amount} onChange={handleChangeAmount} type='number' min={0} removeAutoComplete />
+						<div style={{ height: '30px' }} />
+					</Modal.Content>
+					<Modal.Footer>
+						<Button border='squared' fluid size='large' type='submit' children='확인' />
+					</Modal.Footer>
+				</form>
+			</Modal>
 
 		</div>
 	)

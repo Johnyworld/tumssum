@@ -29,7 +29,7 @@ const Modal: FunctionalComponent<ModalProps> = ({ children, isOpen }) => {
 		!isOpen ? null :
 		<Portal>
 			<div class='modal'>
-				<div class='modal-dim' />
+				<div class='modal-dim dim' />
 				<div class='modal-container'>
 					{children}
 				</div>
