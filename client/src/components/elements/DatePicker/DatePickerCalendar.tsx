@@ -36,12 +36,18 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 	return (
 		<Portal>
 			<div class='date-picker-dim' onClick={onClose} />
-			<div class='date-picker-board' style={{ height: `${height}px`, width: `${width}px`, top: pos.y - 8, left: pos.x - width/2 }}>
+			<div class='date-picker-board p-small' style={{ height: `${height}px`, width: `${width}px`, top: pos.y - 8, left: pos.x - width/2 }}>
 				<div class='flex'>
-					<p>{viewDate.substr(0, 7)}</p>
+					<div class='p-small'>
+						<p>{viewDate.substr(0, 7)}</p>
+					</div>
 					<div class='flex'>
-						<Icon as='arrowLeft' onClick={handlePrevMonth} />
-						<Icon as='arrowRight' onClick={handleNextMonth} />
+						<div class='p-small pointer' onClick={handlePrevMonth}>
+							<Icon as='arrowLeft' />
+						</div>
+						<div class='p-small pointer' onClick={handleNextMonth}>
+							<Icon as='arrowRight' />
+						</div>
 					</div>
 				</div>
 				{ cal.map(row => (
