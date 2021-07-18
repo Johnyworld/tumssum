@@ -33,10 +33,10 @@ const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, fluid, 
 
 		} else {
 			const rect = e.currentTarget.getBoundingClientRect();
-			let x = rect.x + rect.width - 16;
-			let y = rect.y + rect.height;
+			let x = rect.x;
+			let y = rect.y + rect.height - 1;
 			if ( y + PICKER_HEIGHT > window.innerHeight && y > PICKER_HEIGHT ) {
-				y = y - PICKER_HEIGHT - rect.height + 16;
+				y = y - PICKER_HEIGHT - rect.height + 2;
 			}
 			setPos({ x, y });
 		}

@@ -42,7 +42,7 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 	return (
 		<Portal>
 			<div class='date-picker-dim' onClick={onClose} />
-			<div class='date-picker-calendar p-small' style={{ height: `${height}px`, width: `${width}px`, top: pos.y - 8, left: pos.x - width/2 }}>
+			<div class='date-picker-calendar p-small' style={{ height: `${height}px`, width: `${width}px`, top: pos.y, left: pos.x }}>
 				<div class='flex'>
 					<div class='p-small'>
 						<p class='f-large'>
