@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { useCallback, useState } from 'preact/hooks';
 import { Vec2 } from 'types';
-import Portal from '~components/Portal';
+import { getClassNames } from '~utils/classNames';
 import Icon from '../Icon';
 import './DatePicker.scss';
 import DatePickerCalendar from './DatePickerCalendar';
@@ -13,6 +13,8 @@ interface DatePickerProps {
 	/** YYYY-MM-DD */
 	date?: string;
 
+	fluid?: boolean;
+
 	onChange?: (date: string) => void;
 }
 
@@ -21,7 +23,7 @@ const PICKER_HEIGHT = 228;
 const PICKER_WIDTH = 200;
 
 
-const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, onChange }) => {
+const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, fluid, onChange }) => {
 
 	const [pos, setPos] = useState<Vec2 | null>(null);
 
@@ -50,10 +52,10 @@ const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, onChang
 	}, [pos, onChange]);
 
 	return (
-		<div class='date-picker input-container'>
+		<div class={getClassNames([ 'date-picker input-container', [fluid, 'input-container-fluid'] ])}>
 			{ label && <label class='input-label'>{label}</label> }
 			<div class='date-picker-input input-box flex' onClick={handleShowPicker}>
-				{date && date?.split('T')[0]}
+				{date ? date?.split('T')[0] : <p />}
 				<Icon as='calendar' />
 			</div>
 

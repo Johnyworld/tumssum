@@ -27,6 +27,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 	const [selected, setSelected] = useState('calendar');
 	const [create, setCreate] = useState('minus');
 	const inputRef = useRef<HTMLInputElement>(null);
+	const [createDate, _, setValue] = useInput(new Date().toISOString());
 
 	const [title, handleChangeTitle] = useInput('');
 	const [amount, handleChangeAmount] = useInput('');
@@ -100,8 +101,6 @@ const MonthlyCalendar: FunctionalComponent = () => {
 				</div>
 			</div>
 
-			<DatePicker date={new Date().toISOString()} onChange={(date) => console.log('DATE', date)} />
-
 			<Calendar
 				calendar={calendar}
 				grapping={grapping}
@@ -127,6 +126,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 						/>
 						<Input fluid required name='title' label='제목' placeholder='무엇을 지출/수입 하셨나요?' value={title} onChange={handleChangeTitle} inputRef={inputRef} />
 						<Input fluid required name='amount' label='금액' placeholder='금액을 입력하세요.' value={amount} onChange={handleChangeAmount} type='number' min={0} removeAutoComplete />
+						<DatePicker fluid label='날짜' date={createDate} onChange={(date) => setValue(date)} />
 						<div style={{ height: '30px' }} />
 					</Modal.Content>
 					<Modal.Footer>
