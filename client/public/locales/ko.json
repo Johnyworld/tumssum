@@ -15,5 +15,19 @@
   "auth_register_is_aleady_user": "이미 회원이신가요?",
   "auth_register_is_first_visit": "처음 방문하셨나요?",
   "auth_social_kakao": "카카오 계정으로 계속",
-  "auth_social_google": "구글 계정으로 계속"
+  "auth_social_google": "구글 계정으로 계속",
+  "day_0_long": "일요일",
+  "day_1_long": "월요일",
+  "day_2_long": "화요일",
+  "day_3_long": "수요일",
+  "day_4_long": "목요일",
+  "day_5_long": "금요일",
+  "day_6_long": "토요일",
+  "day_0_short": "일",
+  "day_1_short": "월",
+  "day_2_short": "화",
+  "day_3_short": "수",
+  "day_4_short": "목",
+  "day_5_short": "금",
+  "day_6_short": "토"
 }
