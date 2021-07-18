@@ -4,37 +4,40 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
 
-.flex-inline {
-  display: inline-flex;
-}
+	&-inline {
+		display: inline-flex;
+	}
 
-.flex-end {
-  justify-content: flex-end;
-}
-
-.flex-start {
-  justify-content: flex-start;
-}
-
-.flex-gap-tiny {
-	> *:not(:first-child) {
-		margin-left: .25rem;
+	&-end {
+		justify-content: flex-end;
+	}
+	
+	&-start {
+		justify-content: flex-start;
 	}
 }
 
-.flex-gap-small {
-	> *:not(:first-child) {
-		margin-left: .5rem;
+.flex-gap {
+	&-tiny {
+		> *:not(:first-child) {
+			margin-left: .25rem;
+		}
+	}
+	
+	&-small {
+		> *:not(:first-child) {
+			margin-left: .5rem;
+		}
+	}
+	
+	&-regular {
+		> *:not(:first-child) {
+			margin-left: 1rem;
+		}
 	}
 }
 
-.flex-gap-regular {
-	> *:not(:first-child) {
-		margin-left: 1rem;
-	}
-}
 
 @include maxMobile {
 	.flex-column-mobile {
