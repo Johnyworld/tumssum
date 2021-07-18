@@ -39,6 +39,31 @@
 }
 
 
+.grid {
+	display: grid;
+}
+
+.grid-gap {
+	&-small {
+		gap: 0.5rem;
+	}
+
+	&-regular {
+		gap: 1rem;
+	}
+
+	&-medium {
+		gap: 1.25rem;
+	}
+}
+
+@for $i from 1 through 6 {
+  .grid-col-#{$i} {
+		grid-template-columns: repeat(#{$i}, 1fr);
+  }
+}
+
+
 @include maxMobile {
 	.flex-column-mobile {
 		flex-direction: column;	
