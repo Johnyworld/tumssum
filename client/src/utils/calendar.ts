@@ -14,6 +14,21 @@ export const getMonthDate = (date: string, sum: number) => {
 	return then.toISOString();
 }
 
+const englishMonthes = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const getMonthString = (lang: string, month?: number) => {
+	if (month === undefined) return month;
+	if (lang === 'ko') return (month+1 < 10 ? '0' : '') + (month+1);
+	return englishMonthes[month];
+}
+
+export const getDateString = (lang: string, { year, month, date }: { year?: number, month?: number, date?: number }) => {
+	const M = getMonthString(lang, month);
+	const arr = [date, M, year].filter(item=> !!item);
+	if (lang === 'ko') return arr.reverse().join('. ');
+	return arr.join(' ');
+}
+
+
 const isLeap = ( year: number ) => {
 	if ((( year % 4 === 0 ) && !( year % 100 === 0 )) || ( year % 400 === 0 )) return 1;
 	else return 0;

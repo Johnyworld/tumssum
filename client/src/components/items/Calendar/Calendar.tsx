@@ -1,8 +1,8 @@
 import { h, FunctionalComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import { Vec2 } from 'types';
-import Card from '~components/elements/Card';
-import { DayItem, GrappingCalendarData } from '~hooks/useCalendar';
+import { GrappingCalendarData } from '~hooks/useCalendar';
+import { DayItem } from '~utils/calendar';
 import { getClassNames } from '~utils/classNames';
 import AccountItem from '../AccountItem';
 import './Calendar.scss';
