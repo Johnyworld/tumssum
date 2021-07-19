@@ -19,7 +19,7 @@ interface DatePickerProps {
 }
 
 
-const PICKER_HEIGHT = 228;
+const PICKER_HEIGHT = 256;
 const PICKER_WIDTH = 200;
 
 

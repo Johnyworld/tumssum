@@ -5,6 +5,7 @@ import { Vec2 } from 'types';
 import Portal from '~components/Portal';
 import { getCalendar, getDateString, getMonthDate } from '~utils/calendar';
 import { getClassNames } from '~utils/classNames';
+import Button from '../Button';
 import Icon from '../Icon';
 
 interface DatePickerCalendarProps {
@@ -21,6 +22,11 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 	const { t } = useTranslation();
 
 	const [viewDate, setViewDate] = useState(date);
+
+
+	const handleToday = () => {
+		setViewDate(new Date().toISOString());
+	}
 
 	const handlePrevMonth = () => {
 		setViewDate(getMonthDate(viewDate, -1));
@@ -78,6 +84,13 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 						))}
 					</div>
 				))}
+
+				<p
+					class='date-picker-calendar-today-button p-regular pointer f-small f-bold'
+					onClick={handleToday}
+					children={'Today'}
+				/>
+
 			</div>
 		</Portal>
 	)
