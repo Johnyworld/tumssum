@@ -8,6 +8,7 @@ import './Modal.scss';
 
 interface ModalProps extends DefaultProps {
 	isOpen: boolean;
+	onClose: () => void;
 }
 
 interface ModalHeaderProps extends DefaultProps {
@@ -24,12 +25,12 @@ interface ModalFooterProps extends DefaultProps {
 	padding?: boolean;
 }
 
-const Modal: FunctionalComponent<ModalProps> = ({ children, isOpen }) => {
+const Modal: FunctionalComponent<ModalProps> = ({ children, isOpen, onClose }) => {
 	return (
 		!isOpen ? null :
 		<Portal>
 			<div class='modal'>
-				<div class='modal-dim dim' />
+				<div class='modal-dim dim' onClick={onClose} />
 				<div class='modal-container'>
 					{children}
 				</div>

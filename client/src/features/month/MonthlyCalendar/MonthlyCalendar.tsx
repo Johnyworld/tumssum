@@ -110,7 +110,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 				onDragging={handleDragging}
 			/>
 
-			<Modal isOpen={toggleCreateModal.checked} >
+			<Modal isOpen={toggleCreateModal.checked} onClose={toggleCreateModal.handleOff} >
 				<form onSubmit={handleCreateAccount}>
 					<Modal.Header heading='새 기록 추가하기' onClose={toggleCreateModal.handleOff} />
 					<Modal.Content padding class='gap-regular'>
