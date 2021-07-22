@@ -4,6 +4,7 @@ import Button from '~components/elements/Button';
 import DatePicker from '~components/elements/DatePicker';
 import Input from '~components/elements/Input';
 import Selector from '~components/elements/Selector/Selector';
+import TimePicker from '~components/elements/TimePicker';
 import Modal from '~components/layouts/Modal';
 import useInput from '~hooks/useInput';
 
@@ -25,7 +26,8 @@ const CreateAccountModalRender: FunctionalComponent<CreateAccountModalProps> = (
 	const [title, handleChangeTitle] = useInput('');
 	const [amount, handleChangeAmount] = useInput('');
 	const [isIncome, setIsIncome] = useState(false);
-	const [createDate, _, setValue] = useInput(new Date().toISOString());
+	const [date, _, setDate] = useInput(new Date().toISOString());
+	const [time, __, setTime] = useInput('');
 
 
 	const handleChangeIsIncome = (id: string) => () => {
@@ -36,7 +38,7 @@ const CreateAccountModalRender: FunctionalComponent<CreateAccountModalProps> = (
 
 	const handleSubmit: h.JSX.GenericEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
-		onCreateAccount(title, isIncome, +amount, createDate);
+		onCreateAccount(title, isIncome, +amount, date);
 	}
 
 
@@ -65,8 +67,8 @@ const CreateAccountModalRender: FunctionalComponent<CreateAccountModalProps> = (
 					<Input fluid required name='title' label='제목' placeholder='무엇을 지출/수입 하셨나요?' value={title} onChange={handleChangeTitle} inputRef={inputRef} />
 					<Input fluid required name='amount' label='금액' placeholder='금액을 입력하세요.' value={amount} onChange={handleChangeAmount} type='number' min={0} removeAutoComplete />
 					<div class='grid grid-col-2 grid-gap-regular'>
-						<DatePicker fluid label='날짜' date={createDate} onChange={(date) => setValue(date)} />
-						<DatePicker fluid label='날짜' date={createDate} onChange={(date) => setValue(date)} />
+						<DatePicker fluid label='날짜' date={date} onChange={(date) => setDate(date)} />
+						<TimePicker fluid label='시간' time={time} onChange={(date) => setDate(date)} />
 					</div>
 					<div style={{ height: '30px' }} />
 				</Modal.Content>
