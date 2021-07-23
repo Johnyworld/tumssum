@@ -56,7 +56,10 @@ const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, fluid, 
 			{ label && <label class='input-label'>{label}</label> }
 			<div class='date-picker-input input-box flex' onClick={handleShowPicker}>
 				{date ? date?.split('T')[0] : <p />}
-				<Icon as='calendar' />
+				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M1.5 1.5H14.5V14.5H1.5V1.5Z" stroke='var(--color-gray_strong)' />
+					<path d="M1 6L15 6" stroke='var(--color-gray_strong)' />
+				</svg>
 			</div>
 
 			{ pos &&
