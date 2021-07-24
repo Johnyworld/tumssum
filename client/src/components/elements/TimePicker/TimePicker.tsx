@@ -2,7 +2,6 @@ import { h, FunctionalComponent } from 'preact';
 import { useCallback, useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import { getClassNames } from '~utils/classNames';
-import Icon from '../Icon';
 import TimePickerTimer from './TimePickerTimer';
 
 interface TimePickerProps {

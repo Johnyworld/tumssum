@@ -26,7 +26,7 @@ const CreateAccountModalRender: FunctionalComponent<CreateAccountModalProps> = (
 	const [title, handleChangeTitle] = useInput('');
 	const [amount, handleChangeAmount] = useInput('');
 	const [isIncome, setIsIncome] = useState(false);
-	const [date, _, setDate] = useInput(new Date().toISOString());
+	const [date, setDate] = useState(new Date());
 	const [time, __, setTime] = useInput('');
 
 
@@ -38,7 +38,7 @@ const CreateAccountModalRender: FunctionalComponent<CreateAccountModalProps> = (
 
 	const handleSubmit: h.JSX.GenericEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
-		onCreateAccount(title, isIncome, +amount, date);
+		onCreateAccount(title, isIncome, +amount, date.toISOString());
 	}
 
 
@@ -68,7 +68,7 @@ const CreateAccountModalRender: FunctionalComponent<CreateAccountModalProps> = (
 					<Input fluid required name='amount' label='금액' placeholder='금액을 입력하세요.' value={amount} onChange={handleChangeAmount} type='number' min={0} removeAutoComplete />
 					<div class='grid grid-col-2 grid-gap-regular'>
 						<DatePicker fluid label='날짜' date={date} onChange={(date) => setDate(date)} />
-						<TimePicker fluid label='시간' time={time} onChange={(date) => setDate(date)} />
+						{/* <TimePicker fluid label='시간' time={time} onChange={(date) => setDate(date)} /> */}
 					</div>
 					<div style={{ height: '30px' }} />
 				</Modal.Content>

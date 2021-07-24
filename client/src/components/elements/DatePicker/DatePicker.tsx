@@ -2,20 +2,21 @@ import { h, FunctionalComponent } from 'preact';
 import { useCallback, useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import { getClassNames } from '~utils/classNames';
-import Icon from '../Icon';
-import './DatePicker.scss';
 import DatePickerCalendar from './DatePickerCalendar';
+import './DatePicker.scss';
+import { getDateString } from '~utils/calendar';
+import { useTranslation } from 'preact-i18next';
 
 
 interface DatePickerProps {
 	label?: string;
 
 	/** YYYY-MM-DD */
-	date?: string;
+	date?: Date;
 
 	fluid?: boolean;
 
-	onChange?: (date: string) => void;
+	onChange?: (date: Date) => void;
 }
 
 
@@ -25,6 +26,7 @@ const PICKER_WIDTH = 200;
 
 const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, fluid, onChange }) => {
 
+	const { i18n } = useTranslation();
 	const [pos, setPos] = useState<Vec2 | null>(null);
 
 	const handleShowPicker: h.JSX.MouseEventHandler<HTMLDivElement> = (e) => {
@@ -46,7 +48,7 @@ const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, fluid, 
 		setPos(null);
 	}, [pos]);
 
-	const handleChange = useCallback((date: string) => () => {
+	const handleChange = useCallback((date: Date) => {
 		onChange && onChange(date);
 		setPos(null);
 	}, [pos, onChange]);
@@ -55,7 +57,7 @@ const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, fluid, 
 		<div class={getClassNames([ 'date-picker input-container', [fluid, 'input-container-fluid'] ])}>
 			{ label && <label class='input-label'>{label}</label> }
 			<div class='date-picker-input input-box flex' onClick={handleShowPicker}>
-				{date ? date?.split('T')[0] : <p />}
+				{date ? getDateString(i18n.language, { year: date.getFullYear(), month: date.getMonth(), date: date.getDate() }) : <p />}
 				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M1.5 1.5H14.5V14.5H1.5V1.5Z" stroke='var(--color-gray_strong)' />
 					<path d="M1 6L15 6" stroke='var(--color-gray_strong)' />
@@ -64,7 +66,7 @@ const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, fluid, 
 
 			{ pos &&
 				<DatePickerCalendar
-					date={date || new Date().toISOString()}
+					date={date || new Date()}
 					pos={pos}
 					width={PICKER_WIDTH}
 					height={PICKER_HEIGHT}
