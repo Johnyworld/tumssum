@@ -3,16 +3,16 @@ import { useTranslation } from 'preact-i18next';
 import { useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import Portal from '~components/Portal';
-import { getCalendar, getDateString } from '~utils/calendar';
+import { getCalendar, getDateString, getMonthDate } from '~utils/calendar';
 import { getClassNames } from '~utils/classNames';
 import Icon from '../Icon';
 
 interface DatePickerCalendarProps {
-	date: Date;
+	date: string;
 	pos: Vec2;
 	width: number;
 	height: number;
-	onChange: (date: Date) => void;
+	onChange: (date: string) => h.JSX.MouseEventHandler<HTMLDivElement>;
 	onClose: () => void;
 }
 
@@ -24,25 +24,15 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 
 
 	const handleToday = () => {
-		setViewDate(new Date());
+		setViewDate(new Date().toISOString());
 	}
 
 	const handlePrevMonth = () => {
-		const then = date;
-		then.setMonth(then.getMonth() - 1);
-		setViewDate(then);
+		setViewDate(getMonthDate(viewDate, -1));
 	}
 
 	const handleNextMonth = () => {
-		const then = date;
-		then.setMonth(then.getMonth() + 1);
-		setViewDate(then);
-	}
-
-	const handleClickADay = (date: string) => () => {
-		console.log('===== DatePickerCalendar', new Date(date));
-		onChange(new Date(date));
-		onClose();
+		setViewDate(getMonthDate(viewDate, 1));
 	}
 
 
@@ -87,11 +77,9 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 				{ cal.map(row => (
 					<div class='flex'>
 						{ row.map(col => (
-							<div 
-								class={getClassNames([ 'date-picker-calendar-item', [col.isThisMonth, 'date-picker-calendar-date'], [col.each, 'pointer'], [today === col.date, 'date-picker-calendar-today'] ])}
-								children={col.each || ''}
-								onClick={col.each ? handleClickADay(col.date) : undefined}
-							/>
+							<div class={getClassNames([ 'date-picker-calendar-item', [col.isThisMonth, 'date-picker-calendar-date'], [col.each, 'pointer'], [today === col.date, 'date-picker-calendar-today'] ])} onClick={col.each ? onChange(col.date) : undefined}>
+								{col.each || ''}
+							</div>
 						))}
 					</div>
 				))}

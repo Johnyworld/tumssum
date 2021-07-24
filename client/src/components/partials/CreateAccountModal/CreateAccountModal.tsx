@@ -7,6 +7,7 @@ import Selector from '~components/elements/Selector/Selector';
 import TimePicker from '~components/elements/TimePicker';
 import Modal from '~components/layouts/Modal';
 import useInput from '~hooks/useInput';
+import { getLocalString } from '~utils/calendar';
 
 interface CreateAccountModalProps {
 	isOpen: boolean;
@@ -26,7 +27,7 @@ const CreateAccountModalRender: FunctionalComponent<CreateAccountModalProps> = (
 	const [title, handleChangeTitle] = useInput('');
 	const [amount, handleChangeAmount] = useInput('');
 	const [isIncome, setIsIncome] = useState(false);
-	const [date, setDate] = useState(new Date());
+	const [date, _, setDate] = useInput(getLocalString());
 	const [time, __, setTime] = useInput('');
 
 
@@ -38,7 +39,7 @@ const CreateAccountModalRender: FunctionalComponent<CreateAccountModalProps> = (
 
 	const handleSubmit: h.JSX.GenericEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
-		onCreateAccount(title, isIncome, +amount, date.toISOString());
+		onCreateAccount(title, isIncome, +amount, date);
 	}
 
 
