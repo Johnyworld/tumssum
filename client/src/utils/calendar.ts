@@ -29,10 +29,31 @@ export const getDateString = (lang: string, { year, month, date }: { year?: numb
 }
 
 
-export const getLocalString = () => {
-	const then = new Date();
+export const getDateStringByDateType = (lang: string, then: Date) => {
+	const year = then.getFullYear();
+	const month = then.getMonth();
+	const date = then.getDate();
+	return getDateString(lang, { year, month, date });
+}
+
+
+export const getTimeString = () => {
+		
+}
+
+
+export const getZeroNumber = (value: number) => {
+	return (value < 10 ? '0' : '') + value;
+}
+
+
+export const getLocalString = (date?: Date) => {
+	const then = date ? date : new Date();
 	const M = then.getMonth() + 1;
-	return `${then.getFullYear()}-${M<10?'0'+M:M}-${then.getDate()}`;
+	const h = then.getHours();
+	const m = then.getMinutes();
+	const s = then.getSeconds();
+	return `${then.getFullYear()}-${getZeroNumber(M)}-${then.getDate()}T${getZeroNumber(h)}:${getZeroNumber(m)}:${getZeroNumber(s)}`;
 }
 
 

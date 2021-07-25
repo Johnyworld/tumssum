@@ -1,6 +1,8 @@
 import { h, FunctionalComponent } from 'preact';
+import { useTranslation } from 'preact-i18next';
 import { useCallback, useState } from 'preact/hooks';
 import { Vec2 } from 'types';
+import { getDateStringByDateType } from '~utils/calendar';
 import { getClassNames } from '~utils/classNames';
 import './DatePicker.scss';
 import DatePickerCalendar from './DatePickerCalendar';
@@ -24,6 +26,7 @@ const PICKER_WIDTH = 200;
 
 const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, fluid, onChange }) => {
 
+	const { i18n } = useTranslation();
 	const [pos, setPos] = useState<Vec2 | null>(null);
 
 	const handleShowPicker: h.JSX.MouseEventHandler<HTMLDivElement> = (e) => {
@@ -54,7 +57,7 @@ const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, fluid, 
 		<div class={getClassNames([ 'date-picker input-container', [fluid, 'input-container-fluid'] ])}>
 			{ label && <label class='input-label'>{label}</label> }
 			<div class='date-picker-input input-box flex' onClick={handleShowPicker}>
-				{date ? date?.split('T')[0] : <p />}
+				{date ? getDateStringByDateType(i18n.language, new Date(date)) : <p />}
 				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M1.5 1.5H14.5V14.5H1.5V1.5Z" stroke='var(--color-gray_strong)' />
 					<path d="M1 6L15 6" stroke='var(--color-gray_strong)' />

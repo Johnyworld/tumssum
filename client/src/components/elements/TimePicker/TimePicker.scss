@@ -15,4 +15,11 @@
 	box-shadow: var(--shadow-large);
 	border: 1px solid var(--color-gray_weak);
 	z-index: var(--layer-ui);
+
+	input {
+    background: none;
+    border: none;
+    font-size: var(--font-large);
+    color: var(--color-pen);;
+	}
 }

@@ -42,7 +42,7 @@ const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, fluid, 
 		setPos(null);
 	}, [pos]);
 
-	const handleChange = useCallback((date: string) => () => {
+	const handleChange = useCallback((date: string) => {
 		onChange && onChange(date);
 		setPos(null);
 	}, [pos, onChange]);
@@ -51,7 +51,7 @@ const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, fluid, 
 		<div class={getClassNames([ 'time-picker input-container', [fluid, 'input-container-fluid'] ])}>
 			{ label && <label class='input-label'>{label}</label> }
 			<div class='time-picker-input input-box flex' onClick={handleShowPicker}>
-				<p />
+				<p>{time ? time.split('T')[1].substr(0, 5) : ''}</p>
 				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<circle cx="8" cy="8" r="7.5" stroke='var(--color-gray_strong)'/>
 					<path d="M8 2.5V8.5H12" stroke='var(--color-gray_strong)' stroke-linecap="round" stroke-linejoin="round"/>
