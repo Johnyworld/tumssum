@@ -23,7 +23,7 @@ const getMonthString = (lang: string, month?: number) => {
 
 export const getDateString = (lang: string, { year, month, date }: { year?: number, month?: number, date?: number }) => {
 	const M = getMonthString(lang, month);
-	const arr = [date, M, year].filter(item=> !!item);
+	const arr = [date && getZeroNumber(date), M, year].filter(item=> !!item);
 	if (lang === 'ko') return arr.reverse().join('. ');
 	return arr.join(' ');
 }
@@ -53,7 +53,7 @@ export const getLocalString = (date?: Date, option?: { withoutTime: boolean; wit
 	const h = then.getHours();
 	const m = then.getMinutes();
 	const s = then.getSeconds();
-	return `${then.getFullYear()}-${getZeroNumber(M)}-${then.getDate()}T${getZeroNumber(h)}:${getZeroNumber(m)}:${getZeroNumber(s)}`;
+	return `${then.getFullYear()}-${getZeroNumber(M)}-${getZeroNumber(then.getDate())}T${getZeroNumber(h)}:${getZeroNumber(m)}:${getZeroNumber(s)}`;
 }
 
 export const getLimit = (num: number, limit: number) => {
