@@ -7,6 +7,7 @@ import MonthSelector from '~components/items/MonthSelector';
 import NavigationMenu from '~components/items/NavigationMenu';
 import Modal from '~components/layouts/Modal';
 import CreateAccountModal from '~components/partials/CreateAccountModal';
+import ViewAccountModal from '~components/partials/ViewAccountModal';
 import useCalendarData from '~hooks/useCalendarData';
 import useFetch from '~hooks/useFetch';
 import useList from '~hooks/useList';
@@ -22,6 +23,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 	const user = useSelector(state=> state.user.userInfo);
 	const dispatch = useDispatch();
 	const toggleCreateModal = useToggle();
+	const [detailView, setDetailView] = useState<null | Account>(null);
 	const [selected, setSelected] = useState('calendar');
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -68,7 +70,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		})
 	}
 
-	const handleDropToUpdate = (date: string) => {
+	const handleDropToUpdate = (date: string) => () => {
 		if (updateAccount.loading || !grapping ) return;
 		if (date === grapping.datetime.substr(0, 10)) {
 			handleDrop(date);
@@ -81,6 +83,15 @@ const MonthlyCalendar: FunctionalComponent = () => {
 			datetime: isoString,
 		});
 		handleDrop(date);
+	}
+
+
+	const handleViewDetail = (account: Account) => () => {
+		setDetailView(account);
+	}
+
+	const handleCloseDetail = () => {
+		setDetailView(null);
 	}
 
 
@@ -123,6 +134,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 				onGrap={handleGrap}
 				onDrop={handleDropToUpdate}
 				onDragging={handleDragging}
+				onClick={handleViewDetail}
 			/>
 
 			<Modal
@@ -132,6 +144,17 @@ const MonthlyCalendar: FunctionalComponent = () => {
 					<CreateAccountModal
 						onCreateAccount={handleCreateAccount}
 						onClose={toggleCreateModal.handleOff}
+					/>
+				}
+			/>
+
+			<Modal
+				isOpen={!!detailView}
+				onClose={handleCloseDetail}
+				children={
+					<ViewAccountModal
+						data={detailView!}
+						onClose={handleCloseDetail}
 					/>
 				}
 			/>

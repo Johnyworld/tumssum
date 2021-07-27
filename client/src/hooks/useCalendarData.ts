@@ -19,7 +19,7 @@ interface UseCalendar {
 export default ({ data, onUpdate }: UseCalendar) => {
 
 	const [ grapping, setGrapping ] = useState<GrappingCalendarData | null>(null);
-	const [ grappingPos, setGrappingPos ] = useState<Vec2>({ x: 0, y: 0 });
+	const [ grappingPos, setGrappingPos ] = useState<null | Vec2>(null);
 
 	const handleDragging = useCallback((e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
 		if (grapping) {
@@ -44,13 +44,14 @@ export default ({ data, onUpdate }: UseCalendar) => {
 	}, [data])
 
 	const handleDrop = useCallback((date: string) => {
-		if (grapping) {
-			const grepedIndex = data.findIndex(item => item.id === grapping.id);
-			const newDatetime = date + 'T' + grapping.datetime.split('T')[1]
+		if (grapping && grappingPos) {
+			const grepedIndex = data.findIndex(item => item.id === grapping!.id);
+			const newDatetime = date + 'T' + grapping!.datetime.split('T')[1]
 			onUpdate(grepedIndex, { datetime: newDatetime } as Account);
+			setGrappingPos(null);
 		}
 		setGrapping(null);
-	}, [data, grapping])
+	}, [data, grapping, grappingPos])
 
 	return { grapping, grappingPos, handleGrap, handleDrop, handleDragging };
 }

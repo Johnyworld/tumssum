@@ -12,7 +12,6 @@ interface ModalProps extends DefaultProps {
 }
 
 interface ModalHeaderProps extends DefaultProps {
-	heading: string;
 	onClose: () => void;
 }
 
@@ -45,10 +44,10 @@ export const ModalContainer: FunctionalComponent = ({ children }) => {
 	)
 }
 
-export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, class: className, heading, onClose }) => {
+export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, class: className, children, onClose }) => {
 	return (
 		<div class={getClassNames([ 'modal-header flex p-large p-regular-mobile', className ])} style={style} >
-			<h3>{heading}</h3>
+			<h3>{children}</h3>
 			<Icon size='medium' as='x' onClick={onClose} />
 		</div>
 	)

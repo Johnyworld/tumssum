@@ -11,13 +11,14 @@ export interface CalendarProps {
 	date: string;
 	data?: Account[];
 	grapping?: GrappingCalendarData | null;
-	grappingPos?: Vec2;
+	grappingPos?: Vec2 | null;
 	onGrap?: (id: number) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
-	onDrop?: (date: string) => void;
+	onDrop?: (date: string) => h.JSX.MouseEventHandler<HTMLDivElement>;
 	onDragging?: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
+	onClick?: (account: Account) => h.JSX.MouseEventHandler<HTMLDivElement>;
 }
 
-const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, grappingPos, onGrap, onDrop, onDragging }) => {
+const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, grappingPos, onGrap, onDrop, onDragging, onClick }) => {
 
 	const then = new Date(date);
 	const calendar = getCalendar(then.getFullYear(), then.getMonth());
@@ -42,14 +43,14 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, gr
 							const handleHover = () => setHover(true);
 							const handleHoverOut = () => setHover(false);
 							return (
-								<div class='calendar-col never-drag gap-tiny' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDrop ? () => onDrop(col.date) : undefined}>
+								<div class='calendar-col never-drag gap-tiny' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDrop && onDrop(col.date)}>
 									<p class={getClassNames([ 't-right', [!col.isThisMonth, 'c-gray'] ])}>{col.each}</p>
 									{grapping && hover && <div class='calendar-col-grapping' />}
 									{col.data && col.data.map(item => (
 										<AccountItem
 											title={item.title}
 											amount={item.account}
-											onClick={() => {}}
+											onClick={onClick && onClick(item)}
 											onMouseDown={onGrap ? onGrap(item.id) : undefined}
 										/>
 									))}
