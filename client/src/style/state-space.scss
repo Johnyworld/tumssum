@@ -28,26 +28,54 @@
   padding: 3rem;
 }
 
-.gap-tiny {
-  > * {
-    &:not(:first-child) { margin-top: .25rem; }
-    &:not(:last-child) { margin-bottom: .25rem; } 
+
+.gap {
+  &-tiny {
+    > * {
+      &:not(:first-child) { margin-top: .25rem; }
+      &:not(:last-child) { margin-bottom: .25rem; } 
+    }
+  }
+
+  &-small {
+    > * {
+      &:not(:first-child) { margin-top: .5rem; }
+      &:not(:last-child) { margin-bottom: .5rem; } 
+    }
+  }
+
+  &-regular {
+    > * {
+      &:not(:first-child) { margin-top: 1rem; }
+      &:not(:last-child) { margin-bottom: 1rem; } 
+    }
   }
 }
 
-.gap-small {
-  > * {
-    &:not(:first-child) { margin-top: .5rem; }
-    &:not(:last-child) { margin-bottom: .5rem; } 
+
+.gap-h {
+  &-tiny {
+    > * {
+      &:not(:first-child) { margin-left: .25rem; }
+      &:not(:last-child) { margin-right: .25rem; } 
+    }
+  }
+
+  &-small {
+    > * {
+      &:not(:first-child) { margin-left: .5rem; }
+      &:not(:last-child) { margin-right: .5rem; } 
+    }
+  }
+
+  &-regular {
+    > * {
+      &:not(:first-child) { margin-left: 1rem; }
+      &:not(:last-child) { margin-right: 1rem; } 
+    }
   }
 }
 
-.gap-regular {
-  > * {
-    &:not(:first-child) { margin-top: 1rem; }
-    &:not(:last-child) { margin-bottom: 1rem; } 
-  }
-}
 
 .mv-small {
   &:not(:first-child) { margin-top: .5rem; }
@@ -78,6 +106,7 @@
   &:not(:first-child) { margin-top: 4rem; }
   &:not(:last-child) { margin-bottom: 4rem; }
 }
+
 
 @include maxTablet {
   .p-none-tablet {

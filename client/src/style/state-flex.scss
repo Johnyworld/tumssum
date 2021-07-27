@@ -5,6 +5,10 @@
   justify-content: space-between;
   align-items: center;
 
+	&-column {
+		flex-direction: column;
+	}
+
 	&-inline {
 		display: inline-flex;
 	}

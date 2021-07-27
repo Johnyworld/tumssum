@@ -1,5 +1,14 @@
 @import "~src/style/mixins";
 
+input.hide-spin::-webkit-outer-spin-button,
+input.hide-spin::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number].hide-spin {
+  -moz-appearance: textfield;
+}
+
 .wrap {
   max-width: 900px;
   padding-left: 1rem;
