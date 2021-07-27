@@ -5,6 +5,7 @@ import Button from '~components/elements/Button';
 import Calendar from '~components/items/Calendar';
 import MonthSelector from '~components/items/MonthSelector';
 import NavigationMenu from '~components/items/NavigationMenu';
+import Modal from '~components/layouts/Modal';
 import CreateAccountModal from '~components/partials/CreateAccountModal';
 import useCalendar from '~hooks/useCalendar';
 import useFetch from '~hooks/useFetch';
@@ -100,10 +101,15 @@ const MonthlyCalendar: FunctionalComponent = () => {
 				onDragging={handleDragging}
 			/>
 
-			<CreateAccountModal
+			<Modal
 				isOpen={toggleCreateModal.checked}
 				onClose={toggleCreateModal.handleOff}
-				onCreateAccount={handleCreateAccount}
+				children={
+					<CreateAccountModal
+						onCreateAccount={handleCreateAccount}
+						onClose={toggleCreateModal.handleOff}
+					/>
+				}
 			/>
 
 		</div>

@@ -4,8 +4,8 @@ import { useCallback, useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import { getDateStringByDateType } from '~utils/calendar';
 import { getClassNames } from '~utils/classNames';
-import './DatePicker.scss';
 import DatePickerCalendar from './DatePickerCalendar';
+import './DatePicker.scss';
 
 
 interface DatePickerProps {

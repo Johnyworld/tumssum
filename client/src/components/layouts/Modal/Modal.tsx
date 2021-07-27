@@ -31,11 +31,17 @@ const Modal: FunctionalComponent<ModalProps> = ({ children, isOpen, onClose }) =
 		<Portal>
 			<div class='modal'>
 				<div class='modal-dim dim' onClick={onClose} />
-				<div class='modal-container'>
-					{children}
-				</div>
+				{children}
 			</div>
 		</Portal>
+	)
+}
+
+export const ModalContainer: FunctionalComponent = ({ children }) => {
+	return (
+		<div class='modal-container'>
+			{children}
+		</div>
 	)
 }
 
@@ -65,6 +71,7 @@ export const ModalFooter: FunctionalComponent<ModalFooterProps> = ({ children, s
 }
 
 export default Object.assign(Modal, {
+	Container: ModalContainer,
   Header: ModalHeader,
   Content: ModalContent,
 	Footer: ModalFooter,

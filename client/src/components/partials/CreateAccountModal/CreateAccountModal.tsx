@@ -9,18 +9,12 @@ import Modal from '~components/layouts/Modal';
 import useInput from '~hooks/useInput';
 import { getLocalString } from '~utils/calendar';
 
-interface CreateAccountModalProps {
-	isOpen: boolean;
+export interface CreateAccountModalProps {
 	onCreateAccount: (title: string, isIncome: boolean, amount: number, createDate: string) => void;
 	onClose: () => void;
 }
 
-const CreateAccountModal: FunctionalComponent<CreateAccountModalProps> = (props) => {
-	return !props.isOpen ? null : <CreateAccountModalRender {...props} />
-}
-	
-
-const CreateAccountModalRender: FunctionalComponent<CreateAccountModalProps> = ({ isOpen, onClose, onCreateAccount }) => {
+const CreateAccountModal: FunctionalComponent<CreateAccountModalProps> = ({ onClose, onCreateAccount }) => {
 
 	const inputRef = useRef<HTMLInputElement>(null);
 	
@@ -41,7 +35,6 @@ const CreateAccountModalRender: FunctionalComponent<CreateAccountModalProps> = (
 		e.preventDefault();
 		const theDate = date.split('T')[0];
 		const theTime = time ? 'T' + time.split('T')[1] : '';
-		console.log('===== CreateAccountModal', theDate, theTime);
 		const then = new Date(theDate + theTime);
 		onCreateAccount(title, isIncome, +amount, then.toISOString());
 	}
@@ -55,7 +48,7 @@ const CreateAccountModalRender: FunctionalComponent<CreateAccountModalProps> = (
 
 
 	return (
-		<Modal isOpen={isOpen} onClose={onClose}>
+		<Modal.Container>
 			<form onSubmit={handleSubmit}>
 				<Modal.Header heading='새 기록 추가하기' onClose={onClose} />
 				<Modal.Content padding class='gap-regular'>
@@ -81,7 +74,7 @@ const CreateAccountModalRender: FunctionalComponent<CreateAccountModalProps> = (
 					<Button border='squared' fluid size='large' type='submit' children='확인' />
 				</Modal.Footer>
 			</form>
-		</Modal>
+		</Modal.Container>
 	)
 }
 
