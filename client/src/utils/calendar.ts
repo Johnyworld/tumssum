@@ -47,13 +47,27 @@ export const getZeroNumber = (value: number) => {
 }
 
 
-export const getLocalString = (date?: Date) => {
+export const getLocalString = (date?: Date, option?: { withoutTime: boolean; withoutDate: boolean; }) => {
 	const then = date ? date : new Date();
 	const M = then.getMonth() + 1;
 	const h = then.getHours();
 	const m = then.getMinutes();
 	const s = then.getSeconds();
 	return `${then.getFullYear()}-${getZeroNumber(M)}-${then.getDate()}T${getZeroNumber(h)}:${getZeroNumber(m)}:${getZeroNumber(s)}`;
+}
+
+export const getLimit = (num: number, limit: number) => {
+	if (num < 0) return limit + num & limit;
+	else if (num > limit - 1) return num % limit;
+	else return num;
+}
+
+export const getHoursLimit = (h: number) => {
+	return getLimit(h, 24);
+}
+
+export const getMinutesLimit = (m: number) => {
+	return getLimit(m, 60);
 }
 
 

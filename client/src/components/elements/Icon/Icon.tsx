@@ -8,12 +8,14 @@ export interface IconProps extends DefaultProps {
 	size?: 'regular' | 'medium';
 	strokeWidth?: number;
 	color?: Color;
-	onClick?: () => void;
+	onClick?: h.JSX.MouseEventHandler<HTMLDivElement>;
 }
 
 export const icons = [
 	'arrowLeft',
 	'arrowRight',
+	'arrowUp',
+	'arrowDown',
 	'calendar',
 	'card',
 	'menu',
@@ -33,6 +35,14 @@ const getSVG = (as: IconType, color: Color, strokeWidth: number) => {
 
 		case 'arrowRight': return <g>
 			<path d="M5 15L12 8L5 1" stroke={c} stroke-width={strokeWidth} />
+		</g>
+
+		case 'arrowUp': return <g>
+			<path d="M15 11L8 4L1 11" stroke={c} stroke-width={strokeWidth} />
+		</g>
+
+		case 'arrowDown': return <g>
+			<path d="M1 5L8 12L15 5" stroke={c} stroke-width={strokeWidth} />
 		</g>
 		
 		case 'calendar': return <g>
@@ -84,7 +94,7 @@ const Icon: FunctionalComponent<IconProps> = ({ class: className, as, size='regu
 	const sizePx = size === 'medium' ? 20 : 16;
 
 	return (
-		<div class={getClassNames(['icon', className, `icon-${size}`, [!!onClick, 'icon-clickable']])} onClick={onClick}>
+		<div class={getClassNames(['icon', 'never-drag', className, `icon-${size}`, [!!onClick, 'icon-clickable']])} onClick={onClick}>
 			<svg width={sizePx} height={sizePx} viewBox={`0 0 ${sizePx} ${sizePx}`} fill="none" xmlns="http://www.w3.org/2000/svg">
 				{getSVG(as, color, strokeWidth)}
 			</svg>

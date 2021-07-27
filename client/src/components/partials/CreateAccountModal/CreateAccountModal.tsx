@@ -34,7 +34,7 @@ const CreateAccountModal: FunctionalComponent<CreateAccountModalProps> = ({ onCl
 	const handleSubmit: h.JSX.GenericEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
 		const theDate = date.split('T')[0];
-		const theTime = time ? 'T' + time.split('T')[1] : '';
+		const theTime = time ? 'T' + time : '';
 		const then = new Date(theDate + theTime);
 		onCreateAccount(title, isIncome, +amount, then.toISOString());
 	}

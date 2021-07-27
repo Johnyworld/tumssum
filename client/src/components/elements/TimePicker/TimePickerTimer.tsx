@@ -2,101 +2,84 @@ import { h, FunctionalComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import Portal from '~components/Portal';
-import { getLocalString, getZeroNumber } from '~utils/calendar';
+import { getHoursLimit, getLimit, getLocalString, getMinutesLimit, getZeroNumber } from '~utils/calendar';
+import Icon from '../Icon';
 
 interface TimePickerTimerProps {
+	
+	/** ex) 00:00 */
 	time: string;
+
 	pos: Vec2;
 	width: number;
 	height: number;
-	onChange: (date: string) => void;
+	onChange: (time: string) => void;
 	onClose: () => void;
 }
 
 const TimePickerTimer: FunctionalComponent<TimePickerTimerProps> = ({ time, pos, width, height, onChange, onClose  }) => {
 
-	const [viewTime, setViewtime] = useState(time || getLocalString());
-
-	const then = new Date(viewTime);
-	const hours = then.getHours();
-	const minutes = then.getMinutes();
+	const [hours, setHours] = useState(time ? +time.split(':')[0] : new Date().getHours());
+	const [minutes, setMinutes] = useState(time ? +time.split(':')[1] : new Date().getMinutes());
+	const HHMM = getZeroNumber(hours) + ':' + getZeroNumber(minutes)
 
 
-	const handleRemoveTime = () => {
+	const handleClear = () => {
 		onChange('');
 	}
 
 	const handleConfirm = () => {
-		onChange(viewTime);
+		onChange(HHMM);
 	}
 
-	const handleNow = () => {
-		setViewtime(getLocalString());
+	// const handleNow = () => {
+	// 	setHours(new Date().getHours());
+	// 	setMinutes(new Date().getMinutes());
+	// }
+
+
+	const handleChangeHours: h.JSX.GenericEventHandler<HTMLInputElement> = (e) => {
+		setHours(getHoursLimit(+e.currentTarget.value));
 	}
 
-	const handleChangeHour: h.JSX.GenericEventHandler<HTMLInputElement> = (e) => {
-		let value = +e.currentTarget.value;
-		if ( value < 0 ) value = 0;
-		if ( value > 23 ) return
-		const then = new Date(viewTime);
-		then.setHours(value);
-		setViewtime(getLocalString(then));
+	const handleChangeMinutes: h.JSX.GenericEventHandler<HTMLInputElement> = (e) => {
+		setMinutes(getMinutesLimit(+e.currentTarget.value));
 	}
 
-	const handleChangeMinute: h.JSX.GenericEventHandler<HTMLInputElement> = (e) => {
-		let value = +e.currentTarget.value;
-		if ( value < 0 ) value = 0;
-		if ( value > 59 ) return
-		const then = new Date(viewTime);
-		then.setMinutes(value);
-		setViewtime(getLocalString(then));
+	const handleChangeHoursByNumber = (num: number) => () => {
+		setHours(getHoursLimit(hours + num));
 	}
 
-	const handlePrevHour = () => {
-		const then = new Date(viewTime);
-		then.setHours(then.getHours() - 1);
-		setViewtime(getLocalString(then));
-	}
-
-	const handleNextHour = () => {
-		const then = new Date(viewTime);
-		then.setHours(then.getHours() + 1);
-		setViewtime(getLocalString(then));
-	}
-
-	const handlePrevMinute = () => {
-		const then = new Date(viewTime);
-		then.setMinutes(then.getMinutes() - 1);
-		setViewtime(getLocalString(then));
-	}
-
-	const handleNextMinute = () => {
-		const then = new Date(viewTime);
-		then.setMinutes(then.getMinutes() + 1);
-		setViewtime(getLocalString(then));
+	const handleChangeMinutesByNumber = (num: number) => () => {
+		setMinutes(getMinutesLimit(minutes + num));
 	}
 
 
 	return (
 		<Portal>
 			<div class='date-picker-dim' onClick={onClose} />
-			<div class='time-picker-timer p-small' style={{ height: `${height}px`, width: `${width}px`, top: pos.y, left: pos.x }}>
-				<button onClick={handleNow}>now</button>
-				<button onClick={handleRemoveTime}>remove</button>
-				<button onClick={handleConfirm}>confirm</button>
-				{viewTime}
+			<div class='time-picker-timer p-regular' style={{ height: `${height}px`, width: `${width}px`, top: pos.y, left: pos.x }}>
 
 				<div class='flex flex-around'>
-					<div>
-						<button onClick={handlePrevHour}>prev</button>
-						<input type='number' min={0} max={23} maxLength={2} value={getZeroNumber(hours)} onChange={handleChangeHour} />
-						<button onClick={handleNextHour}>next</button>
+					<div class='flex flex-column'>
+						<Icon as='arrowUp' onClick={handleChangeHoursByNumber(+1)} />
+						<input class='t-center hide-spin' type='number' min={0} max={23} maxLength={2} value={hours} onChange={handleChangeHours} />
+						<Icon as='arrowDown' onClick={handleChangeHoursByNumber(-1)} />
 					</div>
 
-					<div>
-						<button onClick={handlePrevMinute}>prev</button>
-						<input type='number' min={0} max={59} maxLength={2} value={getZeroNumber(minutes)} onChange={handleChangeMinute} />
-						<button onClick={handleNextMinute}>next</button>
+					<p>:</p>
+
+					<div class='flex flex-column'>
+						<Icon as='arrowUp' onClick={handleChangeMinutesByNumber(+1)} />
+						<input class='t-center hide-spin' type='number' min={0} max={59} maxLength={2} value={minutes} onChange={handleChangeMinutes} />
+						<Icon as='arrowDown' onClick={handleChangeMinutesByNumber(-1)} />
+					</div>
+				</div>
+				<div class='time-picker-timer-buttons f-bold flex'>
+					<span class='pointer c-red' onClick={handleClear}>Clear</span>
+					<div class='gap-h-tiny'>
+						<span class='pointer' onClick={onClose}>Cancel</span>
+						<span class='pointer' onClick={handleConfirm}>Ok</span>
 					</div>
 				</div>
 			</div>
