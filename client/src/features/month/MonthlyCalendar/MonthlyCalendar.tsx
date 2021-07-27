@@ -11,6 +11,7 @@ import useCalendarData from '~hooks/useCalendarData';
 import useFetch from '~hooks/useFetch';
 import useList from '~hooks/useList';
 import useToggle from '~hooks/useToggle';
+import { getLocalString } from '~utils/calendar';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import { changeMonthNext, changeMonthPrev, changeMonthToday } from '../monthSlice';
 
@@ -31,7 +32,9 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		url: `/api/accounts/`,
 		params: { user_id: user!.id },
 		onSuccess: data => {
-			setList(data);
+			setList(data.map(data => {
+				return { ...data, datetime: getLocalString(new Date(data.datetime)) }
+			}));
 		}
 	});
 
@@ -42,6 +45,11 @@ const MonthlyCalendar: FunctionalComponent = () => {
 			handleAdd(data);
 			toggleCreateModal.handleOff();
 		}
+	});
+
+	const updateAccount = useFetch<Account>({
+		method: 'PUT',
+		url: '/api/account/',
 	});
 
 	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useCalendarData({
@@ -58,6 +66,21 @@ const MonthlyCalendar: FunctionalComponent = () => {
 			account: isIncome ? amount : -amount,
 			datetime,
 		})
+	}
+
+	const handleDropToUpdate = (date: string) => {
+		if (updateAccount.loading || !grapping ) return;
+		if (date === grapping.datetime.substr(0, 10)) {
+			handleDrop(date);
+			return;
+		}
+		const localtime = getLocalString(new Date(grapping.datetime)).split('T')[1];
+		const isoString = new Date(date + 'T' + localtime).toISOString();
+		updateAccount.call({
+			account_id: grapping.id,
+			datetime: isoString,
+		});
+		handleDrop(date);
 	}
 
 
@@ -98,7 +121,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 				grapping={grapping}
 				grappingPos={grappingPos}
 				onGrap={handleGrap}
-				onDrop={handleDrop}
+				onDrop={handleDropToUpdate}
 				onDragging={handleDragging}
 			/>
 

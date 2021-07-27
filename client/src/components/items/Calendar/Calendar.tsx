@@ -13,7 +13,7 @@ export interface CalendarProps {
 	grapping?: GrappingCalendarData | null;
 	grappingPos?: Vec2;
 	onGrap?: (id: number) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
-	onDrop?: (date: string) => () => void;
+	onDrop?: (date: string) => void;
 	onDragging?: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 }
 
@@ -42,7 +42,7 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, gr
 							const handleHover = () => setHover(true);
 							const handleHoverOut = () => setHover(false);
 							return (
-								<div class='calendar-col never-drag gap-tiny' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDrop ? onDrop(col.date) : undefined}>
+								<div class='calendar-col never-drag gap-tiny' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDrop ? () => onDrop(col.date) : undefined}>
 									<p class={getClassNames([ 't-right', [!col.isThisMonth, 'c-gray'] ])}>{col.each}</p>
 									{grapping && hover && <div class='calendar-col-grapping' />}
 									{col.data && col.data.map(item => (

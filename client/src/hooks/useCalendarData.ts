@@ -43,7 +43,7 @@ export default ({ data, onUpdate }: UseCalendar) => {
 		}
 	}, [data])
 
-	const handleDrop = useCallback((date: string) => () => {
+	const handleDrop = useCallback((date: string) => {
 		if (grapping) {
 			const grepedIndex = data.findIndex(item => item.id === grapping.id);
 			const newDatetime = date + 'T' + grapping.datetime.split('T')[1]
