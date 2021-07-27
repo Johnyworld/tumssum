@@ -7,7 +7,7 @@ import MonthSelector from '~components/items/MonthSelector';
 import NavigationMenu from '~components/items/NavigationMenu';
 import Modal from '~components/layouts/Modal';
 import CreateAccountModal from '~components/partials/CreateAccountModal';
-import useCalendar from '~hooks/useCalendar';
+import useCalendarData from '~hooks/useCalendarData';
 import useFetch from '~hooks/useFetch';
 import useList from '~hooks/useList';
 import useToggle from '~hooks/useToggle';
@@ -44,7 +44,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		}
 	});
 
-	const { calendar, grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useCalendar({
+	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useCalendarData({
 		date,
 		data: list || [],
 		onUpdate: handleUpdate,
@@ -93,7 +93,8 @@ const MonthlyCalendar: FunctionalComponent = () => {
 			</div>
 
 			<Calendar
-				calendar={calendar}
+				date={date}
+				data={list || []}
 				grapping={grapping}
 				grappingPos={grappingPos}
 				onGrap={handleGrap}

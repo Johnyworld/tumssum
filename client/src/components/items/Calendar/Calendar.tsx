@@ -1,22 +1,28 @@
 import { h, FunctionalComponent } from 'preact';
 import { useState } from 'preact/hooks';
-import { Vec2 } from 'types';
-import { GrappingCalendarData } from '~hooks/useCalendar';
-import { DayItem } from '~utils/calendar';
+import { Account, Vec2 } from 'types';
+import { GrappingCalendarData } from '~hooks/useCalendarData';
+import { combineCalendarWithData, getCalendar } from '~utils/calendar';
 import { getClassNames } from '~utils/classNames';
 import AccountItem from '../AccountItem';
 import './Calendar.scss';
 
-interface CalendarProps {
-	calendar: DayItem[][];
-	grapping: GrappingCalendarData | null;
-	grappingPos: Vec2;
-	onGrap: (id: number) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
-	onDrop: (date: string) => () => void;
-	onDragging: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
+export interface CalendarProps {
+	date: string;
+	data?: Account[];
+	grapping?: GrappingCalendarData | null;
+	grappingPos?: Vec2;
+	onGrap?: (id: number) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
+	onDrop?: (date: string) => () => void;
+	onDragging?: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 }
 
-const Calendar: FunctionalComponent<CalendarProps> = ({ calendar, grapping, grappingPos, onGrap, onDrop, onDragging }) => {
+const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, grappingPos, onGrap, onDrop, onDragging }) => {
+
+	const then = new Date(date);
+	const calendar = getCalendar(then.getFullYear(), then.getMonth());
+	const calendarWithData = combineCalendarWithData(calendar, data);
+
 	return (
 		<div class='calendar' onMouseMove={onDragging}>
 
@@ -29,14 +35,14 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ calendar, grapping, grap
 			</div>
 			
 			<div class='calendar-container'>
-				{ calendar.map(row => (
+				{ calendarWithData.map(row => (
 					<div class='calendar-row'>
 						{ row.map(col => {
 							const [ hover, setHover ] = useState(false);
 							const handleHover = () => setHover(true);
 							const handleHoverOut = () => setHover(false);
 							return (
-								<div class='calendar-col never-drag gap-tiny' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDrop(col.date)}>
+								<div class='calendar-col never-drag gap-tiny' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDrop ? onDrop(col.date) : undefined}>
 									<p class={getClassNames([ 't-right', [!col.isThisMonth, 'c-gray'] ])}>{col.each}</p>
 									{grapping && hover && <div class='calendar-col-grapping' />}
 									{col.data && col.data.map(item => (
@@ -44,7 +50,7 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ calendar, grapping, grap
 											title={item.title}
 											amount={item.account}
 											onClick={() => {}}
-											onMouseDown={onGrap(item.id)}
+											onMouseDown={onGrap ? onGrap(item.id) : undefined}
 										/>
 									))}
 								</div>
@@ -54,7 +60,7 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ calendar, grapping, grap
 				))}
 			</div>
 
-			{ grapping &&
+			{ grapping && grappingPos &&
 				<AccountItem
 					title={grapping.title}
 					amount={grapping.account}

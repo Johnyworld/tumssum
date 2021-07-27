@@ -72,7 +72,8 @@ const getDataAligned = (data: Account[]) => {
 	return results;
 }
 
-export const combineCalendarWithData = (calendar: DayItem[][], data: Account[]) => {
+export const combineCalendarWithData = (calendar: DayItem[][], data?: Account[]) => {
+	if (!data) return calendar;
 	const alignedData = getDataAligned(data);
 	for (const row of calendar) {
 		for (const col of row) {

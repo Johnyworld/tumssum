@@ -1,7 +1,6 @@
 import { h } from "preact";
 import { useCallback, useState } from "preact/hooks";
 import { Account, Vec2 } from "types";
-import { combineCalendarWithData, getCalendar } from "~utils/calendar";
 
 export interface GrappingCalendarData extends Account {
 	x: number;
@@ -17,13 +16,10 @@ interface UseCalendar {
 }
 
 
-export default ({ date, data, onUpdate }: UseCalendar) => {
+export default ({ data, onUpdate }: UseCalendar) => {
 
 	const [ grapping, setGrapping ] = useState<GrappingCalendarData | null>(null);
 	const [ grappingPos, setGrappingPos ] = useState<Vec2>({ x: 0, y: 0 });
-	const then = new Date(date);
-	const cal = getCalendar(then.getFullYear(), then.getMonth());
-	const calendar = combineCalendarWithData(cal, data);
 
 	const handleDragging = useCallback((e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
 		if (grapping) {
@@ -56,5 +52,5 @@ export default ({ date, data, onUpdate }: UseCalendar) => {
 		setGrapping(null);
 	}, [data, grapping])
 
-	return { calendar, grapping, grappingPos, handleGrap, handleDrop, handleDragging };
+	return { grapping, grappingPos, handleGrap, handleDrop, handleDragging };
 }
