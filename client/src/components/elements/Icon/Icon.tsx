@@ -94,10 +94,12 @@ const Icon: FunctionalComponent<IconProps> = ({ class: className, as, size='regu
 	const sizePx = size === 'medium' ? 20 : 16;
 
 	return (
-		<div class={getClassNames(['icon', 'never-drag', className, `icon-${size}`, [!!onClick, 'icon-clickable']])} onClick={onClick}>
-			<svg width={sizePx} height={sizePx} viewBox={`0 0 ${sizePx} ${sizePx}`} fill="none" xmlns="http://www.w3.org/2000/svg">
-				{getSVG(as, color, strokeWidth)}
-			</svg>
+		<div class={getClassNames(['icon-container', 'never-drag', className, [!!onClick, 'pointer'] ])} onClick={onClick} >
+			<div class={getClassNames(['icon', `icon-${size}` ])} >
+				<svg width={sizePx} height={sizePx} viewBox={`0 0 16 16`} fill="none" xmlns="http://www.w3.org/2000/svg">
+					{getSVG(as, color, strokeWidth)}
+				</svg>
+			</div>
 		</div>
 	)
 }

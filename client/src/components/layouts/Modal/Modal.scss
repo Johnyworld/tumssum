@@ -27,6 +27,13 @@
 	box-shadow: var(--shadow-large);
 }
 
+.modal-x-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: var(--layer-on);
+}
+
 .modal-header {
 	position: sticky;
 	top: 0;

@@ -50,7 +50,8 @@ const CreateAccountModal: FunctionalComponent<CreateAccountModalProps> = ({ onCl
 	return (
 		<Modal.Container>
 			<form onSubmit={handleSubmit}>
-				<Modal.Header children='새 기록 추가하기' onClose={onClose} />
+				<Modal.Header children='새 기록 추가하기' />
+				<Modal.XButton onClose={onClose} />
 				<Modal.Content padding class='gap-regular'>
 					<Selector
 						fluid

@@ -11,10 +11,11 @@ interface ModalProps extends DefaultProps {
 	onClose: () => void;
 }
 
-interface ModalHeaderProps extends DefaultProps {
+interface ModalXButtonProps extends DefaultProps {
 	onClose: () => void;
 }
 
+interface ModalHeaderProps extends DefaultProps {}
 interface ModalContentProps extends DefaultProps {
 	padding?: boolean;
 }
@@ -44,11 +45,16 @@ export const ModalContainer: FunctionalComponent = ({ children }) => {
 	)
 }
 
-export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, class: className, children, onClose }) => {
+export const ModalXbutton: FunctionalComponent<ModalXButtonProps> = ({ style, class: className, onClose }) => {
+	return (
+		<Icon class={getClassNames(['modal-x-button p-large p-regular-mobile', className ])} style={style} size='medium' as='x' onClick={onClose} />
+	)
+}
+
+export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, class: className, children }) => {
 	return (
 		<div class={getClassNames([ 'modal-header flex p-large p-regular-mobile', className ])} style={style} >
 			<h3>{children}</h3>
-			<Icon size='medium' as='x' onClick={onClose} />
 		</div>
 	)
 }
@@ -71,6 +77,7 @@ export const ModalFooter: FunctionalComponent<ModalFooterProps> = ({ children, s
 
 export default Object.assign(Modal, {
 	Container: ModalContainer,
+  XButton: ModalXbutton,
   Header: ModalHeader,
   Content: ModalContent,
 	Footer: ModalFooter,
