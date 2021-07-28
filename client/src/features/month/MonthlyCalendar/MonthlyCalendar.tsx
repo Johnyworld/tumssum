@@ -27,7 +27,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 	const [selected, setSelected] = useState('calendar');
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	const { list, setList, handleUpdate, handleAdd } = useList<Account>([]);
+	const { list, setList, handleUpdate, handleAdd, handleRemove } = useList<Account>([]);
 
 	useFetch<Account[]>({
 		method: 'GET',
@@ -54,6 +54,15 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		url: '/api/account/',
 	});
 
+	const deleteAccount = useFetch({
+		method: 'DELETE',
+		url: '/api/account/',
+		onSuccess: data => {
+			handleRemove(list.findIndex(item => item.id === data));
+			setDetailView(null);
+		}
+	})
+
 	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useCalendarData({
 		date,
 		data: list || [],
@@ -67,6 +76,14 @@ const MonthlyCalendar: FunctionalComponent = () => {
 			title,
 			account: isIncome ? amount : -amount,
 			datetime,
+		})
+	}
+
+	const handleDeleteAccount = (id: number) => () => {
+		if (deleteAccount.loading) return;
+		deleteAccount.call({
+			user_id: user!.id,
+			account_id: id,
 		})
 	}
 
@@ -154,8 +171,9 @@ const MonthlyCalendar: FunctionalComponent = () => {
 				children={
 					<ViewAccountModal
 						data={detailView!}
+						loading={deleteAccount.loading}
 						onClose={handleCloseDetail}
-						onDelete={() => console.log('Delete')}
+						onDelete={handleDeleteAccount}
 					/>
 				}
 			/>

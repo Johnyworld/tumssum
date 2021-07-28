@@ -15,5 +15,12 @@ export default <S>(initialList?: S[]) => {
 		setList([ ...list, newData ]);
 	}
 
-	return { list, setList, handleUpdate, handleAdd };
+	const handleRemove = (index?: number) => {
+		if (!index) return;
+		const tempList = list;
+		tempList.splice(index, 1);
+		setList(tempList);
+	}
+
+	return { list, setList, handleUpdate, handleAdd, handleRemove };
 }

@@ -63,7 +63,9 @@ def putAccount(reqData):
 
 def deleteAccount(reqData):
   account_id = reqData.get('account_id')
+  # user_id = reqData.get('account_id')
 
   account = get_object_or_404(Account, pk=account_id)
   account.delete()
-  return Response(True)
+  res = { 'ok': True, 'data': account_id }
+  return JsonResponse(res)
