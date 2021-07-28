@@ -21,6 +21,7 @@ interface ModalContentProps extends DefaultProps {
 }
 
 interface ModalFooterProps extends DefaultProps {
+	flex?: boolean;
 	flexEnd?: boolean;
 	padding?: boolean;
 }
@@ -67,9 +68,9 @@ export const ModalContent: FunctionalComponent<ModalContentProps> = ({ children,
 	)
 }
 
-export const ModalFooter: FunctionalComponent<ModalFooterProps> = ({ children, style, class: className, flexEnd, padding }) => {
+export const ModalFooter: FunctionalComponent<ModalFooterProps> = ({ children, style, class: className, flex, flexEnd, padding }) => {
 	return (
-		<div class={getClassNames([ 'modal-footer', className, [flexEnd, 'flex flex-end flex-gap-small'], [padding, 'p-large p-regular-mobile'] ])} style={style}>
+		<div class={getClassNames([ 'modal-footer', className, [flex, 'flex'], [flexEnd, 'flex flex-end flex-gap-small'], [padding, 'p-large p-regular-mobile'] ])} style={style}>
 			{children}
 		</div>
 	)

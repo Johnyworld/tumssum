@@ -29,6 +29,17 @@ export const getDateString = (lang: string, { year, month, date }: { year?: numb
 }
 
 
+export const getDatetimeString = (lang: string, datetime: string) => {
+	const split = datetime.split('T');
+	const dates = split[0].split('-');
+	const time = split[1];
+	const year = +dates[0];
+	const month = +dates[1] - 1;
+	const date = +dates[2];
+	return getDateString(lang, { year, month, date }) + (time ? '. ' + split[1].substr(0, 5) : '');
+}
+
+
 export const getDateStringByDateType = (lang: string, then: Date) => {
 	const year = then.getFullYear();
 	const month = then.getMonth();
@@ -47,13 +58,20 @@ export const getZeroNumber = (value: number) => {
 }
 
 
-export const getLocalString = (date?: Date, option?: { withoutTime: boolean; withoutDate: boolean; }) => {
+export const getLocalString = (date?: Date) => {
 	const then = date ? date : new Date();
 	const M = then.getMonth() + 1;
 	const h = then.getHours();
 	const m = then.getMinutes();
 	const s = then.getSeconds();
 	return `${then.getFullYear()}-${getZeroNumber(M)}-${getZeroNumber(then.getDate())}T${getZeroNumber(h)}:${getZeroNumber(m)}:${getZeroNumber(s)}`;
+}
+
+export const getLocalStringFromISOString = (isoString: string) => {
+	const isTime = isoString.length > 10;	
+	const then = new Date(isoString);
+	const localDate = getLocalString(then);
+	return isTime ? localDate : localDate.substr(0, 10);
 }
 
 export const getLimit = (num: number, limit: number) => {

@@ -12,7 +12,7 @@ import useCalendarData from '~hooks/useCalendarData';
 import useFetch from '~hooks/useFetch';
 import useList from '~hooks/useList';
 import useToggle from '~hooks/useToggle';
-import { getLocalString } from '~utils/calendar';
+import { getLocalString, getLocalStringFromISOString } from '~utils/calendar';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import { changeMonthNext, changeMonthPrev, changeMonthToday } from '../monthSlice';
 
@@ -35,7 +35,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		params: { user_id: user!.id },
 		onSuccess: data => {
 			setList(data.map(data => {
-				return { ...data, datetime: getLocalString(new Date(data.datetime)) }
+				return { ...data, datetime: getLocalStringFromISOString(data.datetime) }
 			}));
 		}
 	});
@@ -155,6 +155,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 					<ViewAccountModal
 						data={detailView!}
 						onClose={handleCloseDetail}
+						onDelete={() => console.log('Delete')}
 					/>
 				}
 			/>

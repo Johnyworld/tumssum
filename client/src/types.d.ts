@@ -60,6 +60,7 @@ declare module 'types' {
     category_title: string;
     category: number;
     bank: number;
+    bank_title: string;
     created_at: string;
     updated_at: string;
   }

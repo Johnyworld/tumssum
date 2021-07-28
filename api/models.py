@@ -86,11 +86,11 @@ class Account(models.Model):
   # Require fields
   title = models.CharField(max_length=40)
   account = models.IntegerField()
-  datetime = models.DateTimeField()
+  datetime = models.CharField(max_length=40)
   # Required Relations
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   # Not Require fields
-  memo = models.CharField(max_length=256, blank=True)
+  memo = models.TextField(max_length=256, blank=True)
   location = models.CharField(max_length=512, blank=True)
   # Not Required Relations
   category = models.ForeignKey(Category, related_name='category', on_delete=models.CASCADE, blank=True, null=True)

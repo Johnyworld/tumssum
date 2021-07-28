@@ -36,7 +36,8 @@ const CreateAccountModal: FunctionalComponent<CreateAccountModalProps> = ({ onCl
 		const theDate = date.split('T')[0];
 		const theTime = time ? 'T' + time : '';
 		const then = new Date(theDate + theTime);
-		onCreateAccount(title, isIncome, +amount, then.toISOString());
+		const datetime = time ? then.toISOString() : then.toISOString().substr(0, 10);
+		onCreateAccount(title, isIncome, +amount, datetime);
 	}
 
 
