@@ -10,15 +10,14 @@ import Modal from '~components/layouts/Modal';
 import useInput from '~hooks/useInput';
 import { getLocalString } from '~utils/calendar';
 
-export interface CreateAccountModalProps {
+export interface AccountFormModalProps {
 	initialValues?: Account;
-	isCreate?: boolean;
 	onConfirm: (title: string, amount: number, datetime: string, id?: number) => void;
 	onClose: () => void;
 	onGoBack?: () => void;
 }
 
-const CreateAccountModal: FunctionalComponent<CreateAccountModalProps> = ({ initialValues, isCreate, onClose, onConfirm, onGoBack }) => {
+const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialValues, onClose, onConfirm, onGoBack }) => {
 
 	const inputRef = useRef<HTMLInputElement>(null);
 	
@@ -55,7 +54,7 @@ const CreateAccountModal: FunctionalComponent<CreateAccountModalProps> = ({ init
 	return (
 		<Modal.Container>
 			<form onSubmit={handleSubmit}>
-				<Modal.Header children={isCreate ? '새 기록 추가하기' : '뒤로가기'} onGoBack={onGoBack} />
+				<Modal.Header children={!initialValues ? '새 기록 추가하기' : '뒤로가기'} onGoBack={onGoBack} />
 				<Modal.XButton onClose={onClose} />
 				<Modal.Content padding class='gap-regular'>
 					<Selector
@@ -84,4 +83,4 @@ const CreateAccountModal: FunctionalComponent<CreateAccountModalProps> = ({ init
 	)
 }
 
-export default CreateAccountModal;
+export default AccountFormModal;

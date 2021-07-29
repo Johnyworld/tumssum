@@ -6,8 +6,7 @@ import Calendar from '~components/items/Calendar';
 import MonthSelector from '~components/items/MonthSelector';
 import NavigationMenu from '~components/items/NavigationMenu';
 import Modal from '~components/layouts/Modal';
-import CreateAccountModal from '~components/partials/CreateAccountModal';
-import ViewAccountModal from '~components/partials/ViewAccountModal';
+import AccountFormModal from '~components/partials/AccountFormModal';
 import useCalendarData from '~hooks/useCalendarData';
 import useFetch from '~hooks/useFetch';
 import useList from '~hooks/useList';
@@ -15,6 +14,7 @@ import useToggle from '~hooks/useToggle';
 import { getLocalString, getLocalStringFromISOString } from '~utils/calendar';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import { changeMonthNext, changeMonthPrev, changeMonthToday } from '../monthSlice';
+import AccountDetails from './AccountDetails';
 
 
 const MonthlyCalendar: FunctionalComponent = () => {
@@ -177,8 +177,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 				isOpen={toggleCreateModal.checked}
 				onClose={toggleCreateModal.handleOff}
 				children={
-					<CreateAccountModal
-						isCreate
+					<AccountFormModal
 						onConfirm={handleCreateAccount}
 						onClose={toggleCreateModal.handleOff}
 					/>
@@ -189,7 +188,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 				isOpen={!!detailView}
 				onClose={handleCloseDetail}
 				children={
-					<ViewAccountModal
+					<AccountDetails
 						data={detailView!}
 						loading={deleteAccount.loading}
 						onEdit={handleUpdateAccount}
