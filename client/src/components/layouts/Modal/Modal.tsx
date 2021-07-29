@@ -1,6 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { DefaultProps } from 'types';
 import Icon from '~components/elements/Icon';
+import IconText from '~components/items/IconText';
 import Portal from '~components/Portal';
 import { getClassNames } from '~utils/classNames';
 import './Modal.scss';
@@ -15,7 +16,10 @@ interface ModalXButtonProps extends DefaultProps {
 	onClose: () => void;
 }
 
-interface ModalHeaderProps extends DefaultProps {}
+interface ModalHeaderProps extends DefaultProps {
+	onGoBack?: () => void;
+}
+
 interface ModalContentProps extends DefaultProps {
 	padding?: boolean;
 }
@@ -52,10 +56,13 @@ export const ModalXbutton: FunctionalComponent<ModalXButtonProps> = ({ style, cl
 	)
 }
 
-export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, class: className, children }) => {
+export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, class: className, children, onGoBack }) => {
 	return (
 		<div class={getClassNames([ 'modal-header flex p-large p-regular-mobile', className ])} style={style} >
-			<h3>{children}</h3>
+			{ onGoBack
+				? <IconText icon='arrowLeft' text={children+''} onClick={onGoBack} />
+				: <h3>{children}</h3>
+			}
 		</div>
 	)
 }

@@ -1,5 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
+import { Account } from 'types';
 import Button from '~components/elements/Button';
 import DatePicker from '~components/elements/DatePicker';
 import Input from '~components/elements/Input';
@@ -10,19 +11,22 @@ import useInput from '~hooks/useInput';
 import { getLocalString } from '~utils/calendar';
 
 export interface CreateAccountModalProps {
-	onCreateAccount: (title: string, isIncome: boolean, amount: number, createDate: string) => void;
+	initialValues?: Account;
+	isCreate?: boolean;
+	onConfirm: (title: string, amount: number, datetime: string, id?: number) => void;
 	onClose: () => void;
+	onGoBack?: () => void;
 }
 
-const CreateAccountModal: FunctionalComponent<CreateAccountModalProps> = ({ onClose, onCreateAccount }) => {
+const CreateAccountModal: FunctionalComponent<CreateAccountModalProps> = ({ initialValues, isCreate, onClose, onConfirm, onGoBack }) => {
 
 	const inputRef = useRef<HTMLInputElement>(null);
 	
-	const [title, handleChangeTitle] = useInput('');
-	const [amount, handleChangeAmount] = useInput('');
-	const [isIncome, setIsIncome] = useState(false);
-	const [date, _, setDate] = useInput(getLocalString());
-	const [time, __, setTime] = useInput('');
+	const [title, handleChangeTitle] = useInput(initialValues?.title || '');
+	const [amount, handleChangeAmount] = useInput(initialValues?.account ? Math.abs(initialValues.account)+'' : '');
+	const [isIncome, setIsIncome] = useState(initialValues?.account ? !(initialValues.account < 0) : false);
+	const [date, _, setDate] = useInput(initialValues?.datetime || getLocalString());
+	const [time, __, setTime] = useInput(initialValues?.datetime.split('T')[1]?.substr(0,5) || '');
 
 
 	const handleChangeIsIncome = (id: string) => () => {
@@ -37,7 +41,7 @@ const CreateAccountModal: FunctionalComponent<CreateAccountModalProps> = ({ onCl
 		const theTime = time ? 'T' + time : '';
 		const then = new Date(theDate + theTime);
 		const datetime = time ? then.toISOString() : then.toISOString().substr(0, 10);
-		onCreateAccount(title, isIncome, +amount, datetime);
+		onConfirm(title, isIncome ? +amount : -amount, datetime, initialValues?.id);
 	}
 
 
@@ -51,7 +55,7 @@ const CreateAccountModal: FunctionalComponent<CreateAccountModalProps> = ({ onCl
 	return (
 		<Modal.Container>
 			<form onSubmit={handleSubmit}>
-				<Modal.Header children='새 기록 추가하기' />
+				<Modal.Header children={isCreate ? '새 기록 추가하기' : '뒤로가기'} onGoBack={onGoBack} />
 				<Modal.XButton onClose={onClose} />
 				<Modal.Content padding class='gap-regular'>
 					<Selector

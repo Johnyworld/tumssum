@@ -35,7 +35,8 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		params: { user_id: user!.id },
 		onSuccess: data => {
 			setList(data.map(data => {
-				return { ...data, datetime: getLocalStringFromISOString(data.datetime) }
+				data.datetime = getLocalStringFromISOString(data.datetime);
+				return data;
 			}));
 		}
 	});
@@ -52,6 +53,12 @@ const MonthlyCalendar: FunctionalComponent = () => {
 	const updateAccount = useFetch<Account>({
 		method: 'PUT',
 		url: '/api/account/',
+		onSuccess: data => {
+			data.datetime = getLocalStringFromISOString(data.datetime)
+			handleUpdate(list.findIndex(item => item.id === data.id), data);
+			toggleCreateModal.handleOff();
+			setDetailView(null);
+		}
 	});
 
 	const deleteAccount = useFetch({
@@ -69,12 +76,12 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		onUpdate: handleUpdate,
 	});
 
-	const handleCreateAccount = (title: string, isIncome: boolean, amount: number, datetime: string) => {
+	const handleCreateAccount = (title: string, amount: number, datetime: string) => {
 		if (createNewAccount.loading) return;
 		createNewAccount.call({
 			user_id: user!.id,
 			title,
-			account: isIncome ? amount : -amount,
+			account: amount,
 			datetime,
 		})
 	}
@@ -84,6 +91,18 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		deleteAccount.call({
 			user_id: user!.id,
 			account_id: id,
+		})
+	}
+
+	const handleUpdateAccount = (title: string, amount: number, datetime: string, id?: number) => {
+		if (updateAccount.loading) return;
+		if (!id) return;
+		updateAccount.call({
+			user_id: user!.id,
+			account_id: id,
+			title,
+			account: amount,
+			datetime,
 		})
 	}
 
@@ -159,7 +178,8 @@ const MonthlyCalendar: FunctionalComponent = () => {
 				onClose={toggleCreateModal.handleOff}
 				children={
 					<CreateAccountModal
-						onCreateAccount={handleCreateAccount}
+						isCreate
+						onConfirm={handleCreateAccount}
 						onClose={toggleCreateModal.handleOff}
 					/>
 				}
@@ -172,6 +192,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 					<ViewAccountModal
 						data={detailView!}
 						loading={deleteAccount.loading}
+						onEdit={handleUpdateAccount}
 						onClose={handleCloseDetail}
 						onDelete={handleDeleteAccount}
 					/>

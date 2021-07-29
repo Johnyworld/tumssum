@@ -14,5 +14,4 @@ const Template: Story<CreateAccountModalProps> = (args) => <CreateAccountModal {
 
 export const Default = Template.bind({});
 Default.args = {
-	
 };
