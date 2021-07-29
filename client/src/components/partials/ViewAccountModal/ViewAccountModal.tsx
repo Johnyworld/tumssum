@@ -16,7 +16,7 @@ interface ViewAccountModalProps {
 const ViewAccountModal: FunctionalComponent<ViewAccountModalProps> = ({ data, loading, onDelete, onClose }) => {
 
 	const { i18n } = useTranslation();
-	const { id, title, datetime, memo, category_title, bank_title } = data;
+	const { id, title, datetime, memo, category_title, bank_title, account } = data;
 
 	const subtexts = [];
 	if (category_title) subtexts.push(category_title);
@@ -33,6 +33,24 @@ const ViewAccountModal: FunctionalComponent<ViewAccountModalProps> = ({ data, lo
 				<p class='pre c-pencel'>{memo}</p>
 				<p class='c-gray'>{getDatetimeString(i18n.language, datetime)}</p>
 				<Divider />
+				<div>
+					<div class='flex'>
+						<p />
+						<p class={`c-${account < 0 ? 'red' : 'pen'} f-big`}>{account < 0 ? '' : '+ '}{account}</p>
+					</div>
+					{ category_title &&
+						<div class='flex'>
+							<p class='ellipsis'>{category_title} 예산</p>
+							<p class='f-big'>10,000</p>
+						</div>
+					}
+					{ bank_title &&
+						<div class='flex'>
+							<p class='ellipsis'>{bank_title} 잔고</p>
+							<p class='f-big'>10,000</p>
+						</div>
+					}
+				</div>
 			</Modal.Content>
 
 			<Modal.Footer padding class='flex flex-align-end'>
