@@ -2,6 +2,7 @@ import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
 import { Account } from 'types';
 import Button from '~components/elements/Button';
+import Divider from '~components/elements/Divider';
 import Modal from '~components/layouts/Modal';
 import { getDatetimeString } from '~utils/calendar';
 
@@ -31,6 +32,7 @@ const ViewAccountModal: FunctionalComponent<ViewAccountModalProps> = ({ data, lo
 				</div>
 				<p class='pre c-pencel'>{memo}</p>
 				<p class='c-gray'>{getDatetimeString(i18n.language, datetime)}</p>
+				<Divider />
 			</Modal.Content>
 
 			<Modal.Footer padding class='flex flex-align-end'>

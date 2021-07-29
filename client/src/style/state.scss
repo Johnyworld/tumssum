@@ -9,6 +9,10 @@ input[type=number].hide-spin {
   -moz-appearance: textfield;
 }
 
+.fluid {
+  width: 100%;
+}
+
 .wrap {
   max-width: 900px;
   padding-left: 1rem;

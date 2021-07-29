@@ -78,3 +78,9 @@ input {
 input::placeholder {
 	color: var(--color-gray_weak);
 }
+
+hr {
+	border: none;
+	height: 1px;
+	background-color: var(--color-gray_weak);
+}
