@@ -2,8 +2,7 @@
 	width: 15rem;
 }
 
-.input-container-fluid {
-	width: 100%;
+.input-container.fluid {
 	display: block;
 }
 
@@ -24,4 +23,32 @@
 	background: var(--color-paper);
 	color: var(--color-pen);
 	padding: 0 .5rem;
+}
+
+.content-label {
+	font-weight: var(--weight-bold);
+	color: var(--color-gray_strong);
+  padding: .5em 0;
+	min-width: 150px;	
+}
+
+.content-box {
+  border-radius: .25em;
+	padding: .5em .75em;
+  cursor: pointer;
+	white-space: pre-wrap;
+
+	&:hover {
+		background-color: var(--color-white_weakest);
+	}
+
+	&:focus {
+		background-color: var(--color-white_weakest);
+		box-shadow: var(--shadow-large);
+	}
+}
+
+.content-text {
+  padding: .5em 0;
+  cursor: text;
 }

@@ -13,7 +13,7 @@ export interface SelectorProps extends DefaultProps {
 
 const Selector: FunctionalComponent<SelectorProps> = ({ class: className, list, selected, label, fluid, onChange }) => {
 	return (
-		<div class={getClassNames([ 'selector', 'input-container', className, [fluid, 'input-container-fluid'] ])}>
+		<div class={getClassNames([ 'selector', 'input-container', className, [fluid, 'fluid'] ])}>
 			{ label && <label class='input-label'>{label}</label> }
 			<ul class='flex'>
 				{ list.map(item=> (

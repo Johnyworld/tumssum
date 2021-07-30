@@ -1,5 +1,5 @@
 import { h, FunctionalComponent } from 'preact';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useEffect, useRef } from 'preact/hooks';
 import { Color, DefaultProps, Size, Weight } from 'types';
 import { getClassNames } from '~utils/classNames';
 import './ContentEditable.scss';
@@ -12,16 +12,17 @@ export interface ContentEditableProps extends DefaultProps {
 	size?: Size;
 	weight?: Weight;
 	isFocusOnLoad?: boolean;
+	isOneLine?: boolean;
 	onChange: (value: string) => void;
 }
 
-const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: className, style, styleType='button', value, color, size, weight, placeholder, isFocusOnLoad, onChange }) => {
+const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: className, style, styleType='button', value, color, size, weight, placeholder, isFocusOnLoad, isOneLine, onChange }) => {
 
 	const ref = useRef<HTMLDivElement>(null);
 
 	const classes = getClassNames([
 		'content-editable',
-		`content-editable-${styleType}`,
+		styleType === 'button' ? 'content-box' : 'content-text',
 		className,
 		[!!color, `c-${color}`],
 		[!!size, `f-${size}`],
@@ -34,6 +35,7 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 
 	const handleKeyDown: h.JSX.KeyboardEventHandler<HTMLDivElement> = (e) => {
 		if (e.key === 'Enter') {
+			if (e.shiftKey && !isOneLine) return;
 			e.preventDefault();
 			ref.current.blur();
 		}

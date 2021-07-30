@@ -11,29 +11,9 @@ div.content-editable[contenteditable=true]:focus:empty:before{
 div.content-editable[contenteditable=true] {
   min-height: 1em;
   line-height: 1.4;
-  border-radius: .25em;
 
 	&:focus {
 		cursor: text;
 		outline: none;
-	}
-}
-
-div.content-editable-transparent[contenteditable=true] {
-  padding: .5em 0;
-  cursor: text;
-}
-
-div.content-editable-button[contenteditable=true] {
-  padding: .5em .75em;
-  cursor: pointer;
-
-	&:hover {
-		background-color: var(--color-white_weakest);
-	}
-
-	&:focus {
-		background-color: var(--color-white_weakest);
-		box-shadow: var(--shadow-large);
 	}
 }

@@ -1,6 +1,5 @@
 import { h, FunctionalComponent, Ref } from 'preact';
 import ContentEditable from '~components/elements/ContentEditable';
-import './LabeledContentEditable.scss';
 
 export interface LabeledContentEditableProps {
 	label: string;
@@ -13,7 +12,7 @@ export interface LabeledContentEditableProps {
 const LabeledContentEditable: FunctionalComponent<LabeledContentEditableProps> = ({ label, value, placeholder, isFocusOnLoad, onChange }) => {
 	return (
 		<div class='labeled-content-editable flex flex-align-start'>
-			<p class='labeled-content-editable-label'>{label}</p>			
+			<p class='content-label'>{label}</p>			
 			<ContentEditable
 				color='pencel'
 				class='fluid'
