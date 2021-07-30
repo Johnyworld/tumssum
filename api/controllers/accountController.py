@@ -58,7 +58,8 @@ def putAccount(reqData):
   for k in reqData:
     setattr(account, k, reqData[k])
   account.save()
-  return Response(AccountSerializer(account, many=False).data)
+  res = { 'ok': True, 'data': AccountSerializer(account, many=False).data }
+  return JsonResponse(res)
 
 
 def deleteAccount(reqData):
