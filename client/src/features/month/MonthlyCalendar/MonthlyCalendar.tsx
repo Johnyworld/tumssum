@@ -14,7 +14,6 @@ import useToggle from '~hooks/useToggle';
 import { getLocalString, getLocalStringFromISOString } from '~utils/calendar';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import { changeMonthNext, changeMonthPrev, changeMonthToday } from '../monthSlice';
-import AccountDetails from './AccountDetails';
 
 
 const MonthlyCalendar: FunctionalComponent = () => {
@@ -76,13 +75,14 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		onUpdate: handleUpdate,
 	});
 
-	const handleCreateAccount = (title: string, amount: number, datetime: string) => {
+	const handleCreateAccount = (title: string, amount: number, datetime: string, memo: string) => {
 		if (createNewAccount.loading) return;
 		createNewAccount.call({
 			user_id: user!.id,
 			title,
 			account: amount,
 			datetime,
+			memo,
 		})
 	}
 
@@ -94,7 +94,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		})
 	}
 
-	const handleUpdateAccount = (title: string, amount: number, datetime: string, id?: number) => {
+	const handleUpdateAccount = (title: string, amount: number, datetime: string, memo: string, id?: number) => {
 		if (updateAccount.loading) return;
 		if (!id) return;
 		updateAccount.call({
@@ -103,6 +103,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 			title,
 			account: amount,
 			datetime,
+			memo,
 		})
 	}
 
@@ -188,12 +189,10 @@ const MonthlyCalendar: FunctionalComponent = () => {
 				isOpen={!!detailView}
 				onClose={handleCloseDetail}
 				children={
-					<AccountDetails
-						data={detailView!}
-						loading={deleteAccount.loading}
-						onEdit={handleUpdateAccount}
-						onClose={handleCloseDetail}
-						onDelete={handleDeleteAccount}
+					<AccountFormModal
+						initialValues={detailView!}
+						onConfirm={handleUpdateAccount}
+						onClose={toggleCreateModal.handleOff}
 					/>
 				}
 			/>
