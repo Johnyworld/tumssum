@@ -40,6 +40,8 @@ declare module 'types' {
 
   export type Size = 'tiny' | 'small' | 'regular' | 'medium' | 'large' | 'big' | 'huge';
 
+  export type Weight = 'thin' | 'normal' | 'bold';
+
   export type IconType = typeof icons[number];
 
   export interface SelectMenuItem {
