@@ -15,10 +15,10 @@ export interface AccountFormModalProps {
 	initialValues?: Account;
 	onConfirm: (title: string, amount: number, datetime: string, memo: string, id?: number) => void;
 	onClose: () => void;
-	onGoBack?: () => void;
+	onDelete?: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
 }
 
-const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialValues, onClose, onConfirm, onGoBack }) => {
+const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialValues, onClose, onConfirm, onDelete }) => {
 
 	
 	// const [title, handleChangeTitle] = useInput(initialValues?.title || '');
@@ -88,7 +88,8 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 					</div>
 					<div style={{ height: '30px' }} /> */}
 				</Modal.Content>
-				<Modal.Footer flexEnd padding>
+				<Modal.Footer flex padding>
+					{ onDelete && initialValues ? <p class='c-red f-bold pointer' onClick={onDelete(initialValues.id)}>삭제</p> : <p /> }
 					<Button type='submit' children='확인' />
 				</Modal.Footer>
 				{/* <Modal.Footer>

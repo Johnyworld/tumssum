@@ -193,6 +193,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 						initialValues={detailView!}
 						onConfirm={handleUpdateAccount}
 						onClose={toggleCreateModal.handleOff}
+						onDelete={handleDeleteAccount}
 					/>
 				}
 			/>
