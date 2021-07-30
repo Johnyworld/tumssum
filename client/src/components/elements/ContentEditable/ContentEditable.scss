@@ -1,7 +1,7 @@
 div.content-editable[contenteditable=true]:empty:before{
   content: attr(placeholder);
   display: block; /* For Firefox */
-  color: var(--color-gray_strong);
+  color: var(--color-gray);
 }
 
 div.content-editable[contenteditable=true]:focus:empty:before{

@@ -1,11 +1,10 @@
-import { JSX } from "preact";
 import { StateUpdater, useState } from "preact/hooks";
 
-const useContentEditable = (defaultValue: string): [value: string, handleInput:JSX.GenericEventHandler<HTMLDivElement>, setValue: StateUpdater<string>] => {
+const useContentEditable = (defaultValue: string): [value: string, handleInput: (value: string) => void, setValue: StateUpdater<string>] => {
 	const [value, setValue] = useState(defaultValue);
 
-	const handleInput:JSX.GenericEventHandler<HTMLDivElement> = (e) => {
-		setValue(e.currentTarget.innerText);
+	const handleInput = (value: string) => {
+		setValue(value);
 	}
 
   return [ value, handleInput, setValue ];
