@@ -9,6 +9,7 @@ import TimePicker from '~components/elements/TimePicker';
 import Modal from '~components/layouts/Modal';
 import useInput from '~hooks/useInput';
 import { getLocalString } from '~utils/calendar';
+import { ACCOUNT_MAX, TITLE_MAX_LENGTH } from '~utils/constants';
 
 export interface AccountFormModalProps {
 	initialValues?: Account;
@@ -67,8 +68,8 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 							{ id: 'income', text: '수입' },
 						]}
 					/>
-					<Input fluid required name='title' label='제목' placeholder='무엇을 지출/수입 하셨나요?' value={title} onChange={handleChangeTitle} inputRef={inputRef} />
-					<Input fluid required name='amount' label='금액' placeholder='금액을 입력하세요.' value={amount} onChange={handleChangeAmount} type='number' min={0} removeAutoComplete />
+					<Input fluid required name='title' label='제목' maxLength={TITLE_MAX_LENGTH} placeholder='무엇을 지출/수입 하셨나요?' value={title} onChange={handleChangeTitle} inputRef={inputRef} />
+					<Input fluid required name='amount' label='금액' min={0} max={ACCOUNT_MAX} placeholder='금액을 입력하세요.' value={amount} onChange={handleChangeAmount} type='number' removeAutoComplete />
 					<div class='grid grid-col-2 grid-gap-regular'>
 						<DatePicker fluid label='날짜' date={date} onChange={(date) => setDate(date)} />
 						<TimePicker fluid label='시간' time={time} onChange={(date) => setTime(date)} />
