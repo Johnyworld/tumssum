@@ -15,6 +15,9 @@ export default <T>(data: T[]) => {
 
 	const [ grapping, setGrapping ] = useState<GrappingData<T> | null>(null);
 	const [ grappingPos, setGrappingPos ] = useState<null | Vec2>(null);
+	const [ grapPos, setGrapPos ] = useState<null | Vec2>(null);
+
+	const isDragging = grapPos && grappingPos && grapPos.x !== grappingPos.x && grapPos.y !== grappingPos.y;
 
 	const handleDragging = useCallback((e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
 		if (grapping) {
@@ -28,6 +31,10 @@ export default <T>(data: T[]) => {
 		const grappingItem = data;
 		if ( grappingItem ) {
 			const rect = e.currentTarget.getBoundingClientRect();
+			setGrapPos({
+				x: e.clientX - e.clientX - rect.x,
+				y: e.clientY - e.clientY - rect.y,
+			})
 			setGrapping({
 				x: e.clientX - rect.x,
 				y: e.clientY - rect.y,
@@ -40,7 +47,9 @@ export default <T>(data: T[]) => {
 
 	const handleDrop = useCallback(() => {
 		setGrapping(null);
+		setGrappingPos(null);
+		setGrapPos(null);
 	}, [])
 
-	return { grapping, grappingPos, handleGrap, handleDrop, handleDragging };
+	return { grapping, grappingPos, isDragging, handleGrap, handleDrop, handleDragging };
 }

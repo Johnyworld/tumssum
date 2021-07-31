@@ -1,10 +1,15 @@
 import { Category } from 'types';
 import { updateCategory } from '~features/category/categorySlice';
 import { useDispatch } from '~utils/redux/hooks';
+import { GrappingData } from './useDrag';
 import useFetch from './useFetch';
 
+interface UseCategory {
+	grapping: GrappingData<Category> | null;
+	handleDrop: () => void;
+}
 
-export default () => {
+export default ({ grapping, handleDrop }: UseCategory) => {
 	
 	const dispatch = useDispatch();
 
@@ -23,8 +28,24 @@ export default () => {
 		})
 	}
 
+
+	const handleDropToUpdateCategory = (groupId: number | null) => () => {
+		if (callUpdateCategory.loading || !grapping ) return;
+		if (groupId === grapping.data.group) {
+			handleDrop();
+			return;
+		}
+		callUpdateCategory.call({
+			category_id: grapping.data.id,
+			group_id: groupId
+		})
+		dispatch(updateCategory({ id: grapping.data.id, group: groupId } as Category));
+		handleDrop();
+	}
+
 	
 	return {
-		handleUpdateCategory
+		handleUpdateCategory,
+		handleDropToUpdateCategory,
 	};
 }

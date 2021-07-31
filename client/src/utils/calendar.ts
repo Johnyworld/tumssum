@@ -11,7 +11,7 @@ export interface DayItem {
 export const getMonthDate = (date: string, sum: number) => {
 	const then = new Date(date);
 	then.setMonth(then.getMonth() + sum);
-	return then.toISOString();
+	return getLocalString(then);
 }
 
 const englishMonthes = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

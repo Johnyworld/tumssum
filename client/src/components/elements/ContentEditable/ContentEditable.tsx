@@ -1,6 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import { Color, DefaultProps, Size, Weight } from 'types';
+import useToggle from '~hooks/useToggle';
 import { getClassNames } from '~utils/classNames';
 import './ContentEditable.scss';
 
@@ -68,7 +69,7 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 
 	useEffect(() => {
 		if (ref.current) ref.current.innerText = value || '';
-	}, [])
+	}, []);
 
 	if (isFocusOnLoad) {
 		useEffect(() => {

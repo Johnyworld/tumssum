@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getMonthDate } from '~utils/calendar';
+import { createSlice } from '@reduxjs/toolkit';
+import { getLocalString, getMonthDate } from '~utils/calendar';
 
 const initialState = {
-  date: new Date().toISOString(),
+  date: getLocalString()
 }
 
 
@@ -17,7 +17,7 @@ export const monthSlice = createSlice({
 			state.date = getMonthDate(state.date, +1);
 		},
 		changeMonthToday: (state) => {
-			state.date = new Date().toISOString();
+			state.date = getLocalString();
 		}
   }
 })

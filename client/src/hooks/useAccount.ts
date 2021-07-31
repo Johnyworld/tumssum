@@ -85,7 +85,7 @@ export default ({ grapping, handleCloseCreateModal, handleCloseDetails, handleDr
 		if (fetchUpdateAccount.loading || !grapping ) return;
 		const datetime = date + 'T' + grapping!.data.datetime.split('T')[1]
 		if (date === grapping.data.datetime.substr(0, 10)) {
-			updateAndDrop({ datetime } as Account);
+			handleDrop();
 			return;
 		}
 		const localtime = getLocalString(new Date(grapping.data.datetime)).split('T')[1];
@@ -100,7 +100,7 @@ export default ({ grapping, handleCloseCreateModal, handleCloseDetails, handleDr
 	const handleDropToUpdateCategory = (categoryId: number | null, categoryTitle: string) => () => {
 		if (fetchUpdateAccount.loading || !grapping ) return;
 		if (categoryId === grapping.data.category) {
-			updateAndDrop({ category: categoryId, category_title: categoryTitle } as Account);
+			handleDrop();
 			return;
 		}
 		updateAndDrop({ category: categoryId, category_title: categoryTitle } as Account);

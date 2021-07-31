@@ -1,13 +1,15 @@
 import { h, FunctionalComponent } from 'preact';
-import { Account, CategoryGroup, Vec2 } from 'types';
+import { Account, Category, CategoryGroup, Vec2 } from 'types';
 import BoardItem from '~components/elements/BoardItem';
 import Divider from '~components/elements/Divider';
 import { GrappingData } from '~hooks/useDrag';
+import { combineCategoriesWithGroups } from '~routes/CategoryPage/CategoryPage';
 import AccountItem from '../AccountItem';
 import './CategoryBoard.scss';
 
 interface CategoryBoardProps {
-	categories: CategoryGroup[];
+	categories: Category[];
+	categoryGroups: CategoryGroup[];
 	data: Account[];
 	grapping?: GrappingData<Account> | null;
 	grappingPos?: Vec2 | null;
@@ -40,10 +42,11 @@ const combineCategoriesWithData = (categories: CategoryGroup[], alignedData: {[x
 }
 
 
-const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, data, grapping, grappingPos, onGrap, onDropToUpdate, onDrop, onDragging, onClick }) => {
+const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, categoryGroups, data, grapping, grappingPos, onGrap, onDropToUpdate, onDrop, onDragging, onClick }) => {
 
+	const combined = combineCategoriesWithGroups(categories, categoryGroups);
 	const alignedData = getDataAligned(data);
-	const categoriesWithData = combineCategoriesWithData(categories, alignedData);
+	const categoriesWithData = combineCategoriesWithData(combined, alignedData);
 
 	return (
 		<div class='category-board' onMouseMove={onDragging} onMouseUp={onDrop}>

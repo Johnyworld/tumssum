@@ -10,8 +10,6 @@
 
 .content-editable[contenteditable=true] {
   position: relative;
-  min-height: 1em;
-  line-height: 1.4;
 
   &.content-editable-negative,
   &.content-editable-positive {
