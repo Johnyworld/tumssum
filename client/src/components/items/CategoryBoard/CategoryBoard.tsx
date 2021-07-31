@@ -49,7 +49,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, da
 		<div class='category-board' onMouseMove={onDragging} onMouseUp={onDrop}>
 			<div class='gap-medium'>
 				<div class='gap-tiny'>
-					<Divider text='미분류' textSize='large' textPosition='left' />
+					<Divider text='미분류'  />
 					<BoardItem
 						isGrapping={!!grapping}
 						onDropToUpdate={onDropToUpdate && onDropToUpdate( null, '' )}
@@ -69,7 +69,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, da
 				</div>
 				{ categoriesWithData.map(group => (
 					<div key={group.id} class='gap-tiny'>
-						<Divider text={group.title || '카테고리 그룹 없음'} textSize='large' textPosition='left' />
+						<Divider text={group.title || '카테고리 그룹 없음'}  />
 						<div class='category-board-row'>
 							{ group.categories && group.categories.map(category => (
 								<BoardItem

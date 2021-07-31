@@ -33,9 +33,6 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 		[!!weight, `f-${weight}`],
 	]);
 
-	const handleInput: h.JSX.GenericEventHandler<HTMLDivElement> = (e) => {
-		onChange(e.currentTarget.innerText);
-	}
 
 	const handleKeyDown: h.JSX.KeyboardEventHandler<HTMLDivElement> = (e) => {
 		if (onChangeNumberNegative && ( e.key === '+' || e.key === '=' )) {
@@ -51,7 +48,7 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 		if (e.key === 'Enter') {
 			if (e.shiftKey && !isOneLine) return;
 			e.preventDefault();
-			ref.current.blur();
+			setTimeout(() => ref.current.blur());
 		}
 	}
 
@@ -64,6 +61,8 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 			const removeCharacters = ref.current.innerText.replace(/([^0-9])/gi, "");;
 			ref.current.innerText = removeCharacters;
 			onChange(removeCharacters);
+		} else {
+			onChange(e.currentTarget.innerText);
 		}
 	}
 
@@ -84,7 +83,6 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 		contentEditable
 		placeholder={placeholder}
 		ref={ref}
-		onInput={handleInput}
 		onKeyDown={handleKeyDown}
 		onBlur={handleBlur}
 		children={!ref.current && value ? value : ''}

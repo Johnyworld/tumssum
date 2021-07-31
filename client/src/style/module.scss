@@ -49,6 +49,18 @@
 }
 
 .content-text {
-  padding: .5em 0;
+  padding: .125em 0;
   cursor: text;
 }
+
+
+.list-item-icon {
+	display: none;
+	right: .5rem;
+}
+
+.list-item:hover .list-item-icon {
+	display: block;
+}
+
+

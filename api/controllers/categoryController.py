@@ -37,12 +37,14 @@ def postCategory(reqData):
 
 def putCategory(reqData):
   category_id = reqData.get('category_id')
+  print('=====', category_id)
 
   category = get_object_or_404(Category, pk=category_id)
   for k in reqData:
     setattr(category, k, reqData[k])
   category.save()
-  return Response(CategorySerializer(category, many=False).data)
+  res = { 'ok': True, 'data': CategorySerializer(category, many=False).data }
+  return JsonResponse(res)
 
 
 def deleteCategory(reqData):
