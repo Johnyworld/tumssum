@@ -1,7 +1,7 @@
 import { h, render } from 'preact';
 import { Suspense } from 'preact/compat';
 import { Provider } from 'react-redux';
-import App from './components/App';
+import App from './routes/App';
 import 'preact/debug';
 import './style/index.scss';
 import axios from 'axios';
