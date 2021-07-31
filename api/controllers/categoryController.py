@@ -1,11 +1,13 @@
+from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
 from api.utils.serializers import CategoryGroupSerializer, CategorySerializer
 from rest_framework.response import Response
 from api.models import Category, CategoryGroup
 
 
-def getCategories(reqData):
-  user_id = reqData.get('user_id')
+def getCategories(request):
+  user_id = request.GET.get('user_id')
+  print(user_id)
 
   categoryGroups = CategoryGroup.objects.filter(user=user_id)
   categoriesNoGroup = Category.objects.filter(user=user_id, group=None)
@@ -16,7 +18,8 @@ def getCategories(reqData):
   merge = list(categoryGroupsData)
   merge.append({ 'categories': categoriesNoGroupData })
 
-  return Response(merge)
+  res = { 'ok': True, 'data': merge }
+  return JsonResponse(res)
 
 
 def postCategory(reqData):

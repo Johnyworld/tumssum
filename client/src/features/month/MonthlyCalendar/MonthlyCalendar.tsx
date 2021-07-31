@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import { Account, IconType } from 'types';
 import Button from '~components/elements/Button';
 import Calendar from '~components/items/Calendar';
+import CategoryBoard from '~components/items/CategoryBoard';
 import MonthSelector from '~components/items/MonthSelector';
 import NavigationMenu from '~components/items/NavigationMenu';
 import Modal from '~components/layouts/Modal';
@@ -10,6 +11,7 @@ import AccountFormModal from '~components/partials/AccountFormModal';
 import useAccount from '~hooks/useAccount';
 import useAccountDetail from '~hooks/useAccountDetail';
 import useCalendarData from '~hooks/useCalendarData';
+import useFetch from '~hooks/useFetch';
 import useList from '~hooks/useList';
 import useToggle from '~hooks/useToggle';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
@@ -28,7 +30,6 @@ type Menu = 'calendar' | 'category' | 'bank';
 const MonthlyCalendar: FunctionalComponent = () => {
 
 	const date = useSelector(state=> state.month.date);
-	const user = useSelector(state=> state.user.userInfo)!;
 	const dispatch = useDispatch();
 	const toggleCreateModal = useToggle();
 	const [selected, setSelected] = useState<Menu>('calendar');
@@ -45,7 +46,6 @@ const MonthlyCalendar: FunctionalComponent = () => {
 	const { detailView, handleCloseDetail, handleViewDetail } = useAccountDetail();
 
 	const { handleCreateAccount, handleDeleteAccount, handleDropToUpdate, handleUpdateAccount } = useAccount({
-		user,
 		list,
 		setList,
 		grapping,
@@ -55,6 +55,14 @@ const MonthlyCalendar: FunctionalComponent = () => {
 		handleDrop,
 		handleUpdate,
 		handleRemove,
+	});
+
+	useFetch<Account[]>({
+		method: 'GET',
+		url: `/api/categories/`,
+		onSuccess: data => {
+			console.log('===== MonthlyCalendar', data);
+		}
 	});
 
 
@@ -95,6 +103,11 @@ const MonthlyCalendar: FunctionalComponent = () => {
 					onDrop={handleDropToUpdate}
 					onDragging={handleDragging}
 					onClick={handleViewDetail}
+				/>
+			}
+
+			{ selected === 'category' &&
+				<CategoryBoard
 				/>
 			}
 

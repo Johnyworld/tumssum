@@ -239,13 +239,14 @@ def user(request):
 
 ###################### CATEGORY ######################
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def categories(request):
-  reqData = json.loads(request.body)
   if request.method == 'GET':
-    return categoryController.getCategories(reqData)
+    return categoryController.getCategories(request)
 
 
 @api_view(['POST', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def category(request):
   reqData = json.loads(request.body)
   if request.method == 'POST':
@@ -259,6 +260,7 @@ def category(request):
 
 
 @api_view(['POST', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def categoryGroup(request):
   reqData = json.loads(request.body)
   if request.method == 'POST':
@@ -335,12 +337,14 @@ def budget(request):
 
 ###################### Accounts ######################
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def accounts(request):
   if request.method == 'GET':
     return accountController.getAccounts(request)
 
 
 @api_view(['POST', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def account(request):
   reqData = json.loads(request.body)
   if request.method == 'POST':

@@ -5,7 +5,6 @@ import { GrappingCalendarData } from './useCalendarData';
 import useFetch from "./useFetch";
 
 interface UseAccount {
-	user: User;
 	list: Account[];
 	setList: StateUpdater<Account[]>;
 	grapping: GrappingCalendarData | null;
@@ -19,19 +18,18 @@ interface UseAccount {
 	handleRemove: (index?: number | undefined) => void;
 }
 
-export default ({ user, list, setList, grapping, handleCloseCreateModal, handleCloseDetails, handleAdd, handleDrop, handleUpdate, handleRemove }: UseAccount) => {
+export default ({ list, setList, grapping, handleCloseCreateModal, handleCloseDetails, handleAdd, handleDrop, handleUpdate, handleRemove }: UseAccount) => {
 	
 	useFetch<Account[]>({
 		method: 'GET',
 		url: `/api/accounts/`,
-		params: { user_id: user!.id },
 		onSuccess: data => {
 			setList(data.map(data => {
 				data.datetime = getLocalStringFromISOString(data.datetime);
 				return data;
 			}));
 		}
-	});
+	});	
 
 	const createNewAccount = useFetch<Account>({
 		method: 'POST',
@@ -65,7 +63,6 @@ export default ({ user, list, setList, grapping, handleCloseCreateModal, handleC
 	const handleCreateAccount = (title: string, amount: number, datetime: string, memo: string) => {
 		if (createNewAccount.loading) return;
 		createNewAccount.call({
-			user_id: user!.id,
 			title,
 			account: amount,
 			datetime,
@@ -76,7 +73,6 @@ export default ({ user, list, setList, grapping, handleCloseCreateModal, handleC
 	const handleDeleteAccount = (id: number) => () => {
 		if (deleteAccount.loading) return;
 		deleteAccount.call({
-			user_id: user!.id,
 			account_id: id,
 		})
 	}
@@ -85,7 +81,6 @@ export default ({ user, list, setList, grapping, handleCloseCreateModal, handleC
 		if (updateAccount.loading) return;
 		if (!id) return;
 		updateAccount.call({
-			user_id: user!.id,
 			account_id: id,
 			title,
 			account: amount,

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useTranslation } from "preact-i18next";
 import { useEffect, useState } from "preact/hooks"
+import { useSelector } from "~utils/redux/hooks";
 
 
 interface ErrorObj {
@@ -19,6 +20,7 @@ interface UseFetchParams<S> {
 const useFetch = <S>({ method, url, params, onError, onSuccess }:UseFetchParams<S>) => {
 
 	const { t } = useTranslation();
+	const user = useSelector(state=> state.user.userInfo);
 	const [data, setData] = useState<S | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<ErrorObj>({ code: '', message: '' });
@@ -28,13 +30,20 @@ const useFetch = <S>({ method, url, params, onError, onSuccess }:UseFetchParams<
 		if (loading) return;
 		setLoading(true);
 
-		console.log(':: REQUEST :: ', method, url, { reqData, params });
+		let sendingData = reqData;
+		let sendingParams = params;
+		if (user && reqData) sendingData = {...reqData, user_id: user.id};
+		if (user && params) sendingParams = {...params, user_id: user.id};
+		console.log(':: REQUEST :: ', method, url, { data: sendingData, params: sendingParams });
 
 		axios({
 			method,
 			url,
-			data: reqData,
-			params,
+			headers: user && {
+				'Authorization': `Bearer ${user.access}`,
+			},
+			data: sendingData,
+			params: sendingParams,
 		}).then((res: any) => {
 			console.log(':: RESPONSE :: ', res);
 			if (res.ok && !res.code) {
@@ -60,8 +69,9 @@ const useFetch = <S>({ method, url, params, onError, onSuccess }:UseFetchParams<
 		else if (data && onSuccess) onSuccess(data);
 	}, [data, loading, error]);
 
+
 	useEffect(() => {
-		if (params) fetching(null, params);
+		if (method === 'GET') fetching(null, params || {});
 	}, []);
 
 
