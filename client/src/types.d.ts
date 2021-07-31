@@ -74,6 +74,7 @@ declare module 'types' {
     user: number;
     created_at: string;
     updated_at: string;
+    accounts: Account[];
   }
 
   export interface CategoryGroup {

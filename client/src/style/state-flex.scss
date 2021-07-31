@@ -64,6 +64,11 @@
 }
 
 .grid-gap {
+
+	&-tiny {
+		gap: 0.25rem;
+	}
+
 	&-small {
 		gap: 0.5rem;
 	}

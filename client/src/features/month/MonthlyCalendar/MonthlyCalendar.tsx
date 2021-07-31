@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
-import { Account, IconType } from 'types';
+import { IconType } from 'types';
 import Button from '~components/elements/Button';
 import Calendar from '~components/items/Calendar';
 import CategoryBoard from '~components/items/CategoryBoard';
@@ -8,7 +8,6 @@ import MonthSelector from '~components/items/MonthSelector';
 import NavigationMenu from '~components/items/NavigationMenu';
 import Modal from '~components/layouts/Modal';
 import AccountFormModal from '~components/partials/AccountFormModal';
-import { updateAccount } from '~features/account/accountSlice';
 import useAccount from '~hooks/useAccount';
 import useAccountDetail from '~hooks/useAccountDetail';
 import useCalendarData from '~hooks/useCalendarData';
@@ -36,15 +35,11 @@ const MonthlyCalendar: FunctionalComponent = () => {
 	const [selected, setSelected] = useState<Menu>('calendar');
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useCalendarData({
-		date,
-		data: accounts || [],
-		onUpdate: (id: number, data: Account) => dispatch(updateAccount({ id, data }))
-	});
+	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useCalendarData(accounts);
 
 	const { detailView, handleCloseDetail, handleViewDetail } = useAccountDetail();
 
-	const { handleCreateAccount, handleDeleteAccount, handleDropToUpdate, handleUpdateAccount } = useAccount({
+	const { handleCreateAccount, handleUpdateAccount, handleDeleteAccount, handleDropToUpdateDate, handleDropToUpdateCategory } = useAccount({
 		grapping,
 		handleCloseCreateModal: toggleCreateModal.handleOff,
 		handleCloseDetails: handleCloseDetail,
@@ -85,7 +80,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 					grapping={grapping}
 					grappingPos={grappingPos}
 					onGrap={handleGrap}
-					onDrop={handleDropToUpdate}
+					onDropToUpdate={handleDropToUpdateDate}
 					onDragging={handleDragging}
 					onClick={handleViewDetail}
 				/>
@@ -94,7 +89,14 @@ const MonthlyCalendar: FunctionalComponent = () => {
 			{ selected === 'category' &&
 				<CategoryBoard
 					categories={categories}
-					data={accounts}
+					data={accounts.filter(account => account.datetime.substr(0, 7) === date.substr(0, 7))}
+					grapping={grapping}
+					grappingPos={grappingPos}
+					onGrap={handleGrap}
+					onDrop={handleDrop}
+					onDropToUpdate={handleDropToUpdateCategory}
+					onDragging={handleDragging}
+					onClick={handleViewDetail}
 				/>
 			}
 

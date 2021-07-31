@@ -10,8 +10,7 @@ interface UseAccount {
 
 	handleCloseCreateModal: () => void;
 	handleCloseDetails: () => void;
-
-	handleDrop: (date: string) => void;
+	handleDrop: () => void;
 }
 
 export default ({ grapping, handleCloseCreateModal, handleCloseDetails, handleDrop }: UseAccount) => {
@@ -31,8 +30,8 @@ export default ({ grapping, handleCloseCreateModal, handleCloseDetails, handleDr
 		method: 'PUT',
 		url: '/api/account/',
 		onSuccess: data => {
-			data.datetime = getLocalStringFromISOString(data.datetime)
-			dispatch(updateAccount({ id: data.id, data }))
+			data.datetime = getLocalStringFromISOString(data.datetime);
+			dispatch(updateAccount({ id: data.id, data }));
 			handleCloseCreateModal();
 			handleCloseDetails();
 		}
@@ -76,25 +75,46 @@ export default ({ grapping, handleCloseCreateModal, handleCloseDetails, handleDr
 		})
 	}
 
-	const handleDropToUpdate = (date: string) => () => {
+	const updateAndDrop = (data: Account) => {
+		if (!grapping) return;
+		dispatch(updateAccount({ id: grapping.id, data }));
+		handleDrop();
+	}
+
+	const handleDropToUpdateDate = (date: string) => () => {
 		if (fetchUpdateAccount.loading || !grapping ) return;
+		const datetime = date + 'T' + grapping!.datetime.split('T')[1]
 		if (date === grapping.datetime.substr(0, 10)) {
-			handleDrop(date);
+			updateAndDrop({ datetime } as Account);
 			return;
 		}
 		const localtime = getLocalString(new Date(grapping.datetime)).split('T')[1];
 		const isoString = new Date(date + 'T' + localtime).toISOString();
+		updateAndDrop({ datetime } as Account);
 		fetchUpdateAccount.call({
 			account_id: grapping.id,
 			datetime: isoString,
 		});
-		handleDrop(date);
 	}
-	
+
+	const handleDropToUpdateCategory = (categoryId: number | null, categoryTitle: string) => () => {
+		if (fetchUpdateAccount.loading || !grapping ) return;
+		if (categoryId === grapping.category) {
+			updateAndDrop({ category: categoryId, category_title: categoryTitle } as Account);
+			return;
+		}
+		updateAndDrop({ category: categoryId, category_title: categoryTitle } as Account);
+		fetchUpdateAccount.call({
+			account_id: grapping.id,
+			category_id: categoryId,
+		});
+	}
+
 	return {
 		handleCreateAccount,
 		handleDeleteAccount,
 		handleUpdateAccount,
-		handleDropToUpdate,
+		handleDropToUpdateDate,
+		handleDropToUpdateCategory,
 	};
 }

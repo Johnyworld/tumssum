@@ -12,12 +12,12 @@ export interface CalendarProps {
 	grapping?: GrappingCalendarData | null;
 	grappingPos?: Vec2 | null;
 	onGrap?: (id: number) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
-	onDrop?: (date: string) => h.JSX.MouseEventHandler<HTMLDivElement>;
+	onDropToUpdate?: (date: string) => h.JSX.MouseEventHandler<HTMLDivElement>;
 	onDragging?: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onClick?: (account: Account) => h.JSX.MouseEventHandler<HTMLDivElement>;
 }
 
-const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, grappingPos, onGrap, onDrop, onDragging, onClick }) => {
+const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, grappingPos, onGrap, onDropToUpdate, onDragging, onClick }) => {
 
 	const then = new Date(date);
 	const calendar = getCalendar(then.getFullYear(), then.getMonth());
@@ -43,7 +43,7 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, gr
 									title={col.each+''}
 									disabled={!col.isThisMonth}
 									isGrapping={!!grapping}
-									onDrop={onDrop && onDrop(col.date)}
+									onDropToUpdate={onDropToUpdate && onDropToUpdate(col.date)}
 									children={ col.data && col.data.map(item => (
 										<AccountItem
 											title={item.title}
