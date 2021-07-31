@@ -2,16 +2,16 @@ import { h, FunctionalComponent } from 'preact';
 import { Account, CategoryGroup, Vec2 } from 'types';
 import BoardItem from '~components/elements/BoardItem';
 import Divider from '~components/elements/Divider';
-import { GrappingCalendarData } from '~hooks/useCalendarData';
+import { GrappingData } from '~hooks/useDrag';
 import AccountItem from '../AccountItem';
 import './CategoryBoard.scss';
 
 interface CategoryBoardProps {
 	categories: CategoryGroup[];
 	data: Account[];
-	grapping?: GrappingCalendarData | null;
+	grapping?: GrappingData<Account> | null;
 	grappingPos?: Vec2 | null;
-	onGrap?: (id: number) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
+	onGrap?: (data: Account) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onDropToUpdate?: (categoryId: number | null, categoryTitle: string) => h.JSX.MouseEventHandler<HTMLDivElement>;
 	onDrop?: () => void;
 	onDragging?: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
@@ -60,7 +60,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, da
 										title={account.title}
 										amount={account.account}
 										onClick={onClick && onClick(account)}
-										onMouseDown={onGrap ? onGrap(account.id) : undefined}
+										onMouseDown={onGrap ? onGrap(account) : undefined}
 									/>
 								))}
 							</div>
@@ -82,7 +82,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, da
 											title={account.title}
 											amount={account.account}
 											onClick={onClick && onClick(account)}
-											onMouseDown={onGrap ? onGrap(account.id) : undefined}
+											onMouseDown={onGrap ? onGrap(account) : undefined}
 										/>
 									))}
 								/>
@@ -94,8 +94,8 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, da
 
 			{ grapping && grappingPos &&
 				<AccountItem
-					title={grapping.title}
-					amount={grapping.account}
+					title={grapping.data.title}
+					amount={grapping.data.account}
 					class='calendar-grapping'
 					style={{ left: grappingPos.x, top: grappingPos.y, width: grapping.width, height: grapping.height }} 
 				/>

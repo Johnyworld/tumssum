@@ -1,18 +1,19 @@
 import { h } from "preact";
 import { useCallback, useState } from "preact/hooks";
-import { Account, Vec2 } from "types";
+import { Vec2 } from "types";
 
-export interface GrappingCalendarData extends Account {
+export interface GrappingData<T> {
 	x: number;
 	y: number;
 	width: number;
 	height: number;
+	data: T;
 }
 
 
-export default (data: Account[]) => {
+export default <T>(data: T[]) => {
 
-	const [ grapping, setGrapping ] = useState<GrappingCalendarData | null>(null);
+	const [ grapping, setGrapping ] = useState<GrappingData<T> | null>(null);
 	const [ grappingPos, setGrappingPos ] = useState<null | Vec2>(null);
 
 	const handleDragging = useCallback((e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
@@ -23,8 +24,8 @@ export default (data: Account[]) => {
 		}
 	}, [grapping]);
 	
-	const handleGrap = useCallback((id: number) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
-		const grappingItem = data.find(item => item.id === id);
+	const handleGrap = useCallback((data: T) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => {
+		const grappingItem = data;
 		if ( grappingItem ) {
 			const rect = e.currentTarget.getBoundingClientRect();
 			setGrapping({
@@ -32,7 +33,7 @@ export default (data: Account[]) => {
 				y: e.clientY - rect.y,
 				width: rect.width,
 				height: rect.height,
-				...grappingItem
+				data: grappingItem
 			});
 		}
 	}, [data])

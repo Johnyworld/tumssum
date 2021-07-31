@@ -10,7 +10,7 @@ import Modal from '~components/layouts/Modal';
 import AccountFormModal from '~components/partials/AccountFormModal';
 import useAccount from '~hooks/useAccount';
 import useAccountDetail from '~hooks/useAccountDetail';
-import useCalendarData from '~hooks/useCalendarData';
+import usDrag from '~hooks/useDrag';
 import useToggle from '~hooks/useToggle';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import { changeMonthNext, changeMonthPrev, changeMonthToday } from '../monthSlice';
@@ -35,7 +35,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 	const [selected, setSelected] = useState<Menu>('calendar');
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useCalendarData(accounts);
+	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = usDrag(accounts);
 
 	const { detailView, handleCloseDetail, handleViewDetail } = useAccountDetail();
 

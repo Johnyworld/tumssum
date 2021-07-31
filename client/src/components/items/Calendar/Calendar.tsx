@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { Account, Vec2 } from 'types';
 import BoardItem from '~components/elements/BoardItem';
-import { GrappingCalendarData } from '~hooks/useCalendarData';
+import { GrappingData } from '~hooks/useDrag';
 import { combineCalendarWithData, getCalendar } from '~utils/calendar';
 import AccountItem from '../AccountItem';
 import './Calendar.scss';
@@ -9,9 +9,9 @@ import './Calendar.scss';
 export interface CalendarProps {
 	date: string;
 	data?: Account[];
-	grapping?: GrappingCalendarData | null;
+	grapping?: GrappingData<Account> | null;
 	grappingPos?: Vec2 | null;
-	onGrap?: (id: number) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
+	onGrap?: (data: Account) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onDropToUpdate?: (date: string) => h.JSX.MouseEventHandler<HTMLDivElement>;
 	onDragging?: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onClick?: (account: Account) => h.JSX.MouseEventHandler<HTMLDivElement>;
@@ -49,7 +49,7 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, gr
 											title={item.title}
 											amount={item.account}
 											onClick={onClick && onClick(item)}
-											onMouseDown={onGrap ? onGrap(item.id) : undefined}
+											onMouseDown={onGrap ? onGrap(item) : undefined}
 										/>
 									))}
 								/>
@@ -61,8 +61,8 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, gr
 
 			{ grapping && grappingPos &&
 				<AccountItem
-					title={grapping.title}
-					amount={grapping.account}
+					title={grapping.data.title}
+					amount={grapping.data.account}
 					class='calendar-grapping'
 					style={{ left: grappingPos.x, top: grappingPos.y, width: grapping.width, height: grapping.height }} 
 				/>

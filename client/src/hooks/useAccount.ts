@@ -2,11 +2,11 @@ import { Account } from "types";
 import { addAccount, removeAccount, updateAccount } from '~features/account/accountSlice';
 import { getLocalString, getLocalStringFromISOString } from '~utils/calendar';
 import { useDispatch } from '~utils/redux/hooks';
-import { GrappingCalendarData } from './useCalendarData';
+import { GrappingData } from './useDrag';
 import useFetch from "./useFetch";
 
 interface UseAccount {
-	grapping: GrappingCalendarData | null;
+	grapping: GrappingData<Account> | null;
 
 	handleCloseCreateModal: () => void;
 	handleCloseDetails: () => void;
@@ -77,35 +77,35 @@ export default ({ grapping, handleCloseCreateModal, handleCloseDetails, handleDr
 
 	const updateAndDrop = (data: Account) => {
 		if (!grapping) return;
-		dispatch(updateAccount({ id: grapping.id, data }));
+		dispatch(updateAccount({ id: grapping.data.id, data }));
 		handleDrop();
 	}
 
 	const handleDropToUpdateDate = (date: string) => () => {
 		if (fetchUpdateAccount.loading || !grapping ) return;
-		const datetime = date + 'T' + grapping!.datetime.split('T')[1]
-		if (date === grapping.datetime.substr(0, 10)) {
+		const datetime = date + 'T' + grapping!.data.datetime.split('T')[1]
+		if (date === grapping.data.datetime.substr(0, 10)) {
 			updateAndDrop({ datetime } as Account);
 			return;
 		}
-		const localtime = getLocalString(new Date(grapping.datetime)).split('T')[1];
+		const localtime = getLocalString(new Date(grapping.data.datetime)).split('T')[1];
 		const isoString = new Date(date + 'T' + localtime).toISOString();
 		updateAndDrop({ datetime } as Account);
 		fetchUpdateAccount.call({
-			account_id: grapping.id,
+			account_id: grapping.data.id,
 			datetime: isoString,
 		});
 	}
 
 	const handleDropToUpdateCategory = (categoryId: number | null, categoryTitle: string) => () => {
 		if (fetchUpdateAccount.loading || !grapping ) return;
-		if (categoryId === grapping.category) {
+		if (categoryId === grapping.data.category) {
 			updateAndDrop({ category: categoryId, category_title: categoryTitle } as Account);
 			return;
 		}
 		updateAndDrop({ category: categoryId, category_title: categoryTitle } as Account);
 		fetchUpdateAccount.call({
-			account_id: grapping.id,
+			account_id: grapping.data.id,
 			category_id: categoryId,
 		});
 	}
