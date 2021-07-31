@@ -8,11 +8,10 @@ import MonthSelector from '~components/items/MonthSelector';
 import NavigationMenu from '~components/items/NavigationMenu';
 import Modal from '~components/layouts/Modal';
 import AccountFormModal from '~components/partials/AccountFormModal';
+import { updateAccount } from '~features/account/accountSlice';
 import useAccount from '~hooks/useAccount';
 import useAccountDetail from '~hooks/useAccountDetail';
 import useCalendarData from '~hooks/useCalendarData';
-import useFetch from '~hooks/useFetch';
-import useList from '~hooks/useList';
 import useToggle from '~hooks/useToggle';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import { changeMonthNext, changeMonthPrev, changeMonthToday } from '../monthSlice';
@@ -30,41 +29,26 @@ type Menu = 'calendar' | 'category' | 'bank';
 const MonthlyCalendar: FunctionalComponent = () => {
 
 	const date = useSelector(state=> state.month.date);
+	const accounts = useSelector(state=> state.account.accounts);
 	const dispatch = useDispatch();
 	const toggleCreateModal = useToggle();
 	const [selected, setSelected] = useState<Menu>('calendar');
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	const { list, setList, handleUpdate, handleAdd, handleRemove } = useList<Account>([]);
-
 	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useCalendarData({
 		date,
-		data: list || [],
-		onUpdate: handleUpdate
+		data: accounts || [],
+		onUpdate: (id: number, data: Account) => dispatch(updateAccount({ id, data }))
 	});
 
 	const { detailView, handleCloseDetail, handleViewDetail } = useAccountDetail();
 
 	const { handleCreateAccount, handleDeleteAccount, handleDropToUpdate, handleUpdateAccount } = useAccount({
-		list,
-		setList,
 		grapping,
 		handleCloseCreateModal: toggleCreateModal.handleOff,
 		handleCloseDetails: handleCloseDetail,
-		handleAdd,
 		handleDrop,
-		handleUpdate,
-		handleRemove,
 	});
-
-	useFetch<Account[]>({
-		method: 'GET',
-		url: `/api/categories/`,
-		onSuccess: data => {
-			console.log('===== MonthlyCalendar', data);
-		}
-	});
-
 
 	useEffect(() => {
 		if (inputRef.current && toggleCreateModal.checked) {
@@ -96,7 +80,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 			{ selected === 'calendar' &&
 				<Calendar
 					date={date}
-					data={list || []}
+					data={accounts || []}
 					grapping={grapping}
 					grappingPos={grappingPos}
 					onGrap={handleGrap}

@@ -12,7 +12,7 @@ export interface GrappingCalendarData extends Account {
 interface UseCalendar {
 	date: string;
 	data: Account[];
-	onUpdate: (i: number, data: Account) => void;
+	onUpdate: (id: number, data: Account) => void;
 }
 
 
@@ -45,9 +45,8 @@ export default ({ data, onUpdate }: UseCalendar) => {
 
 	const handleDrop = useCallback((date: string) => {
 		if (grapping && grappingPos) {
-			const grepedIndex = data.findIndex(item => item.id === grapping!.id);
 			const newDatetime = date + 'T' + grapping!.datetime.split('T')[1]
-			onUpdate(grepedIndex, { datetime: newDatetime } as Account);
+			onUpdate(grapping.id, { datetime: newDatetime } as Account);
 			setGrappingPos(null);
 		}
 		setGrapping(null);
