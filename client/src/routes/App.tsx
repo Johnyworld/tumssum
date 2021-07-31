@@ -62,6 +62,14 @@ const UserLoggedIn: FunctionalComponent = () => {
 		}
 	});
 
+	useFetch<CategoryGroup[]>({
+		method: 'GET',
+		url: `/api/categories/`,
+		onSuccess: data => {
+      dispatch(setCategories(data));
+		}
+	});
+
   return (
     <Router>
       <Route path="/" component={HomePage} />

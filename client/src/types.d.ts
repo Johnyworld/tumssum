@@ -67,4 +67,22 @@ declare module 'types' {
     updated_at: string;
   }
 
+  export interface Category {
+    id: number;
+    title: string;
+    group: number;
+    user: number;
+    created_at: string;
+    updated_at: string;
+  }
+
+  export interface CategoryGroup {
+    id: number;
+    title: string;
+    user: number;
+    categories: Category[];
+    created_at: string;
+    updated_at: string;
+  }
+
 }

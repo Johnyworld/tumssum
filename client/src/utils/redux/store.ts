@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import modeReducer from '~features/mode/modeSlice'
 import userReducer from '~features/user/userSlice'
 import monthReducer from '~features/month/monthSlice';
+import categoryReducer from '~features/category/categorySlice';
 import accountReducer from '~features/account/accountSlice';
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
     user: userReducer,
     month: monthReducer,
     account: accountReducer,
+    category: categoryReducer,
   },
 })
 

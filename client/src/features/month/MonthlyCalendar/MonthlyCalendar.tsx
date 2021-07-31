@@ -30,6 +30,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 
 	const date = useSelector(state=> state.month.date);
 	const accounts = useSelector(state=> state.account.accounts);
+	const categories = useSelector(state=> state.category.categories);
 	const dispatch = useDispatch();
 	const toggleCreateModal = useToggle();
 	const [selected, setSelected] = useState<Menu>('calendar');
@@ -92,6 +93,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 
 			{ selected === 'category' &&
 				<CategoryBoard
+					categories={categories}
 				/>
 			}
 
