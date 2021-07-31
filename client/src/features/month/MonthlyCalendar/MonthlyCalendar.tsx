@@ -81,7 +81,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 			{ selected === 'calendar' &&
 				<Calendar
 					date={date}
-					data={accounts || []}
+					data={accounts}
 					grapping={grapping}
 					grappingPos={grappingPos}
 					onGrap={handleGrap}
@@ -94,6 +94,7 @@ const MonthlyCalendar: FunctionalComponent = () => {
 			{ selected === 'category' &&
 				<CategoryBoard
 					categories={categories}
+					data={accounts}
 				/>
 			}
 

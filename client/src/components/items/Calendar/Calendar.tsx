@@ -1,9 +1,8 @@
 import { h, FunctionalComponent } from 'preact';
-import { useState } from 'preact/hooks';
 import { Account, Vec2 } from 'types';
+import BoardItem from '~components/elements/BoardItem';
 import { GrappingCalendarData } from '~hooks/useCalendarData';
 import { combineCalendarWithData, getCalendar } from '~utils/calendar';
-import { getClassNames } from '~utils/classNames';
 import AccountItem from '../AccountItem';
 import './Calendar.scss';
 
@@ -39,14 +38,13 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, gr
 				{ calendarWithData.map(row => (
 					<div class='calendar-row'>
 						{ row.map(col => {
-							const [ hover, setHover ] = useState(false);
-							const handleHover = () => setHover(true);
-							const handleHoverOut = () => setHover(false);
 							return (
-								<div class='calendar-col never-drag gap-tiny' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDrop && onDrop(col.date)}>
-									<p class={getClassNames([ 't-right', [!col.isThisMonth, 'c-gray'] ])}>{col.each}</p>
-									{grapping && hover && <div class='calendar-col-grapping' />}
-									{col.data && col.data.map(item => (
+								<BoardItem
+									title={col.each+''}
+									disabled={!col.isThisMonth}
+									isGrapping={!!grapping}
+									onDrop={onDrop && onDrop(col.date)}
+									children={ col.data && col.data.map(item => (
 										<AccountItem
 											title={item.title}
 											amount={item.account}
@@ -54,7 +52,7 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, gr
 											onMouseDown={onGrap ? onGrap(item.id) : undefined}
 										/>
 									))}
-								</div>
+								/>
 							)
 						})}
 					</div>	

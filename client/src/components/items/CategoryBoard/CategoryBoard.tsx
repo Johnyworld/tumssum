@@ -1,13 +1,18 @@
 import { h, FunctionalComponent } from 'preact';
-import { CategoryGroup } from 'types';
+import { Account, CategoryGroup } from 'types';
+import BoardItem from '~components/elements/BoardItem';
 import Divider from '~components/elements/Divider';
 import './CategoryBoard.scss';
 
 interface CategoryBoardProps {
 	categories: CategoryGroup[];
+	data: Account[];
 }
 
-const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories }) => {
+const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, data }) => {
+
+
+
 	return (
 		<div class='gap-big'>
 			{ categories.map(group => (
@@ -15,9 +20,10 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories }) 
 					<Divider text={group.title || '미분류'} textSize='large' textPosition='left' />
 					<div class='category-board-row'>
 						{ group.categories && group.categories.map(category => (
-							<div class='category-board-col never-drag gap-tiny' key={category.id}>
-								<p>{category.title}</p>
-							</div>
+							<BoardItem
+								class='board-item-col-4'
+								title={category.title}
+							/>
 						))}
 					</div>
 				</div>
