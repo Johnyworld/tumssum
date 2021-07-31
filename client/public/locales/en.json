@@ -16,6 +16,9 @@
   "auth_register_is_first_visit": "Is this your first visit?",
   "auth_social_kakao": "Continue with Kakao",
   "auth_social_google": "Continue with Google",
+
+  "common_save": "Save",
+
   "day_0_long": "Sunday",
   "day_1_long": "Monday",
   "day_2_long": "Tuesday",

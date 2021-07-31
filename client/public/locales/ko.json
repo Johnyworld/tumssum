@@ -16,6 +16,9 @@
   "auth_register_is_first_visit": "처음 방문하셨나요?",
   "auth_social_kakao": "카카오 계정으로 계속",
   "auth_social_google": "구글 계정으로 계속",
+
+  "common_save": "저장",
+
   "day_0_long": "일요일",
   "day_1_long": "월요일",
   "day_2_long": "화요일",
