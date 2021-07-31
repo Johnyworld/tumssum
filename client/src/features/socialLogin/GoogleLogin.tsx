@@ -1,5 +1,5 @@
 import { h, FunctionalComponent } from 'preact';
-import { StateUpdater, useEffect, useRef } from 'preact/hooks';
+import { useEffect, useRef } from 'preact/hooks';
 import axios from 'axios';
 import { setUser } from '~features/user/userSlice';
 import { useDispatch } from '~utils/redux/hooks';

@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+export interface UseListReturns<S> {
+	list: S[];
+}
 
 export default <S>(initialList?: S[]) => {
 	
