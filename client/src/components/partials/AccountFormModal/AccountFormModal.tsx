@@ -22,7 +22,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 
 	
 	// const [title, handleChangeTitle] = useInput(initialValues?.title || '');
-	const [amount, handleChangeAmount] = useInput(initialValues?.account ? Math.abs(initialValues.account)+'' : '');
+	const [amount, ___, setAmmount] = useInput(initialValues?.account ? Math.abs(initialValues.account)+'' : '');
 	const [isIncome, setIsIncome] = useState(initialValues?.account ? !(initialValues.account < 0) : false);
 	const [date, _, setDate] = useInput(initialValues?.datetime || getLocalString());
 	const [time, __, setTime] = useInput(initialValues?.datetime.split('T')[1]?.substr(0,5) || '');
@@ -30,9 +30,8 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 	const [ title, changeTitle ] = useContentEditable(initialValues?.title || '');
 	const [ memo, changeMemo ] = useContentEditable(initialValues?.memo || '');
 
-	const handleChangeIsIncome = (id: string) => () => {
-		if (id === 'income') setIsIncome(true);
-		else setIsIncome(false);
+	const handleChangeIsIncome = (value: boolean) => {
+		setIsIncome(!value);
 	}
 
 	const handleSubmit: h.JSX.GenericEventHandler<HTMLFormElement> = (e) => {
@@ -61,6 +60,17 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 						onChange={changeTitle}
 					/>
 					<div class='gap-tiny'>
+						<LabeledContentEditable
+							value={amount}
+							type='number'
+							label='금액'
+							color={isIncome ? 'pen' : 'red'}
+							weight='bold'
+							placeholder='비어있음'
+							isNumberNegative={!isIncome}
+							onChange={setAmmount}
+							onChangeNumberNegative={handleChangeIsIncome}
+						/>
 						<DatePicker fluid label='날짜' date={date} onChange={(date) => setDate(date)} placeholder='비어있음' />
 						<TimePicker fluid label='시간' time={time} onChange={(date) => setTime(date)} placeholder='비어있음' />
 						<LabeledContentEditable
@@ -90,7 +100,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 				</Modal.Content>
 				<Modal.Footer flex padding>
 					{ onDelete && initialValues ? <p class='c-red f-bold pointer' onClick={onDelete(initialValues.id)}>삭제</p> : <p /> }
-					<Button type='submit' children='확인' />
+					<Button type='submit' children={initialValues ? '저장' : '확인'} />
 				</Modal.Footer>
 				{/* <Modal.Footer>
 					<Button border='squared' fluid size='large' type='submit' children='확인' />

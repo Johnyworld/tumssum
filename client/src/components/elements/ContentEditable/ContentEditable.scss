@@ -1,19 +1,45 @@
-div.content-editable[contenteditable=true]:empty:before{
+.content-editable[contenteditable=true]:empty:before{
   content: attr(placeholder);
-  display: block; /* For Firefox */
+  display: block;
   color: var(--color-gray);
 }
 
-div.content-editable[contenteditable=true]:focus:empty:before{
+.content-editable[contenteditable=true]:focus:empty:before{
   color: rgba(255, 255, 255, 0);
 }
 
-div.content-editable[contenteditable=true] {
+.content-editable[contenteditable=true] {
+  position: relative;
   min-height: 1em;
   line-height: 1.4;
+
+  &.content-editable-negative,
+  &.content-editable-positive {
+    padding-left: 1.5em;
+  }
 
 	&:focus {
 		cursor: text;
 		outline: none;
 	}
 }
+
+.content-editable-negative[contenteditable=true]:after,
+.content-editable-positive[contenteditable=true]:after {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  padding-left: .75em;
+  transform: translateY(-55%);
+  font-weight: var(--weight-bold);
+}
+
+.content-editable-negative[contenteditable=true]:after {
+  content: '-';
+}
+
+.content-editable-positive[contenteditable=true]:after {
+  content: '+';
+}
+

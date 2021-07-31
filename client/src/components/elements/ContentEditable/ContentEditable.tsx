@@ -11,17 +11,21 @@ export interface ContentEditableProps extends DefaultProps {
 	color?: Color;
 	size?: Size;
 	weight?: Weight;
+	type?: 'text' | 'number';
+	isNumberNegative?: boolean;
 	isFocusOnLoad?: boolean;
 	isOneLine?: boolean;
 	onChange: (value: string) => void;
+	onChangeNumberNegative?: (value: boolean) => void;
 }
 
-const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: className, style, styleType='button', value, color, size, weight, placeholder, isFocusOnLoad, isOneLine, onChange }) => {
+const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: className, style, styleType='button', value, color, size, weight, type='text', placeholder, isNumberNegative, isFocusOnLoad, isOneLine, onChange, onChangeNumberNegative }) => {
 
 	const ref = useRef<HTMLDivElement>(null);
 
 	const classes = getClassNames([
 		'content-editable',
+		[value && type === 'number', isNumberNegative ? 'content-editable-negative' : 'content-editable-positive'],
 		styleType === 'button' ? 'content-box' : 'content-text',
 		className,
 		[!!color, `c-${color}`],
@@ -34,10 +38,28 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 	}
 
 	const handleKeyDown: h.JSX.KeyboardEventHandler<HTMLDivElement> = (e) => {
+		if (onChangeNumberNegative && ( e.key === '+' || e.key === '=' )) {
+			onChangeNumberNegative && onChangeNumberNegative(false);
+			e.preventDefault();
+			e.stopImmediatePropagation();
+		}
+		if (onChangeNumberNegative && e.key === '-') {
+			onChangeNumberNegative && onChangeNumberNegative(true);
+			e.preventDefault();
+			e.stopImmediatePropagation();
+		}
 		if (e.key === 'Enter') {
 			if (e.shiftKey && !isOneLine) return;
 			e.preventDefault();
 			ref.current.blur();
+		}
+	}
+
+	const handleBlur: h.JSX.FocusEventHandler<HTMLDivElement> = (e) => {
+		if (type === 'number') {
+			const removeCharacters = ref.current.innerText.replace(/([^0-9])/gi, "");;
+			ref.current.innerText = removeCharacters;
+			onChange(removeCharacters);
 		}
 	}
 
@@ -56,10 +78,11 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 			class={classes}
 			style={style}
 			contentEditable
-			onInput={handleInput}
-			onKeyDown={handleKeyDown}
 			placeholder={placeholder}
 			ref={ref}
+			onInput={handleInput}
+			onKeyDown={handleKeyDown}
+			onBlur={handleBlur}
 			children={!ref.current && value ? value : ''}
 		/>
 	)
