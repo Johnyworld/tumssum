@@ -4,8 +4,8 @@ export default <S>() => {
 
 	const [detailView, setDetailView] = useState<null | S>(null);
 	
-	const handleViewDetail = (account: S) => () => {
-		setDetailView(account);
+	const handleViewDetail = (data: S) => () => {
+		setDetailView(data);
 	}
 
 	const handleCloseDetail = () => {

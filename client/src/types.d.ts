@@ -82,6 +82,28 @@ declare module 'types' {
     title: string;
     user: number;
     categories: Category[];
+    items: Category[];
+    created_at: string;
+    updated_at: string;
+  }
+
+  export interface Bank {
+    id: number;
+    title: string;
+    balance: number;
+    group: number;
+    user: number;
+    created_at: string;
+    updated_at: string;
+    accounts: Account[];
+  }
+
+  export interface BankGroup {
+    id: number;
+    title: string;
+    user: number;
+    banks: Bank[];
+    items: Bank[];
     created_at: string;
     updated_at: string;
   }
