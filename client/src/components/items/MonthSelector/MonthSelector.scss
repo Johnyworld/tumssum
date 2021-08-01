@@ -2,6 +2,7 @@
 
 .month-selector {
 	display: flex;
+	width: 100%;
 	justify-content: flex-end;
 	align-items: center;
 	position: relative;
@@ -11,7 +12,6 @@
 .month-selector-date {
 	position: absolute;
 	left: 0;
-	padding: 0 .5rem;
 }
 
 .month-selector-icons {
@@ -30,12 +30,12 @@
 }
 
 
-@include minTablet {
-	.month-selector {
-		justify-content: center;
-	}
-	.month-selector-date {
-		position: static;
-		padding: 0 2rem;
-	}
-}
+// @include minTablet {
+// 	.month-selector {
+// 		justify-content: center;
+// 	}
+// 	.month-selector-date {
+// 		position: static;
+// 		padding: 0 2rem;
+// 	}
+// }

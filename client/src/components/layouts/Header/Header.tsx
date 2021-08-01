@@ -5,10 +5,10 @@ interface Props {
 
 }
 
-const Header: FunctionalComponent<Props> = ({  }) => {
+const Header: FunctionalComponent<Props> = ({ children }) => {
 	return (
 		<header class='header'>
-			Hello Header
+			{children}
 		</header>
 	)
 }

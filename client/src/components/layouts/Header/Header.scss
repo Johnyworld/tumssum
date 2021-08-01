@@ -1,0 +1,20 @@
+@import '~src/style/mixins';
+
+.header {
+	display: flex;
+	align-items: center;
+	padding-top: 2rem;
+	position: sticky;
+	top: 0;
+	background-color: var(--color-paper);
+	box-sizing: content-box;
+	width: 100%;
+	height: var(--header-height);
+	z-index: var(--layer-header);
+}
+
+@include maxTablet {
+	.header {
+		padding-top: 0;
+	}
+}

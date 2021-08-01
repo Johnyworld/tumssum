@@ -3,7 +3,6 @@ import { useTranslation } from 'preact-i18next';
 import Logo from '~components/elements/Logo';
 import NavigationMenu from '~components/items/NavigationMenu';
 import Aside from '~components/layouts/Aside';
-import Header from '~components/partials/Header';
 import Button from '~components/elements/Button';
 import { logout } from '~features/user/userSlice';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
@@ -11,7 +10,10 @@ import ThemeChanger from '~features/theme/ThemeChanger';
 import './PageContainer.scss';
 
 
-const PageContainer: FunctionalComponent = ({ children }) => {
+interface PageContainerProps {
+}
+
+const PageContainer: FunctionalComponent<PageContainerProps> = ({ children }) => {
 
 	const path = window.location.pathname.split('/')[1] || 'home';
 	const userInfo = useSelector(state=> state.user.userInfo);
@@ -33,7 +35,6 @@ const PageContainer: FunctionalComponent = ({ children }) => {
 
 	return (
 		<Fragment>
-			<Header />
 			<Aside class='hide-tablet p-big'>
 				<Logo />
 				<NavigationMenu
@@ -56,7 +57,7 @@ const PageContainer: FunctionalComponent = ({ children }) => {
 				{ userInfo && <Button onClick={handleLogout} fluid class='gap-regular' type='submit'>logout</Button> }
 				{ userInfo && `Hello ${userInfo.name}`}
 			</Aside>
-			<main class='page-container'>
+			<main class='page-container' >
 				{children}
 			</main>
 		</Fragment>
