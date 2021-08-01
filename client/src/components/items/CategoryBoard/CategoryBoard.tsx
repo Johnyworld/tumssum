@@ -1,7 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { Account, Category, CategoryGroup, Vec2 } from 'types';
 import BoardItem from '~components/elements/BoardItem';
-import Divider from '~components/elements/Divider';
 import { GrappingData } from '~hooks/useDrag';
 import { combineCategoriesWithGroups } from '~routes/CategoryPage/CategoryPage';
 import AccountItem from '../AccountItem';
@@ -32,7 +31,7 @@ const getDataAligned = (data: Account[]) => {
 
 const combineCategoriesWithData = (categories: CategoryGroup[], alignedData: {[x:string]: Account[]}) => {
 	return categories.map(group => {
-		return { ...group, categories: group.categories.map(category => {
+		return { ...group, items: group.items.map(category => {
 			return {
 				...category,
 				accounts: alignedData[category.id],
@@ -77,7 +76,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, ca
 					<div key={group.id} class='gap-tiny'>
 						<p class='c-gray f-small f-bold'>{group.title || '카테고리 그룹 없음'}</p>
 						<div class='category-board-row'>
-							{ group.categories && group.categories.map(category => (
+							{ group.items && group.items.map(category => (
 								<BoardItem
 									class='board-item-col-4'
 									title={category.title}

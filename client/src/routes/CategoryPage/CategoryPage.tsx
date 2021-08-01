@@ -60,9 +60,11 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 
 	return (
 		<div class='category-page wrap' >
+
 			<Header>
 				<h1>카테고리 관리</h1>
 			</Header>
+
 			<Indicator flexEnd>
 				<Button size='small' color='gray' children='+ 그룹 추가' />
 				<Button size='small' children='+ 카테고리 추가' />

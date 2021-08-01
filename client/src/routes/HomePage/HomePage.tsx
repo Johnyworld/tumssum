@@ -55,6 +55,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 	return (
 		<div class='home-page'>
+
 			<Header>
 				<MonthSelector
 					date={date}
@@ -62,6 +63,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 					onNext={() => dispatch(changeMonthNext())}
 				/>
 			</Header>
+
 			<Indicator>
 				<NavigationMenu
 					selected={view}
