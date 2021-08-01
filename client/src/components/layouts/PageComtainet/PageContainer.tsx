@@ -22,7 +22,7 @@ const PageContainer: FunctionalComponent<PageContainerProps> = ({ children }) =>
 	const path = location.split('/')[1] || 'home';
 	const userInfo = useSelector(state=> state.user.userInfo);
   const dispatch = useDispatch();
-	const [isHover, setIsHover] = useState(false);
+	const [isOpenAside, setIsOpenAside] = useState(false);
 
 
   const handleLogout = () => {
@@ -40,8 +40,9 @@ const PageContainer: FunctionalComponent<PageContainerProps> = ({ children }) =>
 
 	return (
 		<div class='page-container'>
-			<Aside class='hide-tablet' onHover={(isHover) => () => setIsHover(isHover)} >
+			<Aside mode={isOpenAside ? 'normal' : 'icon'} class='hide-tablet' >
 				<div class='header'>
+					<button onClick={() => setIsOpenAside(!isOpenAside)}>Test</button>
 					{/* <Logo /> */}
 				</div>
 				<Indicator>
@@ -49,7 +50,7 @@ const PageContainer: FunctionalComponent<PageContainerProps> = ({ children }) =>
 				</Indicator>
 				<AsideMenu
 					selected={path}
-					isOpen={isHover}
+					isOpen={isOpenAside}
 					list={[
 						{ id: 'home', text: 'Home', icon: 'home', href: '/' },
 						{ id: 'budget', text: 'Budget', icon: 'card', href: '/budget' },

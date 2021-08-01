@@ -1,21 +1,15 @@
 @import '~src/style/mixins';
 
 .aside {
-	width: var(--header-height);
+	width: var(--aside-width);
 	background-color: var(--color-paper);
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
 	transition: .3s;
-	padding: 0;
-	z-index: var(--layer-aside);
+	padding: 0 2rem 0 1rem;
 }
 
-.aside:hover {
-	width: var(--aside-width);
-	padding: 0 .5rem;
-	box-shadow: var(--shadow-large);
+.aside-icon {
+	width: var(--header-height);
+	padding: 0;
 }
 
 .aside-wide {
