@@ -22,7 +22,18 @@ const PageContainer: FunctionalComponent<PageContainerProps> = ({ children }) =>
 	const path = location.split('/')[1] || 'home';
 	const userInfo = useSelector(state=> state.user.userInfo);
   const dispatch = useDispatch();
-	const [isOpenAside, setIsOpenAside] = useState(false);
+	const [isOpenAside, setIsOpenAside] = useState(localStorage.getItem('asideopen') === 'close' ? false : true);
+
+
+	const toggleAside = () => {
+		if (isOpenAside) {
+			setIsOpenAside(false);
+			localStorage.setItem('asideopen', 'close');
+		} else {
+			setIsOpenAside(true);
+			localStorage.setItem('asideopen', 'open');
+		}
+	}
 
 
   const handleLogout = () => {
@@ -42,7 +53,7 @@ const PageContainer: FunctionalComponent<PageContainerProps> = ({ children }) =>
 		<div class='page-container'>
 			<Aside mode={isOpenAside ? 'normal' : 'icon'} class='hide-tablet' >
 				<div class='header'>
-					<button onClick={() => setIsOpenAside(!isOpenAside)}>Test</button>
+					<button onClick={toggleAside}>Test</button>
 					{/* <Logo /> */}
 				</div>
 				<Indicator>

@@ -29,13 +29,12 @@
 	cursor: pointer;
 }
 
-
-// @include minTablet {
-// 	.month-selector {
-// 		justify-content: center;
-// 	}
-// 	.month-selector-date {
-// 		position: static;
-// 		padding: 0 2rem;
-// 	}
-// }
+@include minLaptop {
+	.month-selector {
+		justify-content: center;
+	}
+	.month-selector-date {
+		position: static;
+		padding: 0 2rem;
+	}
+}
