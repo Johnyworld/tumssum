@@ -1,4 +1,4 @@
-import { h, FunctionalComponent, Fragment } from 'preact';
+import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
 import Logo from '~components/elements/Logo';
 import NavigationMenu from '~components/items/NavigationMenu';
@@ -8,6 +8,9 @@ import { logout } from '~features/user/userSlice';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import ThemeChanger from '~features/theme/ThemeChanger';
 import './PageContainer.scss';
+import Indicator from '../Indicator';
+import { useState } from 'preact/hooks';
+import { useLocation } from 'wouter';
 
 
 interface PageContainerProps {
@@ -15,9 +18,11 @@ interface PageContainerProps {
 
 const PageContainer: FunctionalComponent<PageContainerProps> = ({ children }) => {
 
-	const path = window.location.pathname.split('/')[1] || 'home';
+	const [location] = useLocation();
+	const path = location.split('/')[1] || 'home';
 	const userInfo = useSelector(state=> state.user.userInfo);
   const dispatch = useDispatch();
+	const [isHover, setIsHover] = useState(false);
 
 
   const handleLogout = () => {
@@ -34,14 +39,20 @@ const PageContainer: FunctionalComponent<PageContainerProps> = ({ children }) =>
 
 
 	return (
-		<Fragment>
-			<Aside class='hide-tablet p-big'>
-				<Logo />
+		<div class='page-container'>
+			<Aside class='hide-tablet' onHover={(isHover) => () => setIsHover(isHover)} >
+				<div class='header'>
+					<Logo />
+				</div>
+				<Indicator>
+
+				</Indicator>
 				<NavigationMenu
-					class='mv-large'
+					style={{ marginTop: '20px' }}
 					selected={path}
 					direction='column'
 					menuItemType='box'
+					isIconMode={!isHover}
 					list={[
 						{ id: 'home', text: 'Home', icon: 'home', href: '/' },
 						{ id: 'budget', text: 'Budget', icon: 'card', href: '/budget' },
@@ -57,10 +68,10 @@ const PageContainer: FunctionalComponent<PageContainerProps> = ({ children }) =>
 				{ userInfo && <Button onClick={handleLogout} fluid class='gap-regular' type='submit'>logout</Button> }
 				{ userInfo && `Hello ${userInfo.name}`}
 			</Aside>
-			<main class='page-container' >
+			<main class='page-container-main' >
 				{children}
 			</main>
-		</Fragment>
+		</div>
 	)
 }
 

@@ -20,6 +20,7 @@ import { setCategories, setCategoryGroups } from '~features/category/categorySli
 import { setAccounts } from '~features/account/accountSlice';
 import { getLocalStringFromISOString } from '~utils/calendar';
 import { getCategories, getCategoryGroups } from './CategoryPage/CategoryPage';
+import PageContainer from '~components/layouts/PageComtainet';
 
 
 const App: FunctionalComponent = () => {
@@ -27,7 +28,7 @@ const App: FunctionalComponent = () => {
   const { userInfo } = useSelector(state=> state.user);
  
   return (
-    <div id="preact_root">
+    <div id='preact_root'>
     
       <FullLoader />
 
@@ -74,13 +75,15 @@ const UserLoggedIn: FunctionalComponent = () => {
 	});
 
   return (
-    <Router>
-      <Route path="/" component={HomePage} />
-      <Route path="/budget" component={BudgetPage} />
-      <Route path="/category" component={CategoryPage} />
-      <Route path="/bank" component={BankPage} />
-      <NotFoundPage default />
-    </Router>
+    <PageContainer>
+      <Router>
+        <Route path="/" component={HomePage} />
+        <Route path="/budget" component={BudgetPage} />
+        <Route path="/category" component={CategoryPage} />
+        <Route path="/bank" component={BankPage} />
+        <NotFoundPage default />
+      </Router>
+    </PageContainer>
   )
 }
 

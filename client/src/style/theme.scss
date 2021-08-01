@@ -75,12 +75,15 @@ $dark-theme: (
 	--shadow-small: 0 2px 2px rgba(0, 0, 0, 0.08);
 	--shadow-large: 0 20px 25px rgba(0, 0, 0, 0.4);
 
-	--layer-ui: 30;
-	--layer-modal: 30;
+	--layer-ui: 50;
+	--layer-modal: 40;
+	--layer-aside: 30;
 	--layer-header: 20;
 	--layer-on: 1;
 
 	--header-height: 60px;
+	--aside-width: 250px;
+	--aside-width_wide: 320px;
 
 	@each $key, $value in $common-theme {
 		#{"--color-" + $key}: #{$value};

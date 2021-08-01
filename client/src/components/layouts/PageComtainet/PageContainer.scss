@@ -1,12 +1,17 @@
 @import '~src/style/mixins';
 
 .page-container {
+	display: flex;
+}
+
+.page-container-main {
+	width: 100%;
 	background-color: var(--color-paper);
 	min-height: 100vh;
 }
 
 @include minTablet {
 	.page-container {
-		padding-left: 250px;
+		padding-left: var(--header-height);
 	}
 }

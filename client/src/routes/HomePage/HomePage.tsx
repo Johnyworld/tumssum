@@ -56,81 +56,79 @@ const HomePage: FunctionalComponent = ({  }) => {
 	}, [inputRef.current, toggleCreateModal.checked]);
 
 	return (
-		<PageContainer>
-			<div class='home-page'>
-				<Header>
-					<MonthSelector
-						date={date}
-						onPrev={() => dispatch(changeMonthPrev())}
-						onNext={() => dispatch(changeMonthNext())}
-					/>
-				</Header>
-				<Indicator>
-					<NavigationMenu
-						selected={selected}
-						onChange={(selected) => setSelected(selected as Menu)}
-						list={MENUS}
-					/>
-					<div class='flex flex-gap-regular'>
-						<p class='f-bold t-fit pointer' onClick={() => dispatch(changeMonthToday())}>Today</p>
-						<Button size='small' onClick={toggleCreateModal.handleOn} children='+ 새로 추가' />
-					</div>
-				</Indicator>
+		<div class='home-page'>
+			<Header>
+				<MonthSelector
+					date={date}
+					onPrev={() => dispatch(changeMonthPrev())}
+					onNext={() => dispatch(changeMonthNext())}
+				/>
+			</Header>
+			<Indicator>
+				<NavigationMenu
+					selected={selected}
+					onChange={(selected) => setSelected(selected as Menu)}
+					list={MENUS}
+				/>
+				<div class='flex flex-gap-regular'>
+					<p class='f-bold t-fit pointer' onClick={() => dispatch(changeMonthToday())}>Today</p>
+					<Button size='small' onClick={toggleCreateModal.handleOn} children='+ 새로 추가' />
+				</div>
+			</Indicator>
 
-				{ selected === 'calendar' &&
-					<Calendar
-						date={date}
-						data={accounts}
-						grapping={grapping}
-						grappingPos={grappingPos}
-						onGrap={handleGrap}
-						onDropToUpdate={handleDropToUpdateDate}
-						onDragging={handleDragging}
-						onClick={handleViewDetail}
+			{ selected === 'calendar' &&
+				<Calendar
+					date={date}
+					data={accounts}
+					grapping={grapping}
+					grappingPos={grappingPos}
+					onGrap={handleGrap}
+					onDropToUpdate={handleDropToUpdateDate}
+					onDragging={handleDragging}
+					onClick={handleViewDetail}
+				/>
+			}
+
+			{ selected === 'category' &&
+				<CategoryBoard
+					categories={categories}
+					categoryGroups={categoryGroups}
+					data={accounts.filter(account => account.datetime.substr(0, 7) === date.substr(0, 7))}
+					grapping={grapping}
+					grappingPos={grappingPos}
+					onGrap={handleGrap}
+					onDrop={handleDrop}
+					onDropToUpdate={handleDropToUpdateCategory}
+					onDragging={handleDragging}
+					onClick={handleViewDetail}
+				/>
+			}
+
+			<Modal
+				isOpen={toggleCreateModal.checked}
+				onClose={toggleCreateModal.handleOff}
+				children={
+					<AccountFormModal
+						onConfirm={handleCreateAccount}
+						onClose={toggleCreateModal.handleOff}
 					/>
 				}
+			/>
 
-				{ selected === 'category' &&
-					<CategoryBoard
-						categories={categories}
-						categoryGroups={categoryGroups}
-						data={accounts.filter(account => account.datetime.substr(0, 7) === date.substr(0, 7))}
-						grapping={grapping}
-						grappingPos={grappingPos}
-						onGrap={handleGrap}
-						onDrop={handleDrop}
-						onDropToUpdate={handleDropToUpdateCategory}
-						onDragging={handleDragging}
-						onClick={handleViewDetail}
+			<Modal
+				isOpen={!!detailView}
+				onClose={handleCloseDetail}
+				children={
+					<AccountFormModal
+						initialValues={detailView!}
+						onConfirm={handleUpdateAccount}
+						onClose={toggleCreateModal.handleOff}
+						onDelete={handleDeleteAccount}
 					/>
 				}
-
-				<Modal
-					isOpen={toggleCreateModal.checked}
-					onClose={toggleCreateModal.handleOff}
-					children={
-						<AccountFormModal
-							onConfirm={handleCreateAccount}
-							onClose={toggleCreateModal.handleOff}
-						/>
-					}
-				/>
-
-				<Modal
-					isOpen={!!detailView}
-					onClose={handleCloseDetail}
-					children={
-						<AccountFormModal
-							initialValues={detailView!}
-							onConfirm={handleUpdateAccount}
-							onClose={toggleCreateModal.handleOff}
-							onDelete={handleDeleteAccount}
-						/>
-					}
-				/>
-			</div>
-			<Aside class='hide-desktop' alignRight wide />
-		</PageContainer>
+			/>
+		</div>
+			// <Aside class='hide-desktop' alignRight wide />
 	)
 }
 

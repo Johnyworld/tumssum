@@ -8,11 +8,9 @@
 		}
 	}
 	
-	&.navigation-menu-column {
-		> *:not(:first-child) {
-			margin-top: .5rem;
-		}
-	}
+	// &.navigation-menu-column {
+
+	// }
 }
 
 
@@ -21,7 +19,6 @@
 	cursor: pointer;
 
 	&.navigation-menu-item-box {
-		border-radius: .5rem;
 		&:hover {
 			background-color: var(--color-gray_weak);
 		}
@@ -30,10 +27,17 @@
 			background-color: var(--color-primary);
 		}
 		.navigation-menu-item-content {
-			display: inline-block;
-			padding: .75rem 1rem;	
+			display: block;
+			position: relative;
 			width: 100%;
-			height: 100%;
+			height: var(--header-height);
+
+			.icon-text {
+				position: absolute;
+				top: 50%;
+				left: 1.325rem;
+				transform: translate(0, -50%);
+			}
 		}
 		.icon-text-icon {
 			polygon, path, polyline, rect, line, circle, ellipse	{
@@ -41,7 +45,12 @@
 			}
 		}
 		.icon-text-p {
-			font-weight: vaR(--weight-bold);
+			font-weight: var(--weight-bold);
+			transition: .3s;
+			opacity: 1;
+		}
+		.icon-text-p-hide {
+			opacity: 0;
 		}
 	}
 

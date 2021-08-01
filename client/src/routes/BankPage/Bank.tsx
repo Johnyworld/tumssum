@@ -7,9 +7,9 @@ interface BankProps {
 
 const Bank: FunctionalComponent<BankProps> = ({  }) => {
 	return (
-		<PageContainer>
+		<div>
 			Hello Bank
-		</PageContainer>
+		</div>
 	)
 }
 

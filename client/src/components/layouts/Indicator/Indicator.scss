@@ -1,7 +1,17 @@
+@import '~src/style/mixins';
+
 .indicator {
-	height: 80px;
+	height: 2.5rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding-right: .5rem;
+	padding-left: .5rem;
+}
+
+@include minTablet {
+	.indicator {
+		height: 5rem;
+		padding-left: 0;
+	}
 }

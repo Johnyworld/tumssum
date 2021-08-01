@@ -7,9 +7,9 @@ interface BudgetPageProps {
 
 const BudgetPage: FunctionalComponent<BudgetPageProps> = ({  }) => {
 	return (
-		<PageContainer>
+		<div>
 			Hello BudgetPage
-		</PageContainer>
+		</div>
 	)
 }
 
