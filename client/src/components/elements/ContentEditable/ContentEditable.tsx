@@ -16,11 +16,12 @@ export interface ContentEditableProps extends DefaultProps {
 	isNumberNegative?: boolean;
 	isFocusOnLoad?: boolean;
 	isOneLine?: boolean;
+	isChangeOnBlur?: boolean;
 	onChange: (value: string) => void;
 	onChangeNumberNegative?: (value: boolean) => void;
 }
 
-const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: className, style, styleType='button', value, color, size, weight, type='text', placeholder, isNumberNegative, isFocusOnLoad, isOneLine, onChange, onChangeNumberNegative }) => {
+const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: className, style, styleType='button', value, color, size, weight, type='text', placeholder, isNumberNegative, isFocusOnLoad, isOneLine, isChangeOnBlur, onChange, onChangeNumberNegative }) => {
 
 	const ref = useRef<HTMLDivElement>(null);
 
@@ -33,6 +34,13 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 		[!!size, `f-${size}`],
 		[!!weight, `f-${weight}`],
 	]);
+
+
+	const handleInput: h.JSX.GenericEventHandler<HTMLDivElement> = (e) => {
+		if (!isChangeOnBlur) {
+			onChange(e.currentTarget.innerText);
+		}
+	}
 
 
 	const handleKeyDown: h.JSX.KeyboardEventHandler<HTMLDivElement> = (e) => {
@@ -84,6 +92,7 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 		contentEditable
 		placeholder={placeholder}
 		ref={ref}
+		onInput={handleInput}
 		onKeyDown={handleKeyDown}
 		onBlur={handleBlur}
 		children={!ref.current && value ? value : ''}

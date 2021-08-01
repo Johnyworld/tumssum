@@ -37,7 +37,7 @@ export default ({ grapping, handleDrop }: UseCategory) => {
 		}
 		callUpdateCategory.call({
 			category_id: grapping.data.id,
-			group_id: groupId
+			group_id: groupId || null
 		})
 		dispatch(updateCategory({ id: grapping.data.id, group: groupId } as Category));
 		handleDrop();

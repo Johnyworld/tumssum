@@ -4,7 +4,6 @@ import { Category, CategoryGroup } from 'types';
 import Button from '~components/elements/Button';
 import ContentEditable from '~components/elements/ContentEditable';
 import Divider from '~components/elements/Divider';
-import Icon from '~components/elements/Icon';
 import PageContainer from '~components/layouts/PageComtainet';
 import useCategory from '~hooks/useCategory';
 import useDrag from '~hooks/useDrag';
@@ -41,10 +40,10 @@ export const combineCategoriesWithGroups = (categories: Category[], categoryGrou
 	const groups: CategoryGroup[] = categoryGroups.map(group => {
 		return {
 			...group,
-			categories: alignedCalendar[group.id],
+			categories: alignedCalendar[group.id] || [],
 		}
 	});
-	return [...groups, { categories: alignedCalendar.EMPTY } as CategoryGroup]
+	return [...groups, { categories: alignedCalendar.EMPTY || [] } as CategoryGroup]
 }
 
 const CategoryPage: FunctionalComponent = ({  }) => {
@@ -73,7 +72,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 						const handleHoverOut = () => setHover(false);
 						return (
 							<div key={group.id} class='pos-relative' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={handleDropToUpdateCategory(group.id)}>
-								{!!grapping && hover && <div class='board-item-grapping' />}
+								{!!grapping && hover && <div class='board-item-grapping' style={{ transform: 'scaleX(1.02)', borderRadius: '.25rem' }} />}
 								{ group.title
 									? <ContentEditable
 											value={group.title}
@@ -87,7 +86,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 								}
 								<Divider />
 								<div class='gap-tiny'>
-									{ group.categories && group.categories.map(category=> (
+									{ group.categories && group.categories.length > 0 ? group.categories.map(category=> (
 										<div class='list-item pos-relative' onMouseDown={handleGrap(category)}>
 											{ isDragging
 												? <div class='content-box'>{category.title}</div>
@@ -96,6 +95,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 														style={!!grapping && { background: 'none' }}
 														class='fluid'
 														placeholder='비어있음'
+														isChangeOnBlur
 														value={category.title}
 													/>
 											}
@@ -106,7 +106,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 												</svg>
 											</div>
 										</div>
-									))}
+									)) : <p class='p-small c-gray'>카테고리 없음</p>}
 								</div>
 							</div>
 						)
