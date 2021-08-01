@@ -1,69 +1,23 @@
 .navigation-menu {
-
-	&.navigation-menu-row {
-		display: flex;
-		align-items: center;
-		> *:not(:first-child) {
-			margin-left: 1rem;
-		}
+	display: flex;
+	align-items: center;
+	> *:not(:first-child) {
+		margin-left: 1rem;
 	}
-	
-	// &.navigation-menu-column {
-
-	// }
 }
 
 
 .navigation-menu-item {
-	transition: .3s;
 	cursor: pointer;
 
-	&.navigation-menu-item-box {
-		&:hover {
-			background-color: var(--color-gray_weak);
-		}
-		&.selected {
-			color: var(--color-white);
-			background-color: var(--color-primary);
-		}
-		.navigation-menu-item-content {
-			display: block;
-			position: relative;
-			width: 100%;
-			height: var(--header-height);
-
-			.icon-text {
-				position: absolute;
-				top: 50%;
-				left: 1.325rem;
-				transform: translate(0, -50%);
-			}
-		}
+	&.selected {
 		.icon-text-icon {
 			polygon, path, polyline, rect, line, circle, ellipse	{
 				stroke-width: 2;
 			}
 		}
 		.icon-text-p {
-			font-weight: var(--weight-bold);
-			transition: .3s;
-			opacity: 1;
-		}
-		.icon-text-p-hide {
-			opacity: 0;
-		}
-	}
-
-	&.navigation-menu-item-text {
-		&.selected {
-			.icon-text-icon {
-				polygon, path, polyline, rect, line, circle, ellipse	{
-					stroke-width: 2;
-				}
-			}
-			.icon-text-p {
-				font-weight: vaR(--weight-bold);
-			}
+			font-weight: vaR(--weight-bold);
 		}
 	}
 }

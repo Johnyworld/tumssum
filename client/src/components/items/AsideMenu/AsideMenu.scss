@@ -1,0 +1,45 @@
+.aside-menu-item {
+	position: relative;
+	cursor: pointer;
+	transition: .3s;
+	height: var(--header-height);
+
+	&:hover {
+		background-color: var(--color-gray_weak);
+	}
+
+	&.selected {
+		color: var(--color-white);
+		background-color: var(--color-primary);
+	}
+
+	.icon-text {
+		position: absolute;
+		top: 50%;
+		left: 1.325rem;
+		transform: translate(0, -50%);
+	}
+
+	.icon-text-p {
+		font-weight: var(--weight-bold);
+		transition: .3s;
+		opacity: 1;
+	}
+
+	.hide-text .icon-text-p {
+		opacity: 0;
+	}
+
+	.icon-text-icon {
+		polygon, path, polyline, rect, line, circle, ellipse	{
+			stroke-width: 2;
+		}
+	}
+}
+
+.aside-menu-item-open {
+	$aside-menu-item-open-margin: .375rem;
+	border-radius: .25rem;
+	margin: #{$aside-menu-item-open-margin} 0;
+	height: calc(var(--header-height) - #{$aside-menu-item-open-margin*2});
+}

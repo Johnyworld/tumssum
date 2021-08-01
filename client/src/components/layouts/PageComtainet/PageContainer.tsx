@@ -1,16 +1,16 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
 import Logo from '~components/elements/Logo';
-import NavigationMenu from '~components/items/NavigationMenu';
 import Aside from '~components/layouts/Aside';
 import Button from '~components/elements/Button';
 import { logout } from '~features/user/userSlice';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import ThemeChanger from '~features/theme/ThemeChanger';
-import './PageContainer.scss';
 import Indicator from '../Indicator';
 import { useState } from 'preact/hooks';
 import { useLocation } from 'wouter';
+import AsideMenu from '~components/items/AsideMenu';
+import './PageContainer.scss';
 
 
 interface PageContainerProps {
@@ -42,17 +42,14 @@ const PageContainer: FunctionalComponent<PageContainerProps> = ({ children }) =>
 		<div class='page-container'>
 			<Aside class='hide-tablet' onHover={(isHover) => () => setIsHover(isHover)} >
 				<div class='header'>
-					<Logo />
+					{/* <Logo /> */}
 				</div>
 				<Indicator>
 
 				</Indicator>
-				<NavigationMenu
-					style={{ marginTop: '20px' }}
+				<AsideMenu
 					selected={path}
-					direction='column'
-					menuItemType='box'
-					isIconMode={!isHover}
+					isOpen={isHover}
 					list={[
 						{ id: 'home', text: 'Home', icon: 'home', href: '/' },
 						{ id: 'budget', text: 'Budget', icon: 'card', href: '/budget' },

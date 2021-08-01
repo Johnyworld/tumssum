@@ -11,43 +11,33 @@ interface NavigationMenuItemInterface extends SelectMenuItem {
 	href?: string
 }
 
-
 export interface NavigationMenuProps extends DefaultProps {
 	list: NavigationMenuItemInterface[];
-	direction?: 'column' | 'row';
-	menuItemType?: 'text' | 'box';
 	selected?: string;
-	isIconMode?: boolean;
 	onChange?: (selected: string) => void;
 }
 
-const NavigationMenu: FunctionalComponent<NavigationMenuProps> = ({ class: className, list, direction='row', menuItemType='text', selected, isIconMode, onChange }) => {
+const NavigationMenu: FunctionalComponent<NavigationMenuProps> = ({ class: className, list, selected, onChange }) => {
 	return (
-		<ul class={getClassNames([ 'navigation-menu', `navigation-menu-${direction}`, className ])} >
+		<nav class={getClassNames([ 'navigation-menu', className ])} >
 			{ list.map(item => {
 				const isSelected = selected === item.id;
-				const content = <IconText
-													icon={item.icon}
-													text={item.text}
-													isHideText={isIconMode}
-													class={isIconMode ? 'icon-text-icon-mode' : ''}
-													color={menuItemType === 'box' && isSelected ? 'white' : 'pen'}
-												/>
+				const content = <div class={getClassNames([ 'navigation-menu-item', [isSelected, 'selected'] ])} onClick={onChange ? () => onChange(item.id) : undefined}>
+													<IconText
+														icon={item.icon}
+														text={item.text}
+													/>
+												</div>
 
 				return (
-					<li class={getClassNames([ 'navigation-menu-item', `navigation-menu-item-${menuItemType}`, [isSelected, 'selected'] ])} key={item.id} onClick={onChange ? () => onChange(item.id) : undefined} >
-						{ item.href
-						 	? <Link href={item.href} class={getClassNames(['navigation-menu-item-content', [isIconMode, 'navigation-menu-item-content-icon-mode']])}>
-									{content}
-								</Link>
-							: <div class='navigation-menu-item-content'>
-									{content}
-								</div>
-						}
-					</li>
+					item.href
+						? <Link href={item.href} class={getClassNames(['navigation-menu-item-content'])}>
+								{content}
+							</Link>
+						: content
 				)
 			})}
-		</ul>
+		</nav>
 	)
 }
 
