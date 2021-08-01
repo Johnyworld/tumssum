@@ -7,6 +7,11 @@
 	padding: 0 1rem;
 }
 
+.aside-content {
+	position: sticky;
+	top: 0;
+}
+
 .aside-icon {
 	width: var(--header-height);
 	padding: 0;

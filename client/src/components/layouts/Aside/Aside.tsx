@@ -16,7 +16,9 @@ const Aside: FunctionalComponent<Props> = ({ children, class: className, mode, a
 			onMouseEnter={onHover && onHover(true)}
 			onMouseLeave={onHover && onHover(false)}
 		>
-			{children}
+			<div class='aside-content'>
+				{children}
+			</div>
 		</aside>
 	)
 }
