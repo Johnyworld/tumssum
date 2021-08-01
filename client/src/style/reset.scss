@@ -13,6 +13,12 @@ html, body {
 	color: var(--color-pen);
 	background: rgb(243,243,243);
 	background: var(--color-bg);
+	
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+	&::-webkit-scrollbar {
+			display: none; /* Chrome, Safari, Opera*/
+	}
 }
 
 h1, h2, h3, h4, h5, h6, p, div, li, ul, ol {
