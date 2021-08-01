@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { Account } from 'types';
 
+export default <S>() => {
 
-export default () => {
-
-	const [detailView, setDetailView] = useState<null | Account>(null);
+	const [detailView, setDetailView] = useState<null | S>(null);
 	
-	const handleViewDetail = (account: Account) => () => {
+	const handleViewDetail = (account: S) => () => {
 		setDetailView(account);
 	}
 

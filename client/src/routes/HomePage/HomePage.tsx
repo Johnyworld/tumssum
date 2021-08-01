@@ -13,9 +13,9 @@ import AccountFormModal from '~components/partials/AccountFormModal';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import { changeMonthNext, changeMonthPrev, changeMonthToday } from '~features/month/monthSlice';
 import { useEffect, useRef, useState } from 'preact/hooks';
-import useAccountDetail from '~hooks/useAccountDetail';
+import useDetails from '~hooks/useDetails';
 import useToggle from '~hooks/useToggle';
-import { IconType } from 'types';
+import { Account, IconType } from 'types';
 import useAccount from '~hooks/useAccount';
 import useDrag from '~hooks/useDrag';
 
@@ -40,7 +40,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useDrag(accounts);
 
-	const { detailView, handleCloseDetail, handleViewDetail } = useAccountDetail();
+	const { detailView, handleCloseDetail, handleViewDetail } = useDetails<Account>();
 
 	const { handleCreateAccount, handleUpdateAccount, handleDeleteAccount, handleDropToUpdateDate, handleDropToUpdateCategory } = useAccount({
 		grapping,
