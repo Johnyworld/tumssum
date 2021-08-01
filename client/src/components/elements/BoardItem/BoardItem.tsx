@@ -17,8 +17,10 @@ const BoardItem: FunctionalComponent<BoardItemProps> = ({ children, class: class
 	const handleHoverOut = () => setHover(false);
 	
 	return (
-		<div class={getClassNames(['board-item never-drag gap-tiny', className])} onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate}>
-			{ title && <p class={getClassNames([ 't-right', [disabled, 'c-gray'] ])}>{title}</p> }
+		<div class={getClassNames(['board-item never-drag gap-tiny', className ])} onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate}>
+			<div class='flex' style={{ flexDirection: 'row-reverse' }}>
+				{ title && <p class={getClassNames([ 't-right', [disabled, 'c-gray'] ])}>{title}</p> }
+			</div>
 			{isGrapping && hover && <div class='board-item-grapping' />}
 			{children}
 		</div>

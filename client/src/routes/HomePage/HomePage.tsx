@@ -1,7 +1,5 @@
 import { h, FunctionalComponent } from 'preact';
 import MonthSelector from '~components/items/MonthSelector';
-import Aside from '~components/layouts/Aside';
-import PageContainer from '~components/layouts/PageComtainet/PageContainer';
 import Header from '~components/layouts/Header';
 import Button from '~components/elements/Button';
 import Calendar from '~components/items/Calendar';
@@ -12,21 +10,20 @@ import Modal from '~components/layouts/Modal';
 import AccountFormModal from '~components/partials/AccountFormModal';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import { changeMonthNext, changeMonthPrev, changeMonthToday } from '~features/month/monthSlice';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useEffect, useRef } from 'preact/hooks';
 import useDetails from '~hooks/useDetails';
 import useToggle from '~hooks/useToggle';
 import { Account, IconType } from 'types';
 import useAccount from '~hooks/useAccount';
 import useDrag from '~hooks/useDrag';
+import { getQueryObj } from '~utils/location';
 
 
 const MENUS = [
-	{ id: 'calendar', text: 'Calendar', icon: 'calendar' as IconType },
-	{ id: 'category', text: 'Category', icon: 'menu' as IconType },
-	{ id: 'bank', text: 'Bank', icon: 'storage' as IconType },
+	{ id: 'calendar', text: 'Calendar', icon: 'calendar' as IconType, href: '/' },
+	{ id: 'category', text: 'Category', icon: 'menu' as IconType, href: '/?view=category' },
+	{ id: 'list', text: 'List', icon: 'storage' as IconType, href: '/?view=list' },
 ];
-
-type Menu = 'calendar' | 'category' | 'bank';
 
 const HomePage: FunctionalComponent = ({  }) => {
 
@@ -34,9 +31,10 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const accounts = useSelector(state=> state.account.accounts);
 	const { categories, categoryGroups } = useSelector(state=> state.category);
 	const toggleCreateModal = useToggle();
-	const [selected, setSelected] = useState<Menu>('calendar');
 	const inputRef = useRef<HTMLInputElement>(null);
 	const dispatch = useDispatch();
+  const queryObj = getQueryObj<{ view: string }>();
+	const view = queryObj.view || 'calendar';
 
 	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useDrag(accounts);
 
@@ -66,8 +64,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 			</Header>
 			<Indicator>
 				<NavigationMenu
-					selected={selected}
-					onChange={(selected) => setSelected(selected as Menu)}
+					selected={view}
 					list={MENUS}
 				/>
 				<div class='flex flex-gap-regular'>
@@ -76,7 +73,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 				</div>
 			</Indicator>
 
-			{ selected === 'calendar' &&
+			{ view === 'calendar' &&
 				<Calendar
 					date={date}
 					data={accounts}
@@ -89,7 +86,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 				/>
 			}
 
-			{ selected === 'category' &&
+			{ view === 'category' &&
 				<CategoryBoard
 					categories={categories}
 					categoryGroups={categoryGroups}

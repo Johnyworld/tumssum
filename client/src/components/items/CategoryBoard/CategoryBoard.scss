@@ -2,4 +2,6 @@
 	display: inline-flex;
 	flex-wrap: wrap;
 	width: 100%;
+	border-top: 1px solid var(--color-gray_weaker);
+	border-left: 1px solid var(--color-gray_weaker);
 }

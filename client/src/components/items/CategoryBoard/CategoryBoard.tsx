@@ -52,28 +52,30 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, ca
 		<div class='category-board' onMouseMove={onDragging} onMouseUp={onDrop}>
 			<div class='gap-medium'>
 				<div class='gap-tiny'>
-					<Divider text='미분류' />
-					<BoardItem
-						title='미분류'
-						isGrapping={!!grapping}
-						onDropToUpdate={onDropToUpdate && onDropToUpdate( null, '' )}
-						children={
-							<div class='grid grid-col-4 grid-gap-tiny' style={{ flexWrap: 'wrap' }}>
-								{ alignedData.EMPTY && alignedData.EMPTY.map(account => (
-									<AccountItem
-										title={account.title}
-										amount={account.account}
-										onClick={onClick && onClick(account)}
-										onMouseDown={onGrap ? onGrap(account) : undefined}
-									/>
-								))}
-							</div>
-						}
-					/>
+					<p class='c-gray f-small f-bold'>미분류</p>
+					<div class='category-board-row'>
+						<BoardItem
+							title='미분류'
+							isGrapping={!!grapping}
+							onDropToUpdate={onDropToUpdate && onDropToUpdate( null, '' )}
+							children={
+								<div class='grid grid-col-4 grid-gap-tiny' style={{ flexWrap: 'wrap' }}>
+									{ alignedData.EMPTY && alignedData.EMPTY.map(account => (
+										<AccountItem
+											title={account.title}
+											amount={account.account}
+											onClick={onClick && onClick(account)}
+											onMouseDown={onGrap ? onGrap(account) : undefined}
+										/>
+									))}
+								</div>
+							}
+						/>
+					</div>
 				</div>
 				{ categoriesWithData.map(group => (
 					<div key={group.id} class='gap-tiny'>
-						<Divider text={group.title || '카테고리 그룹 없음'}  />
+						<p class='c-gray f-small f-bold'>{group.title || '카테고리 그룹 없음'}</p>
 						<div class='category-board-row'>
 							{ group.categories && group.categories.map(category => (
 								<BoardItem
