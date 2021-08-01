@@ -4,12 +4,12 @@ import { Category, CategoryGroup } from 'types';
 import Button from '~components/elements/Button';
 import ContentEditable from '~components/elements/ContentEditable';
 import Divider from '~components/elements/Divider';
-import PageContainer from '~components/layouts/PageComtainet';
 import Header from '~components/layouts/Header';
 import useCategory from '~hooks/useCategory';
 import useDrag from '~hooks/useDrag';
 import { useSelector } from '~utils/redux/hooks';
 import Indicator from '~components/layouts/Indicator';
+import useDetails from '~hooks/useDetails';
 
 
 export const getCategoryGroups = (groups: CategoryGroup[]) => {
@@ -51,6 +51,8 @@ export const combineCategoriesWithGroups = (categories: Category[], categoryGrou
 const CategoryPage: FunctionalComponent = ({  }) => {
 
 	const { categories, categoryGroups } = useSelector(state=> state.category);
+
+	const { detailView, handleCloseDetail, handleViewDetail } = useDetails<Category>();
 
 	const combined = combineCategoriesWithGroups(categories, categoryGroups);
 
@@ -103,9 +105,9 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 													/>
 											}
 											<div class='list-item-icon pos-center-y pointer svg-wrap'>
-												<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-													<circle cx="8" cy="8.00196" r="8" fill="var(--color-gray_strong)" />
-													<path d="M5 11L11 5M5 5L11 11" stroke="var(--color-paper)" stroke-linecap="round"/>
+												<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M3 10.5L12 1.5L15 4.5L6 13.5L2 14.5L3 10.5Z" stroke="var(--color-gray_strong)" stroke-linecap="round" stroke-linejoin="round"/>
+													<path d="M10 3.5L13 6.5" stroke="var(--color-gray_strong)" stroke-linecap="round"/>
 												</svg>
 											</div>
 										</div>

@@ -52,8 +52,9 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, ca
 		<div class='category-board' onMouseMove={onDragging} onMouseUp={onDrop}>
 			<div class='gap-medium'>
 				<div class='gap-tiny'>
-					<Divider text='미분류'  />
+					<Divider text='미분류' />
 					<BoardItem
+						title='미분류'
 						isGrapping={!!grapping}
 						onDropToUpdate={onDropToUpdate && onDropToUpdate( null, '' )}
 						children={
