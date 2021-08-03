@@ -1,7 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import { Color, DefaultProps, Size, Weight } from 'types';
-import useToggle from '~hooks/useToggle';
 import { getClassNames } from '~utils/classNames';
 import './ContentEditable.scss';
 

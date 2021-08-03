@@ -1,6 +1,5 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
-import Logo from '~components/elements/Logo';
 import Aside from '~components/layouts/Aside';
 import Button from '~components/elements/Button';
 import { logout } from '~features/user/userSlice';
