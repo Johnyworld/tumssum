@@ -32,7 +32,8 @@ def postCategory(reqData):
     group_id = category_group_id if category_group_id else None,
     title = title,
   )
-  return Response(CategorySerializer(newCategory, many=False).data)
+  res = { 'ok': True, 'data': CategoryGroupSerializer(CategorySerializer(newCategory, many=False).data, many=False).data }
+  return JsonResponse(res)
 
 
 def putCategory(reqData):
@@ -63,7 +64,8 @@ def postCategoryGroup(reqData):
     user_id = user_id,
     title = title,
   )
-  return Response(CategoryGroupSerializer(newCategoryGroup, many=False).data)
+  res = { 'ok': True, 'data': CategoryGroupSerializer(newCategoryGroup, many=False).data }
+  return JsonResponse(res)
 
 
 def putCategoryGroup(reqData):
