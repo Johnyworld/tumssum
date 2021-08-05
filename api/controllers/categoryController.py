@@ -32,18 +32,18 @@ def postCategory(reqData):
     group_id = category_group_id if category_group_id else None,
     title = title,
   )
-  res = { 'ok': True, 'data': CategoryGroupSerializer(CategorySerializer(newCategory, many=False).data, many=False).data }
+  res = { 'ok': True, 'data': CategorySerializer(newCategory, many=False).data }
   return JsonResponse(res)
 
 
 def putCategory(reqData):
   category_id = reqData.get('category_id')
-  print('=====', category_id)
 
   category = get_object_or_404(Category, pk=category_id)
   for k in reqData:
     setattr(category, k, reqData[k])
   category.save()
+
   res = { 'ok': True, 'data': CategorySerializer(category, many=False).data }
   return JsonResponse(res)
 
@@ -53,7 +53,9 @@ def deleteCategory(reqData):
 
   category = get_object_or_404(Category, pk=category_id)
   category.delete()
-  return Response(True)
+
+  res = { 'ok': True, 'data': category_id }
+  return JsonResponse(res)
 
 
 def postCategoryGroup(reqData):
@@ -75,7 +77,9 @@ def putCategoryGroup(reqData):
   for k in reqData:
     setattr(categoryGroup, k, reqData[k])
   categoryGroup.save()
-  return Response(CategoryGroupSerializer(categoryGroup, many=False).data)
+
+  res = { 'ok': True, 'data': CategoryGroupSerializer(categoryGroup, many=False).data }
+  return JsonResponse(res)
 
 
 def deleteCategoryGroup(reqData):
@@ -83,4 +87,6 @@ def deleteCategoryGroup(reqData):
 
   categoryGroup = get_object_or_404(CategoryGroup, pk=category_group_id)
   categoryGroup.delete()
-  return Response(True)
+
+  res = { 'ok': True, 'data': category_group_id }
+  return JsonResponse(res)

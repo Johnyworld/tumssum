@@ -19,7 +19,7 @@ class Category(models.Model):
   # Required Relations
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   # Not Required Relations
-  group = models.ForeignKey(CategoryGroup, related_name='categories', on_delete=models.CASCADE, blank=True, null=True)
+  group = models.ForeignKey(CategoryGroup, related_name='categories', on_delete=models.SET_NULL, blank=True, null=True)
   # Dates
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
@@ -46,7 +46,7 @@ class Bank(models.Model):
   # Required Relations
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   # Not Required Relations
-  group = models.ForeignKey(BankGroup, related_name='banks', on_delete=models.CASCADE, blank=True, null=True)
+  group = models.ForeignKey(BankGroup, related_name='banks', on_delete=models.SET_NULL, blank=True, null=True)
   # Dates
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True) 
@@ -93,9 +93,9 @@ class Account(models.Model):
   memo = models.TextField(max_length=256, blank=True)
   location = models.CharField(max_length=512, blank=True)
   # Not Required Relations
-  category = models.ForeignKey(Category, related_name='category', on_delete=models.CASCADE, blank=True, null=True)
-  bank = models.ForeignKey(Bank, on_delete=models.CASCADE, blank=True, null=True)
-  month = models.ForeignKey(Month, on_delete=models.CASCADE, blank=True, null=True)
+  category = models.ForeignKey(Category, related_name='category', on_delete=models.SET_NULL, blank=True, null=True)
+  bank = models.ForeignKey(Bank, on_delete=models.SET_NULL, blank=True, null=True)
+  month = models.ForeignKey(Month, on_delete=models.SET_NULL, blank=True, null=True)
   # Dates
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True) 
