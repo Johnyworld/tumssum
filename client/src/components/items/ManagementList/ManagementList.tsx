@@ -1,5 +1,5 @@
 import { h, FunctionalComponent } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 import { Bank, BankGroup, Category, CategoryGroup, Vec2 } from 'types';
 import ContentEditable from '~components/elements/ContentEditable';
 import Divider from '~components/elements/Divider';
@@ -13,8 +13,8 @@ export interface ManagementListProps {
 	data: ItemGroup[];
 	grapping: GrappingData<Item> | null;
 	grappingPos: Vec2 | null;
+	focusGroup: number | null;
 	focusItem: number | null;
-	loading: boolean;
 	isDragging: boolean | null;
 	onGrap: (data: Item) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onDropToUpdate: (groupId: number | null) => h.JSX.MouseEventHandler<HTMLDivElement>;
@@ -24,7 +24,8 @@ export interface ManagementListProps {
 	onClick: (data: Item) => h.JSX.MouseEventHandler<HTMLDivElement>;
 }
 
-const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grapping, grappingPos, focusItem, loading, isDragging, onGrap, onDropToUpdate, onDrop, onDragging, onUpdate, onClick }) => {
+const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grapping, grappingPos, focusGroup, focusItem, isDragging, onGrap, onDropToUpdate, onDrop, onDragging, onUpdate, onClick }) => {
+	console.log('===== ManagementList', focusGroup);
 	return (
 		<div class='gap-large pos-relative never-drag' onMouseMove={onDragging} onMouseUp={onDrop} >
 			<div class='gap-regular'>
@@ -35,14 +36,15 @@ const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grappi
 					return (
 						<div key={group.id} class='pos-relative' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate(group.id || null)}>
 							{!!grapping && hover && <div class='board-item-grapping' style={{ transform: 'scaleX(1.02)', borderRadius: '.25rem' }} />}
-							{ group.title
+							{ group.id
 								? <ContentEditable
 										value={group.title}
 										color='gray'
 										weight='bold'
 										styleType='transparent'
 										onChange={() => {}}
-										placeholder='제목 없음'
+										isFocusOnLoad={focusGroup === group.id}
+										placeholder='이름 없음'
 									/>
 								: <p class='c-gray f-bold' >{group.title || '그룹 없음'}</p>
 							}

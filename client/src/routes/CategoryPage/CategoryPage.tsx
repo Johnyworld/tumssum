@@ -58,7 +58,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 
 	const { grapping, grappingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(categories);
 
-	const { focusItem, loading, handleUpdateCategory, handleDropToUpdateCategory, handleAddCategory, handleRemoveCategory } = useCategory({ grapping, onCloseDetail:handleCloseDetail, handleDrop });
+	const { focusGroup, focusItem, handleUpdateCategory, handleDropToUpdateCategory, handleAddCategoryGroup, handleAddCategory, handleRemoveCategory } = useCategory({ grapping, onCloseDetail:handleCloseDetail, handleDrop });
 
 	return (
 		<div class='category-page wrap' >
@@ -68,7 +68,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 			</Header>
 
 			<Indicator flexEnd>
-				<Button size='small' color='gray' children='+ 그룹 추가' />
+				<Button size='small' onClick={handleAddCategoryGroup} color='gray' children='+ 그룹 추가' />
 				<Button size='small' onClick={handleAddCategory} children='+ 카테고리 추가' />
 			</Indicator>
 
@@ -76,8 +76,8 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 				data={combined}
 				grapping={grapping}
 				grappingPos={grappingPos}
+				focusGroup={focusGroup}
 				focusItem={focusItem}
-				loading={loading}
 				isDragging={isDragging}
 				onGrap={handleGrap}
 				onDropToUpdate={handleDropToUpdateCategory}

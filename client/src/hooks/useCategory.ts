@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
-import { Category } from 'types';
-import { addCategory, removeCategory, updateCategory } from '~features/category/categorySlice';
+import { Category, CategoryGroup } from 'types';
+import { addCategory, addCategoryGroup, removeCategory, updateCategory } from '~features/category/categorySlice';
 import { useDispatch } from '~utils/redux/hooks';
 import { GrappingData } from './useDrag';
 import useFetch from './useFetch';
@@ -15,6 +15,18 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 	
 	const dispatch = useDispatch();
 	const [ focusItem, setFocusItem ] = useState<number | null>(null);
+	const [ focusGroup, setFocusGroup ] = useState<number | null>(null);
+
+
+	const postCategoryGroup = useFetch<CategoryGroup>({
+		method: 'POST',
+		url: '/api/category-group/',
+		onSuccess: data => {
+			dispatch(addCategoryGroup(data));
+			setFocusGroup(data.id);
+			setTimeout(() => setFocusGroup(null))
+		}
+	})
 
 	const postCategory = useFetch<Category>({
 		method: 'POST',
@@ -43,6 +55,13 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 			onCloseDetail();
 		}
 	})
+
+	const handleAddCategoryGroup = () => {
+		if ( postCategoryGroup.loading ) return;
+		postCategoryGroup.call({
+			title: '',
+		});
+	}
 
 	const handleAddCategory = () => {
 		if ( postCategory.loading ) return;
@@ -86,9 +105,10 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 	
 	return {
 		focusItem,
-		loading: postCategory.loading || putCategory.loading || deleteCatogory.loading,
+		focusGroup,
 		handleUpdateCategory,
 		handleDropToUpdateCategory,
+		handleAddCategoryGroup,
 		handleAddCategory,
 		handleRemoveCategory,
 	};

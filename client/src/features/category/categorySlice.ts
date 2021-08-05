@@ -16,6 +16,9 @@ export const modeSlice = createSlice({
     setCategoryGroups: (state, { payload }: PayloadAction<CategoryGroup[]>) => {
       state.categoryGroups = payload;
     },
+    addCategoryGroup: (state, { payload }: PayloadAction<CategoryGroup>) => {
+      state.categoryGroups = [...state.categoryGroups, payload];
+    },
     addCategory: (state, { payload }: PayloadAction<Category>) => {
       state.categories = [...state.categories, payload];
     },
@@ -31,6 +34,6 @@ export const modeSlice = createSlice({
   }
 })
 
-export const { setCategories, setCategoryGroups, addCategory, updateCategory, removeCategory } = modeSlice.actions;
+export const { setCategories, setCategoryGroups, addCategoryGroup, addCategory, updateCategory, removeCategory } = modeSlice.actions;
 
 export default modeSlice.reducer;
