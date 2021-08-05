@@ -81,7 +81,7 @@ declare module 'types' {
     id: number;
     title: string;
     user: number;
-    categories: Category[];
+    categories?: Category[];
     items: Category[];
     created_at: string;
     updated_at: string;

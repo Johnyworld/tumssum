@@ -3,6 +3,7 @@ import { useState } from 'preact/hooks';
 import { Bank, BankGroup, Category, CategoryGroup, Vec2 } from 'types';
 import ContentEditable from '~components/elements/ContentEditable';
 import Divider from '~components/elements/Divider';
+import Icon from '~components/elements/Icon';
 import { GrappingData } from '~hooks/useDrag';
 import { getClassNames } from '~utils/classNames';
 
@@ -22,10 +23,10 @@ export interface ManagementListProps {
 	onDragging: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onUpdate: (data: Item) => void;
 	onClick: (data: Item) => h.JSX.MouseEventHandler<HTMLDivElement>;
+	onClickGroup: (data: ItemGroup) => h.JSX.MouseEventHandler<HTMLDivElement>;
 }
 
-const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grapping, grappingPos, focusGroup, focusItem, isDragging, onGrap, onDropToUpdate, onDrop, onDragging, onUpdate, onClick }) => {
-	console.log('===== ManagementList', focusGroup);
+const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grapping, grappingPos, focusGroup, focusItem, isDragging, onGrap, onDropToUpdate, onDrop, onDragging, onUpdate, onClick, onClickGroup }) => {
 	return (
 		<div class='gap-large pos-relative never-drag' onMouseMove={onDragging} onMouseUp={onDrop} >
 			<div class='gap-regular'>
@@ -37,21 +38,26 @@ const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grappi
 						<div key={group.id} class='pos-relative' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate(group.id || null)}>
 							{!!grapping && hover && <div class='board-item-grapping' style={{ transform: 'scaleX(1.02)', borderRadius: '.25rem' }} />}
 							{ group.id
-								? <ContentEditable
-										value={group.title}
-										color='gray'
-										weight='bold'
-										styleType='transparent'
-										onChange={() => {}}
-										isFocusOnLoad={focusGroup === group.id}
-										placeholder='이름 없음'
-									/>
-								: <p class='c-gray f-bold' >{group.title || '그룹 없음'}</p>
+								? <div class='hover-icon-wrap pos-relative'>
+										<ContentEditable
+											value={group.title}
+											color='gray'
+											weight='bold'
+											styleType='transparent'
+											onChange={() => {}}
+											isFocusOnLoad={focusGroup === group.id}
+											placeholder='이름 없음'
+										/>
+										<div class='hover-icon pos-center-y pointer' onClick={onClickGroup(group)}>
+											<Icon as='pencel' color='gray_strong' />
+										</div>
+									</div>
+								: <p class='c-gray f-bold' >{group.title || '그룹 미분류'}</p>
 							}
 							<Divider />
 							<div class='gap-tiny'>
 								{ group.items && group.items.length > 0 ? group.items.map(item=> (
-									<div class='list-item pos-relative' onMouseDown={onGrap(item)}>
+									<div class='hover-icon-wrap pos-relative' onMouseDown={onGrap(item)}>
 										{ isDragging
 											? <div class={getClassNames([ 'content-box', [!item.title, 'c-gray'] ])}>{item.title || '비어있음'}</div>
 											: <ContentEditable
@@ -64,11 +70,8 @@ const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grappi
 													value={item.title}
 												/>
 										}
-										<div class='list-item-icon pos-center-y pointer svg-wrap' onClick={onClick(item)}>
-											<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M3 10.5L12 1.5L15 4.5L6 13.5L2 14.5L3 10.5Z" stroke="var(--color-gray_strong)" stroke-linecap="round" stroke-linejoin="round"/>
-												<path d="M10 3.5L13 6.5" stroke="var(--color-gray_strong)" stroke-linecap="round"/>
-											</svg>
+										<div class='hover-icon pos-center-y pointer' onClick={onClick(item)}>
+											<Icon as='pencel' color='gray_strong' />
 										</div>
 									</div>
 								)) : <p class='p-small c-gray'>카테고리 없음</p>}

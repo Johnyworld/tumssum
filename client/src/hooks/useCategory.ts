@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 import { Category, CategoryGroup } from 'types';
-import { addCategory, addCategoryGroup, removeCategory, updateCategory } from '~features/category/categorySlice';
+import { addCategory, addCategoryGroup, removeCategory, removeCategoryGroup, updateCategory, updateCategoryGroup } from '~features/category/categorySlice';
 import { useDispatch } from '~utils/redux/hooks';
 import { GrappingData } from './useDrag';
 import useFetch from './useFetch';
@@ -38,6 +38,15 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		}
 	})
 
+	const putCategoryGroup = useFetch<CategoryGroup>({
+		method: 'PUT',
+		url: '/api/category-group/',
+		onSuccess: data => {
+			dispatch(updateCategoryGroup(data));
+			onCloseDetail();
+		}
+	});
+
 	const putCategory = useFetch<Category>({
 		method: 'PUT',
 		url: '/api/category/',
@@ -46,6 +55,15 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 			onCloseDetail();
 		}
 	});
+
+	const deleteCatogoryGroup = useFetch<number>({
+		method: 'DELETE',
+		url: '/api/category-group/',
+		onSuccess: data => {
+			dispatch(removeCategoryGroup(data));
+			onCloseDetail();
+		}
+	})
 
 	const deleteCatogory = useFetch<number>({
 		method: 'DELETE',
@@ -70,15 +88,21 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		});
 	}
 
+	const handleUpdateCategoryGroup = (group: CategoryGroup) => {
+		if ( putCategoryGroup.loading ) return;
+		putCategoryGroup.call({
+			category_group_id: group.id,
+			title: group.title,
+		})
+	}
+
 	const handleUpdateCategory = (category: Category) => {
-		console.log('===== useCategory', putCategory.loading);
 		if ( putCategory.loading ) return;
 		putCategory.call({
 			category_id: category.id,
 			title: category.title,
 		})
 	}
-
 
 	const handleDropToUpdateCategory = (groupId: number | null) => () => {
 		if (putCategory.loading || !grapping ) return;
@@ -94,6 +118,12 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		handleDrop();
 	}
 
+	const handleRemoveCategoryGroup = (id: number) => () => {
+		if (deleteCatogoryGroup.loading) return;
+		deleteCatogoryGroup.call({
+			category_group_id: id
+		});
+	}
 
 	const handleRemoveCategory = (id: number) => () => {
 		if (deleteCatogory.loading) return;
@@ -107,9 +137,11 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		focusItem,
 		focusGroup,
 		handleUpdateCategory,
+		handleUpdateCategoryGroup,
 		handleDropToUpdateCategory,
 		handleAddCategoryGroup,
 		handleAddCategory,
+		handleRemoveCategoryGroup,
 		handleRemoveCategory,
 	};
 }

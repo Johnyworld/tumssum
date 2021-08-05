@@ -19,6 +19,7 @@ export const icons = [
 	'calendar',
 	'card',
 	'menu',
+	'pencel',
 	'storage',
 	'home',
 	'x',
@@ -66,6 +67,10 @@ const getSVG = (as: IconType, color: Color, strokeWidth: number) => {
 			<circle cx="3" cy="13" r={1 + strokeWidth/10} fill={c}/>
 		</g>
 		
+		case 'pencel': return <g>
+			<path d="M3 10.5L12 1.5L15 4.5L6 13.5L2 14.5L3 10.5Z" stroke={c} stroke-width={strokeWidth} />
+			<path d="M10 3.5L13 6.5" stroke={c} stroke-width={strokeWidth} />
+		</g>
 
 		case 'storage': return <g>
 			<ellipse cx="8" cy="4" rx="6" ry="2" stroke={c} stroke-width={strokeWidth} />

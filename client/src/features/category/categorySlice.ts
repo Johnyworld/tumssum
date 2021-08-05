@@ -22,11 +22,20 @@ export const modeSlice = createSlice({
     addCategory: (state, { payload }: PayloadAction<Category>) => {
       state.categories = [...state.categories, payload];
     },
+    updateCategoryGroup: (state, { payload }: PayloadAction<CategoryGroup>) => {
+      state.categoryGroups = state.categoryGroups.map(group => group.id !== payload.id ? group : {
+        ...group,
+        ...payload,
+      });
+    },
     updateCategory: (state, { payload }: PayloadAction<Category>) => {
       state.categories = state.categories.map(category => category.id !== payload.id ? category : {
         ...category,
         ...payload,
       });
+    },
+    removeCategoryGroup: (state, { payload }: PayloadAction<number>) => {
+      state.categoryGroups = state.categoryGroups.filter(group => group.id !== payload);
     },
     removeCategory: (state, { payload }: PayloadAction<number>) => {
       state.categories = state.categories.filter(category => category.id !== payload);
@@ -34,6 +43,6 @@ export const modeSlice = createSlice({
   }
 })
 
-export const { setCategories, setCategoryGroups, addCategoryGroup, addCategory, updateCategory, removeCategory } = modeSlice.actions;
+export const { setCategories, setCategoryGroups, addCategoryGroup, addCategory, updateCategoryGroup, updateCategory, removeCategoryGroup, removeCategory } = modeSlice.actions;
 
 export default modeSlice.reducer;

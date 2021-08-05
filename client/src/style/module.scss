@@ -56,12 +56,12 @@
 }
 
 
-.list-item-icon {
+.hover-icon {
 	display: none;
 	right: .5rem;
 }
 
-.list-item:hover .list-item-icon {
+.hover-icon-wrap:hover .hover-icon {
 	display: block;
 }
 

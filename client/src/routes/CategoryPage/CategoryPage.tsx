@@ -10,6 +10,8 @@ import useDetails from '~hooks/useDetails';
 import ManagementList from '~components/items/ManagementList';
 import Modal from '~components/layouts/Modal';
 import CategoryFormModal from '~components/partials/CategoryFormModal';
+import CategoryGroupFormModal from '~components/partials/CategoryGroupFormModal';
+import { useCallback } from 'preact/hooks';
 
 
 export const getCategoryGroups = (groups: CategoryGroup[]) => {
@@ -53,12 +55,30 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 	const { categories, categoryGroups } = useSelector(state=> state.category);
 
 	const { detailView, handleCloseDetail, handleViewDetail } = useDetails<Category>();
+	const { detailView: detailViewGroup, handleCloseDetail: handleCloseDetailGroup, handleViewDetail: handleViewDetailGroup } = useDetails<CategoryGroup>();
+
+	const closeDetails = useCallback(() => {
+		handleCloseDetail();
+		handleCloseDetailGroup();
+	}, []);
 
 	const combined = combineCategoriesWithGroups(categories, categoryGroups);
 
 	const { grapping, grappingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(categories);
 
-	const { focusGroup, focusItem, handleUpdateCategory, handleDropToUpdateCategory, handleAddCategoryGroup, handleAddCategory, handleRemoveCategory } = useCategory({ grapping, onCloseDetail:handleCloseDetail, handleDrop });
+	const {
+		focusGroup,
+		focusItem,
+		handleUpdateCategoryGroup,
+		handleUpdateCategory,
+		handleDropToUpdateCategory,
+		handleAddCategoryGroup,
+		handleAddCategory,
+		handleRemoveCategoryGroup,
+		handleRemoveCategory
+	} = useCategory({ grapping, onCloseDetail: closeDetails, handleDrop });
+
+
 
 	return (
 		<div class='category-page wrap' >
@@ -85,6 +105,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 				onDragging={handleDragging}
 				onUpdate={handleUpdateCategory}
 				onClick={handleViewDetail}
+				onClickGroup={handleViewDetailGroup}
 			/>
 
 			<Modal isOpen={!!detailView} onClose={handleCloseDetail}>
@@ -96,6 +117,17 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 					/>
 				}
 			</Modal>
+
+			<Modal isOpen={!!detailViewGroup} onClose={handleCloseDetailGroup}>
+				{ detailViewGroup &&
+					<CategoryGroupFormModal
+						group={detailViewGroup}
+						onConfirm={handleUpdateCategoryGroup}
+						onDelete={handleRemoveCategoryGroup}
+					/>
+				}
+			</Modal>
+
 		</div>
 	)
 }
