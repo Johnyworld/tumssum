@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 import { Category, CategoryGroup } from 'types';
-import { addCategory, addCategoryGroup, removeCategory, removeCategoryGroup, updateCategory, updateCategoryGroup } from '~features/category/categorySlice';
+import { addCategories, addCategory, addCategoryGroup, removeCategory, removeCategoryGroup, updateCategory, updateCategoryGroup } from '~features/category/categorySlice';
 import { useDispatch } from '~utils/redux/hooks';
 import { GrappingData } from './useDrag';
 import useFetch from './useFetch';
@@ -56,11 +56,12 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		}
 	});
 
-	const deleteCatogoryGroup = useFetch<number>({
+	const deleteCatogoryGroup = useFetch<{ id: number, items: Category[] }>({
 		method: 'DELETE',
 		url: '/api/category-group/',
 		onSuccess: data => {
-			dispatch(removeCategoryGroup(data));
+			dispatch(removeCategoryGroup(data.id));
+			dispatch(addCategories(data.items));
 			onCloseDetail();
 		}
 	})

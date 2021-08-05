@@ -7,7 +7,6 @@ from api.models import Category, CategoryGroup
 
 def getCategories(request):
   user_id = request.GET.get('user_id')
-  print(user_id)
 
   categoryGroups = CategoryGroup.objects.filter(user=user_id)
   categoriesNoGroup = Category.objects.filter(user=user_id, group=None)
@@ -83,10 +82,18 @@ def putCategoryGroup(reqData):
 
 
 def deleteCategoryGroup(reqData):
+  user_id = reqData.get('user_id')
   category_group_id = reqData.get('category_group_id')
+
+  categories = Category.objects.filter(user=user_id, group=category_group_id)
+  for k in categories:
+    setattr(k, 'group_id', None)
+  categoriesSerialized = CategorySerializer(categories, many=True).data
 
   categoryGroup = get_object_or_404(CategoryGroup, pk=category_group_id)
   categoryGroup.delete()
 
-  res = { 'ok': True, 'data': category_group_id }
+  print(categoriesSerialized)
+
+  res = { 'ok': True, 'data': { 'id': category_group_id, 'items': categoriesSerialized } }
   return JsonResponse(res)
