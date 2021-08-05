@@ -70,7 +70,7 @@ declare module 'types' {
   export interface Category {
     id: number;
     title: string;
-    group: number;
+    group: number | null;
     user: number;
     created_at: string;
     updated_at: string;
@@ -91,7 +91,7 @@ declare module 'types' {
     id: number;
     title: string;
     balance: number;
-    group: number;
+    group: number | null;
     user: number;
     created_at: string;
     updated_at: string;

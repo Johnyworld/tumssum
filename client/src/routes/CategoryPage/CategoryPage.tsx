@@ -8,6 +8,8 @@ import { useSelector } from '~utils/redux/hooks';
 import Indicator from '~components/layouts/Indicator';
 import useDetails from '~hooks/useDetails';
 import ManagementList from '~components/items/ManagementList';
+import Modal from '~components/layouts/Modal';
+import CategoryFormModal from '~components/partials/CategoryFormModal';
 
 
 export const getCategoryGroups = (groups: CategoryGroup[]) => {
@@ -36,14 +38,14 @@ const getCategoriesAligned = (categories: Category[]) => {
 
 
 export const combineCategoriesWithGroups = (categories: Category[], categoryGroups: CategoryGroup[]) => {
-	const alignedCalendar = getCategoriesAligned(categories);
+	const aligned = getCategoriesAligned(categories);
 	const groups: CategoryGroup[] = categoryGroups.map(group => {
 		return {
 			...group,
-			items: alignedCalendar[group.id] || [],
+			items: aligned[group.id] || [],
 		}
 	});
-	return [...groups, { items: alignedCalendar.EMPTY || [] } as CategoryGroup]
+	return [...groups, { items: aligned.EMPTY || [] } as CategoryGroup]
 }
 
 const CategoryPage: FunctionalComponent = ({  }) => {
@@ -56,7 +58,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 
 	const { grapping, grappingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(categories);
 
-	const { handleUpdateCategory, handleDropToUpdateCategory } = useCategory({ grapping, handleDrop });
+	const { focusItem, loading, handleUpdateCategory, handleDropToUpdateCategory, handleAddCategory, handleRemoveCategory } = useCategory({ grapping, onCloseDetail:handleCloseDetail, handleDrop });
 
 	return (
 		<div class='category-page wrap' >
@@ -67,13 +69,15 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 
 			<Indicator flexEnd>
 				<Button size='small' color='gray' children='+ 그룹 추가' />
-				<Button size='small' children='+ 카테고리 추가' />
+				<Button size='small' onClick={handleAddCategory} children='+ 카테고리 추가' />
 			</Indicator>
 
 			<ManagementList
 				data={combined}
 				grapping={grapping}
 				grappingPos={grappingPos}
+				focusItem={focusItem}
+				loading={loading}
 				isDragging={isDragging}
 				onGrap={handleGrap}
 				onDropToUpdate={handleDropToUpdateCategory}
@@ -82,6 +86,16 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 				onUpdate={handleUpdateCategory}
 				onClick={handleViewDetail}
 			/>
+
+			<Modal isOpen={!!detailView} onClose={handleCloseDetail}>
+				{ detailView &&
+					<CategoryFormModal
+						category={detailView}
+						onConfirm={handleUpdateCategory}
+						onDelete={handleRemoveCategory}
+					/>
+				}
+			</Modal>
 		</div>
 	)
 }

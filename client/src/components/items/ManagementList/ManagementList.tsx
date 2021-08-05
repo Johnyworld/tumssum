@@ -1,9 +1,10 @@
 import { h, FunctionalComponent } from 'preact';
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import { Bank, BankGroup, Category, CategoryGroup, Vec2 } from 'types';
 import ContentEditable from '~components/elements/ContentEditable';
 import Divider from '~components/elements/Divider';
 import { GrappingData } from '~hooks/useDrag';
+import { getClassNames } from '~utils/classNames';
 
 type ItemGroup = CategoryGroup | BankGroup;
 type Item = Category | Bank;
@@ -12,6 +13,8 @@ export interface ManagementListProps {
 	data: ItemGroup[];
 	grapping: GrappingData<Item> | null;
 	grappingPos: Vec2 | null;
+	focusItem: number | null;
+	loading: boolean;
 	isDragging: boolean | null;
 	onGrap: (data: Item) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onDropToUpdate: (groupId: number | null) => h.JSX.MouseEventHandler<HTMLDivElement>;
@@ -21,7 +24,7 @@ export interface ManagementListProps {
 	onClick: (data: Item) => h.JSX.MouseEventHandler<HTMLDivElement>;
 }
 
-const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grapping, grappingPos, isDragging, onGrap, onDropToUpdate, onDrop, onDragging, onUpdate, onClick }) => {
+const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grapping, grappingPos, focusItem, loading, isDragging, onGrap, onDropToUpdate, onDrop, onDragging, onUpdate, onClick }) => {
 	return (
 		<div class='gap-large pos-relative never-drag' onMouseMove={onDragging} onMouseUp={onDrop} >
 			<div class='gap-regular'>
@@ -30,7 +33,7 @@ const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grappi
 					const handleHover = () => setHover(true);
 					const handleHoverOut = () => setHover(false);
 					return (
-						<div key={group.id} class='pos-relative' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate(group.id)}>
+						<div key={group.id} class='pos-relative' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate(group.id || null)}>
 							{!!grapping && hover && <div class='board-item-grapping' style={{ transform: 'scaleX(1.02)', borderRadius: '.25rem' }} />}
 							{ group.title
 								? <ContentEditable
@@ -48,13 +51,14 @@ const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grappi
 								{ group.items && group.items.length > 0 ? group.items.map(item=> (
 									<div class='list-item pos-relative' onMouseDown={onGrap(item)}>
 										{ isDragging
-											? <div class='content-box'>{item.title}</div>
+											? <div class={getClassNames([ 'content-box', [!item.title, 'c-gray'] ])}>{item.title || '비어있음'}</div>
 											: <ContentEditable
-													onChange={(value) => onUpdate({ id: item.id, title: value } as Category | Bank)}
+													onChange={(value) => value !== item.title && onUpdate({ id: item.id, title: value } as Category | Bank)}
 													style={!!grapping && { background: 'none' }}
 													class='fluid'
 													placeholder='비어있음'
 													isChangeOnBlur
+													isFocusOnLoad={focusItem === item.id}
 													value={item.title}
 												/>
 										}
