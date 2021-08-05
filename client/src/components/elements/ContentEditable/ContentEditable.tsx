@@ -67,16 +67,12 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 	const handleBlur: h.JSX.FocusEventHandler<HTMLDivElement> = (e) => {
 		if (type === 'number') {
 			const removeCharacters = ref.current.innerText.replace(/([^0-9])/gi, "");;
-			ref.current.innerText = removeCharacters;
 			onChange(removeCharacters);
 		} else {
 			onChange(e.currentTarget.innerText);
 		}
 	}
 
-	useEffect(() => {
-		if (ref.current) ref.current.innerText = value || '';
-	}, []);
 
 	if (isFocusOnLoad) {
 		useEffect(() => {
@@ -94,7 +90,7 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 		onInput={handleInput}
 		onKeyDown={handleKeyDown}
 		onBlur={handleBlur}
-		children={!ref.current && value ? value : ''}
+		dangerouslySetInnerHTML={{ __html: value || '' }}
 	/>
 
 	return (
