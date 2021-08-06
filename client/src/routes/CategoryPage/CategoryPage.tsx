@@ -84,7 +84,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 		<div class='category-page wrap' >
 
 			<Header>
-				<h1>카테고리 관리</h1>
+				<h1 class='header-title'>카테고리 관리</h1>
 			</Header>
 
 			<Indicator flexEnd>

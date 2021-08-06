@@ -21,7 +21,7 @@ const MonthSelector: FunctionalComponent<MonthSelectorProps> = ({ date, onPrev, 
 				<Icon as='arrowLeft' color='pen' />
 			</div>
 
-			<h1 class='month-selector-date'>{YYYY}. {MM}</h1>
+			<h1 class='month-selector-date header-title'>{YYYY}. {MM}</h1>
 
 			<div class='month-selector-icon never-drag' onClick={onNext}>
 				<Icon as='arrowRight' color='pen' />

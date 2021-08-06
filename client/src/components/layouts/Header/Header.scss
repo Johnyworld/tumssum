@@ -9,8 +9,13 @@
 	height: var(--header-height);
 }
 
+
 @include maxTablet {
 	.header {
 		padding-top: 0;
+	}
+
+	.header-title {
+		padding-left: .5rem;
 	}
 }
