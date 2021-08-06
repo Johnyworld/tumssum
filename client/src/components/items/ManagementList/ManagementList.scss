@@ -1,0 +1,35 @@
+@import '~src/style/mixins';
+
+.management-list {
+	.management-list-item,
+	.management-list-group {
+		.management-list-icon {
+			display: none;
+			right: .5rem;
+		}
+		&:hover .management-list-icon {
+			display: block;
+		}
+	}
+}
+
+
+@include maxTablet {
+	.management-list {
+		.management-list-item,
+		.management-list-group {
+			.management-list-icon {
+				display: block;
+				right: 1rem;
+			}
+		}
+		.management-list-group {
+			padding: 0 .5rem;
+		}
+		.management-list-item {
+			padding-left: .5rem;
+			padding-right: .5rem;
+			display: block;
+		}
+	}
+}
