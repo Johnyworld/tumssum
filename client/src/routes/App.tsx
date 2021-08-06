@@ -20,6 +20,7 @@ import { setCategories, setCategoryGroups } from '~features/category/categorySli
 import { setAccounts } from '~features/account/accountSlice';
 import { getLocalStringFromISOString } from '~utils/calendar';
 import PageContainer from '~components/layouts/PageComtainet';
+import { setBankGroups, setBanks } from '~features/bank/bankSlice';
 
 
 const App: FunctionalComponent = () => {
@@ -68,8 +69,8 @@ const UserLoggedIn: FunctionalComponent = () => {
 		method: 'GET',
 		url: `/api/categories/`,
 		onSuccess: data => {
-      dispatch(setCategories(data.categories));
       dispatch(setCategoryGroups(data.groups));
+      dispatch(setCategories(data.categories));
 		}
 	});
 
@@ -78,8 +79,8 @@ const UserLoggedIn: FunctionalComponent = () => {
 		url: `/api/banks/`,
 		onSuccess: data => {
       console.log('===== App', data);
-      // dispatch(setCategories(data.categories));
-      // dispatch(setCategoryGroups(data.groups));
+      dispatch(setBankGroups(data.groups));
+      dispatch(setBanks(data.banks));
 		}
   })
 

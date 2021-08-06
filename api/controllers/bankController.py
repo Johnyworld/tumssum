@@ -35,7 +35,9 @@ def postBank(reqData):
     title = title,
     balance = balance,
   )
-  return Response(BankSerializer(newBank, many=False).data)
+
+  res = { 'ok': True, 'data': BankSerializer(newBank, many=False).data }
+  return JsonResponse(res)
 
 
 def putBank(reqData):
@@ -45,7 +47,9 @@ def putBank(reqData):
   for k in reqData:
     setattr(bank, k, reqData[k])
   bank.save()
-  return Response(BankSerializer(bank, many=False).data)
+
+  res = { 'ok': True, 'data': BankSerializer(bank, many=False).data }
+  return JsonResponse(res)
 
 
 def deleteBank(reqData):
@@ -53,7 +57,9 @@ def deleteBank(reqData):
 
   bank = get_object_or_404(Bank, pk=bank_id)
   bank.delete()
-  return Response(True)
+
+  res = { 'ok': True, 'data': bank_id }
+  return JsonResponse(res)
 
 
 def postBankGroup(reqData):
@@ -64,7 +70,9 @@ def postBankGroup(reqData):
     user_id = user_id,
     title = title,
   )
-  return Response(BankGroupSerializer(newBankGroup, many=False).data)
+
+  res = { 'ok': True, 'data': BankGroupSerializer(newBankGroup, many=False).data }
+  return JsonResponse(res)
 
 
 def putBankGroup(reqData):
@@ -74,12 +82,22 @@ def putBankGroup(reqData):
   for k in reqData:
     setattr(bankGroup, k, reqData[k])
   bankGroup.save()
-  return Response(BankGroupSerializer(bankGroup, many=False).data)
+
+  res = { 'ok': True, 'data': BankGroupSerializer(bankGroup, many=False).data }
+  return JsonResponse(res)
 
 
 def deleteBankGroup(reqData):
+  user_id = reqData.get('user_id')
   bank_group_id = reqData.get('bank_group_id')
+
+  banks = Bank.objects.filter(user=user_id, group=bank_group_id)
+  for k in banks:
+    setattr(k, 'group_id', None)
+  categoriesSerialized = BankSerializer(banks, many=True).data
 
   bankGroup = get_object_or_404(BankGroup, pk=bank_group_id)
   bankGroup.delete()
-  return Response(True)
+
+  res = { 'ok': True, 'data': { 'id': bank_group_id, 'items': categoriesSerialized } }
+  return JsonResponse(res)

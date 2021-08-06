@@ -1,6 +1,6 @@
-import { h, FunctionalComponent } from 'preact';
+import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { Bank, BankGroup, Category, CategoryGroup, Vec2 } from 'types';
+import { Vec2 } from 'types';
 import ContentEditable from '~components/elements/ContentEditable';
 import Divider from '~components/elements/Divider';
 import Icon from '~components/elements/Icon';
@@ -8,26 +8,37 @@ import { GrappingData } from '~hooks/useDrag';
 import { getClassNames } from '~utils/classNames';
 import './ManagementList.scss';
 
-type ItemGroup = CategoryGroup | BankGroup;
-type Item = Category | Bank;
+export interface ItemGroup<T> {
+	id: number;
+	title: string;
+	user: number;
+	items: T[];
+};
 
-export interface ManagementListProps {
-	data: ItemGroup[];
-	grapping: GrappingData<Item> | null;
+export interface Item {
+	id: number;
+	title: string;
+	balance?: number;
+	group: number | null;
+}
+
+export interface ManagementListProps<T, S> {
+	data: S[];
+	grapping: GrappingData<T> | null;
 	grappingPos: Vec2 | null;
 	focusGroup: number | null;
 	focusItem: number | null;
 	isDragging: boolean | null;
-	onGrap: (data: Item) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
+	onGrap: (data: T) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onDropToUpdate: (groupId: number | null) => h.JSX.MouseEventHandler<HTMLDivElement>;
 	onDrop: () => void;
 	onDragging: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
-	onUpdate: (data: Item) => void;
-	onClick: (data: Item) => h.JSX.MouseEventHandler<HTMLDivElement>;
-	onClickGroup: (data: ItemGroup) => h.JSX.MouseEventHandler<HTMLDivElement>;
+	onUpdate: (data: T) => void;
+	onClick: (data: T) => h.JSX.MouseEventHandler<HTMLDivElement>;
+	onClickGroup: (data: S) => h.JSX.MouseEventHandler<HTMLDivElement>;
 }
 
-const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grapping, grappingPos, focusGroup, focusItem, isDragging, onGrap, onDropToUpdate, onDrop, onDragging, onUpdate, onClick, onClickGroup }) => {
+const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping, grappingPos, focusGroup, focusItem, isDragging, onGrap, onDropToUpdate, onDrop, onDragging, onUpdate, onClick, onClickGroup }: ManagementListProps<T, S>) => {
 	return (
 		<div class='management-list gap-large pos-relative never-drag' onMouseMove={onDragging} onMouseUp={onDrop} >
 			<div class='gap-regular'>
@@ -62,7 +73,7 @@ const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grappi
 										{ isDragging
 											? <div class={getClassNames([ 'content-box', [!item.title, 'c-gray'] ])}>{item.title || '비어있음'}</div>
 											: <ContentEditable
-													onChange={(value) => value !== item.title && onUpdate({ id: item.id, title: value } as Category | Bank)}
+													onChange={(value) => value !== item.title && onUpdate({ id: item.id, title: value } as T)}
 													style={!!grapping && { background: 'none' }}
 													class='fluid'
 													placeholder='이름 없음'

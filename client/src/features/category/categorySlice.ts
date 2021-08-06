@@ -6,7 +6,7 @@ const initialState = {
   categoryGroups: [] as CategoryGroup[],
 }
 
-export const modeSlice = createSlice({
+export const categorySlice = createSlice({
   name: 'mode',
   initialState,
   reducers: {
@@ -46,6 +46,6 @@ export const modeSlice = createSlice({
   }
 })
 
-export const { setCategories, setCategoryGroups, addCategoryGroup, addCategories, addCategory, updateCategoryGroup, updateCategory, removeCategoryGroup, removeCategory } = modeSlice.actions;
+export const { setCategories, setCategoryGroups, addCategoryGroup, addCategories, addCategory, updateCategoryGroup, updateCategory, removeCategoryGroup, removeCategory } = categorySlice.actions;
 
-export default modeSlice.reducer;
+export default categorySlice.reducer;
