@@ -39,12 +39,10 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class CategoryGroupSerializer(serializers.ModelSerializer):
-  categories = CategorySerializer(many=True, read_only=True)
-
   class Meta:
     model = CategoryGroup
     fields = '__all__'
-    extra_fields = ['categories']
+    # extra_fields = ['categories']
 
 
 class BankSerializer(serializers.ModelSerializer):
@@ -54,12 +52,9 @@ class BankSerializer(serializers.ModelSerializer):
 
 
 class BankGroupSerializer(serializers.ModelSerializer):
-  banks = BankSerializer(many=True, read_only=True)
-
   class Meta:
     model = BankGroup
     fields = '__all__'
-    extra_fields = ['banks']
 
 
 class MonthSerializer(serializers.ModelSerializer):

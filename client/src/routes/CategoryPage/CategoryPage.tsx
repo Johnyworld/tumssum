@@ -14,20 +14,6 @@ import CategoryGroupFormModal from '~components/partials/CategoryGroupFormModal'
 import { useCallback } from 'preact/hooks';
 
 
-export const getCategoryGroups = (groups: CategoryGroup[]) => {
-	return groups.reduce((prev, curr) => {
-		curr.categories = [];
-		if (!curr.id) return prev;
-		return [...prev, curr];
-	}, [] as CategoryGroup[]);
-}
-
-export const getCategories = (categories: CategoryGroup[]) => {
-	return categories.reduce((prev, curr) => {
-		return [...prev, ...curr.categories!];
-	}, [] as Category[]);
-}
-
 const getCategoriesAligned = (categories: Category[]) => {
 	const results: {[x:string]: Category[]} = {}
 	for ( const item of categories ) {

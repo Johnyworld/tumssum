@@ -14,12 +14,11 @@ import CategoryPage from '~routes/CategoryPage';
 import BankPage from '~routes/BankPage';
 
 import useFetch from '~hooks/useFetch';
-import { Account, CategoryGroup } from 'types';
+import { Account, Category, CategoryGroup } from 'types';
 import { useDispatch } from 'react-redux';
 import { setCategories, setCategoryGroups } from '~features/category/categorySlice';
 import { setAccounts } from '~features/account/accountSlice';
 import { getLocalStringFromISOString } from '~utils/calendar';
-import { getCategories, getCategoryGroups } from './CategoryPage/CategoryPage';
 import PageContainer from '~components/layouts/PageComtainet';
 
 
@@ -65,12 +64,12 @@ const UserLoggedIn: FunctionalComponent = () => {
 		}
 	});
 
-	useFetch<CategoryGroup[]>({
+	useFetch<{ categories: Category[], groups: CategoryGroup[] }>({
 		method: 'GET',
 		url: `/api/categories/`,
 		onSuccess: data => {
-      dispatch(setCategories(getCategories(data)));
-      dispatch(setCategoryGroups(getCategoryGroups(data)));
+      dispatch(setCategories(data.categories));
+      dispatch(setCategoryGroups(data.groups));
 		}
 	});
 

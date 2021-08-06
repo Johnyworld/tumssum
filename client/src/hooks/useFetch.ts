@@ -34,7 +34,7 @@ const useFetch = <S>({ method, url, params, onError, onSuccess }:UseFetchParams<
 		let sendingParams = params;
 		if (user && reqData) sendingData = {...reqData, user_id: user.id};
 		if (user && params) sendingParams = {...params, user_id: user.id};
-		console.log(':: REQUEST :: ', method, url, { data: sendingData, params: sendingParams });
+		console.log('%c:: 📝 REQUEST :: ', 'color: #bada55', method, url, { data: sendingData, params: sendingParams },);
 
 		axios({
 			method,
@@ -45,7 +45,7 @@ const useFetch = <S>({ method, url, params, onError, onSuccess }:UseFetchParams<
 			data: sendingData,
 			params: sendingParams,
 		}).then((res: any) => {
-			console.log(':: RESPONSE :: ', res);
+			console.log('%c:: 📦 RESPONSE :: ', 'color: #00c5ff', method, url, res);
 			if (res.ok && !res.code) {
 				res.data && setData(res.data);
 				setError({ code: '', message: '' });
