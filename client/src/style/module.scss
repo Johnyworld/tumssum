@@ -50,6 +50,20 @@
 	}
 }
 
+select.content-box {
+	font-size: var(--font-regular);
+	background: none;
+	color: inherit;
+	outline: none;
+	border: 0;
+
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	&::-ms-expand {
+    display: none;
+	}
+}
+
 .content-text {
   padding: .125em 0;
   cursor: text;
