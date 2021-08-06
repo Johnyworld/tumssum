@@ -275,13 +275,14 @@ def categoryGroup(request):
 
 ###################### BANK ######################
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def banks(request):
-  reqData = json.loads(request.body)
   if request.method == 'GET':
-    return bankController.getBanks(reqData)
+    return bankController.getBanks(request)
 
 
 @api_view(['POST', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def bank(request):
   reqData = json.loads(request.body)
   if request.method == 'POST':
@@ -295,6 +296,7 @@ def bank(request):
 
 
 @api_view(['POST', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def bankGroup(request):
   reqData = json.loads(request.body)
   if request.method == 'POST':

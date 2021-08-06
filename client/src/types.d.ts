@@ -81,7 +81,6 @@ declare module 'types' {
     id: number;
     title: string;
     user: number;
-    categories?: Category[];
     items: Category[];
     created_at: string;
     updated_at: string;
@@ -102,7 +101,6 @@ declare module 'types' {
     id: number;
     title: string;
     user: number;
-    banks: Bank[];
     items: Bank[];
     created_at: string;
     updated_at: string;

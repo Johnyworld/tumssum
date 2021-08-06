@@ -1,22 +1,26 @@
+from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
 from api.utils.serializers import BankGroupSerializer, BankSerializer
 from rest_framework.response import Response
 from api.models import BankGroup, Bank
 
 
-def getBanks(reqData):
-  user_id = reqData.get('user_id')
+def getBanks(request):
+  user_id = request.GET.get('user_id')
 
-  bankGroups = BankGroup.objects.filter(user=user_id)
-  banksNoGroup = Bank.objects.filter(user=user_id, group=None)
+  groups = BankGroup.objects.filter(user=user_id)
+  banks = Bank.objects.filter(user=user_id)
 
-  bankGroupsData = BankGroupSerializer(bankGroups, many=True).data
-  banksNoroupData = BankSerializer(banksNoGroup, many=True).data
+  groupsData = BankGroupSerializer(groups, many=True).data
+  banksData = BankSerializer(banks, many=True).data
 
-  merge = list(bankGroupsData)
-  merge.append({ 'banks' : banksNoroupData})
+  data = {
+    'groups': groupsData,
+    'banks': banksData
+  }
 
-  return Response(merge)
+  res = { 'ok': True, 'data': data }
+  return JsonResponse(res)
 
 
 def postBank(reqData):

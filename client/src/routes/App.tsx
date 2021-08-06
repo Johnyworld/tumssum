@@ -14,7 +14,7 @@ import CategoryPage from '~routes/CategoryPage';
 import BankPage from '~routes/BankPage';
 
 import useFetch from '~hooks/useFetch';
-import { Account, Category, CategoryGroup } from 'types';
+import { Account, Bank, BankGroup, Category, CategoryGroup } from 'types';
 import { useDispatch } from 'react-redux';
 import { setCategories, setCategoryGroups } from '~features/category/categorySlice';
 import { setAccounts } from '~features/account/accountSlice';
@@ -72,6 +72,16 @@ const UserLoggedIn: FunctionalComponent = () => {
       dispatch(setCategoryGroups(data.groups));
 		}
 	});
+
+  useFetch<{ banks: Bank[], groups: BankGroup[] }>({
+		method: 'GET',
+		url: `/api/banks/`,
+		onSuccess: data => {
+      console.log('===== App', data);
+      // dispatch(setCategories(data.categories));
+      // dispatch(setCategoryGroups(data.groups));
+		}
+  })
 
   return (
     <PageContainer>
