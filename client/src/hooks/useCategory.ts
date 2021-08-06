@@ -101,6 +101,7 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		if ( putCategory.loading ) return;
 		putCategory.call({
 			category_id: category.id,
+			group_id: category.group,
 			title: category.title,
 		})
 	}

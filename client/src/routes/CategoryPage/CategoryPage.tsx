@@ -112,6 +112,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 				{ detailView &&
 					<CategoryFormModal
 						category={detailView}
+						groupList={categoryGroups}
 						onConfirm={handleUpdateCategory}
 						onDelete={handleRemoveCategory}
 					/>

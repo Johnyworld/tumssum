@@ -64,7 +64,7 @@ const ManagementList: FunctionalComponent<ManagementListProps> = ({ data, grappi
 													onChange={(value) => value !== item.title && onUpdate({ id: item.id, title: value } as Category | Bank)}
 													style={!!grapping && { background: 'none' }}
 													class='fluid'
-													placeholder='비어있음'
+													placeholder='이름 없음'
 													isChangeOnBlur
 													isFocusOnLoad={focusItem === item.id}
 													value={item.title}

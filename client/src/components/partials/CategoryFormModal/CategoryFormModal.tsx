@@ -1,32 +1,41 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
-import { Category } from 'types';
+import { useCallback, useState } from 'preact/hooks';
+import { Category, CategoryGroup } from 'types';
 import Button from '~components/elements/Button';
 import ContentEditable from '~components/elements/ContentEditable';
+import Dropdown from '~components/elements/Dropdown';
 import Modal from '~components/layouts/Modal';
 import useContentEditable from '~hooks/useContentEditable';
 
 export interface CategoryFormModalProps {
 	category: Category;
+	groupList: CategoryGroup[];
 	onConfirm: (category: Category) => void;
 	onDelete: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
 }
 
-const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ category, onConfirm, onDelete }) => {
+const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ category, groupList, onConfirm, onDelete }) => {
 
 	const { t } = useTranslation();
 	const [ title, changeTitle ] = useContentEditable(category.title || '');
+	const [ group, setGroup ] = useState<number|string>(category.group || 0);
+
+	const handleChange: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
+		setGroup(e.currentTarget.value);
+	}, [group])
 
 	const handleConfirm = () => {
 		onConfirm({
 			id: category.id,
 			title,
+			group: group || null,
 		} as Category);
 	}
 
 	return (
 		<Modal.Container>
-			<Modal.Content class='gap-tiny' padding>
+			<Modal.Content class='gap-regular' padding>
 
 				<ContentEditable
 					value={title}
@@ -36,6 +45,16 @@ const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ catego
 					isOneLine
 					placeholder='카테고리 이름을 입력하세요.'
 					onChange={changeTitle}
+				/>
+
+				<Dropdown
+					list={[
+						{ id: 0, text: '그룹 미분류', color: 'gray_strong' },
+						...groupList.map(group => { return { id: group.id, text: group.title }}),
+					]}
+					label='카테고리 그룹'
+					selected={group}
+					onChange={handleChange}
 				/>
 
 			</Modal.Content>
