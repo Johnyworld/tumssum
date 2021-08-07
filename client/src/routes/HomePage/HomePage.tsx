@@ -11,12 +11,11 @@ import AccountFormModal from '~components/partials/AccountFormModal';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import { changeMonthNext, changeMonthPrev, changeMonthToday } from '~features/month/monthSlice';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import useDetails from '~hooks/useDetails';
-import useToggle from '~hooks/useToggle';
-import { Account, IconType } from 'types';
+import { IconType } from 'types';
 import useAccount from '~hooks/useAccount';
 import useDrag from '~hooks/useDrag';
 import { combineCategoriesWithGroups } from '~routes/CategoryPage/CategoryPage';
+import AccountList from '~components/partials/AccountList';
 
 
 const MENUS = [
@@ -111,6 +110,12 @@ const HomePage: FunctionalComponent = ({  }) => {
 					onDragging={handleDragging}
 					onClick={handleViewDetail}
 					onClickPlus={handleOpenCreateModalWithCategory}
+				/>
+			}
+
+			{ view === 'list' &&
+				<AccountList
+					list={accounts}
 				/>
 			}
 
