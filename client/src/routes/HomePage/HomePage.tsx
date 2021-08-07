@@ -18,6 +18,7 @@ import { combineCategoriesWithGroups } from '~routes/CategoryPage/CategoryPage';
 import AccountList from '~components/partials/AccountList';
 import { combineBanksWithGroups } from '~routes/BankPage/BankPage';
 import useCSV from '~hooks/useCSV';
+import useResizeSide from '~hooks/useResizeSide';
 
 
 const MENUS = [
@@ -48,6 +49,8 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useDrag(accounts);
 
+	const { borderRef, sideWidth, handleBorderMouseDown, handleContainerMouseUp, handleContainerDrag } = useResizeSide({});
+
 	const { 
 		initialValuesForCreate, detailView, handleViewDetail, handleCloseDetail,
 		isOpenCreateModal, handleOpenCreateModal, handleOpenCreateModalWithDate, handleOpenCreateModalWithCategory, handleCloseCreateModal,
@@ -67,66 +70,74 @@ const HomePage: FunctionalComponent = ({  }) => {
 	}, [inputRef.current, isOpenCreateModal]);
 
 	return (
-		<main class='home-page main' >
+		<main class='home-page main' onMouseUp={handleContainerMouseUp} onMouseLeave={handleContainerMouseUp} onMouseMove={handleContainerDrag}>
 
-			<Header>
-				<MonthSelector
-					date={date}
-					onPrev={() => dispatch(changeMonthPrev())}
-					onNext={() => dispatch(changeMonthNext())}
-				/>
-			</Header>
+			<section class='home-page__content'>
+				<Header>
+					<MonthSelector
+						date={date}
+						onPrev={() => dispatch(changeMonthPrev())}
+						onNext={() => dispatch(changeMonthNext())}
+					/>
+				</Header>
 
-			<Indicator>
-				<NavigationMenu
-					selected={view}
-					onChange={handleChangeView}
-					list={MENUS}
-				/>
-				<div class='flex flex-gap-regular'>
-					<p class='f-bold t-fit pointer' onClick={() => getCSV('CSV')}>다운로드</p>
-					<p class='f-bold t-fit pointer' onClick={() => dispatch(changeMonthToday())}>Today</p>
-					<Button size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />
-				</div>
-			</Indicator>
+				<Indicator>
+					<NavigationMenu
+						selected={view}
+						onChange={handleChangeView}
+						list={MENUS}
+					/>
+					<div class='flex flex-gap-regular'>
+						<p class='f-bold t-fit pointer' onClick={() => getCSV('CSV')}>다운로드</p>
+						<p class='f-bold t-fit pointer' onClick={() => dispatch(changeMonthToday())}>Today</p>
+						<Button size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />
+					</div>
+				</Indicator>
 
-			{ view === 'calendar' &&
-				<Calendar
-					date={date}
-					data={accounts}
-					grapping={grapping}
-					grappingPos={grappingPos}
-					onGrap={handleGrap}
-					onDropToUpdate={handleDropToUpdateDate}
-					onDragging={handleDragging}
-					onClick={handleViewDetail}
-					onClickPlus={handleOpenCreateModalWithDate}
-				/>
-			}
+				{ view === 'calendar' &&
+					<Calendar
+						date={date}
+						data={accounts}
+						grapping={grapping}
+						grappingPos={grappingPos}
+						onGrap={handleGrap}
+						onDropToUpdate={handleDropToUpdateDate}
+						onDragging={handleDragging}
+						onClick={handleViewDetail}
+						onClickPlus={handleOpenCreateModalWithDate}
+					/>
+				}
 
-			{ view === 'category' &&
-				<CategoryBoard
-					categoriesCombined={categoriesCombined}
-					data={accounts.filter(account => account.datetime.substr(0, 7) === date.substr(0, 7))}
-					grapping={grapping}
-					grappingPos={grappingPos}
-					onGrap={handleGrap}
-					onDrop={handleDrop}
-					onDropToUpdate={handleDropToUpdateCategory}
-					onDragging={handleDragging}
-					onClick={handleViewDetail}
-					onClickPlus={handleOpenCreateModalWithCategory}
-				/>
-			}
+				{ view === 'category' &&
+					<CategoryBoard
+						categoriesCombined={categoriesCombined}
+						data={accounts.filter(account => account.datetime.substr(0, 7) === date.substr(0, 7))}
+						grapping={grapping}
+						grappingPos={grappingPos}
+						onGrap={handleGrap}
+						onDrop={handleDrop}
+						onDropToUpdate={handleDropToUpdateCategory}
+						onDragging={handleDragging}
+						onClick={handleViewDetail}
+						onClickPlus={handleOpenCreateModalWithCategory}
+					/>
+				}
 
-			{ view === 'list' &&
-				<AccountList
-					list={accounts}
-					categoriesCombined={categoriesCombined}
-					banksCombined={banksCombined}
-					onChange={handleUpdateAccount}
-				/>
-			}
+				{ view === 'list' &&
+					<AccountList
+						list={accounts}
+						categoriesCombined={categoriesCombined}
+						banksCombined={banksCombined}
+						onChange={handleUpdateAccount}
+					/>
+				}
+			</section>
+
+
+			<section class='home-page__side never-drag' style={{ width: sideWidth }}>
+				<div ref={borderRef} class='home-page__side-border' onMouseDown={handleBorderMouseDown} />
+			</section>
+
 
 			<Modal
 				isOpen={isOpenCreateModal}
