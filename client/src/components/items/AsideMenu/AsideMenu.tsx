@@ -6,14 +6,14 @@ import IconText from '../IconText';
 import './AsideMenu.scss';
 
 
-interface AsideMenuItemProps extends SelectMenuItem {
+export interface AsideMenuItem extends SelectMenuItem {
 	icon: IconType;
 	href?: string
 }
 
 
 export interface AsideMenuProps extends DefaultProps {
-	list: AsideMenuItemProps[];
+	list: AsideMenuItem[];
 	selected?: string;
 	isOpen: boolean;
 }

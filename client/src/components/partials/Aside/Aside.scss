@@ -1,0 +1,39 @@
+@import '~src/style/mixins';
+
+.aside {
+	width: var(--aside-width);
+	background-color: var(--color-paper);
+	transition: .3s;
+	padding: 0 1rem;
+	border-right: 1px solid var(--color-gray_weaker);
+
+	&__content {
+		position: sticky;
+		top: 0;
+		height: 100vh;
+	}
+
+	&__bottom {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		padding: 0.5rem 0;
+		transition: .3s;
+	}
+}
+
+.aside--narrow {
+	width: var(--header-height);
+	padding: 0;
+
+	.aside__bottom {
+		padding: 0;
+	}
+}
+
+
+@include maxTablet {
+	.aside {
+		display: none;
+	}
+}

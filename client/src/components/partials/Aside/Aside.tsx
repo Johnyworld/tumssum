@@ -1,0 +1,53 @@
+import { h, FunctionalComponent } from 'preact';
+import { DefaultProps } from 'types';
+import AsideMenu from '~components/items/AsideMenu';
+import { AsideMenuItem } from '~components/items/AsideMenu/AsideMenu';
+import { getClassNames } from '~utils/classNames';
+import Indicator from '../../layouts/Indicator';
+import './Aside.scss';
+
+interface Props extends DefaultProps {
+	path: string;
+	gnbMenuList: AsideMenuItem[];
+	bottomMenuList: AsideMenuItem[];
+	isNarrow?: boolean;
+	onToggleAside: () => void;
+}
+
+const Aside: FunctionalComponent<Props> = ({ class: className, path, gnbMenuList, bottomMenuList, isNarrow, onToggleAside }) => {
+	return (
+		<aside
+			class={getClassNames(['aside', className, [isNarrow, 'aside--narrow']])}
+		>
+			<div class='aside__content'>
+				<div class='header'>
+					<button onClick={onToggleAside}>Test</button>
+					{/* <Logo /> */}
+				</div>
+				<Indicator>
+
+				</Indicator>
+				<AsideMenu
+					selected={path}
+					isOpen={!isNarrow}
+					list={gnbMenuList}
+				/>
+				{/* <div class='flex flex-end p-regular'>
+					<button onClick={handleChangeLanguage('ko')}>KO</button>
+					<button onClick={handleChangeLanguage('en')}>EN</button>
+				</div> */}
+				{/* <ThemeChanger /> */}
+				{/* { userInfo && <Button onClick={handleLogout} fluid class='gap-regular' type='submit'>logout</Button> }
+				{ userInfo && `Hello ${userInfo.name}`} */}
+				<div class='aside__bottom'>
+					<AsideMenu
+						isOpen={!isNarrow}
+						list={bottomMenuList}
+					/>
+				</div>
+			</div>
+		</aside>
+	)
+}
+
+export default Aside;

@@ -1,15 +1,12 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
-import Aside from '~components/layouts/Aside';
-import Button from '~components/elements/Button';
+import Aside from '~components/partials/Aside';
 import { logout } from '~features/user/userSlice';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
-import ThemeChanger from '~features/theme/ThemeChanger';
-import Indicator from '../Indicator';
-import { useState } from 'preact/hooks';
+import { useMemo, useState } from 'preact/hooks';
 import { useLocation } from 'wouter';
-import AsideMenu from '~components/items/AsideMenu';
 import './PageContainer.scss';
+import { AsideMenuItem } from '~components/items/AsideMenu/AsideMenu';
 
 
 interface PageContainerProps {
@@ -24,7 +21,19 @@ const PageContainer: FunctionalComponent<PageContainerProps> = ({ children }) =>
 	const [isOpenAside, setIsOpenAside] = useState(localStorage.getItem('asideopen') === 'close' ? false : true);
 
 
-	const toggleAside = () => {
+	const gnbMenuList = useMemo(() => { return [
+		{ id: 'home', text: 'Home', icon: 'home', href: '/' },
+		{ id: 'budget', text: 'Budget', icon: 'card', href: '/budget' },
+		{ id: 'category', text: 'Category', icon: 'menu', href: '/category' },
+		{ id: 'bank', text: 'Bank', icon: 'storage', href: '/bank' },
+	] as AsideMenuItem[]}, []);
+
+	const bottomMenuList = useMemo(() => { return [
+		{ id: 'settings', text: 'Settings', icon: 'home', href: '/settings' },
+	] as AsideMenuItem[]}, []);
+
+
+	const handleToggleAside = () => {
 		if (isOpenAside) {
 			setIsOpenAside(false);
 			localStorage.setItem('asideopen', 'close');
@@ -50,33 +59,14 @@ const PageContainer: FunctionalComponent<PageContainerProps> = ({ children }) =>
 
 	return (
 		<div class='page-container'>
-			<Aside mode={isOpenAside ? 'normal' : 'icon'} class='hide-tablet' >
-				<div class='header'>
-					<button onClick={toggleAside}>Test</button>
-					{/* <Logo /> */}
-				</div>
-				<Indicator>
-
-				</Indicator>
-				<AsideMenu
-					selected={path}
-					isOpen={isOpenAside}
-					list={[
-						{ id: 'home', text: 'Home', icon: 'home', href: '/' },
-						{ id: 'budget', text: 'Budget', icon: 'card', href: '/budget' },
-						{ id: 'category', text: 'Category', icon: 'menu', href: '/category' },
-						{ id: 'bank', text: 'Bank', icon: 'storage', href: '/bank' },
-					]}
-				/>
-				<div class='flex flex-end p-regular'>
-					<button onClick={handleChangeLanguage('ko')}>KO</button>
-					<button onClick={handleChangeLanguage('en')}>EN</button>
-				</div>
-				<ThemeChanger />
-				{ userInfo && <Button onClick={handleLogout} fluid class='gap-regular' type='submit'>logout</Button> }
-				{ userInfo && `Hello ${userInfo.name}`}
-			</Aside>
-			<main class='page-container-main' >
+			<Aside
+				path={path}
+				gnbMenuList={gnbMenuList}
+				bottomMenuList={bottomMenuList}
+				isNarrow={!isOpenAside}
+				onToggleAside={handleToggleAside}
+			/>
+			<main class='page-container__main' >
 				{children}
 			</main>
 		</div>
