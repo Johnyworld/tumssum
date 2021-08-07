@@ -1,8 +1,8 @@
 import { h, FunctionalComponent } from 'preact';
 import { Account, BankGroup, CategoryGroup } from 'types';
 import AccountListItem from './AccountListItem';
-import './AccountList.scss';
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
+import './AccountList.scss';
 
 export interface AccountListProps {
 	list: Account[];
@@ -26,8 +26,8 @@ const AccountList: FunctionalComponent<AccountListProps> = ({ list, categoriesCo
 	}, []);
 
 	const handleChangeDropdown: (id: number, key: string) => h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((id, key) => (e) => {
-		if (key === 'category') onChange({ id, category: +e.currentTarget.value } as Account);
-		else if (key === 'bank') onChange({ id, bank: +e.currentTarget.value } as Account);
+		if (key === 'category') onChange({ id, category: +e.currentTarget.value || null } as Account);
+		else if (key === 'bank') onChange({ id, bank: +e.currentTarget.value || null } as Account);
 	}, []);
 
 	return (
