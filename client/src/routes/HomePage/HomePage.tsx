@@ -17,6 +17,7 @@ import useDrag from '~hooks/useDrag';
 import { combineCategoriesWithGroups } from '~routes/CategoryPage/CategoryPage';
 import AccountList from '~components/partials/AccountList';
 import { combineBanksWithGroups } from '~routes/BankPage/BankPage';
+import useCSV from '~hooks/useCSV';
 
 
 const MENUS = [
@@ -39,6 +40,8 @@ const HomePage: FunctionalComponent = ({  }) => {
 		localStorage.setItem('home_view', newView);
 		setView(newView);
 	}
+
+	const { getCSV } = useCSV({ accounts });
 
 	const categoriesCombined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
 	const banksCombined = useMemo(() => combineBanksWithGroups(banks, bankGroups), [banks, bankGroups]);
@@ -81,6 +84,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 					list={MENUS}
 				/>
 				<div class='flex flex-gap-regular'>
+					<p class='f-bold t-fit pointer' onClick={() => getCSV('CSV')}>다운로드</p>
 					<p class='f-bold t-fit pointer' onClick={() => dispatch(changeMonthToday())}>Today</p>
 					<Button size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />
 				</div>
