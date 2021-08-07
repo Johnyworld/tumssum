@@ -18,6 +18,7 @@ export const icons = [
 	'arrowDown',
 	'calendar',
 	'card',
+	'gear',
 	'menu',
 	'pencel',
 	'storage',
@@ -56,6 +57,11 @@ const getSVG = (as: IconType, color: Color, strokeWidth: number) => {
 			<path d="M1 10H15" stroke={c} stroke-width={strokeWidth} />
 			<circle cx="3" cy="7" r='1' fill={c} />
 			<circle cx="6" cy="7" r='1' fill={c} />
+		</g>
+
+		case 'gear': return <g>
+			<path d="M13.38 8C13.38 7.71 13.35 7.43 13.31 7.15L15.13 5.55L13.63 2.95L11.34 3.72C10.9 3.37 10.4 3.08 9.86 2.87L9.38 0.5H6.38L5.91 2.87C5.37 3.08 4.87 3.37 4.43 3.72L2.14 2.95L0.640005 5.55L2.46 7.15C2.41 7.43 2.38001 7.71 2.38001 8C2.38001 8.29 2.41 8.57 2.45 8.85L0.630005 10.45L2.13001 13.05L4.42 12.28C4.86 12.64 5.36 12.93 5.9 13.13L6.37 15.5H9.37L9.84 13.13C10.38 12.92 10.88 12.63 11.32 12.28L13.61 13.05L15.11 10.45L13.29 8.85C13.35 8.57 13.38 8.29 13.38 8Z" stroke={c} stroke-width={strokeWidth}/>
+			<path d="M7.88 10.5C9.26072 10.5 10.38 9.38071 10.38 8C10.38 6.61929 9.26072 5.5 7.88 5.5C6.49929 5.5 5.38 6.61929 5.38 8C5.38 9.38071 6.49929 10.5 7.88 10.5Z" stroke={c} stroke-width={strokeWidth}/>
 		</g>
 
 		case 'menu': return <g>

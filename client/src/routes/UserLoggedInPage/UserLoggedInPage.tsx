@@ -34,7 +34,7 @@ const UserLoggedInPage: FunctionalComponent = () => {
 	] as AsideMenuItem[]}, []);
 
 	const bottomMenuList = useMemo(() => { return [
-		{ id: 'settings', text: 'Settings', icon: 'home', href: '/settings' },
+		{ id: 'settings', text: 'Settings', icon: 'gear', href: '/settings' },
 	] as AsideMenuItem[]}, []);
 
 
