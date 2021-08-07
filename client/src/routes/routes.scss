@@ -1,5 +1,21 @@
 @import "~src/style/mixins";
 
+.page-container {
+	display: flex;
+}
+
+.page-container__main {
+	width: 100%;
+	min-height: 100vh;
+	padding-bottom: 10rem;
+}
+
+@include minTablet {
+	.page-container__main {
+		padding-left: 2rem;
+	}
+}
+
 .auth-page {
 	padding-top: 10rem;
 }
