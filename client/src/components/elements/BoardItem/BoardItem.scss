@@ -7,19 +7,34 @@
 	overflow: hidden;
 	border-bottom: 1px solid var(--color-gray_weaker);
 	border-right: 1px solid var(--color-gray_weaker);
+
+	&__grapping {
+		position: absolute;
+		top: -.25rem;
+		bottom: -.25rem;
+		left: 0;
+		width: 100%;
+		opacity: .3;
+		background-color: var(--color-primary);
+	}
+
+	&__plus-button {
+		margin-top: -.25rem;
+		transition: .3s;
+		visibility: hidden;
+		opacity: 0;
+	}
+
+	&--col-4 {
+		flex: initial;
+		width: 25%;
+	}
+
+	&:hover {
+		.board-item__plus-button {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
 }
 
-.board-item-col-4 {
-	flex: initial;
-	width: 25%;
-}
-
-.board-item-grapping {
-	position: absolute;
-	top: -.25rem;
-	bottom: -.25rem;
-	left: 0;
-	width: 100%;
-	opacity: .3;
-	background-color: var(--color-primary);
-}

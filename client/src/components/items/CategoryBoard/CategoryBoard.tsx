@@ -17,6 +17,7 @@ interface CategoryBoardProps {
 	onDrop?: () => void;
 	onDragging?: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onClick?: (account: Account) => h.JSX.MouseEventHandler<HTMLDivElement>;
+	onClickPlus?: (categoryId: number) => () => void;
 }
 
 const getDataAligned = (data: Account[]) => {
@@ -41,7 +42,7 @@ const combineCategoriesWithData = (categories: CategoryGroup[], alignedData: {[x
 }
 
 
-const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, categoryGroups, data, grapping, grappingPos, onGrap, onDropToUpdate, onDrop, onDragging, onClick }) => {
+const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, categoryGroups, data, grapping, grappingPos, onGrap, onDropToUpdate, onDrop, onDragging, onClick, onClickPlus }) => {
 
 	const combined = combineCategoriesWithGroups(categories, categoryGroups);
 	const alignedData = getDataAligned(data);
@@ -78,10 +79,11 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, ca
 						<div class='category-board-row'>
 							{ group.items && group.items.map(category => (
 								<BoardItem
-									class='board-item-col-4'
+									class='board-item--col-4'
 									title={category.title}
 									isGrapping={!!grapping}
 									onDropToUpdate={onDropToUpdate && onDropToUpdate( category.id, category.title )}
+									onClickPlus={onClickPlus && onClickPlus(category.id)}
 									children={category.accounts && category.accounts.map(account => (
 										<AccountItem
 											title={account.title}

@@ -1,28 +1,34 @@
+import { useState } from "preact/hooks";
 import { Account } from "types";
 import { addAccount, removeAccount, updateAccount } from '~features/account/accountSlice';
 import { getLocalString, getLocalStringFromISOString } from '~utils/calendar';
 import { useDispatch } from '~utils/redux/hooks';
+import useDetails from "./useDetails";
 import { GrappingData } from './useDrag';
 import useFetch from "./useFetch";
+import useToggle from "./useToggle";
 
 interface UseAccount {
 	grapping: GrappingData<Account> | null;
-
-	handleCloseCreateModal: () => void;
-	handleCloseDetails: () => void;
 	handleDrop: () => void;
 }
 
-export default ({ grapping, handleCloseCreateModal, handleCloseDetails, handleDrop }: UseAccount) => {
+export default ({ grapping, handleDrop }: UseAccount) => {
 
 	const dispatch = useDispatch();
+
+	const [initialValuesForCreate, setInitialValuesForCreate] = useState<Account | null>(null);
+
+	const toggleCreateModal = useToggle();
+
+	const { detailView, handleCloseDetail, handleViewDetail } = useDetails<Account>();
 	
 	const createNewAccount = useFetch<Account>({
 		method: 'POST',
 		url: '/api/account/',
 		onSuccess: data => {
 			dispatch(addAccount(data));
-			handleCloseCreateModal();
+			toggleCreateModal.handleOff();
 		}
 	});
 
@@ -32,8 +38,8 @@ export default ({ grapping, handleCloseCreateModal, handleCloseDetails, handleDr
 		onSuccess: data => {
 			data.datetime = getLocalStringFromISOString(data.datetime);
 			dispatch(updateAccount({ id: data.id, data }));
-			handleCloseCreateModal();
-			handleCloseDetails();
+			toggleCreateModal.handleOff();
+			handleCloseDetail();
 		}
 	});
 
@@ -42,9 +48,24 @@ export default ({ grapping, handleCloseCreateModal, handleCloseDetails, handleDr
 		url: '/api/account/',
 		onSuccess: data => {
 			dispatch(removeAccount(data));
-			handleCloseDetails();
+			handleCloseDetail();
 		}
 	});
+
+	const handleCloseCreateModal = () => {
+		setInitialValuesForCreate(null);
+		toggleCreateModal.handleOff();
+	}
+
+	const handleOpenCreateModalWithDate = (date: string) => () => {
+		setInitialValuesForCreate({ datetime: date } as Account);
+		toggleCreateModal.handleOn();
+	}
+
+	const handleOpenCreateModalWithCategory = (categoryId: number) => () => {
+		setInitialValuesForCreate({ category: categoryId } as Account);
+		toggleCreateModal.handleOn();
+	}
 
 	const handleCreateAccount = (title: string, amount: number, datetime: string, memo: string) => {
 		if (createNewAccount.loading) return;
@@ -111,6 +132,18 @@ export default ({ grapping, handleCloseCreateModal, handleCloseDetails, handleDr
 	}
 
 	return {
+		initialValuesForCreate,
+
+		detailView,
+		handleViewDetail,
+		handleCloseDetail,
+
+		isOpenCreateModal: toggleCreateModal.checked,
+		handleOpenCreateModal: toggleCreateModal.handleOn,
+		handleOpenCreateModalWithDate,
+		handleOpenCreateModalWithCategory,
+		handleCloseCreateModal,
+
 		handleCreateAccount,
 		handleDeleteAccount,
 		handleUpdateAccount,

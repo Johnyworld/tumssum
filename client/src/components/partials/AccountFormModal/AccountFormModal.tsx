@@ -13,13 +13,12 @@ import useInput from '~hooks/useInput';
 import { getLocalString } from '~utils/calendar';
 
 export interface AccountFormModalProps {
-	initialValues?: Account;
+	initialValues?: Account | null;
 	onConfirm: (title: string, amount: number, datetime: string, memo: string, id?: number) => void;
-	onClose: () => void;
 	onDelete?: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
 }
 
-const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialValues, onClose, onConfirm, onDelete }) => {
+const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialValues, onConfirm, onDelete }) => {
 
 	const { t } = useTranslation();
 	
@@ -27,7 +26,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 	const [amount, ___, setAmmount] = useInput(initialValues?.account ? Math.abs(initialValues.account)+'' : '');
 	const [isIncome, setIsIncome] = useState(initialValues?.account ? !(initialValues.account < 0) : false);
 	const [date, _, setDate] = useInput(initialValues?.datetime || getLocalString());
-	const [time, __, setTime] = useInput(initialValues?.datetime.split('T')[1]?.substr(0,5) || '');
+	const [time, __, setTime] = useInput(initialValues?.datetime?.split('T')[1]?.substr(0,5) || '');
 	const [ memo, changeMemo ] = useContentEditable(initialValues?.memo || '');
 
 

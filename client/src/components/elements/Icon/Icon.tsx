@@ -21,6 +21,7 @@ export const icons = [
 	'gear',
 	'menu',
 	'pencel',
+	'plusRounded',
 	'storage',
 	'home',
 	'x',
@@ -76,6 +77,11 @@ const getSVG = (as: IconType, color: Color, strokeWidth: number) => {
 		case 'pencel': return <g>
 			<path d="M3 10.5L12 1.5L15 4.5L6 13.5L2 14.5L3 10.5Z" stroke={c} stroke-width={strokeWidth} />
 			<path d="M10 3.5L13 6.5" stroke={c} stroke-width={strokeWidth} />
+		</g>
+
+		case 'plusRounded': return <g>
+			<path d="M15.5 8C15.5 12.1421 12.1421 15.5 8 15.5C3.85786 15.5 0.5 12.1421 0.5 8C0.5 3.85786 3.85786 0.5 8 0.5C12.1421 0.5 15.5 3.85786 15.5 8Z" stroke={c} stroke-width={strokeWidth}/>
+			<path d="M4 8H12M8 4V12" stroke={c} stroke-width={strokeWidth}/>
 		</g>
 
 		case 'storage': return <g>

@@ -29,7 +29,6 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const date = useSelector(state=> state.month.date);
 	const accounts = useSelector(state=> state.account.accounts);
 	const { categories, categoryGroups } = useSelector(state=> state.category);
-	const toggleCreateModal = useToggle();
 	const inputRef = useRef<HTMLInputElement>(null);
 	const dispatch = useDispatch();
 
@@ -41,12 +40,12 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useDrag(accounts);
 
-	const { detailView, handleCloseDetail, handleViewDetail } = useDetails<Account>();
-
-	const { handleCreateAccount, handleUpdateAccount, handleDeleteAccount, handleDropToUpdateDate, handleDropToUpdateCategory } = useAccount({
+	const { 
+		initialValuesForCreate, detailView, handleViewDetail, handleCloseDetail,
+		isOpenCreateModal, handleOpenCreateModal, handleOpenCreateModalWithDate, handleOpenCreateModalWithCategory, handleCloseCreateModal,
+		handleCreateAccount, handleUpdateAccount, handleDeleteAccount, handleDropToUpdateDate, handleDropToUpdateCategory
+	} = useAccount({
 		grapping,
-		handleCloseCreateModal: toggleCreateModal.handleOff,
-		handleCloseDetails: handleCloseDetail,
 		handleDrop,
 	});
 
@@ -54,10 +53,10 @@ const HomePage: FunctionalComponent = ({  }) => {
 	}, [view]);
 
 	useEffect(() => {
-		if (inputRef.current && toggleCreateModal.checked) {
+		if (inputRef.current && isOpenCreateModal) {
 			inputRef.current.focus();
 		}
-	}, [inputRef.current, toggleCreateModal.checked]);
+	}, [inputRef.current, isOpenCreateModal]);
 
 	return (
 		<main class='home-page main' >
@@ -78,7 +77,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 				/>
 				<div class='flex flex-gap-regular'>
 					<p class='f-bold t-fit pointer' onClick={() => dispatch(changeMonthToday())}>Today</p>
-					<Button size='small' onClick={toggleCreateModal.handleOn} children='+ 새로 추가' />
+					<Button size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />
 				</div>
 			</Indicator>
 
@@ -92,6 +91,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 					onDropToUpdate={handleDropToUpdateDate}
 					onDragging={handleDragging}
 					onClick={handleViewDetail}
+					onClickPlus={handleOpenCreateModalWithDate}
 				/>
 			}
 
@@ -107,16 +107,17 @@ const HomePage: FunctionalComponent = ({  }) => {
 					onDropToUpdate={handleDropToUpdateCategory}
 					onDragging={handleDragging}
 					onClick={handleViewDetail}
+					onClickPlus={handleOpenCreateModalWithCategory}
 				/>
 			}
 
 			<Modal
-				isOpen={toggleCreateModal.checked}
-				onClose={toggleCreateModal.handleOff}
+				isOpen={isOpenCreateModal}
+				onClose={handleCloseCreateModal}
 				children={
 					<AccountFormModal
+						initialValues={initialValuesForCreate}
 						onConfirm={handleCreateAccount}
-						onClose={toggleCreateModal.handleOff}
 					/>
 				}
 			/>
@@ -128,7 +129,6 @@ const HomePage: FunctionalComponent = ({  }) => {
 					<AccountFormModal
 						initialValues={detailView!}
 						onConfirm={handleUpdateAccount}
-						onClose={toggleCreateModal.handleOff}
 						onDelete={handleDeleteAccount}
 					/>
 				}
