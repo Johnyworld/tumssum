@@ -10,19 +10,18 @@ import Modal from '~components/layouts/Modal';
 import AccountFormModal from '~components/partials/AccountFormModal';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import { changeMonthNext, changeMonthPrev, changeMonthToday } from '~features/month/monthSlice';
-import { useEffect, useRef } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import useDetails from '~hooks/useDetails';
 import useToggle from '~hooks/useToggle';
 import { Account, IconType } from 'types';
 import useAccount from '~hooks/useAccount';
 import useDrag from '~hooks/useDrag';
-import { getQueryObj } from '~utils/location';
 
 
 const MENUS = [
-	{ id: 'calendar', text: 'Calendar', icon: 'calendar' as IconType, href: '/' },
-	{ id: 'category', text: 'Category', icon: 'menu' as IconType, href: '/?view=category' },
-	{ id: 'list', text: 'List', icon: 'storage' as IconType, href: '/?view=list' },
+	{ id: 'calendar', text: 'Calendar', icon: 'calendar' as IconType  },
+	{ id: 'category', text: 'Category', icon: 'menu' as IconType },
+	{ id: 'list', text: 'List', icon: 'storage' as IconType },
 ];
 
 const HomePage: FunctionalComponent = ({  }) => {
@@ -33,8 +32,12 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const toggleCreateModal = useToggle();
 	const inputRef = useRef<HTMLInputElement>(null);
 	const dispatch = useDispatch();
-  const queryObj = getQueryObj<{ view: string }>();
-	const view = queryObj.view || 'calendar';
+
+	const [view, setView] = useState(localStorage.getItem('home_view') || 'calendar');
+	const handleChangeView = (newView: string) => {
+		localStorage.setItem('home_view', newView);
+		setView(newView);
+	}
 
 	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useDrag(accounts);
 
@@ -48,13 +51,16 @@ const HomePage: FunctionalComponent = ({  }) => {
 	});
 
 	useEffect(() => {
+	}, [view]);
+
+	useEffect(() => {
 		if (inputRef.current && toggleCreateModal.checked) {
 			inputRef.current.focus();
 		}
 	}, [inputRef.current, toggleCreateModal.checked]);
 
 	return (
-		<div class='home-page'>
+		<main class='home-page main' >
 
 			<Header>
 				<MonthSelector
@@ -67,6 +73,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 			<Indicator>
 				<NavigationMenu
 					selected={view}
+					onChange={handleChangeView}
 					list={MENUS}
 				/>
 				<div class='flex flex-gap-regular'>
@@ -126,8 +133,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 					/>
 				}
 			/>
-		</div>
-			// <Aside class='hide-desktop' alignRight wide />
+		</main>
 	)
 }
 
