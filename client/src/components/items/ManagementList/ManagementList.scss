@@ -1,14 +1,23 @@
 @import '~src/style/mixins';
 
 .management-list {
-	.management-list-item,
-	.management-list-group {
-		.management-list-icon {
-			display: none;
+	.management-list__item,
+	.management-list__group {
+		.management-list__content {
+			position: absolute;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			top: 50%;
+			transform: translateY(-50%);
 			right: .5rem;
+			gap: .5rem;
 		}
-		&:hover .management-list-icon {
-			display: block;
+		.management-list__icon {
+			visibility: hidden;
+		}
+		&:hover .management-list__icon {
+			visibility: visible;
 		}
 	}
 }
@@ -16,20 +25,22 @@
 
 @include maxTablet {
 	.management-list {
-		.management-list-item,
-		.management-list-group {
-			.management-list-icon {
-				display: block;
+		.management-list__item,
+		.management-list__group {
+			.management-list__content {
 				right: 1rem;
+				.management-list__icon {
+					visibility: visible;
+				}
 			}
 		}
-		.management-list-group {
+		.management-list__group {
 			padding: 0 .5rem;
 		}
-		.management-list-item {
+		.management-list__item {
 			padding-left: .5rem;
 			padding-right: .5rem;
-			display: block;
 		}
+
 	}
 }

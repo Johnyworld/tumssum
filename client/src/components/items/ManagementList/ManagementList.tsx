@@ -1,11 +1,12 @@
 import { h } from 'preact';
-import { useState } from 'preact/hooks';
+import { useMemo, useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import ContentEditable from '~components/elements/ContentEditable';
 import Divider from '~components/elements/Divider';
 import Icon from '~components/elements/Icon';
 import { GrappingData } from '~hooks/useDrag';
 import { getClassNames } from '~utils/classNames';
+import { getNumberWithComma } from '~utils/number';
 import './ManagementList.scss';
 
 export interface ItemGroup<T> {
@@ -39,6 +40,14 @@ export interface ManagementListProps<T, S> {
 }
 
 const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping, grappingPos, focusGroup, focusItem, isDragging, onGrap, onDropToUpdate, onDrop, onDragging, onUpdate, onClick, onClickGroup }: ManagementListProps<T, S>) => {
+
+	const T = useMemo(() => { return {
+		NO_NAME: '이름 없음',
+		EMPTY: '비어있음',
+		NO_GROUP: '그룹 미분류',
+	}}, []);
+
+
 	return (
 		<div class='management-list gap-large pos-relative never-drag' onMouseMove={onDragging} onMouseUp={onDrop} >
 			<div class='gap-regular'>
@@ -50,7 +59,7 @@ const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping
 						<div key={group.id} class='pos-relative' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate(group.id || null)}>
 							{!!grapping && hover && <div class='board-item-grapping' style={{ transform: 'scaleX(1.02)', borderRadius: '.25rem' }} />}
 							{ group.id
-								? <div class='management-list-group pos-relative'>
+								? <div class='management-list__group pos-relative'>
 										<ContentEditable
 											value={group.title}
 											color='gray'
@@ -58,35 +67,36 @@ const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping
 											styleType='transparent'
 											onChange={() => {}}
 											isFocusOnLoad={focusGroup === group.id}
-											placeholder='이름 없음'
+											placeholder={T.NO_NAME}
 										/>
-										<div class='management-list-icon pos-center-y pointer' onClick={onClickGroup(group)}>
-											<Icon as='pencel' color='gray_strong' />
+										<div class='management-list__content' >
+											<Icon class='management-list__icon' as='pencel' color='gray_strong' onClick={onClickGroup(group)} />
 										</div>
 									</div>
-								: <p class='management-list-group c-gray f-bold' >{group.title || '그룹 미분류'}</p>
+								: <p class='management-list__group c-gray f-bold' >{group.title || T.NO_GROUP}</p>
 							}
 							<Divider />
 							<div class='gap-tiny'>
 								{ group.items && group.items.length > 0 ? group.items.map(item=> (
-									<div class='management-list-item pos-relative' onMouseDown={onGrap(item)}>
+									<div class='management-list__item pos-relative' onMouseDown={onGrap(item)}>
 										{ isDragging
-											? <div class={getClassNames([ 'content-box', [!item.title, 'c-gray'] ])}>{item.title || '비어있음'}</div>
+											? <div class={getClassNames([ 'content-box', [!item.title, 'c-gray'] ])}>{item.title || T.NO_NAME}</div>
 											: <ContentEditable
 													onChange={(value) => value !== item.title && onUpdate({ id: item.id, title: value } as T)}
 													style={!!grapping && { background: 'none' }}
 													class='fluid'
-													placeholder='이름 없음'
+													placeholder={T.NO_NAME}
 													isChangeOnBlur
 													isFocusOnLoad={focusItem === item.id}
 													value={item.title}
 												/>
 										}
-										<div class='management-list-icon pos-center-y pointer' onClick={onClick(item)}>
-											<Icon as='pencel' color='gray_strong' />
+										<div class='management-list__content' >
+											{ item.balance && <p>{getNumberWithComma(item.balance)}</p> }
+											<Icon class='management-list__icon' as='pencel' color='gray_strong' onClick={onClick(item)} />
 										</div>
 									</div>
-								)) : <p class='management-list-item p-small c-gray'>카테고리 없음</p>}
+								)) : <p class='management-list__item p-small c-gray'>{T.EMPTY}</p>}
 							</div>
 						</div>
 					)
