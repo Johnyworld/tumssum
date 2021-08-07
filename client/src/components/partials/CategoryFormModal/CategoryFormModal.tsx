@@ -49,7 +49,7 @@ const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ catego
 
 				<Dropdown
 					list={[
-						{ id: 0, text: '그룹 미분류', color: 'gray_strong' },
+						{ id: 0, text: '그룹 미분류' },
 						...groupList.map(group => { return { id: group.id, text: group.title || '이름 없음' }}),
 					]}
 					label='카테고리 그룹'

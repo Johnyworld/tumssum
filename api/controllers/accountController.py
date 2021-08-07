@@ -33,6 +33,8 @@ def postAccount(reqData):
 
   # TODO Month _id 는 parameter 로 받지 말고 Month 에서 date (from datetime) 로 검색해서 찾아내자
 
+  print('####', category_id)
+
   newAccount = Account(
     title = title,
     account = account,

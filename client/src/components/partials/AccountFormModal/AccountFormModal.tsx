@@ -1,10 +1,11 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
-import { useState } from 'preact/hooks';
-import { Account } from 'types';
+import { useCallback, useState } from 'preact/hooks';
+import { Account, Category, CategoryGroup } from 'types';
 import Button from '~components/elements/Button';
 import ContentEditable from '~components/elements/ContentEditable';
 import DatePicker from '~components/elements/DatePicker';
+import Dropdown from '~components/elements/Dropdown';
 import TimePicker from '~components/elements/TimePicker';
 import LabeledContentEditable from '~components/items/LabeledContentEditable';
 import Modal from '~components/layouts/Modal';
@@ -14,11 +15,12 @@ import { getLocalString } from '~utils/calendar';
 
 export interface AccountFormModalProps {
 	initialValues?: Account | null;
-	onConfirm: (title: string, amount: number, datetime: string, memo: string, id?: number) => void;
+	categoriesCombined: CategoryGroup[];
+	onConfirm: (account: Account) => void;
 	onDelete?: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
 }
 
-const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialValues, onConfirm, onDelete }) => {
+const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialValues, categoriesCombined, onConfirm, onDelete }) => {
 
 	const { t } = useTranslation();
 	
@@ -28,6 +30,12 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 	const [date, _, setDate] = useInput(initialValues?.datetime || getLocalString());
 	const [time, __, setTime] = useInput(initialValues?.datetime?.split('T')[1]?.substr(0,5) || '');
 	const [ memo, changeMemo ] = useContentEditable(initialValues?.memo || '');
+	const [ category, setCategory ] = useState<number|string>(initialValues?.category || 0);
+
+
+	const handleChange: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
+		setCategory(e.currentTarget.value);
+	}, [category])
 
 
 	const handleChangeIsIncome = (value: boolean) => {
@@ -41,9 +49,15 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 		const theTime = time ? 'T' + time : '';
 		const then = new Date(theDate + theTime);
 		const datetime = time ? then.toISOString() : then.toISOString().substr(0, 10);
-		onConfirm(title, isIncome ? +amount : -amount, datetime, memo, initialValues?.id);
+		onConfirm({
+			id: initialValues?.id,
+			title,
+			account: isIncome ? +amount : -amount,
+			datetime,
+			memo,
+			category: +category || null,
+		} as Account);
 	}
-
 
 	return (
 		<Modal.Container>
@@ -69,6 +83,23 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 							isNumberNegative={!isIncome}
 							onChange={setAmmount}
 							onChangeNumberNegative={handleChangeIsIncome}
+						/>
+						<Dropdown
+							list={[
+								{ id: 0, text: '미분류' },
+								...categoriesCombined.map(group => { return {
+									id: group.id,
+									text: group.title || '이름 없음',
+									children: group.items.map(category => { return {
+										id: category.id,
+										text: category.title,
+									}})
+								}}),
+							]}
+							label='카테고리'
+							placeholder='미분류'
+							selected={category}
+							onChange={handleChange}
 						/>
 						<DatePicker fluid label='날짜' date={date} onChange={(date) => setDate(date)} placeholder='비어있음' />
 						<TimePicker fluid label='시간' time={time} onChange={(date) => setTime(date)} placeholder='비어있음' />

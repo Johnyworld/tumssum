@@ -5,7 +5,7 @@ import './Dropdown.scss';
 interface DropdownOption {
 	id: string | number;
 	text: string | number;
-	color?: Color;
+	children?: DropdownOption[];
 }
 
 export interface DropdownProps {
@@ -22,9 +22,15 @@ const Dropdown: FunctionalComponent<DropdownProps> = ({ list, label, placeholder
 			<p class='content-label'>{label}</p>			
 			<select class='content-box fluid' value={selected} onChange={onChange} >
 				{placeholder && <option disabled hidden >{placeholder}</option> }
-				{ list.map(item => (
-					<option class={item.color ? `c-${item.color}` : ''} selected={selected === item.id} value={item.id}>{item.text}</option>
-				))}
+				{ list.map(item =>
+					item.children
+						? <optgroup label={item.text+''}>
+								{ item.children.map(child => (
+									<option selected={selected === child.id} value={child.id}>{child.text || '이름 없음'}</option>
+								))}
+							</optgroup>
+						: <option selected={selected === item.id} value={item.id}>{item.text || '이름 없음'}</option>
+				)}
 			</select>
 		</div>
 	)

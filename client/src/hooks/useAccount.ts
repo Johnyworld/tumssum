@@ -67,12 +67,15 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		toggleCreateModal.handleOn();
 	}
 
-	const handleCreateAccount = (title: string, amount: number, datetime: string, memo: string) => {
+	const handleCreateAccount = (accountData: Account) => {
 		if (createNewAccount.loading) return;
+		const { id, title, account, datetime, category, memo } = accountData;
 		createNewAccount.call({
+			account_id: id,
 			title,
-			account: amount,
+			account,
 			datetime,
+			category_id: category,
 			memo,
 		})
 	}
@@ -84,14 +87,16 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		})
 	}
 
-	const handleUpdateAccount = (title: string, amount: number, datetime: string, memo: string, id?: number) => {
+	const handleUpdateAccount = (accountData: Account) => {
 		if (fetchUpdateAccount.loading) return;
+		const { id, title, account, datetime, category, memo } = accountData;
 		if (!id) return;
 		fetchUpdateAccount.call({
 			account_id: id,
 			title,
-			account: amount,
+			account,
 			datetime,
+			category_id: category,
 			memo,
 		})
 	}

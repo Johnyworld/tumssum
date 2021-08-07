@@ -11,7 +11,7 @@ import ManagementList from '~components/items/ManagementList';
 import Modal from '~components/layouts/Modal';
 import CategoryFormModal from '~components/partials/CategoryFormModal';
 import CategoryGroupFormModal from '~components/partials/CategoryGroupFormModal';
-import { useCallback } from 'preact/hooks';
+import { useCallback, useMemo } from 'preact/hooks';
 
 
 const getCategoriesAligned = (categories: Category[]) => {
@@ -48,7 +48,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 		handleCloseDetailGroup();
 	}, []);
 
-	const combined = combineCategoriesWithGroups(categories, categoryGroups);
+	const combined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
 
 	const { grapping, grappingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(categories);
 
@@ -67,7 +67,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 
 
 	return (
-		<main class='home-page main wrap' >
+		<main class='category-page main wrap' >
 
 			<Header>
 				<h1 class='header-title'>카테고리 관리</h1>

@@ -10,12 +10,13 @@ import Modal from '~components/layouts/Modal';
 import AccountFormModal from '~components/partials/AccountFormModal';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import { changeMonthNext, changeMonthPrev, changeMonthToday } from '~features/month/monthSlice';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import useDetails from '~hooks/useDetails';
 import useToggle from '~hooks/useToggle';
 import { Account, IconType } from 'types';
 import useAccount from '~hooks/useAccount';
 import useDrag from '~hooks/useDrag';
+import { combineCategoriesWithGroups } from '~routes/CategoryPage/CategoryPage';
 
 
 const MENUS = [
@@ -37,6 +38,8 @@ const HomePage: FunctionalComponent = ({  }) => {
 		localStorage.setItem('home_view', newView);
 		setView(newView);
 	}
+
+	const categoriesCombined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
 
 	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useDrag(accounts);
 
@@ -117,6 +120,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 				children={
 					<AccountFormModal
 						initialValues={initialValuesForCreate}
+						categoriesCombined={categoriesCombined}
 						onConfirm={handleCreateAccount}
 					/>
 				}
@@ -128,6 +132,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 				children={
 					<AccountFormModal
 						initialValues={detailView!}
+						categoriesCombined={categoriesCombined}
 						onConfirm={handleUpdateAccount}
 						onDelete={handleDeleteAccount}
 					/>
