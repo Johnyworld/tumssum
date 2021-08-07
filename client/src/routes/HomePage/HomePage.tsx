@@ -116,6 +116,8 @@ const HomePage: FunctionalComponent = ({  }) => {
 			{ view === 'list' &&
 				<AccountList
 					list={accounts}
+					categoriesCombined={categoriesCombined}
+					onChange={handleUpdateAccount}
 				/>
 			}
 

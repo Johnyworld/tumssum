@@ -3,7 +3,7 @@ import { Color, Weight } from 'types';
 import ContentEditable from '~components/elements/ContentEditable';
 
 export interface LabeledContentEditableProps {
-	label: string;
+	label?: string;
 	value: string;
 	placeholder: string;
 	type?: 'text' | 'number';
@@ -11,14 +11,16 @@ export interface LabeledContentEditableProps {
 	weight?: Weight;
 	isNumberNegative?: boolean;
 	isFocusOnLoad?: boolean;
+	isChangeOnBlur?: boolean;
+	isHideIcon?: boolean;
 	onChange: (value: string) => void;
 	onChangeNumberNegative?: (value: boolean) => void;
 }
 
-const LabeledContentEditable: FunctionalComponent<LabeledContentEditableProps> = ({ label, value, placeholder, type, color, weight, isNumberNegative, isFocusOnLoad, onChange, onChangeNumberNegative }) => {
+const LabeledContentEditable: FunctionalComponent<LabeledContentEditableProps> = ({ label, value, placeholder, type, color, weight, isNumberNegative, isFocusOnLoad, isChangeOnBlur, isHideIcon, onChange, onChangeNumberNegative }) => {
 	return (
 		<div class='labeled-content-editable flex flex-align-start'>
-			<p class='content-label'>{label}</p>			
+			{ label && <p class='content-label'>{label}</p> }
 			<ContentEditable
 				color={color || 'pencel'}
 				class='fluid'
@@ -28,6 +30,8 @@ const LabeledContentEditable: FunctionalComponent<LabeledContentEditableProps> =
 				weight={weight}
 				isNumberNegative={isNumberNegative}
 				isFocusOnLoad={isFocusOnLoad}
+				isChangeOnBlur={isChangeOnBlur}
+				isHideIcon={isHideIcon}
 				onChange={onChange}	
 				onChangeNumberNegative={onChangeNumberNegative}
 			/>

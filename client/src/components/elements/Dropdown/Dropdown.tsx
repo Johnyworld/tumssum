@@ -10,7 +10,7 @@ interface DropdownOption {
 
 export interface DropdownProps {
 	list: DropdownOption[];
-	label: string;
+	label?: string;
 	placeholder?: string;
 	selected: string | number;
 	onChange: h.JSX.GenericEventHandler<HTMLSelectElement>;
@@ -19,7 +19,7 @@ export interface DropdownProps {
 const Dropdown: FunctionalComponent<DropdownProps> = ({ list, label, placeholder, selected, onChange }) => {
 	return (
 		<div class='labeled-content-editable flex flex-align-start'>
-			<p class='content-label'>{label}</p>			
+			{ label && <p class='content-label'>{label}</p> }
 			<select class='content-box fluid' value={selected} onChange={onChange} >
 				{placeholder && <option disabled hidden >{placeholder}</option> }
 				{ list.map(item =>

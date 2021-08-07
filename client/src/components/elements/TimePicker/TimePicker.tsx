@@ -16,6 +16,8 @@ interface TimePickerProps {
 
 	placeholder?: string;
 
+	isHideIcon?: boolean;
+
 	onChange?: (time: string) => void;
 }
 
@@ -23,7 +25,7 @@ interface TimePickerProps {
 const PICKER_HEIGHT = 162;
 const PICKER_WIDTH = 200;
 
-const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, fluid, styleType, placeholder, onChange }) => {
+const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, fluid, styleType, placeholder, isHideIcon, onChange }) => {
 
 	const [pos, setPos] = useState<Vec2 | null>(null);
 
@@ -58,10 +60,12 @@ const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, fluid, 
 
 			<div class={`time-picker-input ${styleType === 'input' ? 'input-box' : 'content-box fluid'} flex`} onClick={handleShowPicker}>
 				<p class={time ? '' : 'c-gray'}>{time || placeholder}</p>
-				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<circle cx="8" cy="8" r="7.5" stroke='var(--color-gray_strong)'/>
-					<path d="M8 2.5V8.5H12" stroke='var(--color-gray_strong)' stroke-linecap="round" stroke-linejoin="round"/>
-				</svg>
+				{ !isHideIcon &&
+					<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="8" cy="8" r="7.5" stroke='var(--color-gray_strong)'/>
+						<path d="M8 2.5V8.5H12" stroke='var(--color-gray_strong)' stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				}
 			</div>
 
 			{ pos &&

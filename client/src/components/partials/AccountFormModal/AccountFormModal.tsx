@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
 import { useCallback, useState } from 'preact/hooks';
-import { Account, Category, CategoryGroup } from 'types';
+import { Account, CategoryGroup } from 'types';
 import Button from '~components/elements/Button';
 import ContentEditable from '~components/elements/ContentEditable';
 import DatePicker from '~components/elements/DatePicker';
