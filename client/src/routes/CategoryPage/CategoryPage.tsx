@@ -67,7 +67,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 
 
 	return (
-		<div class='category-page wrap' >
+		<main class='home-page main wrap' >
 
 			<Header>
 				<h1 class='header-title'>카테고리 관리</h1>
@@ -115,7 +115,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 				}
 			</Modal>
 
-		</div>
+		</main>
 	)
 }
 

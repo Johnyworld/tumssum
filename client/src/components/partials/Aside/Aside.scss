@@ -2,6 +2,7 @@
 
 .aside {
 	width: var(--aside-width);
+	min-width: var(--aside-width);
 	background-color: var(--color-paper);
 	transition: .3s;
 	padding: 0 1rem;
@@ -24,6 +25,7 @@
 
 .aside--narrow {
 	width: var(--header-height);
+	min-width: var(--header-height);
 	padding: 0;
 
 	.aside__bottom {

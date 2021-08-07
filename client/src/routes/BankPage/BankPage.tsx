@@ -65,7 +65,7 @@ const BankPage: FunctionalComponent = ({  }) => {
 	} = useBank({ grapping, onCloseDetail: closeDetails, handleDrop });
 
 	return (
-		<div class='bank-page wrap'>
+		<main class='bank-page main wrap'>
 
 			<Header>
 				<h1 class='header-title'>뱅크 관리</h1>
@@ -113,7 +113,7 @@ const BankPage: FunctionalComponent = ({  }) => {
 				}
 			</Modal>
 
-		</div>
+		</main>
 	)
 }
 

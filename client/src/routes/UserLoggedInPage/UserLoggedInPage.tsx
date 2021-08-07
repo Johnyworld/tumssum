@@ -86,16 +86,14 @@ const UserLoggedInPage: FunctionalComponent = () => {
 				isNarrow={!isOpenAside}
 				onToggleAside={handleToggleAside}
 			/>
-			<main class='page-container__main' >
-        <Router>
-          <Route path="/" component={HomePage} />
-          <Route path="/budget" component={BudgetPage} />
-          <Route path="/category" component={CategoryPage} />
-          <Route path="/bank" component={BankPage} />
-          <Route path="/settings" component={SettingsPage} />
-          <NotFoundPage default />
-        </Router>
-			</main>
+			<Router>
+				<Route path="/" component={HomePage} />
+				<Route path="/budget" component={BudgetPage} />
+				<Route path="/category" component={CategoryPage} />
+				<Route path="/bank" component={BankPage} />
+				<Route path="/settings" component={SettingsPage} />
+				<NotFoundPage default />
+			</Router>
     </div>
   )
 }

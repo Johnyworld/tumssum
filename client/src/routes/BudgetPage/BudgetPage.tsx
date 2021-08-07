@@ -1,5 +1,4 @@
 import { h, FunctionalComponent } from 'preact';
-import PageContainer from '~components/layouts/PageComtainet';
 
 interface BudgetPageProps {
 
@@ -7,9 +6,9 @@ interface BudgetPageProps {
 
 const BudgetPage: FunctionalComponent<BudgetPageProps> = ({  }) => {
 	return (
-		<div>
+		<main class='budget-page main' >
 			Hello BudgetPage
-		</div>
+		</main>
 	)
 }
 
