@@ -1,4 +1,5 @@
 import { h, FunctionalComponent } from 'preact';
+import { memo } from 'preact/compat';
 import { useState } from 'preact/hooks';
 import { Account, BankGroup, CategoryGroup } from 'types';
 import ContentEditable from '~components/elements/ContentEditable';
@@ -37,14 +38,14 @@ const AccountListItem: FunctionalComponent<AccountListItemProps> = ({ index, ite
 
 	return (
 		<tr>
-			<td style={{ paddingLeft: '.75rem' }}>{index + 1}</td>
+			<td>{index + 1}</td>
 			<td>
 				<DatePicker isHideIcon date={item.datetime} onChange={handleChangeDate('date')} placeholder='비어있음' />
 			</td>
 			<td>
 				<TimePicker isHideIcon time={item.datetime?.split('T')[1]?.substr(0,5)} onChange={handleChangeDate('time')} placeholder='비어있음' />
 			</td>
-			<td>
+			<td class='t-left'>
 				<ContentEditable
 					value={title || ''}
 					isOneLine
@@ -67,7 +68,7 @@ const AccountListItem: FunctionalComponent<AccountListItemProps> = ({ index, ite
 					onChangeNumberNegative={handleChangeIsIncome}
 				/>
 			</td>
-			<td class='t-center'>
+			<td>
 				<Dropdown
 					list={[
 						{ id: 0, text: '미분류' },
@@ -107,4 +108,4 @@ const AccountListItem: FunctionalComponent<AccountListItemProps> = ({ index, ite
 	)
 }
 
-export default AccountListItem;
+export default memo(AccountListItem);

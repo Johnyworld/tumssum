@@ -1,3 +1,4 @@
+@import '~src/style/mixins';
 @import './variables';
 
 $common-theme: (
@@ -82,6 +83,7 @@ $dark-theme: (
 	--layer-on: 1;
 
 	--header-height: 60px;
+	--indicator-height: 4rem;
 	--aside-width: 250px;
 	--aside-width_wide: 320px;
 
@@ -100,5 +102,11 @@ $dark-theme: (
 
 	@each $key, $value in $dark-theme {
 		#{"--color-" + $key}: #{$value};
+	}
+}
+
+@include minTablet {
+	:root {
+		--indicator-height: 6rem;
 	}
 }
