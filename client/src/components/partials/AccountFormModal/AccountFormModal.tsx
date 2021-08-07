@@ -31,8 +31,8 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 	const [date, _, setDate] = useInput(initialValues?.datetime || getLocalString());
 	const [time, __, setTime] = useInput(initialValues?.datetime?.split('T')[1]?.substr(0,5) || '');
 	const [ memo, changeMemo ] = useContentEditable(initialValues?.memo || '');
-	const [ category, setCategory ] = useState<number|string>(initialValues?.category || 0);
-	const [ bank, setBank ] = useState<number|string>(initialValues?.bank || 0);
+	const [ category, setCategory ] = useState<number|string>(initialValues?.category || '');
+	const [ bank, setBank ] = useState<number|string>(initialValues?.bank || '');
 
 
 	const handleChangeCategory: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
@@ -93,7 +93,6 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 						/>
 						<Dropdown
 							list={[
-								{ id: 0, text: '미분류' },
 								...categoriesCombined.map(group => { return {
 									id: group.id,
 									text: group.title || '이름 없음',
@@ -110,7 +109,6 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 						/>
 						<Dropdown
 							list={[
-								{ id: 0, text: '미분류' },
 								...banksCombined.map(group => { return {
 									id: group.id,
 									text: group.title || '이름 없음',

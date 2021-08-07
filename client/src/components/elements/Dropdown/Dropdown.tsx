@@ -18,10 +18,10 @@ export interface DropdownProps {
 
 const Dropdown: FunctionalComponent<DropdownProps> = ({ list, label, placeholder, selected, onChange }) => {
 	return (
-		<div class='labeled-content-editable flex flex-align-start'>
+		<div class={`labeled-content-editable flex flex-align-start ${!selected ? 'c-gray' : ''}`}>
 			{ label && <p class='content-label'>{label}</p> }
-			<select class='content-box fluid t-nowrap' value={selected} onChange={onChange} >
-				{placeholder && <option disabled hidden >{placeholder}</option> }
+			<select class={`content-box fluid t-nowrap`} value={selected} onChange={onChange} >
+				{placeholder && <option selected={selected === ''} value={''} >{placeholder}</option> }
 				{ list.map(item =>
 					item.children
 						? <optgroup label={item.text+''}>

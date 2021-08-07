@@ -71,7 +71,6 @@ const AccountListItem: FunctionalComponent<AccountListItemProps> = ({ index, ite
 			<td>
 				<Dropdown
 					list={[
-						{ id: 0, text: '미분류' },
 						...categoriesCombined.map(group => { return {
 							id: group.id,
 							text: group.title || '이름 없음',
@@ -89,7 +88,6 @@ const AccountListItem: FunctionalComponent<AccountListItemProps> = ({ index, ite
 			<td>
 				<Dropdown
 					list={[
-						{ id: 0, text: '미분류' },
 						...banksCombined.map(group => { return {
 							id: group.id,
 							text: group.title || '이름 없음',

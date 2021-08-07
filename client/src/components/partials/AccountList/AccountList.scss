@@ -28,11 +28,13 @@
 			td {
 				white-space: nowrap;
 				&:not(.t-right):not(.t-left) {
+					.time-picker,
+					.date-picker,
 					.labeled-content-editable {
 						justify-content: center;
 					}
 					.content-box {
-						min-width: fit-content;
+						width: fit-content;
 						justify-content: center;
 						text-align-last: center;
 						text-align: center;
@@ -42,7 +44,7 @@
 				}
 			}
 			tr:hover {
-				background-color: var(--color-paper);
+				background-color: var(--color-white_weakest);
 			}
 		}
 	}
