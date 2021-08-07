@@ -20,7 +20,7 @@ const Dropdown: FunctionalComponent<DropdownProps> = ({ list, label, placeholder
 	return (
 		<div class='labeled-content-editable flex flex-align-start'>
 			{ label && <p class='content-label'>{label}</p> }
-			<select class='content-box fluid' value={selected} onChange={onChange} >
+			<select class='content-box fluid t-nowrap' value={selected} onChange={onChange} >
 				{placeholder && <option disabled hidden >{placeholder}</option> }
 				{ list.map(item =>
 					item.children

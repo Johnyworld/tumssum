@@ -1,15 +1,16 @@
 import { h, FunctionalComponent } from 'preact';
-import { Account, CategoryGroup } from 'types';
+import { Account, BankGroup, CategoryGroup } from 'types';
 import AccountListItem from './AccountListItem';
 import './AccountList.scss';
 
 export interface AccountListProps {
 	list: Account[];
 	categoriesCombined: CategoryGroup[];
+	banksCombined: BankGroup[];
 	onChange: (account: Account) => void;
 }
 
-const AccountList: FunctionalComponent<AccountListProps> = ({ list, categoriesCombined, onChange }) => {
+const AccountList: FunctionalComponent<AccountListProps> = ({ list, categoriesCombined, banksCombined, onChange }) => {
 
 	const handleChangeTitle = (id: number) => (title: string) => {
 		onChange({ id, title } as Account);
@@ -33,6 +34,7 @@ const AccountList: FunctionalComponent<AccountListProps> = ({ list, categoriesCo
 			<table>
 				<thead>
 					<tr>
+						<th class='t-left'>번호</th>
 						<th>날짜</th>
 						<th>시간</th>
 						<th class='t-left'>제목</th>
@@ -42,11 +44,13 @@ const AccountList: FunctionalComponent<AccountListProps> = ({ list, categoriesCo
 					</tr>
 				</thead>
 				<tbody>
-					{ list.map(item => (
+					{ list.map((item, i) => (
 						<AccountListItem
+							index={i}
 							key={item.id}
 							item={item}
 							categoriesCombined={categoriesCombined}
+							banksCombined={banksCombined}
 							onChangeTitle={handleChangeTitle}
 							onChangeDatetime={handleChangeDatetime}
 							onChangeAmount={handleChangeAmount}

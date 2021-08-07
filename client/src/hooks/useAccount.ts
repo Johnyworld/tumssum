@@ -69,13 +69,14 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 
 	const handleCreateAccount = (accountData: Account) => {
 		if (createNewAccount.loading) return;
-		const { id, title, account, datetime, category, memo } = accountData;
+		const { id, title, account, datetime, category, bank, memo } = accountData;
 		createNewAccount.call({
 			account_id: id,
 			title,
 			account,
 			datetime,
 			category_id: category,
+			bank_id: bank,
 			memo,
 		})
 	}
@@ -89,7 +90,7 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 
 	const handleUpdateAccount = (accountData: Account) => {
 		if (fetchUpdateAccount.loading) return;
-		const { id, title, account, datetime, category, memo } = accountData;
+		const { id, title, account, datetime, category, bank, memo } = accountData;
 		if (!id) return;
 		fetchUpdateAccount.call({
 			account_id: id,
@@ -97,6 +98,7 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 			account,
 			datetime,
 			category_id: category,
+			bank_id: bank,
 			memo,
 		})
 	}

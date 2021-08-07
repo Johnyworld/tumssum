@@ -16,6 +16,7 @@ import useAccount from '~hooks/useAccount';
 import useDrag from '~hooks/useDrag';
 import { combineCategoriesWithGroups } from '~routes/CategoryPage/CategoryPage';
 import AccountList from '~components/partials/AccountList';
+import { combineBanksWithGroups } from '~routes/BankPage/BankPage';
 
 
 const MENUS = [
@@ -29,6 +30,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const date = useSelector(state=> state.month.date);
 	const accounts = useSelector(state=> state.account.accounts);
 	const { categories, categoryGroups } = useSelector(state=> state.category);
+	const { banks, bankGroups } = useSelector(state=> state.bank);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const dispatch = useDispatch();
 
@@ -39,6 +41,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 	}
 
 	const categoriesCombined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
+	const banksCombined = useMemo(() => combineBanksWithGroups(banks, bankGroups), [banks, bankGroups]);
 
 	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useDrag(accounts);
 
@@ -99,8 +102,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 			{ view === 'category' &&
 				<CategoryBoard
-					categories={categories}
-					categoryGroups={categoryGroups}
+					categoriesCombined={categoriesCombined}
 					data={accounts.filter(account => account.datetime.substr(0, 7) === date.substr(0, 7))}
 					grapping={grapping}
 					grappingPos={grappingPos}
@@ -117,6 +119,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 				<AccountList
 					list={accounts}
 					categoriesCombined={categoriesCombined}
+					banksCombined={banksCombined}
 					onChange={handleUpdateAccount}
 				/>
 			}
@@ -128,6 +131,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 					<AccountFormModal
 						initialValues={initialValuesForCreate}
 						categoriesCombined={categoriesCombined}
+						banksCombined={banksCombined}
 						onConfirm={handleCreateAccount}
 					/>
 				}
@@ -140,6 +144,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 					<AccountFormModal
 						initialValues={detailView!}
 						categoriesCombined={categoriesCombined}
+						banksCombined={banksCombined}
 						onConfirm={handleUpdateAccount}
 						onDelete={handleDeleteAccount}
 					/>

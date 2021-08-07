@@ -65,7 +65,7 @@ const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, fluid, 
 			{ label && <label class={styleType === 'input' ? 'input-label' : 'content-label'}>{label}</label> }
 
 			<div class={`date-picker-input ${styleType === 'input' ? 'input-box' : 'content-box fluid'}`} onClick={handleShowPicker}>
-				<p class={date ? '' : 'c-gray'}>{date ? getDateStringByDateType(i18n.language, new Date(date)) : placeholder}</p>
+				<p class={'t-nowrap' + (date ? '' : ' c-gray')}>{date ? getDateStringByDateType(i18n.language, new Date(date)) : placeholder}</p>
 				{ !isHideIcon &&
 					<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M1.5 1.5H14.5V14.5H1.5V1.5Z" stroke='var(--color-gray_strong)' />

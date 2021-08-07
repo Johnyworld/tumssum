@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { useState } from 'preact/hooks';
-import { Account, CategoryGroup } from 'types';
+import { Account, BankGroup, CategoryGroup } from 'types';
 import ContentEditable from '~components/elements/ContentEditable';
 import DatePicker from '~components/elements/DatePicker';
 import Dropdown from '~components/elements/Dropdown';
@@ -8,17 +8,19 @@ import TimePicker from '~components/elements/TimePicker';
 import LabeledContentEditable from '~components/items/LabeledContentEditable';
 
 export interface AccountListItemProps {
+	index: number;
 	item: Account;
 	categoriesCombined: CategoryGroup[];
+	banksCombined: BankGroup[];
 	onChangeTitle: (id: number) => (value: string) => void;
 	onChangeDatetime: (id: number, value: string) => void;
 	onChangeAmount: (id: number, isIncome: boolean) => (value: string) => void;
 	onChangeDropdown: (id: number, key: string) => h.JSX.GenericEventHandler<HTMLSelectElement>;
 }
 
-const AccountListItem: FunctionalComponent<AccountListItemProps> = ({ item, categoriesCombined, onChangeTitle, onChangeDatetime, onChangeAmount, onChangeDropdown }) => {
+const AccountListItem: FunctionalComponent<AccountListItemProps> = ({ index, item, categoriesCombined, banksCombined, onChangeTitle, onChangeDatetime, onChangeAmount, onChangeDropdown }) => {
 
-	const { id, title, datetime, category } = item;
+	const { id, title, datetime, category, bank } = item;
 	const [isIncome, setIsIncome] = useState(item.account ? !(item.account < 0) : false);
 
 	const handleChangeIsIncome = (value: boolean) => {
@@ -35,6 +37,7 @@ const AccountListItem: FunctionalComponent<AccountListItemProps> = ({ item, cate
 
 	return (
 		<tr>
+			<td style={{ paddingLeft: '.75rem' }}>{index + 1}</td>
 			<td>
 				<DatePicker isHideIcon date={item.datetime} onChange={handleChangeDate('date')} placeholder='비어있음' />
 			</td>
@@ -82,7 +85,24 @@ const AccountListItem: FunctionalComponent<AccountListItemProps> = ({ item, cate
 					onChange={onChangeDropdown(id, 'category')}
 				/>
 			</td>
-			<td>{item.bank_title}</td>
+			<td>
+				<Dropdown
+					list={[
+						{ id: 0, text: '미분류' },
+						...banksCombined.map(group => { return {
+							id: group.id,
+							text: group.title || '이름 없음',
+							children: group.items.map(bank => { return {
+								id: bank.id,
+								text: bank.title,
+							}})
+						}}),
+					]}
+					placeholder='미분류'
+					selected={bank}
+					onChange={onChangeDropdown(id, 'bank')}
+				/>
+			</td>
 		</tr>
 	)
 }

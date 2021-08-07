@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
 import { useCallback, useState } from 'preact/hooks';
-import { Account, CategoryGroup } from 'types';
+import { Account, BankGroup, CategoryGroup } from 'types';
 import Button from '~components/elements/Button';
 import ContentEditable from '~components/elements/ContentEditable';
 import DatePicker from '~components/elements/DatePicker';
@@ -16,11 +16,12 @@ import { getLocalString } from '~utils/calendar';
 export interface AccountFormModalProps {
 	initialValues?: Account | null;
 	categoriesCombined: CategoryGroup[];
+	banksCombined: BankGroup[];
 	onConfirm: (account: Account) => void;
 	onDelete?: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
 }
 
-const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialValues, categoriesCombined, onConfirm, onDelete }) => {
+const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialValues, categoriesCombined, banksCombined, onConfirm, onDelete }) => {
 
 	const { t } = useTranslation();
 	
@@ -31,10 +32,15 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 	const [time, __, setTime] = useInput(initialValues?.datetime?.split('T')[1]?.substr(0,5) || '');
 	const [ memo, changeMemo ] = useContentEditable(initialValues?.memo || '');
 	const [ category, setCategory ] = useState<number|string>(initialValues?.category || 0);
+	const [ bank, setBank ] = useState<number|string>(initialValues?.bank || 0);
 
 
-	const handleChange: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
+	const handleChangeCategory: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
 		setCategory(e.currentTarget.value);
+	}, [category])
+
+	const handleChangeBank: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
+		setBank(e.currentTarget.value);
 	}, [category])
 
 
@@ -56,6 +62,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 			datetime,
 			memo,
 			category: +category || null,
+			bank: +bank || null,
 		} as Account);
 	}
 
@@ -99,7 +106,24 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialV
 							label='카테고리'
 							placeholder='미분류'
 							selected={category}
-							onChange={handleChange}
+							onChange={handleChangeCategory}
+						/>
+						<Dropdown
+							list={[
+								{ id: 0, text: '미분류' },
+								...banksCombined.map(group => { return {
+									id: group.id,
+									text: group.title || '이름 없음',
+									children: group.items.map(bank => { return {
+										id: bank.id,
+										text: bank.title,
+									}})
+								}}),
+							]}
+							label='뱅크'
+							placeholder='미분류'
+							selected={bank}
+							onChange={handleChangeBank}
 						/>
 						<DatePicker fluid label='날짜' date={date} onChange={(date) => setDate(date)} placeholder='비어있음' />
 						<TimePicker fluid label='시간' time={time} onChange={(date) => setTime(date)} placeholder='비어있음' />

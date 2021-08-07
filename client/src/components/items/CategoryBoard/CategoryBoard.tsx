@@ -7,8 +7,7 @@ import AccountItem from '../AccountItem';
 import './CategoryBoard.scss';
 
 interface CategoryBoardProps {
-	categories: Category[];
-	categoryGroups: CategoryGroup[];
+	categoriesCombined: CategoryGroup[];
 	data: Account[];
 	grapping?: GrappingData<Account> | null;
 	grappingPos?: Vec2 | null;
@@ -42,11 +41,10 @@ const combineCategoriesWithData = (categories: CategoryGroup[], alignedData: {[x
 }
 
 
-const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categories, categoryGroups, data, grapping, grappingPos, onGrap, onDropToUpdate, onDrop, onDragging, onClick, onClickPlus }) => {
+const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesCombined, data, grapping, grappingPos, onGrap, onDropToUpdate, onDrop, onDragging, onClick, onClickPlus }) => {
 
-	const combined = combineCategoriesWithGroups(categories, categoryGroups);
 	const alignedData = getDataAligned(data);
-	const categoriesWithData = combineCategoriesWithData(combined, alignedData);
+	const categoriesWithData = combineCategoriesWithData(categoriesCombined, alignedData);
 
 	return (
 		<div class='category-board' onMouseMove={onDragging} onMouseUp={onDrop}>
