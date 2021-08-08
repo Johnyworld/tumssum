@@ -6,6 +6,7 @@ import { getDateStringByDateType } from '~utils/calendar';
 import { getClassNames } from '~utils/classNames';
 import DatePickerCalendar from './DatePickerCalendar';
 import './DatePicker.scss';
+import Icon from '../Icon';
 
 
 interface DatePickerProps {
@@ -67,10 +68,7 @@ const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, fluid, 
 			<div class={`date-picker-input ${styleType === 'input' ? 'input-box' : 'content-box fluid'}`} onClick={handleShowPicker}>
 				<p class={'t-nowrap' + (date ? '' : ' c-gray')}>{date ? getDateStringByDateType(i18n.language, new Date(date)) : placeholder}</p>
 				{ !isHideIcon &&
-					<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M1.5 1.5H14.5V14.5H1.5V1.5Z" stroke='var(--color-gray_strong)' />
-						<path d="M1 6L15 6" stroke='var(--color-gray_strong)' />
-					</svg>
+					<Icon as='calendar' color='gray_strong' />
 				}
 			</div>
 

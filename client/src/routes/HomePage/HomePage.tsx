@@ -20,12 +20,13 @@ import { combineBanksWithGroups } from '~routes/BankPage/BankPage';
 import useCSV from '~hooks/useCSV';
 import useResizeSide from '~hooks/useResizeSide';
 import Statistics from '~components/partials/Statistics';
+import IconText from '~components/items/IconText';
 
 
 const MENUS = [
 	{ id: 'calendar', text: 'Calendar', icon: 'calendar' as IconType  },
-	{ id: 'category', text: 'Category', icon: 'menu' as IconType },
-	{ id: 'list', text: 'List', icon: 'storage' as IconType },
+	{ id: 'category', text: 'Category', icon: 'category' as IconType },
+	{ id: 'list', text: 'List', icon: 'menu' as IconType },
 ];
 
 const HomePage: FunctionalComponent = ({  }) => {
@@ -89,8 +90,8 @@ const HomePage: FunctionalComponent = ({  }) => {
 						list={MENUS}
 					/>
 					<div class='flex flex-gap-regular'>
-						<p class='f-bold t-fit pointer' onClick={() => getCSV('CSV')}>다운로드</p>
-						<p class='f-bold t-fit pointer' onClick={() => dispatch(changeMonthToday())}>Today</p>
+						<IconText text='Download' icon='download' onClick={() => getCSV('CSV')} />
+						<p class='pointer' onClick={() => dispatch(changeMonthToday())} >Today</p>
 						<Button size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />
 					</div>
 				</Indicator>

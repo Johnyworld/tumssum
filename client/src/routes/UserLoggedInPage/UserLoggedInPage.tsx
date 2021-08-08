@@ -29,7 +29,7 @@ const UserLoggedInPage: FunctionalComponent = () => {
   const gnbMenuList = useMemo(() => { return [
 		{ id: 'home', text: 'Home', icon: 'home', href: '/' },
 		{ id: 'budget', text: 'Budget', icon: 'card', href: '/budget' },
-		{ id: 'category', text: 'Category', icon: 'menu', href: '/category' },
+		{ id: 'category', text: 'Category', icon: 'category', href: '/category' },
 		{ id: 'bank', text: 'Bank', icon: 'storage', href: '/bank' },
 	] as AsideMenuItem[]}, []);
 
