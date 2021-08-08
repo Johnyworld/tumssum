@@ -15,6 +15,7 @@
 
 	&__content {
 		width: 100%;	
+		overflow-x: auto;
 	}
 
 	&__side {
@@ -39,6 +40,18 @@
 		top: 0;
 		left: 0;
 		cursor: ew-resize;
+	}
+}
+
+.page-container {
+	.home-page {
+		max-width: calc(100% - var(--aside-width));
+	}
+
+	&--narrow-aside {
+		.home-page {
+			max-width: calc(100% - var(--header-height));
+		}
 	}
 }
 

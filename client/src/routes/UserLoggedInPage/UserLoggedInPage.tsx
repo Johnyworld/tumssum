@@ -18,6 +18,7 @@ import { AsideMenuItem } from '~components/items/AsideMenu/AsideMenu';
 import { useLocation } from 'wouter';
 import Aside from '~components/partials/Aside';
 import NotFoundPage from '../NotFoundPage';
+import { getClassNames } from '~utils/classNames';
 
 const UserLoggedInPage: FunctionalComponent = () => {
 
@@ -78,7 +79,7 @@ const UserLoggedInPage: FunctionalComponent = () => {
   })
 
   return (
-    <div class='page-container'>
+    <div class={getClassNames(['page-container', [ !isOpenAside, 'page-container--narrow-aside' ]])}>
       <Aside
 				path={path}
 				gnbMenuList={gnbMenuList}

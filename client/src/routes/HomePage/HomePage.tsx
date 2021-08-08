@@ -136,7 +136,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 			</section>
 
 
-			<section class='home-page__side never-drag' style={{ width: sideWidth }}>
+			<section class='home-page__side never-drag' style={{ minWidth: sideWidth }}>
 				<div class='home-page__side-inner'>
 					<div ref={borderRef} class='home-page__side-border' onMouseDown={handleBorderMouseDown} />
 					<Statistics />

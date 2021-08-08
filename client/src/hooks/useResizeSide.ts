@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { useRef, useState } from 'preact/hooks';
-import { PX_RATIO, SIDE_WIDTH_DEFAULT, SIDE_WIDTH_MAX, SIDE_WIDTH_MIN } from '~utils/constants';
+import { SIDE_WIDTH_DEFAULT, SIDE_WIDTH_MAX, SIDE_WIDTH_MIN } from '~utils/constants';
 
 
 
@@ -25,7 +25,7 @@ export default () => {
 
 	const handleContainerDrag: h.JSX.MouseEventHandler<HTMLElement> = (e) => {
 		if (grabPos) {
-			const movePos = (grabPos - e.clientX) * PX_RATIO;
+			const movePos = (grabPos - e.clientX);
 			const newWidth = tempWidth + movePos;
 			setSideWidth(newWidth > SIDE_WIDTH_MAX ? SIDE_WIDTH_MAX : newWidth < SIDE_WIDTH_MIN ? SIDE_WIDTH_MIN : newWidth);
 		}
