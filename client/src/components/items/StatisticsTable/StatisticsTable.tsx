@@ -1,13 +1,15 @@
 import { h, FunctionalComponent } from 'preact';
 import { useEffect } from 'preact/hooks';
+import { Color } from 'types';
 import useToggle from '~hooks/useToggle';
 import { getClassNames } from '~utils/classNames';
 import { getNumberWithComma } from '~utils/number';
 import './StatisticsTable.scss';
 
 export interface StatisticsTableProps {
-	group: (string | number)[];
-	items?: (string | number)[][];
+	group: [string, number|null, number];
+	items?: [string, number|null, number][];
+	colors?: (Color | null)[];
 	forceOpen?: boolean;
 }
 
@@ -17,7 +19,17 @@ interface HeadProps {
 
 const ITEM_HEIGHT = 36;
 
-const StatisticsTable: FunctionalComponent<StatisticsTableProps> = ({ children, group, items, forceOpen }) => {
+const getColorClass = (value: string | number | null, forceColor?: Color | null) => {
+	if (value === null) return '';
+	if (forceColor) return `c-${forceColor}`;
+	if (typeof value === 'number') {
+		if ( value === 0 ) return 'c-gray_strong';
+		if ( value < 0 ) return 'c-red';
+	}
+	return '';
+}
+
+const StatisticsTable: FunctionalComponent<StatisticsTableProps> = ({ group, items, colors, forceOpen }) => {
 
 	const toggleOpenItems = useToggle();
 
@@ -29,9 +41,9 @@ const StatisticsTable: FunctionalComponent<StatisticsTableProps> = ({ children, 
 	return (
 		<div class='statistics-table'>
 			<div class={getClassNames(['statistics-table__row', [!!items, 'pointer']])} onClick={toggleOpenItems.handleToggle}>
-				{ group.map((col) => {
+				{ group.map((col, i) => {
 					return (
-						<div class={getClassNames(['statistics-table__group statistics-table__col', [typeof col === 'number' && col < 0, 'c-red']])}>
+						<div class={getClassNames(['statistics-table__group statistics-table__col', getColorClass(col, colors && colors[i]) ])}>
 							{typeof col === 'number' ? getNumberWithComma(col) : col}
 						</div>
 					)
@@ -41,9 +53,9 @@ const StatisticsTable: FunctionalComponent<StatisticsTableProps> = ({ children, 
 				<div style={{ height: `${ITEM_HEIGHT * items.length}px` }} class={getClassNames(['statistics-table__items', [!toggleOpenItems.checked, 'statistics-table__items--hide']])}>
 					{ items.map(item => (
 						<div class='statistics-table__row'>
-							{ item.map(col => {
+							{ item.map((col, i) => {
 								return (
-									<div class={getClassNames(['statistics-table__item statistics-table__col', [typeof col === 'number' && col < 0, 'c-red']])}>
+									<div class={getClassNames(['statistics-table__item statistics-table__col', getColorClass(col, colors && colors[i]) ])}>
 										{typeof col === 'number' ? getNumberWithComma(col) : col}
 									</div>
 								)

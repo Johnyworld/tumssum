@@ -1,8 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { Account, Category, CategoryGroup } from 'types';
-import Divider from '~components/elements/Divider';
 import StatisticsTable from '~components/items/StatisticsTable';
-import './statistics.scss';
+import './Statistics.scss';
 
 export interface StatisticsProps {
 	accounts: Account[];
@@ -35,8 +34,7 @@ interface StatisticsItem extends Category {
 const getDataAligned = (data: Account[]) => {
 	const results: StatisticsItems = {}
 	for ( const item of data ) {
-		if (!item.category) continue;
-		const category = item.category;
+		const category = item.category || 0;
 		if (!results[category]) results[category] = { income: 0, expenditure: 0, total: 0 };
 		if (item.account < 0) results[category].expenditure += item.account;
 		if (item.account >= 0) results[category].income += item.account;
@@ -59,7 +57,9 @@ const combineData = (categoriesCombined: CategoryGroup[], aligned: StatisticsIte
 		let expenditure = 0;
 		let total = 0;
 
-		const items = group.items.map(category => {
+		const groupItems = group.id ? group.items : [...group.items, { id: 0 }];
+
+		const items = groupItems.map(category => {
 			const itemIncome = aligned[category.id]?.income || 0;
 			const itemExpenditure = aligned[category.id]?.expenditure || 0;
 			const itemTotal = aligned[category.id]?.total || 0;
@@ -93,8 +93,6 @@ const Statistics: FunctionalComponent<StatisticsProps> = ({ accounts, categories
 	const aligned = getDataAligned(accounts);
 	const { data, all } = combineData(categoriesCombined, aligned);
 
-	console.log('===== statistics', data);
-
 	return (
 		<div class='statistics card'>
 			<h3 class='p-small'>이번 달 통계</h3>
@@ -105,7 +103,7 @@ const Statistics: FunctionalComponent<StatisticsProps> = ({ accounts, categories
 				<StatisticsTable
 					group={[ group.title === undefined ? '그룹 미분류' : group.title || '이름 없음', 0, group.total ]}
 					items={group.items.map(category => {
-						return [ category.title || '이름 없음', 0, category.total ]
+						return [ category.title === undefined ? '카테고리 미분류' : category.title || '이름 없음', 0, category.total ]
 					})}
 				>
 				</StatisticsTable>
@@ -125,6 +123,14 @@ const Statistics: FunctionalComponent<StatisticsProps> = ({ accounts, categories
 				group={[ '월 손익', 0, all.expenditure + all.income ]}
 			/>
 
+			<StatisticsTable
+				colors={[ null, null, 'gray' ]}
+				group={[ '지난달 이월', null, 0 ]}
+			/>
+
+			<StatisticsTable
+				group={[ '남은 금액', 0, 0 ]}
+			/>
 
 		</div>
 	)
