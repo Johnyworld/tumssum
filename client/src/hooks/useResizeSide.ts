@@ -1,17 +1,14 @@
 import { h } from 'preact';
 import { useRef, useState } from 'preact/hooks';
-import { PX_RATIO, SIDE_WIDTH_MAX, SIDE_WIDTH_MIN } from '~utils/constants';
-
-interface UseResizeSide<S> {
-	
-}
+import { PX_RATIO, SIDE_WIDTH_DEFAULT, SIDE_WIDTH_MAX, SIDE_WIDTH_MIN } from '~utils/constants';
 
 
-export default <S>({  }: UseResizeSide<S>) => {
+
+export default () => {
 
 	const borderRef = useRef<HTMLDivElement>(null);
 	
-	const init = localStorage.getItem('home_side') || 350;
+	const init = localStorage.getItem('home_side') || SIDE_WIDTH_DEFAULT;
 	const [ sideWidth, setSideWidth ] = useState<number>(+init);
 	const [ tempWidth, setTempWidth ] = useState<number>(0);
 	const [ grabPos, setGrabPos ] = useState<number | null>(null);

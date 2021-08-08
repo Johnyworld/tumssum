@@ -57,7 +57,7 @@ const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping
 					const handleHoverOut = () => setHover(false);
 					return (
 						<div key={group.id} class='pos-relative' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate(group.id || null)}>
-							{!!grapping && hover && <div class='board-item-grapping' style={{ transform: 'scaleX(1.02)', borderRadius: '.25rem' }} />}
+							{!!grapping && hover && <div class='board-item__grapping' style={{ transform: 'scaleX(1.02)', borderRadius: '.25rem' }} />}
 							{ group.id
 								? <div class='management-list__group pos-relative'>
 										<ContentEditable

@@ -19,6 +19,7 @@ import AccountList from '~components/partials/AccountList';
 import { combineBanksWithGroups } from '~routes/BankPage/BankPage';
 import useCSV from '~hooks/useCSV';
 import useResizeSide from '~hooks/useResizeSide';
+import Statistics from '~components/partials/Statistics';
 
 
 const MENUS = [
@@ -49,7 +50,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useDrag(accounts);
 
-	const { borderRef, sideWidth, handleBorderMouseDown, handleContainerMouseUp, handleContainerDrag } = useResizeSide({});
+	const { borderRef, sideWidth, handleBorderMouseDown, handleContainerMouseUp, handleContainerDrag } = useResizeSide();
 
 	const { 
 		initialValuesForCreate, detailView, handleViewDetail, handleCloseDetail,
@@ -135,7 +136,10 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 
 			<section class='home-page__side never-drag' style={{ width: sideWidth }}>
-				<div ref={borderRef} class='home-page__side-border' onMouseDown={handleBorderMouseDown} />
+				<div class='home-page__side-inner'>
+					<div ref={borderRef} class='home-page__side-border' onMouseDown={handleBorderMouseDown} />
+					<Statistics />
+				</div>
 			</section>
 
 
