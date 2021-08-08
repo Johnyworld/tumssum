@@ -1,8 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
-import { Account, Category, CategoryGroup, Vec2 } from 'types';
+import { Account, CategoryGroup, Vec2 } from 'types';
 import BoardItem from '~components/elements/BoardItem';
 import { GrappingData } from '~hooks/useDrag';
-import { combineCategoriesWithGroups } from '~routes/CategoryPage/CategoryPage';
 import AccountItem from '../AccountItem';
 import './CategoryBoard.scss';
 
@@ -40,11 +39,19 @@ const combineCategoriesWithData = (categories: CategoryGroup[], alignedData: {[x
 	});
 }
 
+export const getAccountsByCategories = (accounts: Account[], categoriesCombined: CategoryGroup[]) => {
+	const alignedData = getDataAligned(accounts);
+	const accountsByCategories = combineCategoriesWithData(categoriesCombined, alignedData);
+	return {
+		noCategory: alignedData.EMPTY,
+		accountsByCategories
+	}
+}
+
 
 const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesCombined, data, grapping, grappingPos, onGrap, onDropToUpdate, onDrop, onDragging, onClick, onClickPlus }) => {
 
-	const alignedData = getDataAligned(data);
-	const categoriesWithData = combineCategoriesWithData(categoriesCombined, alignedData);
+	const { noCategory, accountsByCategories } = getAccountsByCategories(data, categoriesCombined);
 
 	return (
 		<div class='category-board' onMouseMove={onDragging} onMouseUp={onDrop}>
@@ -58,7 +65,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 							onDropToUpdate={onDropToUpdate && onDropToUpdate( null, '' )}
 							children={
 								<div class='grid grid-col-4 grid-gap-tiny' style={{ flexWrap: 'wrap' }}>
-									{ alignedData.EMPTY && alignedData.EMPTY.map(account => (
+									{ noCategory && noCategory.map(account => (
 										<AccountItem
 											title={account.title}
 											amount={account.account}
@@ -71,7 +78,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 						/>
 					</div>
 				</div>
-				{ categoriesWithData.map(group => (
+				{ accountsByCategories.map(group => (
 					<div key={group.id} class='gap-tiny'>
 						<p class='c-gray f-small f-bold'>{group.title || '카테고리 그룹 없음'}</p>
 						<div class='category-board-row'>

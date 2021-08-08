@@ -32,10 +32,9 @@
 	}
 
 	&__side-border {
-		background-color: var(--color-gray_weaker);
 		margin-left: -1px;
 		height: 100vh;
-		width: 1px;
+		width: 1rem;
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -43,17 +42,7 @@
 	}
 }
 
-.page-container {
-	.home-page {
-		max-width: calc(100% - var(--aside-width));
-	}
 
-	&--narrow-aside {
-		.home-page {
-			max-width: calc(100% - var(--header-height));
-		}
-	}
-}
 
 .auth-page {
 	padding-top: 10rem;
@@ -69,6 +58,18 @@
 	.home-page {
 		&__side {
 			display: block;
+		}
+	}
+
+	.page-container {
+		.home-page {
+			max-width: calc(100% - var(--aside-width));
+		}
+	
+		&--narrow-aside {
+			.home-page {
+				max-width: calc(100% - var(--header-height));
+			}
 		}
 	}
 }
