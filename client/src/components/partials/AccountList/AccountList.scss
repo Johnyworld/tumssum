@@ -6,25 +6,9 @@
 	padding-bottom: 1rem;
 	
 	table {
-		border-spacing: 0;
-		width: 100%;
 		text-align: center;
 
-		thead {
-			th {
-				position: relative;
-				top: 0;
-				background-color: var(--color-bg);
-				padding: .25rem .75rem;
-				border-bottom: 1px solid var(--color-gray_weaker);
-				z-index: var(--layer-on);
-				white-space: nowrap;
-			}
-		}
 		tbody {
-			tr:not(:first-child) td {
-				border-top: 1px solid var(--color-gray_weaker);
-			}
 			td {
 				white-space: nowrap;
 				&:not(.t-right):not(.t-left) {
@@ -42,9 +26,6 @@
 						-moz-text-align-last: center;
 					}
 				}
-			}
-			tr:hover {
-				background-color: var(--color-white_weakest);
 			}
 		}
 	}

@@ -70,3 +70,30 @@ select.content-box {
   cursor: text;
 }
 
+
+table {
+	border-spacing: 0;
+	width: 100%;
+
+	thead {
+		th {
+			color: var(--color-gray);
+			font-size: var(--font-small);
+			padding: .25rem .75rem;
+			border-bottom: 1px solid var(--color-gray_weaker);
+			z-index: var(--layer-on);
+			white-space: nowrap;
+			background-color: var(--color-bg);
+		}
+	}
+
+	tbody {
+		tr:not(:first-child) td {
+			border-top: 1px solid var(--color-gray_weaker);
+		}
+		tr:hover {
+			background-color: var(--color-white_weakest);
+		}
+	}
+}
+
