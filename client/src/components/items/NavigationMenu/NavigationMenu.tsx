@@ -26,6 +26,7 @@ const NavigationMenu: FunctionalComponent<NavigationMenuProps> = ({ class: class
 													<IconText
 														icon={item.icon}
 														text={item.text}
+														isHideTextForMobile
 														color={isSelected ? 'pen' : 'pencel'}
 													/>
 												</div>
