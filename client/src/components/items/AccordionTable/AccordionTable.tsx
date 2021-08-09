@@ -17,7 +17,7 @@ interface HeadProps {
 	head: (string | null)[];
 }
 
-const ITEM_HEIGHT = 36;
+const ITEM_HEIGHT = 32;
 
 const getColorClass = (value: string | number | null, forceColor?: Color | null) => {
 	if (value === null) return '';
