@@ -1,15 +1,15 @@
-.statistics-table {
+.accordion-table {
 
 	border-bottom: 1px solid var(--color-gray_weaker);
-	--statistics-height: 32px;
+	--accordion-height: 32px;
 
 	&__row {
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
-		height: var(--statistics-height);
+		height: var(--accordion-height);
 
-		&:not(.statistics-table__head):hover {
+		&:not(.accordion-table__head):hover {
 			background-color: var(--color-white_weakest);
 		}
 	}

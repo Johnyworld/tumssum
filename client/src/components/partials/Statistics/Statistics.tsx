@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { Account, Category, CategoryGroup } from 'types';
-import StatisticsTable from '~components/items/StatisticsTable';
+import AccordionTable from '~components/items/AccordionTable';
 import './Statistics.scss';
 
 export interface StatisticsProps {
@@ -97,38 +97,38 @@ const Statistics: FunctionalComponent<StatisticsProps> = ({ accounts, categories
 		<div class='statistics card'>
 			<h3 class='p-small'>이번 달 통계</h3>
 		
-			<StatisticsTable.Head head={['카테고리', '예산', '소비']} />
+			<AccordionTable.Head head={['카테고리', '예산', '소비']} />
 
 			{ data.map(group => group.items.length > 0 && (
-				<StatisticsTable
+				<AccordionTable
 					group={[ group.title === undefined ? '그룹 미분류' : group.title || '이름 없음', 0, group.total ]}
 					items={group.items.map(category => {
 						return [ category.title === undefined ? '카테고리 미분류' : category.title || '이름 없음', 0, category.total ]
 					})}
 				>
-				</StatisticsTable>
+				</AccordionTable>
 			))}
 
-			<StatisticsTable.Head head={['합계', '예산', '소비']} />
+			<AccordionTable.Head head={['합계', '예산', '소비']} />
 
-			<StatisticsTable
+			<AccordionTable
 				group={[ '월 지출', 0, all.expenditure ]}
 			/>
 
-			<StatisticsTable
+			<AccordionTable
 				group={[ '월 수입', 0, all.income ]}
 			/>
 
-			<StatisticsTable
+			<AccordionTable
 				group={[ '월 손익', 0, all.expenditure + all.income ]}
 			/>
 
-			<StatisticsTable
+			<AccordionTable
 				colors={[ null, null, 'gray' ]}
 				group={[ '지난달 이월', null, 0 ]}
 			/>
 
-			<StatisticsTable
+			<AccordionTable
 				group={[ '남은 금액', 0, 0 ]}
 			/>
 

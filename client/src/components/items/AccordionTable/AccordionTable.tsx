@@ -4,9 +4,9 @@ import { Color } from 'types';
 import useToggle from '~hooks/useToggle';
 import { getClassNames } from '~utils/classNames';
 import { getNumberWithComma } from '~utils/number';
-import './StatisticsTable.scss';
+import './AccordionTable.scss';
 
-export interface StatisticsTableProps {
+export interface AccordionTableProps {
 	group: [string, number|null, number];
 	items?: [string, number|null, number][];
 	colors?: (Color | null)[];
@@ -14,7 +14,7 @@ export interface StatisticsTableProps {
 }
 
 interface HeadProps {
-	head: string[];
+	head: (string | null)[];
 }
 
 const ITEM_HEIGHT = 36;
@@ -29,7 +29,7 @@ const getColorClass = (value: string | number | null, forceColor?: Color | null)
 	return '';
 }
 
-const StatisticsTable: FunctionalComponent<StatisticsTableProps> = ({ group, items, colors, forceOpen }) => {
+const AccordionTable: FunctionalComponent<AccordionTableProps> = ({ group, items, colors, forceOpen }) => {
 
 	const toggleOpenItems = useToggle();
 
@@ -39,23 +39,23 @@ const StatisticsTable: FunctionalComponent<StatisticsTableProps> = ({ group, ite
 	}, [forceOpen]);
 
 	return (
-		<div class='statistics-table'>
-			<div class={getClassNames(['statistics-table__row', [!!items, 'pointer']])} onClick={toggleOpenItems.handleToggle}>
+		<div class='accordion-table'>
+			<div class={getClassNames(['accordion-table__row', [!!items, 'pointer']])} onClick={toggleOpenItems.handleToggle}>
 				{ group.map((col, i) => {
 					return (
-						<div class={getClassNames(['statistics-table__group statistics-table__col', getColorClass(col, colors && colors[i]) ])}>
+						<div class={getClassNames(['accordion-table__group accordion-table__col', getColorClass(col, colors && colors[i]) ])}>
 							{typeof col === 'number' ? getNumberWithComma(col) : col}
 						</div>
 					)
 				})}
 			</div>
 			{ items &&
-				<div style={{ height: `${ITEM_HEIGHT * items.length}px` }} class={getClassNames(['statistics-table__items', [!toggleOpenItems.checked, 'statistics-table__items--hide']])}>
+				<div style={{ height: `${ITEM_HEIGHT * items.length}px` }} class={getClassNames(['accordion-table__items', [!toggleOpenItems.checked, 'accordion-table__items--hide']])}>
 					{ items.map(item => (
-						<div class='statistics-table__row'>
+						<div class='accordion-table__row'>
 							{ item.map((col, i) => {
 								return (
-									<div class={getClassNames(['statistics-table__item statistics-table__col', getColorClass(col, colors && colors[i]) ])}>
+									<div class={getClassNames(['accordion-table__item accordion-table__col', getColorClass(col, colors && colors[i]) ])}>
 										{typeof col === 'number' ? getNumberWithComma(col) : col}
 									</div>
 								)
@@ -69,11 +69,11 @@ const StatisticsTable: FunctionalComponent<StatisticsTableProps> = ({ group, ite
 }
 
 
-const StatisticsTableHead: FunctionalComponent<HeadProps> = ({ head }) => {
+const AccordionTableHead: FunctionalComponent<HeadProps> = ({ head }) => {
 	return (
-		<div class='statistics-table__head statistics-table__row'>
+		<div class='accordion-table__head accordion-table__row'>
 			{ head.map((item, i)=> (
-				<div key={i} class='statistics-table__col'>
+				<div key={i} class='accordion-table__col'>
 					{item}
 				</div>
 			))}
@@ -82,6 +82,6 @@ const StatisticsTableHead: FunctionalComponent<HeadProps> = ({ head }) => {
 }
 
 
-export default Object.assign(StatisticsTable, {
-	Head: StatisticsTableHead,
+export default Object.assign(AccordionTable, {
+	Head: AccordionTableHead,
 });
