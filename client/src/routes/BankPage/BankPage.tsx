@@ -88,6 +88,7 @@ const BankPage: FunctionalComponent = ({  }) => {
 				onDrop={handleDrop}
 				onDragging={handleDragging}
 				onUpdate={handleUpdateBank}
+				onUpdateGroup={handleUpdateBankGroup}
 				onClick={handleViewDetail}
 				onClickGroup={handleViewDetailGroup}
 			/>

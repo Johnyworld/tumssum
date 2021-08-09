@@ -35,11 +35,12 @@ export interface ManagementListProps<T, S> {
 	onDrop: () => void;
 	onDragging: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onUpdate: (data: T) => void;
+	onUpdateGroup: (data: S) => void;
 	onClick: (data: T) => h.JSX.MouseEventHandler<HTMLDivElement>;
 	onClickGroup: (data: S) => h.JSX.MouseEventHandler<HTMLDivElement>;
 }
 
-const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping, grappingPos, focusGroup, focusItem, isDragging, onGrap, onDropToUpdate, onDrop, onDragging, onUpdate, onClick, onClickGroup }: ManagementListProps<T, S>) => {
+const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping, grappingPos, focusGroup, focusItem, isDragging, onGrap, onDropToUpdate, onDrop, onDragging, onUpdate, onUpdateGroup, onClick, onClickGroup }: ManagementListProps<T, S>) => {
 
 	const T = useMemo(() => { return {
 		NO_NAME: '이름 없음',
@@ -65,7 +66,8 @@ const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping
 											color='gray'
 											weight='bold'
 											styleType='transparent'
-											onChange={() => {}}
+											onChange={(value) => value !== group.title && onUpdateGroup({ id: group.id, title: value } as S)}
+											isChangeOnBlur
 											isFocusOnLoad={focusGroup === group.id}
 											placeholder={T.NO_NAME}
 										/>

@@ -90,6 +90,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 				onDrop={handleDrop}
 				onDragging={handleDragging}
 				onUpdate={handleUpdateCategory}
+				onUpdateGroup={handleUpdateCategoryGroup}
 				onClick={handleViewDetail}
 				onClickGroup={handleViewDetailGroup}
 			/>
