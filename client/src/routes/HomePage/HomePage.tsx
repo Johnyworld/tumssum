@@ -21,6 +21,7 @@ import useCSV from '~hooks/useCSV';
 import useResizeSide from '~hooks/useResizeSide';
 import Statistics from '~components/partials/Statistics';
 import IconText from '~components/items/IconText';
+import Balances from '~components/partials/Balances';
 
 
 const MENUS = [
@@ -137,9 +138,10 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 
 			<section class='home-page__side never-drag' style={{ minWidth: sideWidth }}>
-				<div class='home-page__side-inner p-regular'>
-					<div ref={borderRef} class='home-page__side-border' onMouseDown={handleBorderMouseDown} />
+				<div class='home-page__side-inner p-regular gap-small' >
 					<Statistics accounts={accounts} categoriesCombined={categoriesCombined} />
+					<Balances />
+					<div ref={borderRef} class='home-page__side-border' onMouseDown={handleBorderMouseDown} />
 				</div>
 			</section>
 
