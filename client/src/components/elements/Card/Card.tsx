@@ -6,15 +6,15 @@ import './Card.scss';
 
 export interface CardProps extends DefaultProps, JSXInternal.DOMAttributes<HTMLDivElement> {
 	padding?: 'none' | 'tiny' | 'small' | 'regular';
-	hideMobile?: boolean;
+	hideBorderOnMobile?: boolean;
 }
 
 
-const Card: FunctionalComponent<CardProps> = ({ children, class: className, style, padding='regular', hideMobile, onClick, onMouseDown }) => {
+const Card: FunctionalComponent<CardProps> = ({ children, class: className, style, padding='regular', hideBorderOnMobile, onClick, onMouseDown }) => {
 	return (
 		<div
 			style={style}
-			class={getClassNames([ 'card', className, [padding !== 'none', `p-${padding}`], [!!onClick, 'card-hover'], [hideMobile, 'hide-mobile'], ])}
+			class={getClassNames([ 'card', className, [padding !== 'none', `p-${padding}`], [!!onClick, 'card--hover'], [hideBorderOnMobile, 'card--hide-border'], ])}
 			onClick={onClick}
 			onMouseDown={onMouseDown}
 			children={children}

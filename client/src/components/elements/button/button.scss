@@ -9,37 +9,40 @@
   color: var(--color-white);
   font-weight: var(--weight-bold);
   outline: none;
+
+  &--small {
+    height: 28px; 
+  }
+
+  &--large {
+    height: 52px; 
+  }
+  
+  &--rounded {
+    border-radius: 30px;
+  }
+  
+  &--squared {
+    border-radius: 0;
+  }
+  
+  &--narrow {
+    padding: 0 .5rem;
+  }
+  
+  &--wide {
+    padding: 0 2rem;
+  }
+  
+  &--fluid {
+    display: flex;
+    width: 100%;
+  }
+  
+  &--disabled {
+    cursor: not-allowed;
+  }
+
 }
 
-.button-small {
-  height: 28px; 
-}
 
-.button-large {
-  height: 52px; 
-}
-
-.button-rounded {
-  border-radius: 30px;
-}
-
-.button-squared {
-  border-radius: 0;
-}
-
-.button-narrow {
-  padding: 0 .5rem;
-}
-
-.button-wide {
-  padding: 0 2rem;
-}
-
-.button-fluid {
-  display: flex;
-  width: 100%;
-}
-
-.button-disabled {
-  cursor: not-allowed;
-}
