@@ -28,7 +28,7 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 	const classes = getClassNames([
 		'content-editable',
 		[isOneLine, 't-nowrap'],
-		[value && type === 'number', isNumberNegative ? 'content-editable-negative' : 'content-editable-positive'],
+		[value && type === 'number', isNumberNegative ? 'content-editable--negative' : 'content-editable--positive'],
 		styleType === 'button' ? 'content-box' : 'content-text',
 		className,
 		[!!color, `c-${color}`],
@@ -101,7 +101,7 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 			: <div class='pos-relative fluid'>
 					{content}
 					{ !isHideIcon &&
-						<div class='content-editable-number-svg pos-center-y pointer never-drag' onClick={handleChangeNumberNegative}>
+						<div class='content-editable__number-svg pos-center-y pointer never-drag' onClick={handleChangeNumberNegative}>
 							{ isNumberNegative
 								? <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M24.5 8C24.5 12.1421 21.1421 15.5 17 15.5H8.5V0.5H17C21.1421 0.5 24.5 3.85786 24.5 8Z" stroke="var(--color-gray_strong)"/>
