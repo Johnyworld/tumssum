@@ -57,7 +57,7 @@ const TimePickerTimer: FunctionalComponent<TimePickerTimerProps> = ({ time, pos,
 
 	return (
 		<Portal>
-			<div class='date-picker-dim' onClick={onClose} />
+			<div class='date-picker__dim' onClick={onClose} />
 			<div class='time-picker-timer p-regular' style={{ height: `${height}px`, width: `${width}px`, top: pos.y, left: pos.x }}>
 
 				<div class='flex flex-around'>

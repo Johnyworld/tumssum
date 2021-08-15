@@ -46,8 +46,8 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 
 	return (
 		<Portal>
-			<div class='date-picker-dim' onClick={onClose} />
-			<div class='date-picker-calendar p-small' style={{ height: `${height}px`, width: `${width}px`, top: pos.y, left: pos.x }}>
+			<div class='date-picker__dim' onClick={onClose} />
+			<div class='date-picker__calendar p-small' style={{ height: `${height}px`, width: `${width}px`, top: pos.y, left: pos.x }}>
 				<div class='flex'>
 					<div class='p-small'>
 						<p class='f-large'>
@@ -68,7 +68,7 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 
 				<div class='flex'>
 					{[...Array(7)].map((_, i) => (
-						<div class='date-picker-calendar-item c-gray_strong'>
+						<div class='date-picker__date c-gray_strong'>
 							{t(`day_${i}_short`)}
 						</div>
 					))}
@@ -77,15 +77,24 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 				{ cal.map(row => (
 					<div class='flex'>
 						{ row.map(col => (
-							<div class={getClassNames([ 'date-picker-calendar-item', [col.isThisMonth, 'date-picker-calendar-date'], [col.each, 'pointer'], [today === col.date, 'date-picker-calendar-today'] ])} onClick={col.each ? onChange(col.date) : undefined}>
-								{col.each || ''}
-							</div>
+							<div
+								class={
+									getClassNames([
+										'date-picker__date',
+										[col.each, 'pointer'],
+										[today === col.date, 'date-picker__date--today'],
+										[viewDate === col.date, 'date-picker__date--selected'],
+									])
+								}
+								children={col.each || ''}
+								onClick={col.each ? onChange(col.date) : undefined}
+							/>
 						))}
 					</div>
 				))}
 
 				<p
-					class='date-picker-calendar-today-button p-regular pointer f-small f-bold'
+					class='date-picker__today-button p-regular pointer f-small f-bold'
 					onClick={handleToday}
 					children={'Today'}
 				/>

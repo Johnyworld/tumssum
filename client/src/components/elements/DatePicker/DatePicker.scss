@@ -1,19 +1,20 @@
-.date-picker-dim {
+.date-picker__dim {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	z-index: var(--layer-ui);
 }
 
-.date-picker-fluid {
-	width: 100%;
-}
-
-.date-picker-input {
+.date-picker__input {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	cursor: pointer;
 }
 
-.date-picker-calendar {
+.date-picker__calendar {
 	position: fixed;
 	width: 180px;	
 	background-color: var(--color-paper);
@@ -22,40 +23,32 @@
 	z-index: var(--layer-ui);
 }
 
-.date-picker-calendar-item {
+.date-picker__date {
 	flex: 0 0 1;
 	padding: .375em 0;
 	text-align: center;
 	width: 100%;
 	font-size: var(--font-small);
-}
-
-.date-picker-calendar-date {
 	border-radius: .25rem;
 
 	&:hover {
 		background-color: var(--color-bg);
 	}
-}
 
-.date-picker-calendar-today {
-	background-color: var(--color-primary);
-	border-radius: 1em;
-	&:hover {
+	&--selected {
+		border: 1px solid var(--color-primary);
+	}
+
+	&--today {
 		background-color: var(--color-primary);
+		&:hover {
+			background-color: var(--color-primary);
+		}
 	}
 }
 
-.date-picker-calendar-today-button {
+.date-picker__today-button {
 	position: absolute;
-	right: 0;
-	bottom: 0;
-}
-
-.date-picker-dim {
-	position: absolute;
-	top: 0;
-	left: 0;
 	right: 0;
 	bottom: 0;
 }
