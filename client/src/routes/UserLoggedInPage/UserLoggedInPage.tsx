@@ -7,8 +7,7 @@ import BankPage from '~routes/BankPage';
 import SettingsPage from '~routes/SettingsPage';
 
 import useFetch from '~hooks/useFetch';
-import { Account, Bank, BankGroup, Category, CategoryGroup } from 'types';
-import { useDispatch } from 'react-redux';
+import { Account, Bank, BankGroup, Category, CategoryGroup, Month } from 'types';
 import { setCategories, setCategoryGroups } from '~features/category/categorySlice';
 import { setAccounts } from '~features/account/accountSlice';
 import { getLocalStringFromISOString } from '~utils/calendar';
@@ -19,9 +18,12 @@ import { useLocation } from 'wouter';
 import Aside from '~components/partials/Aside';
 import NotFoundPage from '../NotFoundPage';
 import { getClassNames } from '~utils/classNames';
+import { setBankMonthes } from '~stores/bankMonthSlice';
+import { useDispatch, useSelector } from '~utils/redux/hooks';
 
 const UserLoggedInPage: FunctionalComponent = () => {
 
+	const date = useSelector(state => state.month.date);
   const dispatch = useDispatch();
 	const [location] = useLocation();
 	const path = location.split('/')[1] || 'home';
@@ -75,6 +77,17 @@ const UserLoggedInPage: FunctionalComponent = () => {
 		onSuccess: data => {
       dispatch(setBankGroups(data.groups));
       dispatch(setBanks(data.banks));
+		}
+  });
+
+	useFetch<{ monthes: Month[] }>({
+		method: 'GET',
+		url: `/api/month/`,
+		params: {
+			date: date.substr(0, 7),
+		},
+		onSuccess: data => {
+      dispatch(setBankMonthes(data.monthes));
 		}
   })
 

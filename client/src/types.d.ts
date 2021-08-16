@@ -106,4 +106,13 @@ declare module 'types' {
     updated_at: string;
   }
 
+  export interface Month {
+    id: number;
+    date: string;
+    carry_over: number;
+    user: number;
+    bank: number;
+    created_at: string;
+    updated_at: string;
+  }
 }

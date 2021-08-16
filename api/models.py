@@ -60,6 +60,7 @@ class Month(models.Model):
   carry_over = models.IntegerField()
   # Required Relations
   user = models.ForeignKey(User, on_delete=models.CASCADE)
+  bank = models.ForeignKey(Bank, on_delete=models.CASCADE)
   # Dates
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True) 
