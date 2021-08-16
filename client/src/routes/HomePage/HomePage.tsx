@@ -128,7 +128,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 				{ view === 'list' &&
 					<AccountList
-						list={accounts}
+						list={accounts.filter(account=> account.datetime.substr(0, 7) === date.substr(0, 7))}
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
 						onChange={handleUpdateAccount}

@@ -83,7 +83,7 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 										'date-picker__date',
 										[col.each, 'pointer'],
 										[today === col.date, 'date-picker__date--today'],
-										[viewDate === col.date, 'date-picker__date--selected'],
+										[date === col.date, 'date-picker__date--selected'],
 									])
 								}
 								children={col.each || ''}
