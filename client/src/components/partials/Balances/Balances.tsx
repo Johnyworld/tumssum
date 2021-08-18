@@ -43,7 +43,7 @@ const findMonth = (months: Month[], date: string) => {
 	const split = date.split('-');
 	const Y = +split[0];
 	const M = +split[1];
-	return findMonthRecursive(months, Y, M, months.length);
+	return findMonthRecursive(months, Y, M-1, months.length);
 }
 
 const combineData = (banksGroup: BankGroup[], monthes: Month[], aligned: StatisticsItems, date: string) => {
@@ -68,7 +68,7 @@ const combineData = (banksGroup: BankGroup[], monthes: Month[], aligned: Statist
 			const itemIncome = aligned[bank.id]?.income || 0;
 			const itemExpenditure = aligned[bank.id]?.expenditure || 0;
 			const itemTotal = aligned[bank.id]?.total || 0;
-			const itemCarryOver = bankMonth ? bankMonth.carry_over : 0;
+			const itemCarryOver = bankMonth ? bankMonth.balance : 0;
 			income += itemIncome;
 			all.income += itemIncome;
 			expenditure += itemExpenditure;

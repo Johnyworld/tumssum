@@ -109,7 +109,7 @@ declare module 'types' {
   export interface Month {
     id: number;
     date: string;
-    carry_over: number;
+    balance: number;
     user: number;
     bank: number;
     created_at: string;
