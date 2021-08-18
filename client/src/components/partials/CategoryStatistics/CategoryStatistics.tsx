@@ -1,20 +1,12 @@
 import { h, FunctionalComponent } from 'preact';
-import { Account, Category, CategoryGroup } from 'types';
+import { Category, CategoryGroup } from 'types';
 import AccordionTable from '~components/items/AccordionTable';
-import './Statistics.scss';
+import { StatisticsItems } from '~routes/HomePage/Statistics';
+import './CategoryStatistics.scss';
 
 export interface StatisticsProps {
-	accounts: Account[];
 	categoriesCombined: CategoryGroup[];
-}
-
-
-interface StatisticsItems {
-	[x: number]: {
-		expenditure: number;
-		income: number;
-		total: number;
-	}
+	aligned: StatisticsItems;
 }
 
 interface StatisticsGroup extends CategoryGroup {
@@ -29,20 +21,6 @@ interface StatisticsItem extends Category {
 	income: number;
 	total: number;
 }
-
-
-const getDataAligned = (data: Account[]) => {
-	const results: StatisticsItems = {}
-	for ( const item of data ) {
-		const category = item.category || 0;
-		if (!results[category]) results[category] = { income: 0, expenditure: 0, total: 0 };
-		if (item.account < 0) results[category].expenditure += item.account;
-		if (item.account >= 0) results[category].income += item.account;
-		results[category].total += item.account;
-	}
-	return results;
-}
-
 
 const combineData = (categoriesCombined: CategoryGroup[], aligned: StatisticsItems) => {
 
@@ -87,14 +65,12 @@ const combineData = (categoriesCombined: CategoryGroup[], aligned: StatisticsIte
 	return { data, all }
 }
 
+const Statistics: FunctionalComponent<StatisticsProps> = ({ categoriesCombined, aligned }) => {
 
-const Statistics: FunctionalComponent<StatisticsProps> = ({ accounts, categoriesCombined }) => {
-
-	const aligned = getDataAligned(accounts);
 	const { data, all } = combineData(categoriesCombined, aligned);
 
 	return (
-		<div class='statistics card'>
+		<div class='category-statistics card'>
 			<h3 class='p-small'>이번 달 통계</h3>
 		
 			<AccordionTable.Head head={['카테고리', '예산', '소비']} />

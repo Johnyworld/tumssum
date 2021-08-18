@@ -80,14 +80,14 @@ const UserLoggedInPage: FunctionalComponent = () => {
 		}
   });
 
-	useFetch<{ monthes: Month[] }>({
+	useFetch<Month[]>({
 		method: 'GET',
 		url: `/api/month/`,
 		params: {
 			date: date.substr(0, 7),
 		},
 		onSuccess: data => {
-      dispatch(setBankMonthes(data.monthes));
+      dispatch(setBankMonthes(data));
 		}
   })
 

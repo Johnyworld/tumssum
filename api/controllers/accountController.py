@@ -2,7 +2,6 @@ from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
 from api.utils.serializers import AccountSerializer
 from api.models import Account
-from rest_framework.response import Response
 
 
 def getAccounts(request):

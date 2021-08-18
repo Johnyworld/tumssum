@@ -19,9 +19,8 @@ import AccountList from '~components/partials/AccountList';
 import { combineBanksWithGroups } from '~routes/BankPage/BankPage';
 import useCSV from '~hooks/useCSV';
 import useResizeSide from '~hooks/useResizeSide';
-import Statistics from '~components/partials/Statistics';
 import IconText from '~components/items/IconText';
-import Balances from '~components/partials/Balances';
+import Statistics from './Statistics';
 
 
 const MENUS = [
@@ -36,8 +35,11 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const accounts = useSelector(state=> state.account.accounts);
 	const { categories, categoryGroups } = useSelector(state=> state.category);
 	const { banks, bankGroups } = useSelector(state=> state.bank);
+	const { monthes } = useSelector(state=> state.bankMonth);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const dispatch = useDispatch();
+
+	const accountsThisMonth = useMemo(() => accounts.filter(account => account.datetime.substr(0, 7) === date.substr(0, 7)), [accounts, date]);
 
 	const [view, setView] = useState(localStorage.getItem('home_view') || 'calendar');
 	const handleChangeView = (newView: string) => {
@@ -114,7 +116,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 				{ view === 'category' &&
 					<CategoryBoard
 						categoriesCombined={categoriesCombined}
-						data={accounts.filter(account => account.datetime.substr(0, 7) === date.substr(0, 7))}
+						data={accountsThisMonth}
 						grapping={grapping}
 						grappingPos={grappingPos}
 						onGrap={handleGrap}
@@ -128,7 +130,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 				{ view === 'list' &&
 					<AccountList
-						list={accounts.filter(account=> account.datetime.substr(0, 7) === date.substr(0, 7))}
+						list={accountsThisMonth}
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
 						onChange={handleUpdateAccount}
@@ -136,14 +138,17 @@ const HomePage: FunctionalComponent = ({  }) => {
 				}
 			</section>
 
-
-			<section class='home-page__side never-drag' style={{ minWidth: sideWidth }}>
-				<div class='home-page__side-inner p-regular gap-small' >
-					<Statistics accounts={accounts} categoriesCombined={categoriesCombined} />
-					<Balances />
-					<div ref={borderRef} class='home-page__side-border' onMouseDown={handleBorderMouseDown} />
-				</div>
-			</section>
+			
+			<Statistics
+				date={date}
+				accounts={accountsThisMonth}
+				categoriesCombined={categoriesCombined}
+				banksCombined={banksCombined}
+				monthes={monthes}
+				sideWidth={sideWidth}
+				borderRef={borderRef}	
+				onBorderMouseDown={handleBorderMouseDown}
+			/>
 
 
 			<Modal
