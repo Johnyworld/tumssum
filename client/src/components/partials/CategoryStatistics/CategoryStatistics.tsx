@@ -85,29 +85,6 @@ const Statistics: FunctionalComponent<StatisticsProps> = ({ categoriesCombined, 
 				</AccordionTable>
 			))}
 
-			<AccordionTable.Head head={['합계', '예산', '소비']} />
-
-			<AccordionTable
-				group={[ '월 지출', 0, all.expenditure ]}
-			/>
-
-			<AccordionTable
-				group={[ '월 수입', 0, all.income ]}
-			/>
-
-			<AccordionTable
-				group={[ '월 손익', 0, all.expenditure + all.income ]}
-			/>
-
-			<AccordionTable
-				colors={[ null, null, 'gray' ]}
-				group={[ '지난달 이월', null, 0 ]}
-			/>
-
-			<AccordionTable
-				group={[ '남은 금액', 0, 0 ]}
-			/>
-
 		</div>
 	)
 }

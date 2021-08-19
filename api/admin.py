@@ -44,7 +44,7 @@ class BudgetAdmin(admin.ModelAdmin):
 
 
 class AccountAdmin(admin.ModelAdmin):
-  list_display = ('title', 'user', 'category', 'bank', 'account', 'datetime')
+  list_display = ('title', 'user', 'category', 'bank', 'month', 'account', 'datetime')
   search_fields = ['title']
 
 

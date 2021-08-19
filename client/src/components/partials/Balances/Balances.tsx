@@ -117,7 +117,7 @@ const Balances: FunctionalComponent<BalancesProps> = ({ date, banksCombined, mon
 			))}
 
 			<AccordionTable.Head head={['합계', '예산', '소비']} />
-
+			
 			<AccordionTable
 				group={[ '월 지출', 0, all.expenditure ]}
 			/>
@@ -132,11 +132,11 @@ const Balances: FunctionalComponent<BalancesProps> = ({ date, banksCombined, mon
 
 			<AccordionTable
 				colors={[ null, null, 'gray' ]}
-				group={[ '지난달 이월', null, 0 ]}
+				group={[ '지난달 이월', null, all.carry_over ]}
 			/>
 
 			<AccordionTable
-				group={[ '남은 금액', 0, 0 ]}
+				group={[ '남은 금액', 0, all.carry_over + all.total ]}
 			/>
 
 		</div>
