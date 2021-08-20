@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
-import Button from '~components/elements/Button';
+import Button from '~components/atoms/Button';
 import { changeTheme } from '~features/mode/modeSlice';
 import { logout } from '~features/user/userSlice';
 import { useDispatch, useSelector } from '~utils/redux/hooks';

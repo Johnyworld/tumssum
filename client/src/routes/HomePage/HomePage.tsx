@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import MonthSelector from '~components/items/MonthSelector';
 import Header from '~components/layouts/Header';
-import Button from '~components/elements/Button';
+import Button from '~components/atoms/Button';
 import Calendar from '~components/items/Calendar';
 import CategoryBoard from '~components/items/CategoryBoard';
 import NavigationMenu from '~components/items/NavigationMenu';

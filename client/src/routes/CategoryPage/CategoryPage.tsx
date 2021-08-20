@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { Category, CategoryGroup } from 'types';
-import Button from '~components/elements/Button';
+import Button from '~components/atoms/Button';
 import Header from '~components/layouts/Header';
 import useCategory from '~hooks/useCategory';
 import useDrag from '~hooks/useDrag';

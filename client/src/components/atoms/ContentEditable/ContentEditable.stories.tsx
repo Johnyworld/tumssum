@@ -5,7 +5,7 @@ import { Color } from 'types';
 import { SIZES_ARRAY, WEIGHTS_ARRAY } from '~utils/constants';
 
 export default {
-	title: 'Elements/ContentEditable',
+	title: 'Atoms/ContentEditable',
 	component: ContentEditable,
 	argTypes: {
     styleType: { control: { type: 'select', options: [ 'button', 'transparent' ] }},

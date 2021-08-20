@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/preact';
 import Calendar, { CalendarProps } from './Calendar';
 
 export default {
-	title: 'Elements/Calendar',
+	title: 'Atoms/Calendar',
 	component: Calendar,
 	argTypes: {
 		

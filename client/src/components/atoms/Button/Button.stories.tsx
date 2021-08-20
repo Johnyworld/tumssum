@@ -4,7 +4,7 @@ import { Story, Meta } from '@storybook/preact';
 import { Color } from 'types';
 
 export default {
-  title: 'Elements/Button',
+  title: 'Atoms/Button',
   component: Button,
   argTypes: {
     color: { control: { type: 'select', options: [ 'primary', 'black', 'gray' ] as Color[] }},

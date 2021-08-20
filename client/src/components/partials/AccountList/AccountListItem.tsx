@@ -2,10 +2,10 @@ import { h, FunctionalComponent } from 'preact';
 import { memo } from 'preact/compat';
 import { useState } from 'preact/hooks';
 import { Account, BankGroup, CategoryGroup } from 'types';
-import ContentEditable from '~components/elements/ContentEditable';
-import DatePicker from '~components/elements/DatePicker';
-import Dropdown from '~components/elements/Dropdown';
-import TimePicker from '~components/elements/TimePicker';
+import ContentEditable from '~components/atoms/ContentEditable';
+import DatePicker from '~components/atoms/DatePicker';
+import Dropdown from '~components/atoms/Dropdown';
+import TimePicker from '~components/atoms/TimePicker';
 import LabeledContentEditable from '~components/items/LabeledContentEditable';
 
 export interface AccountListItemProps {

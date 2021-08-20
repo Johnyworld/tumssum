@@ -1,5 +1,5 @@
 declare module 'types' {
-  import { icons } from "~components/elements/Icon/Icon";
+  import { icons } from "~components/atoms/Icon/Icon";
 
   export interface Vec2 {
     x: number,

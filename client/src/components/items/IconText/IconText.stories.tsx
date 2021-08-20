@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { Story, Meta } from '@storybook/preact';
 import IconText, { IconTextProps } from './IconText';
-import { icons } from '~components/elements/Icon/Icon';
+import { icons } from '~components/atoms/Icon/Icon';
 
 export default {
 	title: 'Items/IconText',

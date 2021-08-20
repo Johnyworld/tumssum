@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/preact';
 import Logo, { LogoProps } from './Logo';
 
 export default {
-	title: 'Elements/Logo',
+	title: 'Atoms/Logo',
 	component: Logo,
 	argTypes: {
 	

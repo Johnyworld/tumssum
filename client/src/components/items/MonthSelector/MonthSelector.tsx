@@ -1,5 +1,5 @@
 import { h, FunctionalComponent } from 'preact';
-import Icon from '~components/elements/Icon';
+import Icon from '~components/atoms/Icon';
 import './MonthSelector.scss';
 
 interface MonthSelectorProps {

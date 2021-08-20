@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { Color, Weight } from 'types';
-import ContentEditable from '~components/elements/ContentEditable';
+import ContentEditable from '~components/atoms/ContentEditable';
 
 export interface LabeledContentEditableProps {
 	label?: string;

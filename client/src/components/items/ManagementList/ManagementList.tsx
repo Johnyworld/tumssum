@@ -1,9 +1,9 @@
 import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 import { Vec2 } from 'types';
-import ContentEditable from '~components/elements/ContentEditable';
-import Divider from '~components/elements/Divider';
-import Icon from '~components/elements/Icon';
+import ContentEditable from '~components/atoms/ContentEditable';
+import Divider from '~components/atoms/Divider';
+import Icon from '~components/atoms/Icon';
 import { GrappingData } from '~hooks/useDrag';
 import { getClassNames } from '~utils/classNames';
 import { getNumberWithComma } from '~utils/number';

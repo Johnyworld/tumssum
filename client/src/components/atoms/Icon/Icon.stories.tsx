@@ -4,7 +4,7 @@ import Icon, { IconProps, icons } from './Icon';
 import { Color } from 'types';
 
 export default {
-	title: 'Elements/Icon',
+	title: 'Atoms/Icon',
 	component: Icon,
 	argTypes: {
     as: { control: { type: 'select', options: icons }},

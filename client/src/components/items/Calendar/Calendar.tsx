@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { Account, Vec2 } from 'types';
-import BoardItem from '~components/elements/BoardItem';
+import BoardItem from '~components/atoms/BoardItem';
 import { GrappingData } from '~hooks/useDrag';
 import { combineCalendarWithData, getCalendar } from '~utils/calendar';
 import AccountItem from '../AccountItem';

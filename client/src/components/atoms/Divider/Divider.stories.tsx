@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/preact';
 import Divider, { DividerProps } from './Divider';
 
 export default {
-	title: 'Elements/Divider',
+	title: 'Atoms/Divider',
 	component: Divider,
 	argTypes: {
 	

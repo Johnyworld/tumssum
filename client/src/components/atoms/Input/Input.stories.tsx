@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/preact';
 import Input, { InputProps } from './Input';
 
 export default {
-  title: 'Elements/Input',
+  title: 'Atoms/Input',
   component: Input,
   argTypes: {
     onChange: { action: 'onChange' },

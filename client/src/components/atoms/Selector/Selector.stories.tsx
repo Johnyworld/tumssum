@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/preact';
 import Selector, { SelectorProps } from './Selector';
 
 export default {
-	title: 'Elements/Selector',
+	title: 'Atoms/Selector',
 	component: Selector,
 	argTypes: {
 		

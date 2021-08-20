@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/preact';
 import Card, { CardProps } from './Card';
 
 export default {
-  title: 'Elements/Card',
+  title: 'Atoms/Card',
   component: Card,
   argTypes: {
     onClick: { action: 'onClick' },

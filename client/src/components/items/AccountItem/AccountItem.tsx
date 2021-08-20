@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { DefaultProps } from 'types';
-import Card from '~components/elements/Card';
+import Card from '~components/atoms/Card';
 import { getClassNames } from '~utils/classNames';
 import { getNumberWithComma } from '~utils/number';
 

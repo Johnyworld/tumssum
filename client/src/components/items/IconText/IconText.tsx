@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { Color, DefaultProps, IconType } from 'types';
-import Icon from '~components/elements/Icon';
+import Icon from '~components/atoms/Icon';
 import { getClassNames } from '~utils/classNames';
 
 export interface IconTextProps extends DefaultProps {

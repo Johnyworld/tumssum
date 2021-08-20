@@ -2,9 +2,9 @@ import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
 import { useCallback, useState } from 'preact/hooks';
 import { Bank, BankGroup } from 'types';
-import Button from '~components/elements/Button';
-import ContentEditable from '~components/elements/ContentEditable';
-import Dropdown from '~components/elements/Dropdown';
+import Button from '~components/atoms/Button';
+import ContentEditable from '~components/atoms/ContentEditable';
+import Dropdown from '~components/atoms/Dropdown';
 import Modal from '~components/layouts/Modal';
 import useContentEditable from '~hooks/useContentEditable';;
 

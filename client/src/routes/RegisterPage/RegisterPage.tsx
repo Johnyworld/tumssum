@@ -1,9 +1,9 @@
 import { h } from 'preact';
 import { useTranslation } from 'preact-i18next';
 import { Link, route } from 'preact-router';
-import Button from '~components/elements/Button';
-import Card from '~components/elements/Card';
-import Input from '~components/elements/Input';
+import Button from '~components/atoms/Button';
+import Card from '~components/atoms/Card';
+import Input from '~components/atoms/Input';
 import AuthLogo from '~components/items/AuthLogo';
 import SocialLogin from '~features/socialLogin/SocialLogin';
 import useFetch from '~hooks/useFetch';
