@@ -2,7 +2,7 @@ import { h, FunctionalComponent } from 'preact';
 import { useCallback } from 'preact/hooks';
 import { Bank, BankGroup } from 'types';
 import Button from '~components/atoms/Button';
-import ManagementList from '~components/items/ManagementList';
+import ManagementList from '~components/molecules/ManagementList';
 import Header from '~components/layouts/Header';
 import Indicator from '~components/layouts/Indicator';
 import Modal from '~components/layouts/Modal';

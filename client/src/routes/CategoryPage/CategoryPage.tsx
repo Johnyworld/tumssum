@@ -7,7 +7,7 @@ import useDrag from '~hooks/useDrag';
 import { useSelector } from '~utils/redux/hooks';
 import Indicator from '~components/layouts/Indicator';
 import useDetails from '~hooks/useDetails';
-import ManagementList from '~components/items/ManagementList';
+import ManagementList from '~components/molecules/ManagementList';
 import Modal from '~components/layouts/Modal';
 import CategoryFormModal from '~components/partials/CategoryFormModal';
 import CategoryGroupFormModal from '~components/partials/CategoryGroupFormModal';

@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { DefaultProps } from 'types';
 import Icon from '~components/atoms/Icon';
-import IconText from '~components/items/IconText';
+import IconText from '~components/molecules/IconText';
 import Portal from '~components/Portal';
 import { getClassNames } from '~utils/classNames';
 import './Modal.scss';

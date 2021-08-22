@@ -1,10 +1,10 @@
 import { h, FunctionalComponent } from 'preact';
-import MonthSelector from '~components/items/MonthSelector';
+import MonthSelector from '~components/molecules/MonthSelector';
 import Header from '~components/layouts/Header';
 import Button from '~components/atoms/Button';
-import Calendar from '~components/items/Calendar';
-import CategoryBoard from '~components/items/CategoryBoard';
-import NavigationMenu from '~components/items/NavigationMenu';
+import Calendar from '~components/molecules/Calendar';
+import CategoryBoard from '~components/molecules/CategoryBoard';
+import NavigationMenu from '~components/molecules/NavigationMenu';
 import Indicator from '~components/layouts/Indicator';
 import Modal from '~components/layouts/Modal';
 import AccountFormModal from '~components/partials/AccountFormModal';
@@ -19,7 +19,7 @@ import AccountList from '~components/partials/AccountList';
 import { combineBanksWithGroups } from '~routes/BankPage/BankPage';
 import useCSV from '~hooks/useCSV';
 import useResizeSide from '~hooks/useResizeSide';
-import IconText from '~components/items/IconText';
+import IconText from '~components/molecules/IconText';
 import Statistics from './Statistics';
 
 

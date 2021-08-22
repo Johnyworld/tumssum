@@ -4,7 +4,7 @@ import { Link, route } from 'preact-router';
 import Button from '~components/atoms/Button';
 import Card from '~components/atoms/Card';
 import Input from '~components/atoms/Input';
-import AuthLogo from '~components/items/AuthLogo';
+import AuthLogo from '~components/molecules/AuthLogo';
 import SocialLogin from '~features/socialLogin/SocialLogin';
 import useFetch from '~hooks/useFetch';
 import useInput from '~hooks/useInput';

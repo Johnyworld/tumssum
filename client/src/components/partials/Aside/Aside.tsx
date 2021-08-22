@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { DefaultProps } from 'types';
-import AsideMenu from '~components/items/AsideMenu';
-import { AsideMenuItem } from '~components/items/AsideMenu/AsideMenu';
+import AsideMenu from '~components/molecules/AsideMenu';
+import { AsideMenuItem } from '~components/molecules/AsideMenu/AsideMenu';
 import { getClassNames } from '~utils/classNames';
 import Indicator from '../../layouts/Indicator';
 import './Aside.scss';

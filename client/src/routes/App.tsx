@@ -7,7 +7,7 @@ import NotFoundPage from './NotFoundPage';
 import LoginPage from '~routes/LoginPage';
 import RegisterPage from '~routes/RegisterPage';
 import ConfirmToken from '~routes/ConfirmTokenPage/ConfirmTokenPage';
-import FullLoader from '../components/items/FullLoader';
+import FullLoader from '../components/molecules/FullLoader';
 import UserLoggedInPage from './UserLoggedInPage';
 
 

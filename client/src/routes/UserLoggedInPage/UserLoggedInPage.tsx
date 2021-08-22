@@ -13,7 +13,7 @@ import { setAccounts } from '~features/account/accountSlice';
 import { getLocalStringFromISOString } from '~utils/calendar';
 import { setBankGroups, setBanks } from '~features/bank/bankSlice';
 import { useMemo, useState } from 'preact/hooks';
-import { AsideMenuItem } from '~components/items/AsideMenu/AsideMenu';
+import { AsideMenuItem } from '~components/molecules/AsideMenu/AsideMenu';
 import { useLocation } from 'wouter';
 import Aside from '~components/partials/Aside';
 import NotFoundPage from '../NotFoundPage';

@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { Category, CategoryGroup } from 'types';
-import AccordionTable from '~components/items/AccordionTable';
+import AccordionTable from '~components/molecules/AccordionTable';
 import { StatisticsItems } from '~routes/HomePage/Statistics';
 import './CategoryStatistics.scss';
 

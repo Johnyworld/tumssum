@@ -7,7 +7,7 @@ import ContentEditable from '~components/atoms/ContentEditable';
 import DatePicker from '~components/atoms/DatePicker';
 import Dropdown from '~components/atoms/Dropdown';
 import TimePicker from '~components/atoms/TimePicker';
-import LabeledContentEditable from '~components/items/LabeledContentEditable';
+import LabeledContentEditable from '~components/molecules/LabeledContentEditable';
 import Modal from '~components/layouts/Modal';
 import useContentEditable from '~hooks/useContentEditable';
 import useInput from '~hooks/useInput';
