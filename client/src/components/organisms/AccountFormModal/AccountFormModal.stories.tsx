@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/preact';
 import AccountFormModal, { AccountFormModalProps } from './AccountFormModal';
 
 export default {
-	title: 'Partials/AccountFormModal',
+	title: 'Organisms/AccountFormModal',
 	component: AccountFormModal,
 	argTypes: {
 	

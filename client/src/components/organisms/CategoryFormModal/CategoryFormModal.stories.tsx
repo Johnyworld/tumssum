@@ -4,7 +4,7 @@ import CategoryFormModal, { CategoryFormModalProps } from './CategoryFormModal';
 import { Category } from 'types';
 
 export default {
-	title: 'Partials/CategoryFormModal',
+	title: 'Organisms/CategoryFormModal',
 	component: CategoryFormModal,
 	argTypes: {
 	

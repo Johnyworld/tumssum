@@ -15,7 +15,7 @@ import { setBankGroups, setBanks } from '~features/bank/bankSlice';
 import { useMemo, useState } from 'preact/hooks';
 import { AsideMenuItem } from '~components/molecules/AsideMenu/AsideMenu';
 import { useLocation } from 'wouter';
-import Aside from '~components/partials/Aside';
+import Aside from '~components/organisms/Aside';
 import NotFoundPage from '../NotFoundPage';
 import { getClassNames } from '~utils/classNames';
 import { setBankMonthes } from '~stores/bankMonthSlice';

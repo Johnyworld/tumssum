@@ -1,8 +1,8 @@
 import { h, FunctionalComponent } from 'preact';
 import { Ref } from 'preact/hooks';
 import { Account, BankGroup, CategoryGroup, Month } from 'types';
-import Balances from '~components/partials/Balances';
-import CategoryStatistics from '~components/partials/CategoryStatistics';
+import Balances from '~components/organisms/Balances';
+import CategoryStatistics from '~components/organisms/CategoryStatistics';
 
 export interface StatisticsProps {
 	date: string;
