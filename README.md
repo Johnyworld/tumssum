@@ -31,6 +31,13 @@
 
 ## CLI Commands
 
+### Development
+
+- `/mysql.server start`: MySQL 로컬 서버를 시작합니다.
+- `/py manage.py runserver --settings=server.settings.local`: Django 로컬 서버를 실행합니다.
+- `/client/yarn start`: Preact 프론트엔드 개발 서버를 실행합니다.
+
+
 ### Frontend
 
 - `client/npm install`: Installs dependencies
