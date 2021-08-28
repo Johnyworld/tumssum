@@ -57,8 +57,7 @@ class Bank(models.Model):
 class Month(models.Model):
   # Require fields
   date = models.CharField(max_length=7)
-  carry_over = models.IntegerField()
-  balance = models.IntegerField()
+  expenditure = models.IntegerField()
   # Required Relations
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   bank = models.ForeignKey(Bank, on_delete=models.CASCADE)

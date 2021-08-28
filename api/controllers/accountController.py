@@ -43,6 +43,7 @@ def postAccount(reqData, headers):
         'user_id': user_id,
         'bank_id': bank_id,
         'date': datetime[:7],
+        'expenditure': account,
       }
       res = requests.post("http://127.0.0.1:8000/api/month/", json=data, headers=headers)
       new_month_id = json.loads(res.text).get('data').get('id')

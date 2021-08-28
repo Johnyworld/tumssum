@@ -34,7 +34,7 @@ class BankAdmin(admin.ModelAdmin):
 
 
 class MonthAdmin(admin.ModelAdmin):
-  list_display = ('date', 'user', 'carry_over')
+  list_display = ('date', 'user', 'bank', 'expenditure')
   search_fields = ['title']
 
 

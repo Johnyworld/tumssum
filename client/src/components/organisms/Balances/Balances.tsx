@@ -28,7 +28,6 @@ interface StatisticsItem extends Bank {
 
 const findMonthRecursive: (monthes: Month[], Y: number, M: number, count: number) => null | Month = (monthes, Y, M, count) => {
 	const dateString = Y + '-' + (M < 10 ? '0'+M : M);
-	console.log('===== Balances', monthes, dateString);
 	const month = monthes.find(month => month.date === dateString);
 	if (month) return month;
 	else if (count <= 0) return null;
@@ -43,7 +42,7 @@ const findMonth = (months: Month[], date: string) => {
 	const split = date.split('-');
 	const Y = +split[0];
 	const M = +split[1];
-	return findMonthRecursive(months, Y, M-1, months.length);
+	return findMonthRecursive(months, Y, M, months.length);
 }
 
 const combineData = (banksGroup: BankGroup[], monthes: Month[], aligned: StatisticsItems, date: string) => {

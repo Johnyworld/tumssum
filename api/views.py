@@ -319,7 +319,10 @@ def months(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def month(request):
+  print('REQ', request)
+  print('REQ ==', request.body)
   reqData = json.loads(request.body)
+  print('DATA', reqData)
   if request.method == 'POST':
     return monthController.postMonth(reqData)
 
