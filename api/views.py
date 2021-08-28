@@ -360,7 +360,7 @@ def account(request):
     return accountController.postAccount(reqData, request.headers)
 
   elif request.method == 'PUT':
-    return accountController.putAccount(reqData)
+    return accountController.putAccount(reqData, request.headers)
 
   elif request.method == 'DELETE':
     return accountController.deleteAccount(reqData)
