@@ -101,6 +101,8 @@ const Balances: FunctionalComponent<BalancesProps> = ({ date, banksCombined, mon
 
 	const { data, all } = combineData(banksCombined, monthes, aligned, date);
 
+	console.log('===== Balances', data, all);
+
 	return (
 		<div class='balances card'>
 			<h3 class='p-small'>잔고</h3>

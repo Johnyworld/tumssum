@@ -82,7 +82,7 @@ const UserLoggedInPage: FunctionalComponent = () => {
 
 	useFetch<Month[]>({
 		method: 'GET',
-		url: `/api/month/`,
+		url: `/api/months/`,
 		params: {
 			date: date.substr(0, 7),
 		},

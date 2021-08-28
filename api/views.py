@@ -310,15 +310,18 @@ def bankGroup(request):
 
 
 ###################### Month ######################
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def months(request):
+  return monthController.getMonth(request)
+  
+
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def month(request):
   reqData = json.loads(request.body)
-  if request.method == 'GET':
-    return monthController.getMonth(request)
-  elif request.method == 'POST':
+  if request.method == 'POST':
     return monthController.postMonth(reqData)
-  
 
 
 ###################### Budget ######################

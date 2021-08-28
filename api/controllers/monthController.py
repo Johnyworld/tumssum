@@ -1,7 +1,7 @@
 from django.http.response import JsonResponse
-import requests
 from api.utils.serializers import MonthSerializer
 from ..models import Month
+
 
 
 def getMonth(request):
@@ -9,8 +9,12 @@ def getMonth(request):
   date = request.GET.get('date')
   year = date[:4]
 
+  print('==========')
   months = Month.objects.filter(user_id=user_id, date__startswith=year)
+  print(months)
   monthsData = MonthSerializer(months, many=True).data
+  print(monthsData)
+
   
   res = { 'ok': True, 'data': monthsData }
   return JsonResponse(res)

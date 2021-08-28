@@ -21,6 +21,7 @@ urlpatterns = [
   path('bank/', views.bank, name='bank'),
   path('bank-group/', views.bankGroup, name='bankGroup'),
 
+  path('months/', views.months, name='months'),
   path('month/', views.month, name='month'),
 
   path('budgets/', views.budgets, name='budgets'),
