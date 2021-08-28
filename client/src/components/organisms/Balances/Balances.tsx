@@ -67,7 +67,7 @@ const combineData = (banksGroup: BankGroup[], monthes: Month[], aligned: Statist
 			const itemIncome = aligned[bank.id]?.income || 0;
 			const itemExpenditure = aligned[bank.id]?.expenditure || 0;
 			const itemTotal = aligned[bank.id]?.total || 0;
-			const itemCarryOver = bankMonth ? bankMonth.balance : 0;
+			const itemCarryOver = bankMonth ? bankMonth.date === date.substr(0, 7) ? bankMonth.carry_over : bankMonth.balance : 0;
 			income += itemIncome;
 			all.income += itemIncome;
 			expenditure += itemExpenditure;
@@ -100,8 +100,6 @@ const Balances: FunctionalComponent<BalancesProps> = ({ date, banksCombined, mon
 
 	const { data, all } = combineData(banksCombined, monthes, aligned, date);
 
-	console.log('===== Balances', data, all);
-
 	return (
 		<div class='balances card'>
 			<h3 class='p-small'>잔고</h3>
@@ -111,7 +109,10 @@ const Balances: FunctionalComponent<BalancesProps> = ({ date, banksCombined, mon
 				<AccordionTable
 					group={[ group.title === undefined ? '그룹 미분류' : group.title || '이름 없음', group.carry_over, group.carry_over + group.total ]}
 					items={group.items.map(bank => {
-						return [ bank.title === undefined ? '카테고리 미분류' : bank.title || '이름 없음', bank.carry_over, bank.carry_over + bank.total ]
+						return [
+							bank.title === undefined ? '카테고리 미분류' : bank.title || '이름 없음',
+							bank.carry_over,
+							bank.carry_over + bank.total ]
 					})}
 				>
 				</AccordionTable>

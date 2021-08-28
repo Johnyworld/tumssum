@@ -110,6 +110,8 @@ declare module 'types' {
     id: number;
     date: string;
     balance: number;
+    carry_over: number;
+    expenditure: number;
     user: number;
     bank: number;
     created_at: string;
