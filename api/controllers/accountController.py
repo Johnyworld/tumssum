@@ -105,17 +105,18 @@ def putAccount(reqData, headers):
   user_id = reqData.get('user_id')
   bank_id = reqData.get('bank_id')
   datetime = reqData.get('datetime')
-  month_id = None
+
+  new_month_id = None
 
   accountData = get_object_or_404(Account, pk=account_id)
 
   expenditureGap = account - accountData.account if account != None else 0 # (바뀐 후 Account.account - 바뀌기 전 Account.account)
 
   # 현재 이 Account에 Bank와 Month가 있다.
-    # Bank 를 바꾸는 경우 =>
-      # 기존 Bank 에는 바뀌기 전 Account.account 값을 빼준다.
-      # 새로운 Bank에 Month 를 연결하고 Month.expenditure 값에 바뀌는 Account.account 값을 더해준다.
-    # Bank 를 삭제하는 경우 => Month.expenditure 값에서 바뀌기 전 Account.account 값을 빼준다.
+    # [x] Bank 를 바꾸는 경우 =>
+      # [x] 기존 Bank 에는 바뀌기 전 Account.account 값을 빼준다.
+      # [x] 새로운 Bank에 Month 를 연결하고 Month.expenditure 값에 바뀌는 Account.account 값을 더해준다.
+    # [x] Bank 를 삭제하는 경우 => Month.expenditure 값에서 바뀌기 전 Account.account 값을 빼준다.
     # [x] account 를 변경 하든 안하든 Month.expenditure 값에 expenditureGap 를 더한다.
     # 달이 바뀌는 경우
 
@@ -123,23 +124,35 @@ def putAccount(reqData, headers):
     # [x] Bank 를 추가하는 경우 => Month 를 연결하고 expenditureGap 적용
     # [x] Bank 를 추가하지 않는 경우 => 아무일 없다.
 
-  if (accountData.month_id):
-    # 이미 Bank 와 연결 된 Month 데이터가 있다.
-    print('뱅크가 있다')
+  if (accountData.month_id): # 이미 Bank 와 연결 된 Month 데이터가 있다.
     month = Month.objects.get(id=accountData.month_id)
-    month.expenditure = month.expenditure + expenditureGap
+    print('------')
+    print(datetime[:7])
+    print(accountData.datetime[:7])
+    print(datetime[:7] != accountData.datetime[:7])
+    if (bank_id == None): # Bank 를 제거하는 경우
+      month.expenditure = month.expenditure - accountData.account # 기존 Month
+      accountData.month_id = None
+    elif (bank_id != accountData.bank_id): # Bank 를 변경하는 경우
+      month.expenditure = month.expenditure - accountData.account # 기존 Month
+      new_month_id = checkAndCreateBank(user_id, bank_id, datetime, account, headers) # 새로운 Month
+    elif (datetime[:7] != accountData.datetime[:7]):
+      print('달이 바귀었구나')
+      month.expenditure = month.expenditure - accountData.account # 기존 Month
+      new_month_id = checkAndCreateBank(user_id, bank_id, datetime, account, headers) # 새로운 Month
+    else: # 아무것도 하지 않거나 Account 만 변경하는 경우
+      month.expenditure = month.expenditure + expenditureGap
     month.save()
-  else:
-    # 이미 Bank 와 연결 된 Month 데이터가 없는 경우
-    if (bank_id):
-      # Bank ID 가 Request 에서 넘어왔다면, Bank와 연결 된 새로운 Month를 생성한다.
-      month_id = checkAndCreateBank(user_id, bank_id, datetime, expenditureGap, headers)
+
+  else: # 이미 Bank 와 연결 된 Month 데이터가 없는 경우
+    if (bank_id): # Bank ID 가 Request 에서 넘어왔다면, Bank와 연결 된 새로운 Month를 생성한다.
+      new_month_id = checkAndCreateBank(user_id, bank_id, datetime, account, headers)
 
   for k in reqData:
     setattr(accountData, k, reqData[k])
 
-  if month_id != None:
-    accountData.month_id = month_id
+  if new_month_id != None:
+    accountData.month_id = new_month_id
 
   accountData.save()
 
