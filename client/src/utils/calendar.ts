@@ -9,8 +9,11 @@ export interface DayItem {
 
 
 export const getMonthDate = (date: string, sum: number) => {
+	console.log('===== calendar 1', date);
 	const then = new Date(date);
+	console.log('===== calendar 2', then);
 	then.setMonth(then.getMonth() + sum);
+	console.log('===== calendar 3', then);
 	return getLocalString(then);
 }
 

@@ -14,6 +14,7 @@ export const monthSlice = createSlice({
 			state.date = getMonthDate(state.date, -1);
 		},
 		changeMonthNext: (state) => {
+			console.log('===== monthSlice', getMonthDate(state.date, +1));
 			state.date = getMonthDate(state.date, +1);
 		},
 		changeMonthToday: (state) => {

@@ -10,7 +10,7 @@ interface ErrorObj {
 }
 
 interface UseFetchParams<S> {
-	method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+	method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 	url: string;
 	params?: {},
 	onError?: (error: ErrorObj) => void;

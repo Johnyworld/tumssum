@@ -43,6 +43,17 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		}
 	});
 
+	const patchAccount = useFetch<Account>({
+		method: 'PATCH',
+		url: '/api/account/',
+		onSuccess: data => {
+			data.datetime = getLocalStringFromISOString(data.datetime);
+			dispatch(updateAccount({ id: data.id, data }));
+			toggleCreateModal.handleOff();
+			handleCloseDetail();
+		}
+	});
+
 	const deleteAccount = useFetch<number>({
 		method: 'DELETE',
 		url: '/api/account/',
@@ -110,7 +121,7 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 	}
 
 	const handleDropToUpdateDate = (date: string) => () => {
-		if (fetchUpdateAccount.loading || !grapping ) return;
+		if (patchAccount.loading || !grapping ) return;
 		const datetime = date + 'T' + grapping!.data.datetime.split('T')[1]
 		if (date === grapping.data.datetime.substr(0, 10)) {
 			handleDrop();
@@ -119,20 +130,20 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		const localtime = getLocalString(new Date(grapping.data.datetime)).split('T')[1];
 		const isoString = new Date(date + 'T' + localtime).toISOString();
 		updateAndDrop({ datetime } as Account);
-		fetchUpdateAccount.call({
+		patchAccount.call({
 			account_id: grapping.data.id,
 			datetime: isoString,
 		});
 	}
 
 	const handleDropToUpdateCategory = (categoryId: number | null, categoryTitle: string) => () => {
-		if (fetchUpdateAccount.loading || !grapping ) return;
+		if (patchAccount.loading || !grapping ) return;
 		if (categoryId === grapping.data.category) {
 			handleDrop();
 			return;
 		}
 		updateAndDrop({ category: categoryId, category_title: categoryTitle } as Account);
-		fetchUpdateAccount.call({
+		patchAccount.call({
 			account_id: grapping.data.id,
 			category_id: categoryId,
 		});

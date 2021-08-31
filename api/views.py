@@ -352,7 +352,7 @@ def accounts(request):
     return accountController.getAccounts(request)
 
 
-@api_view(['POST', 'PUT', 'DELETE'])
+@api_view(['POST', 'PUT', 'PATCH', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def account(request):
   reqData = json.loads(request.body)
@@ -361,6 +361,9 @@ def account(request):
 
   elif request.method == 'PUT':
     return accountController.putAccount(reqData, request.headers)
+
+  elif request.method == 'PATCH':
+    return accountController.patchAccount(reqData, request.headers)
 
   elif request.method == 'DELETE':
     return accountController.deleteAccount(reqData)
