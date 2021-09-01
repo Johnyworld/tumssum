@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .controllers import accountController
 
 urlpatterns = [
   path('login/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -27,6 +28,6 @@ urlpatterns = [
   path('budgets/', views.budgets, name='budgets'),
   path('budget/', views.budget, name='budget'),
 
-  path('accounts/', views.accounts, name='accounts'),
-  path('account/', views.account, name='account'),
+  path('accounts/', accountController.accounts, name='accounts'),
+  path('account/', accountController.account, name='account'),
 ]

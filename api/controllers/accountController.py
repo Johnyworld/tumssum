@@ -1,9 +1,13 @@
-import json
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
-import requests
 from api.utils.serializers import AccountSerializer
 from api.models import Account, Month
+from rest_framework.decorators import api_view
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
+import requests
+import json
+
 
 
 def checkAndCreateBank(user_id, bank_id, datetime, account, headers):
@@ -198,3 +202,29 @@ def deleteAccount(reqData):
   account.delete()
   res = { 'ok': True, 'data': account_id }
   return JsonResponse(res)
+
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def accounts(request):
+  if request.method == 'GET':
+    return getAccounts(request)
+
+
+@api_view(['POST', 'PUT', 'PATCH', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def account(request):
+  reqData = json.loads(request.body)
+  if request.method == 'POST':
+    return postAccount(reqData, request.headers)
+
+  elif request.method == 'PUT':
+    return putAccount(reqData, request.headers)
+
+  elif request.method == 'PATCH':
+    return patchAccount(reqData, request.headers)
+
+  elif request.method == 'DELETE':
+    return deleteAccount(reqData)

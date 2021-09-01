@@ -1,23 +1,21 @@
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.http import JsonResponse
-from django.http.response import HttpResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.decorators import permission_classes
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from .utils.serializers import UserSerializer, UserSerializerWithToken
-from .controllers import userController, categoryController, bankController, budgetController, accountController, monthController
+from .controllers import userController, categoryController, bankController, budgetController, monthController
 from api.utils.secret import get_secret
 from allauth.socialaccount.providers.google import views as google_view
 from allauth.socialaccount.providers.kakao import views as kakao_view
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from allauth.socialaccount.models import SocialAccount
-from allauth.account.adapter import DefaultAccountAdapter
 from dj_rest_auth.registration.views import SocialLoginView
 from django.conf import settings
 
@@ -343,27 +341,3 @@ def budget(request):
   elif request.method == 'DELETE':
     return budgetController.deleteBudget(reqData)
 
-
-###################### Accounts ######################
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def accounts(request):
-  if request.method == 'GET':
-    return accountController.getAccounts(request)
-
-
-@api_view(['POST', 'PUT', 'PATCH', 'DELETE'])
-@permission_classes([IsAuthenticated])
-def account(request):
-  reqData = json.loads(request.body)
-  if request.method == 'POST':
-    return accountController.postAccount(reqData, request.headers)
-
-  elif request.method == 'PUT':
-    return accountController.putAccount(reqData, request.headers)
-
-  elif request.method == 'PATCH':
-    return accountController.patchAccount(reqData, request.headers)
-
-  elif request.method == 'DELETE':
-    return accountController.deleteAccount(reqData)
