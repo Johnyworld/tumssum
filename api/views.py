@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from .utils.serializers import UserSerializer, UserSerializerWithToken
-from .controllers import userController, categoryController, bankController, budgetController, monthController
+from .controllers import userController, categoryController, bankController, budgetController
 from api.utils.secret import get_secret
 from allauth.socialaccount.providers.google import views as google_view
 from allauth.socialaccount.providers.kakao import views as kakao_view
@@ -306,20 +306,6 @@ def bankGroup(request):
   elif request.method == 'DELETE':
     return bankController.deleteBankGroup(reqData)
 
-
-###################### Month ######################
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def months(request):
-  return monthController.getMonth(request)
-  
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def month(request):
-  reqData = json.loads(request.body)
-  if request.method == 'POST':
-    return monthController.postMonth(reqData)
 
 
 ###################### Budget ######################

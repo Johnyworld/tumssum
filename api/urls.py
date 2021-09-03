@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-from .controllers import accountView
+from .controllers import accountView, monthView
 
 urlpatterns = [
   path('login/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -23,8 +23,8 @@ urlpatterns = [
   path('bank/', views.bank, name='bank'),
   path('bank-group/', views.bankGroup, name='bankGroup'),
 
-  path('months/', views.months, name='months'),
-  path('month/', views.month, name='month'),
+  path('months/', monthView.months, name='months'),
+  path('month/', monthView.month, name='month'),
 
   path('budgets/', views.budgets, name='budgets'),
   path('budget/', views.budget, name='budget'),
