@@ -11,33 +11,56 @@ def patchAccount(request):
   headers = request.headers
 
   account_id = reqData.get('account_id')
+  account = reqData.get('account')
   user_id = reqData.get('user_id')
+  bank_id = reqData.get('bank_id')
   datetime = reqData.get('datetime')
 
   accountData = get_object_or_404(Account, pk=account_id)
 
   new_month_id = None
 
-  if (accountData.month_id):
-    if (datetime):
+  if (accountData.month_id == None):
+    if (bank_id):
+      new_month_id = checkAndCreateBank(user_id, bank_id, accountData.datetime, accountData.account, headers)
+
+  else:
+    month = Month.objects.get(id=accountData.month_id)
+
+    if (bank_id == 0):
+      month.expenditure = month.expenditure - accountData.account
+      accountData.month_id = None
+
+    elif (bank_id):
+      month.expenditure = month.expenditure - accountData.account
+      new_month_id = checkAndCreateBank(user_id, bank_id, accountData.datetime, accountData.account, headers)
+
+    elif (datetime):
       if (datetime[:7] != accountData.datetime[:7]):
-        month = Month.objects.get(id=accountData.month_id)
-        month.expenditure = month.expenditure - accountData.account # 기존 Month
+        month.expenditure = month.expenditure - accountData.account 
         new_month_id = checkAndCreateBank(
           user_id,
           accountData.bank_id,
           datetime,
           accountData.account,
           headers
-        ) # 새로운 Month
-        month.save()
+        )
+
+    elif (account):
+      expenditureGap = account - accountData.account
+      month.expenditure = month.expenditure + expenditureGap
+
+    month.save()
 
   if new_month_id != None:
     accountData.month_id = new_month_id
 
   for k in reqData:
     setattr(accountData, k, reqData[k])
-    
+
+  if bank_id == 0:
+    accountData.bank_id = None 
+
   accountData.save()
 
   res = { 'ok': True, 'data': AccountSerializer(accountData, many=False).data }

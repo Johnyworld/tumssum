@@ -27,7 +27,7 @@ const AccountList: FunctionalComponent<AccountListProps> = ({ list, categoriesCo
 
 	const handleChangeDropdown: (id: number, key: string) => h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((id, key) => (e) => {
 		if (key === 'category') onChange({ id, category: +e.currentTarget.value || null } as Account);
-		else if (key === 'bank') onChange({ id, bank: +e.currentTarget.value || null } as Account);
+		else if (key === 'bank') onChange({ id, bank: +e.currentTarget.value || 0 } as Account);
 	}, []);
 
 	return (

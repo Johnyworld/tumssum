@@ -114,6 +114,19 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		})
 	}
 
+	const handlePatchAccount = (accountData: Account) => {
+		if (patchAccount.loading) return;
+		const { id, title, account, datetime, category, bank, memo } = accountData;
+		const data: any = { account_id: id }
+		if (title) data.title = title;
+		if (account) data.account = account;
+		if (datetime) data.datetime = datetime;
+		if (memo) data.memo = memo;
+		if (bank !== undefined) data.bank_id = accountData.bank;
+		if (category) data.category_id = accountData.category;
+		patchAccount.call(data);
+	}
+
 	const updateAndDrop = (data: Account) => {
 		if (!grapping) return;
 		dispatch(updateAccount({ id: grapping.data.id, data }));
@@ -165,6 +178,7 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		handleCreateAccount,
 		handleDeleteAccount,
 		handleUpdateAccount,
+		handlePatchAccount,
 		handleDropToUpdateDate,
 		handleDropToUpdateCategory,
 	};

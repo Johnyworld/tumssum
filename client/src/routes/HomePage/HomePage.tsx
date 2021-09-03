@@ -39,8 +39,6 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const dispatch = useDispatch();
 
-	console.log('===== HomePage', currentDate);
-
 	const accountsThisMonth = useMemo(() => accounts.filter(account => account.datetime.substr(0, 7) === currentDate.substr(0, 7)), [accounts, currentDate]);
 
 	const [view, setView] = useState(localStorage.getItem('home_view') || 'calendar');
@@ -61,7 +59,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const { 
 		initialValuesForCreate, detailView, handleViewDetail, handleCloseDetail,
 		isOpenCreateModal, handleOpenCreateModal, handleOpenCreateModalWithDate, handleOpenCreateModalWithCategory, handleCloseCreateModal,
-		handleCreateAccount, handleUpdateAccount, handleDeleteAccount, handleDropToUpdateDate, handleDropToUpdateCategory
+		handleCreateAccount, handleUpdateAccount, handlePatchAccount, handleDeleteAccount, handleDropToUpdateDate, handleDropToUpdateCategory
 	} = useAccount({
 		grapping,
 		handleDrop,
@@ -135,7 +133,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 						list={accountsThisMonth}
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
-						onChange={handleUpdateAccount}
+						onChange={handlePatchAccount}
 					/>
 				}
 			</section>
