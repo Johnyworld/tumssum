@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from '~utils/redux/hooks';
 
 const UserLoggedInPage: FunctionalComponent = () => {
 
-	const date = useSelector(state => state.month.date);
+	const currentDate = useSelector(state => state.date.currentDate);
   const dispatch = useDispatch();
 	const [location] = useLocation();
 	const path = location.split('/')[1] || 'home';
@@ -84,7 +84,7 @@ const UserLoggedInPage: FunctionalComponent = () => {
 		method: 'GET',
 		url: `/api/months/`,
 		params: {
-			date: date.substr(0, 7),
+			date: currentDate.substr(0, 7),
 		},
 		onSuccess: data => {
       dispatch(setBankMonthes(data));

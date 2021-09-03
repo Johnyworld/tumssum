@@ -9,7 +9,7 @@ import Indicator from '~components/layouts/Indicator';
 import Modal from '~components/layouts/Modal';
 import AccountFormModal from '~components/organisms/AccountFormModal';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
-import { changeMonthNext, changeMonthPrev, changeMonthToday } from '~features/month/monthSlice';
+import { changeMonthNext, changeMonthPrev, changeMonthToday } from '~stores/dateSlice';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { IconType } from 'types';
 import useAccount from '~hooks/useAccount';
@@ -31,7 +31,7 @@ const MENUS = [
 
 const HomePage: FunctionalComponent = ({  }) => {
 
-	const date = useSelector(state=> state.month.date);
+	const currentDate = useSelector(state=> state.date.currentDate);
 	const accounts = useSelector(state=> state.account.accounts);
 	const { categories, categoryGroups } = useSelector(state=> state.category);
 	const { banks, bankGroups } = useSelector(state=> state.bank);
@@ -39,7 +39,9 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const dispatch = useDispatch();
 
-	const accountsThisMonth = useMemo(() => accounts.filter(account => account.datetime.substr(0, 7) === date.substr(0, 7)), [accounts, date]);
+	console.log('===== HomePage', currentDate);
+
+	const accountsThisMonth = useMemo(() => accounts.filter(account => account.datetime.substr(0, 7) === currentDate.substr(0, 7)), [accounts, currentDate]);
 
 	const [view, setView] = useState(localStorage.getItem('home_view') || 'calendar');
 	const handleChangeView = (newView: string) => {
@@ -80,7 +82,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 			<section class='home-page__content'>
 				<Header>
 					<MonthSelector
-						date={date}
+						date={currentDate}
 						onPrev={() => dispatch(changeMonthPrev())}
 						onNext={() => dispatch(changeMonthNext())}
 					/>
@@ -101,7 +103,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 				{ view === 'calendar' &&
 					<Calendar
-						date={date}
+						date={currentDate}
 						data={accounts}
 						grapping={grapping}
 						grappingPos={grappingPos}
@@ -140,7 +142,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 			
 			<Statistics
-				date={date}
+				date={currentDate}
 				accounts={accountsThisMonth}
 				categoriesCombined={categoriesCombined}
 				banksCombined={banksCombined}
