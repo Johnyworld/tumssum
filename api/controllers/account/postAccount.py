@@ -1,5 +1,5 @@
 from api.models import Account, Month
-from api.utils.serializers import AccountSerializer
+from api.utils.serializers import AccountSerializer, MonthSerializer
 from django.http.response import JsonResponse
 import requests
 import json
@@ -18,29 +18,28 @@ def postAccount(request):
   location = reqData.get('location') # Not Required
   category_id = reqData.get('category_id') # Not Required
   bank_id = reqData.get('bank_id') # Not Required
-  month_id = None
-
-  # TODO Month _id 는 parameter 로 받지 말고 Month 에서 date (from datetime) 로 검색해서 찾아내자
+  month = None
+  months = None
 
   if (bank_id != None):
+    yyyymm = datetime[:7]
     try:
-      month = Month.objects.get(bank_id=bank_id, date=datetime[:7])
+      month = Month.objects.get(bank_id=bank_id, date=yyyymm)
       month.expenditure = month.expenditure + account;
       month.save()
-      month_id = month.id
     except:
       data = {
         'user_id': user_id,
         'bank_id': bank_id,
-        'date': datetime[:7],
+        'date': yyyymm,
         'expenditure': account,
       }
-      res = requests.post("http://127.0.0.1:8000/api/month/", json=data, headers=headers)
-      new_month_id = json.loads(res.text).get('data').get('id')
-      month_id = new_month_id
-      # else:
-      #   res = { 'ok': True, 'message': '뱅크 연결에 실패했습니다.' }
-      #   return JsonResponse(res)
+      requests.post("http://127.0.0.1:8000/api/month/", json=data, headers=headers)
+      month = Month.objects.get(bank_id=bank_id, date=yyyymm)
+
+    data = { 'user_id': user_id, 'bank_id': bank_id, 'date': yyyymm }
+    res = requests.get("http://127.0.0.1:8000/api/months/", params=data, headers=headers)
+    months = json.loads(res.text).get('data')
 
 
   newAccount = Account(
@@ -52,12 +51,17 @@ def postAccount(request):
     location = location if location != None else '',
     category_id = category_id,
     bank_id = bank_id,
-    month_id = month_id,
+    month_id = month.id if month != None else None,
   )
 
   newAccount.save()
 
+
+  data = {
+    'account': AccountSerializer(newAccount, many=False).data,
+    'months': months if months != None else None,
+  }
   
 
-  res = { 'ok': True, 'data': AccountSerializer(newAccount, many=False).data }
+  res = { 'ok': True, 'data': data }
   return JsonResponse(res)

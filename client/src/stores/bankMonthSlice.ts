@@ -13,12 +13,20 @@ export const bankMonth = createSlice({
       state.monthes = payload;
     },
     updateOrAddMonths: (state, { payload }: PayloadAction<Month[]>) => {
-      // const exists = state.monthes.find(month => month.id === payload.id);
-      // if (exists) {
-      //   state.monthes = state.monthes.map(month => month.id === payload.id ? payload : month);
-      // } else {
-      //   state.monthes = [ ...state.monthes, payload ];
-      // }
+      const news: Month[] = [];
+      for (const month of payload) {
+        let isMatch = false;
+        state.monthes = state.monthes.map(m => {
+          if (m.id === month.id) {
+            isMatch = true;
+            return month;
+          } else {
+            return m;
+          }
+        });
+        if (!isMatch) news.push(month);
+      }
+      state.monthes = [...state.monthes, ...news];
     },
   }
 })
