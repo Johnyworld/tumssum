@@ -12,9 +12,17 @@ export const bankMonth = createSlice({
     setBankMonthes: (state, { payload }: PayloadAction<Month[]>) => {
       state.monthes = payload;
     },
+    updateOrAddMonths: (state, { payload }: PayloadAction<Month[]>) => {
+      // const exists = state.monthes.find(month => month.id === payload.id);
+      // if (exists) {
+      //   state.monthes = state.monthes.map(month => month.id === payload.id ? payload : month);
+      // } else {
+      //   state.monthes = [ ...state.monthes, payload ];
+      // }
+    },
   }
 })
 
-export const { setBankMonthes } = bankMonth.actions;
+export const { setBankMonthes, updateOrAddMonths } = bankMonth.actions;
 
 export default bankMonth.reducer;

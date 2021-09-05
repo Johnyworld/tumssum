@@ -1,6 +1,7 @@
 import { useState } from "preact/hooks";
-import { Account } from "types";
+import { Account, Month } from "types";
 import { addAccount, removeAccount, updateAccount } from '~features/account/accountSlice';
+import { updateOrAddMonths } from "~stores/bankMonthSlice";
 import { getLocalString, getLocalStringFromISOString } from '~utils/calendar';
 import { useDispatch } from '~utils/redux/hooks';
 import useDetails from "./useDetails";
@@ -23,11 +24,14 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 
 	const { detailView, handleCloseDetail, handleViewDetail } = useDetails<Account>();
 	
-	const createNewAccount = useFetch<Account>({
+	const postAccount = useFetch<{ account: Account, months?: Month[] }>({
 		method: 'POST',
 		url: '/api/account/',
 		onSuccess: data => {
-			dispatch(addAccount(data));
+			dispatch(addAccount(data.account));
+			if (data.months) {
+				dispatch(updateOrAddMonths(data.months));
+			}
 			toggleCreateModal.handleOff();
 		}
 	});
@@ -79,9 +83,9 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 	}
 
 	const handleCreateAccount = (accountData: Account) => {
-		if (createNewAccount.loading) return;
+		if (postAccount.loading) return;
 		const { id, title, account, datetime, category, bank, memo } = accountData;
-		createNewAccount.call({
+		postAccount.call({
 			account_id: id,
 			title,
 			account,
