@@ -26,14 +26,13 @@ interface StatisticsItem extends Bank {
 	carry_over: number;
 }
 
-const findMonthRecursive: (monthes: Month[], Y: number, M: number, count: number) => null | Month = (monthes, Y, M, count) => {
+const findMonthRecursive: (monthes: Month[], Y: number, M: number) => null | Month = (monthes, Y, M) => {
 	const dateString = Y + '-' + (M < 10 ? '0'+M : M);
 	const month = monthes.find(month => month.date === dateString);
 	if (month) return month;
-	else if (count <= 0) return null;
 	else {
-		if (M === 1) return findMonthRecursive(monthes, Y-1, 12, count-1);
-		else return findMonthRecursive(monthes, Y, M-1, count-1);
+		if (M === 1) return findMonthRecursive(monthes, Y-1, 12);
+		else return findMonthRecursive(monthes, Y, M-1);
 	}
 }
 
@@ -42,7 +41,7 @@ const findMonth = (months: Month[], date: string) => {
 	const split = date.split('-');
 	const Y = +split[0];
 	const M = +split[1];
-	return findMonthRecursive(months, Y, M, months.length);
+	return findMonthRecursive(months, Y, M);
 }
 
 const combineData = (banksGroup: BankGroup[], monthes: Month[], aligned: StatisticsItems, date: string) => {
