@@ -45,6 +45,10 @@
 			background-color: var(--color-primary);
 		}
 	}
+
+	&--hidden {
+		visibility: hidden;
+	}
 }
 
 .date-picker__today-button {
