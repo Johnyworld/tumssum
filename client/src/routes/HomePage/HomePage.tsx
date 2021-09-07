@@ -156,6 +156,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 				onClose={handleCloseCreateModal}
 				children={
 					<AccountFormModal
+						currentDate={currentDate}
 						initialValues={initialValuesForCreate}
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
@@ -169,6 +170,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 				onClose={handleCloseDetail}
 				children={
 					<AccountFormModal
+						currentDate={currentDate}
 						initialValues={detailView!}
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}

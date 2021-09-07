@@ -11,9 +11,9 @@ import LabeledContentEditable from '~components/molecules/LabeledContentEditable
 import Modal from '~components/layouts/Modal';
 import useContentEditable from '~hooks/useContentEditable';
 import useInput from '~hooks/useInput';
-import { getLocalString } from '~utils/calendar';
 
 export interface AccountFormModalProps {
+	currentDate: string;
 	initialValues?: Account | null;
 	categoriesCombined: CategoryGroup[];
 	banksCombined: BankGroup[];
@@ -21,14 +21,14 @@ export interface AccountFormModalProps {
 	onDelete?: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
 }
 
-const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ initialValues, categoriesCombined, banksCombined, onConfirm, onDelete }) => {
+const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentDate, initialValues, categoriesCombined, banksCombined, onConfirm, onDelete }) => {
 
 	const { t } = useTranslation();
 	
 	const [ title, changeTitle ] = useContentEditable(initialValues?.title || '');
 	const [amount, ___, setAmmount] = useInput(initialValues?.account ? Math.abs(initialValues.account)+'' : '');
 	const [isIncome, setIsIncome] = useState(initialValues?.account ? !(initialValues.account < 0) : false);
-	const [date, _, setDate] = useInput(initialValues?.datetime || getLocalString());
+	const [date, _, setDate] = useInput(initialValues?.datetime || currentDate);
 	const [time, __, setTime] = useInput(initialValues?.datetime?.split('T')[1]?.substr(0,5) || '');
 	const [ memo, changeMemo ] = useContentEditable(initialValues?.memo || '');
 	const [ category, setCategory ] = useState<number|string>(initialValues?.category || '');
