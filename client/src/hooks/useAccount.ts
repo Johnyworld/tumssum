@@ -60,11 +60,12 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		}
 	});
 
-	const deleteAccount = useFetch<number>({
+	const deleteAccount = useFetch<{ account: number, months?: Month[] }>({
 		method: 'DELETE',
 		url: '/api/account/',
 		onSuccess: data => {
-			dispatch(removeAccount(data));
+			dispatch(removeAccount(data.account));
+			if (data.months) dispatch(updateOrAddMonths(data.months));
 			handleCloseDetail();
 		}
 	});

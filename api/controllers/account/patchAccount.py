@@ -80,7 +80,7 @@ def patchAccount(request):
 
   data = {
     'account': AccountSerializer(accountData, many=False).data,
-    'months': months if months != None else None,
+    'months': months,
   }
 
   res = { 'ok': True, 'data': data }

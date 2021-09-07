@@ -58,7 +58,7 @@ def postAccount(request):
 
   data = {
     'account': AccountSerializer(newAccount, many=False).data,
-    'months': months if months != None else None,
+    'months': months,
   }
   
 
