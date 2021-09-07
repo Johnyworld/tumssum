@@ -1,4 +1,9 @@
 
+import json
+
+import requests
+
+
 def getMonthsData(months):
   data = sorted(months, key=lambda month: (month['bank'], month['date']))
   totals = {}
@@ -18,3 +23,12 @@ def getMonthsData(months):
 
   return data
 	
+
+def getNewMonths(user_id, bank_id, yyyymm, headers):
+  data = {
+    'user_id': user_id,
+    'bank_id': bank_id,
+    'date': yyyymm
+  }
+  res = requests.get("http://127.0.0.1:8000/api/months/", params=data, headers=headers)
+  return json.loads(res.text).get('data')

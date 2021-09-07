@@ -1,3 +1,4 @@
+from api.controllers.month.utils import getNewMonths
 from api.models import Account, Month
 from api.utils.serializers import AccountSerializer
 from django.http.response import JsonResponse
@@ -57,15 +58,14 @@ def putAccount(request):
 
   # ==== MONTH LINK END ====
 
+  # Bank 관련 변경되는 경우에는 새로운 Months 데이터를 다시 전달 합니다.
   if bank_id or accountData.bank_id:
-    data = {
-      'user_id': user_id,
-      'bank_id': bank_id if bank_id != None else accountData.bank_id,
-      'date': datetime[:7]
-    }
-    res = requests.get("http://127.0.0.1:8000/api/months/", params=data, headers=headers)
-    months = json.loads(res.text).get('data')
-
+    months = getNewMonths(
+      user_id, 
+      bank_id if bank_id != None else accountData.bank_id,
+      datetime[:7],
+      headers,
+    )
 
   for k in reqData:
     setattr(accountData, k, reqData[k])

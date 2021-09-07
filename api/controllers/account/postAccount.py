@@ -1,3 +1,4 @@
+from api.controllers.month.utils import getNewMonths
 from api.models import Account, Month
 from api.utils.serializers import AccountSerializer, MonthSerializer
 from django.http.response import JsonResponse
@@ -37,9 +38,7 @@ def postAccount(request):
       requests.post("http://127.0.0.1:8000/api/month/", json=data, headers=headers)
       month = Month.objects.get(bank_id=bank_id, date=yyyymm)
 
-    data = { 'user_id': user_id, 'bank_id': bank_id, 'date': yyyymm }
-    res = requests.get("http://127.0.0.1:8000/api/months/", params=data, headers=headers)
-    months = json.loads(res.text).get('data')
+    months = getNewMonths( user_id, bank_id, yyyymm, headers )
 
 
   newAccount = Account(
