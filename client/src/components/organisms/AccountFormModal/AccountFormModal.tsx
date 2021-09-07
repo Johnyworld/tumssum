@@ -11,6 +11,7 @@ import LabeledContentEditable from '~components/molecules/LabeledContentEditable
 import Modal from '~components/layouts/Modal';
 import useContentEditable from '~hooks/useContentEditable';
 import useInput from '~hooks/useInput';
+import { getLocalString } from '~utils/calendar';
 
 export interface AccountFormModalProps {
 	currentDate: string;
@@ -24,11 +25,12 @@ export interface AccountFormModalProps {
 const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentDate, initialValues, categoriesCombined, banksCombined, onConfirm, onDelete }) => {
 
 	const { t } = useTranslation();
-	
+	const today = getLocalString();
+
 	const [ title, changeTitle ] = useContentEditable(initialValues?.title || '');
 	const [amount, ___, setAmmount] = useInput(initialValues?.account ? Math.abs(initialValues.account)+'' : '');
 	const [isIncome, setIsIncome] = useState(initialValues?.account ? !(initialValues.account < 0) : false);
-	const [date, _, setDate] = useInput(initialValues?.datetime || currentDate);
+	const [date, _, setDate] = useInput(initialValues?.datetime || (today.substr(0, 7) === currentDate ? today : currentDate + '-01'));
 	const [time, __, setTime] = useInput(initialValues?.datetime?.split('T')[1]?.substr(0,5) || '');
 	const [ memo, changeMemo ] = useContentEditable(initialValues?.memo || '');
 	const [ category, setCategory ] = useState<number|string>(initialValues?.category || '');
@@ -43,10 +45,9 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 		setBank(e.currentTarget.value);
 	}, [category])
 
-
-	const handleChangeIsIncome = (value: boolean) => {
+	const handleChangeIsIncome = useCallback((value: boolean) => {
 		setIsIncome(!value);
-	}
+	}, [isIncome]);
 	
 
 	const handleSubmit: h.JSX.GenericEventHandler<HTMLFormElement> = (e) => {
