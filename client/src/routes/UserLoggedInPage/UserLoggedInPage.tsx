@@ -18,7 +18,7 @@ import { useLocation } from 'wouter';
 import Aside from '~components/organisms/Aside';
 import NotFoundPage from '../NotFoundPage';
 import { getClassNames } from '~utils/classNames';
-import { setBankMonthes } from '~stores/bankMonthSlice';
+import { setMonths } from '~stores/monthSlice';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 
 const UserLoggedInPage: FunctionalComponent = () => {
@@ -87,7 +87,7 @@ const UserLoggedInPage: FunctionalComponent = () => {
 			date: currentDate.substr(0, 7),
 		},
 		onSuccess: data => {
-      dispatch(setBankMonthes(data));
+      dispatch(setMonths(data));
 		}
   })
 

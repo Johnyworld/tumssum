@@ -5,7 +5,7 @@ import dateReducer from '~stores/dateSlice';
 import accountReducer from '~features/account/accountSlice';
 import categoryReducer from '~features/category/categorySlice';
 import bankReducer from '~features/bank/bankSlice';
-import bankMonthReducer from '~stores/bankMonthSlice';
+import monthReducer from '~stores/monthSlice';
 
 export const store = configureStore({
   reducer: {
@@ -15,7 +15,7 @@ export const store = configureStore({
     account: accountReducer,
     category: categoryReducer,
     bank: bankReducer,
-    bankMonth: bankMonthReducer,
+    month: monthReducer,
   },
 })
 

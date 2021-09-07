@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks";
 import { Account, Month } from "types";
 import { addAccount, removeAccount, updateAccount } from '~features/account/accountSlice';
-import { updateOrAddMonths } from "~stores/bankMonthSlice";
+import { updateOrAddMonths } from "~stores/monthSlice";
 import { getLocalString, getLocalStringFromISOString } from '~utils/calendar';
 import { useDispatch } from '~utils/redux/hooks';
 import useDetails from "./useDetails";

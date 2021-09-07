@@ -35,7 +35,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const accounts = useSelector(state=> state.account.accounts);
 	const { categories, categoryGroups } = useSelector(state=> state.category);
 	const { banks, bankGroups } = useSelector(state=> state.bank);
-	const { monthes } = useSelector(state=> state.bankMonth);
+	const { monthes } = useSelector(state=> state.month);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const dispatch = useDispatch();
 

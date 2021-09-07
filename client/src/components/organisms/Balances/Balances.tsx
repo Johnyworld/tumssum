@@ -62,11 +62,11 @@ const combineData = (banksGroup: BankGroup[], monthes: Month[], aligned: Statist
 		const groupItems = group.id ? group.items : [...group.items, { id: 0 }];
 
 		const items = groupItems.map(bank => {
-			const bankMonth = findMonth(monthes.filter(month=> month.bank === bank.id), date);
+			const month = findMonth(monthes.filter(month=> month.bank === bank.id), date);
 			const itemIncome = aligned[bank.id]?.income || 0;
 			const itemExpenditure = aligned[bank.id]?.expenditure || 0;
 			const itemTotal = aligned[bank.id]?.total || 0;
-			const itemCarryOver = bankMonth ? bankMonth.date === date.substr(0, 7) ? bankMonth.carry_over : bankMonth.balance : 0;
+			const itemCarryOver = month ? month.date === date.substr(0, 7) ? month.carry_over : month.balance : 0;
 			income += itemIncome;
 			all.income += itemIncome;
 			expenditure += itemExpenditure;

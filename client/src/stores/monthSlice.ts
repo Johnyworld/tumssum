@@ -5,11 +5,11 @@ const initialState = {
   monthes: [] as Month[],
 }
 
-export const bankMonth = createSlice({
+export const monthSlice = createSlice({
   name: 'mode',
   initialState,
   reducers: {
-    setBankMonthes: (state, { payload }: PayloadAction<Month[]>) => {
+    setMonths: (state, { payload }: PayloadAction<Month[]>) => {
       state.monthes = payload;
     },
     updateOrAddMonths: (state, { payload }: PayloadAction<Month[]>) => {
@@ -31,6 +31,6 @@ export const bankMonth = createSlice({
   }
 })
 
-export const { setBankMonthes, updateOrAddMonths } = bankMonth.actions;
+export const { setMonths, updateOrAddMonths } = monthSlice.actions;
 
-export default bankMonth.reducer;
+export default monthSlice.reducer;
