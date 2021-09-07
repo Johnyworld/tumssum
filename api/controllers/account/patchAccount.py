@@ -1,3 +1,4 @@
+from api.controllers.month.utils import getNewMonths
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
 from api.utils.serializers import AccountSerializer
@@ -19,6 +20,7 @@ def patchAccount(request):
   accountData = get_object_or_404(Account, pk=account_id)
 
   new_month_id = None
+  months = None
 
   if (accountData.month_id == None):
     if (bank_id):
@@ -52,6 +54,18 @@ def patchAccount(request):
 
     month.save()
 
+
+
+  # Bank 관련 변경되는 경우에는 새로운 Months 데이터를 다시 전달 합니다.
+  if bank_id or accountData.bank_id:
+    months = getNewMonths(
+      user_id, 
+      bank_id if bank_id != None else accountData.bank_id,
+      datetime[:7] if datetime != None else accountData.datetime,
+      headers,
+    )
+
+
   if new_month_id != None:
     accountData.month_id = new_month_id
 
@@ -63,6 +77,12 @@ def patchAccount(request):
 
   accountData.save()
 
-  res = { 'ok': True, 'data': AccountSerializer(accountData, many=False).data }
+
+  data = {
+    'account': AccountSerializer(accountData, many=False).data,
+    'months': months if months != None else None,
+  }
+
+  res = { 'ok': True, 'data': data }
   return JsonResponse(res)
 	

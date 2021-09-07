@@ -58,6 +58,7 @@ def putAccount(request):
 
   # ==== MONTH LINK END ====
 
+
   # Bank 관련 변경되는 경우에는 새로운 Months 데이터를 다시 전달 합니다.
   if bank_id or accountData.bank_id:
     months = getNewMonths(
@@ -67,10 +68,12 @@ def putAccount(request):
       headers,
     )
 
+
   for k in reqData:
     setattr(accountData, k, reqData[k])
 
   accountData.save()
+
 
   data = {
     'account': AccountSerializer(accountData, many=False).data,

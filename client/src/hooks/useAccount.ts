@@ -47,12 +47,14 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		}
 	});
 
-	const patchAccount = useFetch<Account>({
+	const patchAccount = useFetch<{ account: Account, months?: Month[] }>({
 		method: 'PATCH',
 		url: '/api/account/',
 		onSuccess: data => {
-			data.datetime = getLocalStringFromISOString(data.datetime);
-			dispatch(updateAccount({ id: data.id, data }));
+			const account = data.account;
+			account.datetime = getLocalStringFromISOString(account.datetime);
+			dispatch(updateAccount({ id: account.id, data: account }));
+			if (data.months) dispatch(updateOrAddMonths(data.months));
 			toggleCreateModal.handleOff();
 			handleCloseDetail();
 		}
