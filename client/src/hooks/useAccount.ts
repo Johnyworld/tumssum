@@ -29,19 +29,19 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		url: '/api/account/',
 		onSuccess: data => {
 			dispatch(addAccount(data.account));
-			if (data.months) {
-				dispatch(updateOrAddMonths(data.months));
-			}
+			if (data.months) dispatch(updateOrAddMonths(data.months));
 			toggleCreateModal.handleOff();
 		}
 	});
 
-	const fetchUpdateAccount = useFetch<Account>({
+	const putAccount = useFetch<{ account: Account, months?: Month[] }>({
 		method: 'PUT',
 		url: '/api/account/',
 		onSuccess: data => {
-			data.datetime = getLocalStringFromISOString(data.datetime);
-			dispatch(updateAccount({ id: data.id, data }));
+			const account = data.account;
+			account.datetime = getLocalStringFromISOString(account.datetime);
+			dispatch(updateAccount({ id: account.id, data: account }));
+			if (data.months) dispatch(updateOrAddMonths(data.months));
 			toggleCreateModal.handleOff();
 			handleCloseDetail();
 		}
@@ -104,10 +104,10 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 	}
 
 	const handleUpdateAccount = (accountData: Account) => {
-		if (fetchUpdateAccount.loading) return;
+		if (putAccount.loading) return;
 		const { id, title, account, datetime, category, bank, memo } = accountData;
 		if (!id) return;
-		fetchUpdateAccount.call({
+		putAccount.call({
 			account_id: id,
 			title,
 			account,

@@ -4,6 +4,7 @@ from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
 from .utils import checkAndCreateBank
 import json
+import requests
 
 def putAccount(request):
   
@@ -17,9 +18,9 @@ def putAccount(request):
   datetime = reqData.get('datetime')
 
   new_month_id = None
+  months = None
 
   accountData = get_object_or_404(Account, pk=account_id)
-
 
 
   # ==== MONTH LINK START ====
@@ -51,11 +52,19 @@ def putAccount(request):
 
     month.save()
 
-
   if new_month_id != None:
     accountData.month_id = new_month_id
 
   # ==== MONTH LINK END ====
+
+  if bank_id or accountData.bank_id:
+    data = {
+      'user_id': user_id,
+      'bank_id': bank_id if bank_id != None else accountData.bank_id,
+      'date': datetime[:7]
+    }
+    res = requests.get("http://127.0.0.1:8000/api/months/", params=data, headers=headers)
+    months = json.loads(res.text).get('data')
 
 
   for k in reqData:
@@ -63,5 +72,10 @@ def putAccount(request):
 
   accountData.save()
 
-  res = { 'ok': True, 'data': AccountSerializer(accountData, many=False).data }
+  data = {
+    'account': AccountSerializer(accountData, many=False).data,
+    'months': months if months != None else None,
+  }
+
+  res = { 'ok': True, 'data': data }
   return JsonResponse(res)
