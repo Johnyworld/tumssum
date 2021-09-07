@@ -1,4 +1,5 @@
 import { h, FunctionalComponent } from 'preact';
+import { useEffect } from 'preact/hooks';
 import { DefaultProps } from 'types';
 import Icon from '~components/atoms/Icon';
 import IconText from '~components/molecules/IconText';
@@ -31,6 +32,20 @@ interface ModalFooterProps extends DefaultProps {
 }
 
 const Modal: FunctionalComponent<ModalProps> = ({ children, isOpen, onClose }) => {
+
+	useEffect(() => {
+		const keyEvent = (ev: KeyboardEvent) => ev.key === 'Escape' && onClose();
+		if (isOpen) {
+			window.addEventListener('keydown', keyEvent);
+			return () => window.removeEventListener('keydown', keyEvent);
+		}
+	}, [isOpen]);
+
+	useEffect(() => {
+    if (isOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'auto';
+  }, [isOpen]);
+
 	return (
 		!isOpen ? null :
 		<Portal>
