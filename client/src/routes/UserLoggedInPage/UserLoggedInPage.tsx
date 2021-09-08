@@ -8,10 +8,10 @@ import SettingsPage from '~routes/SettingsPage';
 
 import useFetch from '~hooks/useFetch';
 import { Account, Bank, BankGroup, Category, CategoryGroup, Month } from 'types';
-import { setCategories, setCategoryGroups } from '~features/category/categorySlice';
-import { setAccounts } from '~features/account/accountSlice';
+import { setCategories, setCategoryGroups } from '~stores/categorySlice';
+import { setAccounts } from '~stores/accountSlice';
 import { getLocalStringFromISOString } from '~utils/calendar';
-import { setBankGroups, setBanks } from '~features/bank/bankSlice';
+import { setBankGroups, setBanks } from '~stores/bankSlice';
 import { useMemo, useState } from 'preact/hooks';
 import { AsideMenuItem } from '~components/molecules/AsideMenu/AsideMenu';
 import { useLocation } from 'wouter';

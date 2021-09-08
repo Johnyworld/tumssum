@@ -5,7 +5,7 @@ const initialState = {
   accounts: [] as Account[],
 }
 
-export const modeSlice = createSlice({
+export const accountSlice = createSlice({
   name: 'mode',
   initialState,
   reducers: {
@@ -27,6 +27,6 @@ export const modeSlice = createSlice({
   }
 })
 
-export const { setAccounts, addAccount, updateAccount, removeAccount } = modeSlice.actions
+export const { setAccounts, addAccount, updateAccount, removeAccount } = accountSlice.actions
 
-export default modeSlice.reducer;
+export default accountSlice.reducer;

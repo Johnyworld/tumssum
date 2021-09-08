@@ -1,11 +1,11 @@
 import { h, FunctionalComponent } from 'preact';
-import axios from 'axios';
-import { setUser } from '~features/user/userSlice';
-import { useDispatch } from '~utils/redux/hooks';
-import Button from '~components/atoms/Button';
 import { route } from 'preact-router';
 import { useTranslation } from 'preact-i18next';
-import { changeFullLoading } from '~features/mode/modeSlice';
+import axios from 'axios';
+import { useDispatch } from '~utils/redux/hooks';
+import { setUser } from '~stores/userSlice';
+import Button from '~components/atoms/Button';
+import { changeFullLoading } from '~stores/modeSlice';
 
 
 const KAKAO_JS_KEY = process.env.KAKAO_JS_KEY;

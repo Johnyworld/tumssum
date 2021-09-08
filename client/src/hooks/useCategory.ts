@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 import { Category, CategoryGroup } from 'types';
-import { addCategories, addCategory, addCategoryGroup, removeCategory, removeCategoryGroup, updateCategory, updateCategoryGroup } from '~features/category/categorySlice';
+import { addCategories, addCategory, addCategoryGroup, removeCategory, removeCategoryGroup, updateCategory, updateCategoryGroup } from '~stores/categorySlice';
 import { useDispatch } from '~utils/redux/hooks';
 import { GrappingData } from './useDrag';
 import useFetch from './useFetch';

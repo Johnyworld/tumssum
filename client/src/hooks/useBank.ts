@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 import { Bank, BankGroup } from 'types';
-import { addBanks, addBank, addBankGroup, removeBank, removeBankGroup, updateBank, updateBankGroup } from '~features/bank/bankSlice';
+import { addBanks, addBank, addBankGroup, removeBank, removeBankGroup, updateBank, updateBankGroup } from '~stores/bankSlice';
 import { useDispatch } from '~utils/redux/hooks';
 import { GrappingData } from './useDrag';
 import useFetch from './useFetch';

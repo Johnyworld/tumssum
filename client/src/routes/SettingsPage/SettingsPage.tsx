@@ -1,8 +1,8 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
 import Button from '~components/atoms/Button';
-import { changeTheme } from '~features/mode/modeSlice';
-import { logout } from '~features/user/userSlice';
+import { changeTheme } from '~stores/modeSlice';
+import { logout } from '~stores/userSlice';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 
 

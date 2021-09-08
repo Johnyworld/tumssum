@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import modeReducer from '~features/mode/modeSlice'
-import userReducer from '~features/user/userSlice'
+import modeReducer from '~stores/modeSlice'
+import userReducer from '~stores/userSlice'
 import dateReducer from '~stores/dateSlice';
-import accountReducer from '~features/account/accountSlice';
-import categoryReducer from '~features/category/categorySlice';
-import bankReducer from '~features/bank/bankSlice';
+import accountReducer from '~stores/accountSlice';
+import categoryReducer from '~stores/categorySlice';
+import bankReducer from '~stores/bankSlice';
 import monthReducer from '~stores/monthSlice';
 
 export const store = configureStore({

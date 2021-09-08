@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { route } from 'preact-router';
 import { useEffect } from 'preact/hooks';
-import { setUser } from '~features/user/userSlice';
+import { setUser } from '~stores/userSlice';
 import { getQueryObj } from '~utils/location';
 import { useDispatch } from '~utils/redux/hooks';
 
