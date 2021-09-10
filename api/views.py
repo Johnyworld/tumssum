@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from .utils.serializers import UserSerializer, UserSerializerWithToken
-from .controllers import userController, categoryController, bankController, budgetController
+from .controllers import userController, bankController, budgetController
 from api.utils.secret import get_secret
 from allauth.socialaccount.providers.google import views as google_view
 from allauth.socialaccount.providers.kakao import views as kakao_view
@@ -234,41 +234,6 @@ def user(request):
   elif request.method == 'DELETE':
     return userController.deleteUser(reqData)
 
-
-###################### CATEGORY ######################
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def categories(request):
-  if request.method == 'GET':
-    return categoryController.getCategories(request)
-
-
-@api_view(['POST', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticated])
-def category(request):
-  reqData = json.loads(request.body)
-  if request.method == 'POST':
-    return categoryController.postCategory(reqData)
-
-  elif request.method == 'PUT':
-    return categoryController.putCategory(reqData)
-
-  elif request.method == 'DELETE':
-    return categoryController.deleteCategory(reqData)
-
-
-@api_view(['POST', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticated])
-def categoryGroup(request):
-  reqData = json.loads(request.body)
-  if request.method == 'POST':
-    return categoryController.postCategoryGroup(reqData)
-
-  elif request.method == 'PUT':
-    return categoryController.putCategoryGroup(reqData)
-
-  elif request.method == 'DELETE':
-    return categoryController.deleteCategoryGroup(reqData)
 
 
 ###################### BANK ######################
