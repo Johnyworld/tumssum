@@ -4,11 +4,21 @@
 	margin-left: -2rem;
 	padding-left: 2rem;
 	padding-bottom: 1rem;
+
+	&__edit-icon {
+		opacity: 0;
+	}
 	
 	table {
 		text-align: center;
 
 		tbody {
+
+			tr:hover .account-list__edit-icon {
+				opacity: 1;
+				cursor: pointer;
+			}
+
 			td {
 				white-space: nowrap;
 				&:not(.t-right):not(.t-left) {
@@ -26,6 +36,8 @@
 						-moz-text-align-last: center;
 					}
 				}
+
+				
 			}
 		}
 	}

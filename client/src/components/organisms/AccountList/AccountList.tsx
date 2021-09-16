@@ -9,9 +9,10 @@ export interface AccountListProps {
 	categoriesCombined: CategoryGroup[];
 	banksCombined: BankGroup[];
 	onChange: (account: Account) => void;
+	onClickEdit: (account: Account) => h.JSX.MouseEventHandler<HTMLDivElement>;
 }
 
-const AccountList: FunctionalComponent<AccountListProps> = ({ list, categoriesCombined, banksCombined, onChange }) => {
+const AccountList: FunctionalComponent<AccountListProps> = ({ list, categoriesCombined, banksCombined, onChange, onClickEdit }) => {
 
 	const handleChangeTitle = useCallback((id: number) => (title: string) => {
 		onChange({ id, title } as Account);
@@ -48,6 +49,7 @@ const AccountList: FunctionalComponent<AccountListProps> = ({ list, categoriesCo
 							onChangeDatetime={handleChangeDatetime}
 							onChangeAmount={handleChangeAmount}
 							onChangeDropdown={handleChangeDropdown}
+							onClickEdit={onClickEdit}
 						/>
 					))}
 				</tbody>
@@ -86,6 +88,7 @@ const Head = () => {
 				<th style={{ top }} class='t-right'>금액</th>
 				<th style={{ top }}>카테고리</th>
 				<th style={{ top }}>뱅크</th>
+				<th style={{ top }}></th>
 			</tr>
 		</thead>
 	)

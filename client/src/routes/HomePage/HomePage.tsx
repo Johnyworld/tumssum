@@ -65,6 +65,8 @@ const HomePage: FunctionalComponent = ({  }) => {
 		handleDrop,
 	});
 
+	console.log('===== HomePage', detailView);
+
 	useEffect(() => {
 	}, [view]);
 
@@ -134,6 +136,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
 						onChange={handlePatchAccount}
+						onClickEdit={handleViewDetail}
 					/>
 				}
 			</section>

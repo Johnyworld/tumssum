@@ -5,6 +5,7 @@ import { Account, BankGroup, CategoryGroup } from 'types';
 import ContentEditable from '~components/atoms/ContentEditable';
 import DatePicker from '~components/atoms/DatePicker';
 import Dropdown from '~components/atoms/Dropdown';
+import Icon from '~components/atoms/Icon';
 import TimePicker from '~components/atoms/TimePicker';
 import LabeledContentEditable from '~components/molecules/LabeledContentEditable';
 
@@ -17,9 +18,10 @@ export interface AccountListItemProps {
 	onChangeDatetime: (id: number, value: string) => void;
 	onChangeAmount: (id: number, isIncome: boolean) => (value: string) => void;
 	onChangeDropdown: (id: number, key: string) => h.JSX.GenericEventHandler<HTMLSelectElement>;
+	onClickEdit: (account: Account) => h.JSX.MouseEventHandler<HTMLDivElement>;
 }
 
-const AccountListItem: FunctionalComponent<AccountListItemProps> = ({ index, item, categoriesCombined, banksCombined, onChangeTitle, onChangeDatetime, onChangeAmount, onChangeDropdown }) => {
+const AccountListItem: FunctionalComponent<AccountListItemProps> = ({ index, item, categoriesCombined, banksCombined, onChangeTitle, onChangeDatetime, onChangeAmount, onChangeDropdown, onClickEdit }) => {
 
 	const { id, title, datetime, category, bank } = item;
 	const [isIncome, setIsIncome] = useState(item.account ? !(item.account < 0) : false);
@@ -35,6 +37,8 @@ const AccountListItem: FunctionalComponent<AccountListItemProps> = ({ index, ite
 		const results = theTime ? then.toISOString() : then.toISOString().substr(0, 10);
 		onChangeDatetime(id, results)
 	}
+
+		;
 
 	return (
 		<tr>
@@ -101,6 +105,9 @@ const AccountListItem: FunctionalComponent<AccountListItemProps> = ({ index, ite
 					selected={bank}
 					onChange={onChangeDropdown(id, 'bank')}
 				/>
+			</td>
+			<td>
+				<Icon class='account-list__edit-icon' as='pencel' color='gray' onClick={onClickEdit(item)} />
 			</td>
 		</tr>
 	)
