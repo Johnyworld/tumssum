@@ -8,7 +8,7 @@ import LoginPage from '~routes/LoginPage';
 import RegisterPage from '~routes/RegisterPage';
 import ConfirmToken from '~routes/ConfirmTokenPage/ConfirmTokenPage';
 import FullLoader from '../components/molecules/FullLoader';
-import UserLoggedInPage from './UserLoggedInPage';
+import AppLoggedInRouter from './AppLoggedInRouter';
 
 
 const App: FunctionalComponent = () => {
@@ -31,7 +31,7 @@ const App: FunctionalComponent = () => {
       }
 
       { userInfo &&
-        <UserLoggedInPage /> 
+        <AppLoggedInRouter /> 
       }
 
     </div>

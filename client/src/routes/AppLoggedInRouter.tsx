@@ -15,12 +15,12 @@ import { useMemo, useState } from 'preact/hooks';
 import { AsideMenuItem } from '~components/molecules/AsideMenu/AsideMenu';
 import { useLocation } from 'wouter';
 import Aside from '~components/organisms/Aside';
-import NotFoundPage from '../NotFoundPage';
 import { getClassNames } from '~utils/classNames';
 import { setMonths } from '~stores/monthSlice';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
+import NotFoundPage from './NotFoundPage';
 
-const UserLoggedInPage: FunctionalComponent = () => {
+const AppLoggedInRouter: FunctionalComponent = () => {
 
 	const currentDate = useSelector(state => state.date.currentDate);
   const dispatch = useDispatch();
@@ -109,4 +109,4 @@ const UserLoggedInPage: FunctionalComponent = () => {
   )
 }
 
-export default UserLoggedInPage;
+export default AppLoggedInRouter;
