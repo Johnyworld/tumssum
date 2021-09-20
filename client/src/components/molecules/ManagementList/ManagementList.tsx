@@ -16,7 +16,7 @@ export interface ItemGroup<T> {
 export interface Item {
 	id: number;
 	title: string;
-	balance?: number;
+	budget?: number;
 	group: number | null;
 }
 
@@ -61,7 +61,8 @@ const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping
 							<div class='management-list__items gap-small'>
 								{ group.items && group.items.length > 0 ? group.items.map(item=> (
 									<Card class='management-list__item' padding='small' onClick={onClick(item)} onMouseDown={onGrap(item)} >
-										<p class={`${item.title ? '' : 'c-gray'}`}>{item.title || T.NO_NAME}</p>
+										<p class={`${item.title ? '' : 'c-gray f-italic'}`}>{item.title || T.NO_NAME}</p>
+										{item.budget && <p class={'c-gray'}>예산: {item.budget}</p>}
 									</Card>
 								)) : <p class='management-list__empty'>{T.EMPTY}</p>}
 							</div>

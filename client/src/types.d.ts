@@ -72,6 +72,7 @@ declare module 'types' {
     title: string;
     group: number | null;
     user: number;
+    budget?: number;
     created_at: string;
     updated_at: string;
     accounts: Account[];
@@ -114,6 +115,16 @@ declare module 'types' {
     expenditure: number;
     user: number;
     bank: number;
+    created_at: string;
+    updated_at: string;
+  }
+
+  export interface Budget {
+    id: number;
+    budget: number;
+    user: number;
+    date: string;
+    category: number;
     created_at: string;
     updated_at: string;
   }

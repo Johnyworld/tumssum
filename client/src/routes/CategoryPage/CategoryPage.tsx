@@ -1,5 +1,5 @@
 import { h, FunctionalComponent } from 'preact';
-import { Category, CategoryGroup } from 'types';
+import { Budget, Category, CategoryGroup } from 'types';
 import Button from '~components/atoms/Button';
 import Header from '~components/layouts/Header';
 import useCategory from '~hooks/useCategory';
@@ -12,6 +12,7 @@ import Modal from '~components/layouts/Modal';
 import CategoryFormModal from '~components/organisms/CategoryFormModal';
 import CategoryGroupFormModal from '~components/organisms/CategoryGroupFormModal';
 import { useCallback, useMemo } from 'preact/hooks';
+import budgetUtils from '~utils/budgetUtils';
 
 
 const getCategoriesAligned = (categories: Category[]) => {
@@ -36,9 +37,25 @@ export const combineCategoriesWithGroups = (categories: Category[], categoryGrou
 	return [...groups, { items: aligned.EMPTY || [] } as CategoryGroup]
 }
 
+const combineCategoriesWithBudgets = (categories: CategoryGroup[], budgets: Budget[], currentDate: string) => {
+	return categories.map(group => {
+		return {
+			...group,
+			items: group.items.map(category => {
+				const budget = budgetUtils.getBudgetOfCategory(category.id, budgets, currentDate);
+				return {
+					...category,
+					budget,
+				}
+			})
+		}
+	})
+}
+
 const CategoryPage: FunctionalComponent = ({  }) => {
 
 	const { categories, categoryGroups } = useSelector(state=> state.category);
+	const { budgets } = useSelector(state=> state.budget);
 	const { currentDate } = useSelector(state=> state.date);
 
 	const { detailView, handleCloseDetail, handleViewDetail } = useDetails<Category>();
@@ -50,6 +67,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 	}, []);
 
 	const combined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
+	const combinedWithBudgets = useMemo(() => combineCategoriesWithBudgets(combined, budgets, currentDate), [combined, budgets]);
 
 	const { grapping, grappingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(categories);
 
@@ -62,7 +80,6 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 		handleRemoveCategoryGroup,
 		handleRemoveCategory
 	} = useCategory({ grapping, onCloseDetail: closeDetails, handleDrop });
-
 
 
 	return (
@@ -78,7 +95,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 			</Indicator>
 
 			<ManagementList
-				data={combined}
+				data={combinedWithBudgets}
 				grapping={grapping}
 				grappingPos={grappingPos}
 				onGrap={handleGrap}

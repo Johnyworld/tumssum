@@ -23,14 +23,19 @@ def putCategory(request):
     'date': date,
     'budget': budget,
   }
-  budgetItem = requests.post(
+  res = requests.post(
     'http://127.0.0.1:8000/api/budget/', json=budgetData, headers=request.headers)
-  print('===== budgetItem:', budgetItem)
+  res_json = res.json()
+  
 
   category = get_object_or_404(Category, pk=category_id)
   category.title = title
   category.group_id = group_id
   category.save()
 
-  res = { 'ok': True, 'data': CategorySerializer(category, many=False).data }
+  data = {
+    'category': CategorySerializer(category, many=False).data,
+    'budget': res_json.get('data'),
+  }
+  res = { 'ok': True, 'data': data }
   return JsonResponse(res)

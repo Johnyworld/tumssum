@@ -6,7 +6,7 @@ import BankPage from '~routes/BankPage';
 import SettingsPage from '~routes/SettingsPage';
 
 import useFetch from '~hooks/useFetch';
-import { Account, Bank, BankGroup, Category, CategoryGroup, Month } from 'types';
+import { Account, Bank, BankGroup, Budget, Category, CategoryGroup, Month } from 'types';
 import { setCategories, setCategoryGroups } from '~stores/categorySlice';
 import { setAccounts } from '~stores/accountSlice';
 import { getLocalStringFromISOString } from '~utils/calendar';
@@ -19,6 +19,7 @@ import { getClassNames } from '~utils/classNames';
 import { setMonths } from '~stores/monthSlice';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import NotFoundPage from './NotFoundPage';
+import { setBudgets } from '~stores/budgetSlice';
 
 const AppLoggedInRouter: FunctionalComponent = () => {
 
@@ -87,7 +88,15 @@ const AppLoggedInRouter: FunctionalComponent = () => {
 		onSuccess: data => {
       dispatch(setMonths(data));
 		}
-  })
+  });
+
+	useFetch<Budget[]>({
+		method: 'GET',
+		url: `/api/budgets/`,
+		onSuccess: data => {
+      dispatch(setBudgets(data));
+		}
+  });
 
   return (
     <div class={getClassNames(['page-container', [ !isOpenAside, 'page-container--narrow-aside' ]])}>

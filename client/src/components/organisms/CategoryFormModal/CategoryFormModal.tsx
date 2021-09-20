@@ -23,7 +23,7 @@ const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ catego
 	const { t } = useTranslation();
 	const [ title, changeTitle ] = useContentEditable(category.title || '');
 	const [ group, setGroup ] = useState<number|string>(category.group || 0);
-	const [ budjet, ___, setBudget ] = useInput('');
+	const [ budjet, ___, setBudget ] = useInput(category.budget ? category.budget + '' : '');
 
 	const handleChange: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
 		setGroup(e.currentTarget.value);

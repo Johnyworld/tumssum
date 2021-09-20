@@ -24,7 +24,7 @@ def postBudget(request):
       for k in reqData:
         setattr(budgetItem, k, reqData[k])
       budgetItem.save()
-      res = { 'ok': True, 'data': BudgetSerializer(budget, many=False).data }
+      res = { 'ok': True, 'data': BudgetSerializer(budgetItem, many=False).data }
       return JsonResponse(res) 
 
   except Budget.DoesNotExist:
