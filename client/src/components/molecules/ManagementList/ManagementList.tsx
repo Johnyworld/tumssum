@@ -4,6 +4,7 @@ import { Vec2 } from 'types';
 import Card from '~components/atoms/Card';
 import Icon from '~components/atoms/Icon';
 import { GrappingData } from '~hooks/useDrag';
+import numberUtils from '~utils/numberUtils';
 import './ManagementList.scss';
 
 export interface ItemGroup<T> {
@@ -11,6 +12,7 @@ export interface ItemGroup<T> {
 	title: string;
 	user: number;
 	items: T[];
+	budget?: number;
 };
 
 export interface Item {
@@ -62,7 +64,7 @@ const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping
 								{ group.items && group.items.length > 0 ? group.items.map(item=> (
 									<Card class='management-list__item' padding='small' onClick={onClick(item)} onMouseDown={onGrap(item)} >
 										<p class={`${item.title ? '' : 'c-gray f-italic'}`}>{item.title || T.NO_NAME}</p>
-										{item.budget && <p class={'c-gray'}>예산: {item.budget}</p>}
+										{item.budget && <p class={'c-primary'}>예산: {numberUtils.getNumberWithComma(item.budget)}</p>}
 									</Card>
 								)) : <p class='management-list__empty'>{T.EMPTY}</p>}
 							</div>

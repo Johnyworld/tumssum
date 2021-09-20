@@ -74,7 +74,7 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 	const handleBlur: h.JSX.FocusEventHandler<HTMLDivElement> = (e) => {
 		if (type === 'number') {
 			const removeCharacters = ref.current.innerText.replace(/([^0-9])/gi, "");;
-			const addCommas = numberUtils.getNumberWithComma(+removeCharacters);
+			const addCommas = removeCharacters ? numberUtils.getNumberWithComma(+removeCharacters) : '';
 			onChange(removeCharacters);
 			setViewValue(addCommas);
 		} else {

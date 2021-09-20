@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 import { Budget, Category, CategoryGroup } from 'types';
-import { addOrUpdateBudget } from '~stores/budgetSlice';
+import { addOrUpdateBudget, removeBudget } from '~stores/budgetSlice';
 import { addCategories, addCategory, addCategoryGroup, removeCategory, removeCategoryGroup, updateCategory, updateCategoryGroup } from '~stores/categorySlice';
 import { useDispatch } from '~utils/redux/hooks';
 import { GrappingData } from './useDrag';
@@ -41,12 +41,15 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		}
 	});
 
-	const putCategory = useFetch<{ category: Category, budget: Budget }>({
+	const putCategory = useFetch<{ category: Category, budget: Budget | number }>({
 		method: 'PUT',
 		url: '/api/category/',
 		onSuccess: data => {
 			dispatch(updateCategory(data.category));
-			if (data.budget) dispatch(addOrUpdateBudget(data.budget));
+			if (data.budget) {
+				if (typeof data.budget === 'number') dispatch(removeBudget(data.budget));
+				else dispatch(addOrUpdateBudget(data.budget));
+			}
 			onCloseDetail();
 		}
 	});

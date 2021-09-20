@@ -29,9 +29,12 @@ export const budgetSlice = createSlice({
 				state.budgets = [ ...state.budgets, payload ];
 			}
 		},
+		removeBudget: (state, { payload }: PayloadAction<number>) => {
+			state.budgets = state.budgets.filter(budget => budget.id !== payload);
+		},
   }
 })
 
-export const { setBudgets, addOrUpdateBudget } = budgetSlice.actions
+export const { setBudgets, addOrUpdateBudget, removeBudget } = budgetSlice.actions
 
 export default budgetSlice.reducer;

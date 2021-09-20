@@ -83,6 +83,7 @@ declare module 'types' {
     title: string;
     user: number;
     items: Category[];
+    budget?: number;
     created_at: string;
     updated_at: string;
   }

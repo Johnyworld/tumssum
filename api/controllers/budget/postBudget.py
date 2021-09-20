@@ -16,8 +16,9 @@ def postBudget(request):
   try:
     budgetItem = Budget.objects.get(user_id=user_id, category_id=category_id, date=date)
     if (budget == None):
+      id = budgetItem.id
       budgetItem.delete()
-      res = { 'ok': True, 'data': None }
+      res = { 'ok': True, 'data': id }
       return JsonResponse(res) 
 
     else:

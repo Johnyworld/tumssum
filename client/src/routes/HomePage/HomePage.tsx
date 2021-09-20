@@ -14,7 +14,7 @@ import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { IconType } from 'types';
 import useAccount from '~hooks/useAccount';
 import useDrag from '~hooks/useDrag';
-import { combineCategoriesWithGroups } from '~routes/CategoryPage/CategoryPage';
+import { combineCategoriesWithBudgets, combineCategoriesWithGroups } from '~routes/CategoryPage/CategoryPage';
 import AccountList from '~components/organisms/AccountList';
 import { combineBanksWithGroups } from '~routes/BankPage/BankPage';
 import useCSV from '~hooks/useCSV';
@@ -36,6 +36,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const { categories, categoryGroups } = useSelector(state=> state.category);
 	const { banks, bankGroups } = useSelector(state=> state.bank);
 	const { monthes } = useSelector(state=> state.month);
+	const { budgets } = useSelector(state=> state.budget);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const dispatch = useDispatch();
 
@@ -50,6 +51,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const { getCSV } = useCSV({ accounts });
 
 	const categoriesCombined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
+	const categoriesCombinedWithBudgets = useMemo(() => combineCategoriesWithBudgets(categoriesCombined, budgets, currentDate), [categoriesCombined, budgets, currentDate]);
 	const banksCombined = useMemo(() => combineBanksWithGroups(banks, bankGroups), [banks, bankGroups]);
 
 	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useDrag(accounts);
@@ -143,7 +145,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 			<Statistics
 				date={currentDate}
 				accounts={accountsThisMonth}
-				categoriesCombined={categoriesCombined}
+				categoriesCombined={categoriesCombinedWithBudgets}
 				banksCombined={banksCombined}
 				monthes={monthes}
 				sideWidth={sideWidth}

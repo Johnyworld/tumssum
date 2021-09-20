@@ -38,17 +38,20 @@ export const combineCategoriesWithGroups = (categories: Category[], categoryGrou
 	return [...groups, { items: aligned.EMPTY || [] } as CategoryGroup]
 }
 
-const combineCategoriesWithBudgets = (categories: CategoryGroup[], budgets: Budget[], currentDate: string) => {
+export const combineCategoriesWithBudgets = (categories: CategoryGroup[], budgets: Budget[], currentDate: string) => {
 	return categories.map(group => {
+		let groupBudget = 0;
 		return {
 			...group,
 			items: group.items.map(category => {
 				const budget = budgetUtils.getBudgetOfCategory(category.id, budgets, currentDate);
+				if (budget) groupBudget += budget;
 				return {
 					...category,
 					budget,
 				}
-			})
+			}),
+			budget: groupBudget,
 		}
 	})
 }
@@ -57,7 +60,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 
 	const { categories, categoryGroups } = useSelector(state=> state.category);
 	const { budgets } = useSelector(state=> state.budget);
-	const { currentDate } = useSelector(state=> state.date);
+	const today = getLocalString().substr(0, 7);
 
 	const { detailView, handleCloseDetail, handleViewDetail } = useDetails<Category>();
 	const { detailView: detailViewGroup, handleCloseDetail: handleCloseDetailGroup, handleViewDetail: handleViewDetailGroup } = useDetails<CategoryGroup>();
@@ -68,7 +71,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 	}, []);
 
 	const combined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
-	const combinedWithBudgets = useMemo(() => combineCategoriesWithBudgets(combined, budgets, getLocalString().substr(0, 7)), [combined, budgets]);
+	const combinedWithBudgets = useMemo(() => combineCategoriesWithBudgets(combined, budgets, today), [combined, budgets]);
 
 	const { grapping, grappingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(categories);
 
@@ -112,7 +115,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 					<CategoryFormModal
 						category={detailView}
 						groupList={categoryGroups}
-						currentDate={currentDate}
+						currentDate={today}
 						onConfirm={handleUpdateCategory}
 						onDelete={handleRemoveCategory}
 					/>

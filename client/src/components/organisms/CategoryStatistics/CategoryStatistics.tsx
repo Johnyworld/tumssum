@@ -77,9 +77,9 @@ const Statistics: FunctionalComponent<StatisticsProps> = ({ categoriesCombined, 
 
 			{ data.map(group => group.items.length > 0 && (
 				<AccordionTable
-					group={[ group.title === undefined ? '그룹 미분류' : group.title || '이름 없음', 0, group.total ]}
+					group={[ group.title === undefined ? '그룹 미분류' : group.title || '이름 없음', group.budget || 0, group.total ]}
 					items={group.items.map(category => {
-						return [ category.title === undefined ? '카테고리 미분류' : category.title || '이름 없음', 0, category.total ]
+						return [ category.title === undefined ? '카테고리 미분류' : category.title || '이름 없음', category.budget || 0, category.total ]
 					})}
 				>
 				</AccordionTable>
