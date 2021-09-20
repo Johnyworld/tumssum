@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from .utils.serializers import UserSerializer, UserSerializerWithToken
-from .controllers import userController, bankController, budgetController
+from .controllers import userController, bankController
 from api.utils.secret import get_secret
 from allauth.socialaccount.providers.google import views as google_view
 from allauth.socialaccount.providers.kakao import views as kakao_view
@@ -270,25 +270,4 @@ def bankGroup(request):
 
   elif request.method == 'DELETE':
     return bankController.deleteBankGroup(reqData)
-
-
-
-###################### Budget ######################
-@api_view(['GET'])
-def budgets(request):
-  reqData = json.loads(request.body)
-  if request.method == 'GET':
-    return budgetController.getBudgets(reqData)
-
-@api_view(['POST', 'PUT', 'DELETE'])
-def budget(request):
-  reqData = json.loads(request.body)
-  if request.method == 'POST':
-    return budgetController.postBudget(reqData)
-
-  elif request.method == 'PUT':
-    return budgetController.putBudget(reqData)
-
-  elif request.method == 'DELETE':
-    return budgetController.deleteBudget(reqData)
 
