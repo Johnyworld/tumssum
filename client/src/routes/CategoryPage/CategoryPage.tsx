@@ -13,6 +13,7 @@ import CategoryFormModal from '~components/organisms/CategoryFormModal';
 import CategoryGroupFormModal from '~components/organisms/CategoryGroupFormModal';
 import { useCallback, useMemo } from 'preact/hooks';
 import budgetUtils from '~utils/budgetUtils';
+import { getLocalString } from '~utils/calendar';
 
 
 const getCategoriesAligned = (categories: Category[]) => {
@@ -67,7 +68,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 	}, []);
 
 	const combined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
-	const combinedWithBudgets = useMemo(() => combineCategoriesWithBudgets(combined, budgets, currentDate), [combined, budgets]);
+	const combinedWithBudgets = useMemo(() => combineCategoriesWithBudgets(combined, budgets, getLocalString().substr(0, 7)), [combined, budgets]);
 
 	const { grapping, grappingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(categories);
 
