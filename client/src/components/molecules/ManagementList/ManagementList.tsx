@@ -2,12 +2,8 @@ import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import Card from '~components/atoms/Card';
-import ContentEditable from '~components/atoms/ContentEditable';
-import Divider from '~components/atoms/Divider';
 import Icon from '~components/atoms/Icon';
 import { GrappingData } from '~hooks/useDrag';
-import { getClassNames } from '~utils/classNames';
-import { getNumberWithComma } from '~utils/number';
 import './ManagementList.scss';
 
 export interface ItemGroup<T> {
@@ -28,20 +24,15 @@ export interface ManagementListProps<T, S> {
 	data: S[];
 	grapping: GrappingData<T> | null;
 	grappingPos: Vec2 | null;
-	focusGroup: number | null;
-	focusItem: number | null;
-	isDragging: boolean | null;
 	onGrap: (data: T) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onDropToUpdate: (groupId: number | null) => h.JSX.MouseEventHandler<HTMLDivElement>;
 	onDrop: () => void;
 	onDragging: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
-	onUpdate: (data: T) => void;
-	onUpdateGroup: (data: S) => void;
 	onClick: (data: T) => h.JSX.MouseEventHandler<HTMLDivElement>;
 	onClickGroup: (data: S) => h.JSX.MouseEventHandler<HTMLDivElement>;
 }
 
-const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping, grappingPos, focusGroup, focusItem, isDragging, onGrap, onDropToUpdate, onDrop, onDragging, onUpdate, onUpdateGroup, onClick, onClickGroup }: ManagementListProps<T, S>) => {
+const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping, grappingPos, onGrap, onDropToUpdate, onDrop, onDragging, onClick, onClickGroup }: ManagementListProps<T, S>) => {
 
 	const T = useMemo(() => { return {
 		NO_NAME: '이름 없음',

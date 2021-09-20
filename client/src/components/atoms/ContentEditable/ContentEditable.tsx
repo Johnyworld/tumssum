@@ -1,7 +1,8 @@
 import { h, FunctionalComponent } from 'preact';
-import { useEffect, useRef } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { Color, DefaultProps, Size, Weight } from 'types';
 import { getClassNames } from '~utils/classNames';
+import { getNumberWithComma } from '~utils/number';
 import './ContentEditable.scss';
 
 export interface ContentEditableProps extends DefaultProps {
@@ -13,6 +14,7 @@ export interface ContentEditableProps extends DefaultProps {
 	weight?: Weight;
 	type?: 'text' | 'number';
 	isNumberNegative?: boolean;
+	isHideNumberSign?: boolean;
 	isFocusOnLoad?: boolean;
 	isOneLine?: boolean;
 	isChangeOnBlur?: boolean;
@@ -21,14 +23,16 @@ export interface ContentEditableProps extends DefaultProps {
 	onChangeNumberNegative?: (value: boolean) => void;
 }
 
-const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: className, style, styleType='button', value, color, size, weight, type='text', placeholder, isNumberNegative, isFocusOnLoad, isOneLine, isChangeOnBlur, isHideIcon, onChange, onChangeNumberNegative }) => {
+const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: className, style, styleType='button', value, color, size, weight, type='text', placeholder, isNumberNegative, isHideNumberSign, isFocusOnLoad, isOneLine, isChangeOnBlur, isHideIcon, onChange, onChangeNumberNegative }) => {
+
+	const [viewValue, setViewValue] = useState(type === 'number' && value ? getNumberWithComma(+value) : value);
 
 	const ref = useRef<HTMLDivElement>(null);
 
 	const classes = getClassNames([
 		'content-editable',
 		[isOneLine, 't-nowrap'],
-		[value && type === 'number', isNumberNegative ? 'content-editable--negative' : 'content-editable--positive'],
+		[value && type === 'number' && !isHideNumberSign, isNumberNegative ? 'content-editable--negative' : 'content-editable--positive'],
 		styleType === 'button' ? 'content-box' : 'content-text',
 		className,
 		[!!color, `c-${color}`],
@@ -40,6 +44,7 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 	const handleInput: h.JSX.GenericEventHandler<HTMLDivElement> = (e) => {
 		if (!isChangeOnBlur) {
 			onChange(e.currentTarget.innerText);
+			setViewValue(e.currentTarget.innerText);
 		}
 	}
 
@@ -69,9 +74,20 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 	const handleBlur: h.JSX.FocusEventHandler<HTMLDivElement> = (e) => {
 		if (type === 'number') {
 			const removeCharacters = ref.current.innerText.replace(/([^0-9])/gi, "");;
+			const addCommas = getNumberWithComma(+removeCharacters);
 			onChange(removeCharacters);
+			setViewValue(addCommas);
 		} else {
 			onChange(e.currentTarget.innerText);
+			setViewValue(e.currentTarget.innerText);
+		}
+	}
+
+	const handleFocus: h.JSX.FocusEventHandler<HTMLDivElement> = (e) => {
+		if (type === 'number') {
+			const removeCharacters = ref.current.innerText.replace(/([^0-9])/gi, "");;
+			onChange(removeCharacters);
+			setViewValue(removeCharacters);
 		}
 	}
 
@@ -92,7 +108,8 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 		onInput={handleInput}
 		onKeyDown={handleKeyDown}
 		onBlur={handleBlur}
-		dangerouslySetInnerHTML={{ __html: value || '' }}
+		onFocus={handleFocus}
+		dangerouslySetInnerHTML={{ __html: viewValue || '' }}
 	/>
 
 	return (

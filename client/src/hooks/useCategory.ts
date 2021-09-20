@@ -14,17 +14,12 @@ interface UseCategory {
 export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 	
 	const dispatch = useDispatch();
-	const [ focusItem, setFocusItem ] = useState<number | null>(null);
-	const [ focusGroup, setFocusGroup ] = useState<number | null>(null);
-
 
 	const postCategoryGroup = useFetch<CategoryGroup>({
 		method: 'POST',
 		url: '/api/category-group/',
 		onSuccess: data => {
 			dispatch(addCategoryGroup(data));
-			setFocusGroup(data.id);
-			setTimeout(() => setFocusGroup(null))
 		}
 	})
 
@@ -33,8 +28,6 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		url: '/api/category/',
 		onSuccess: data => {
 			dispatch(addCategory(data));
-			setFocusItem(data.id);
-			setTimeout(() => setFocusItem(null))
 		}
 	})
 
@@ -97,12 +90,13 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		})
 	}
 
-	const handleUpdateCategory = (category: Category) => {
+	const handleUpdateCategory = (category: Category, budget: number | null) => {
 		if ( putCategory.loading ) return;
 		putCategory.call({
 			category_id: category.id,
 			group_id: category.group,
 			title: category.title,
+			budget,
 		})
 	}
 
@@ -136,8 +130,6 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 
 	
 	return {
-		focusItem,
-		focusGroup,
 		handleUpdateCategory,
 		handleUpdateCategoryGroup,
 		handleDropToUpdateCategory,

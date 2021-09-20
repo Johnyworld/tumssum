@@ -53,8 +53,6 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 	const { grapping, grappingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(categories);
 
 	const {
-		focusGroup,
-		focusItem,
 		handleUpdateCategoryGroup,
 		handleUpdateCategory,
 		handleDropToUpdateCategory,
@@ -82,15 +80,10 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 				data={combined}
 				grapping={grapping}
 				grappingPos={grappingPos}
-				focusGroup={focusGroup}
-				focusItem={focusItem}
-				isDragging={isDragging}
 				onGrap={handleGrap}
 				onDropToUpdate={handleDropToUpdateCategory}
 				onDrop={handleDrop}
 				onDragging={handleDragging}
-				onUpdate={handleUpdateCategory}
-				onUpdateGroup={handleUpdateCategoryGroup}
 				onClick={handleViewDetail}
 				onClickGroup={handleViewDetailGroup}
 			/>
