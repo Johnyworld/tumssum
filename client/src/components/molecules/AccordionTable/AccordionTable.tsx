@@ -3,7 +3,7 @@ import { useEffect } from 'preact/hooks';
 import { Color } from 'types';
 import useToggle from '~hooks/useToggle';
 import { getClassNames } from '~utils/classNames';
-import { getNumberWithComma } from '~utils/number';
+import numberUtils from '~utils/numberUtils';
 import './AccordionTable.scss';
 
 export interface AccordionTableProps {
@@ -44,7 +44,7 @@ const AccordionTable: FunctionalComponent<AccordionTableProps> = ({ group, items
 				{ group.map((col, i) => {
 					return (
 						<div class={getClassNames(['accordion-table__group accordion-table__col', getColorClass(col, colors && colors[i]) ])}>
-							{typeof col === 'number' ? getNumberWithComma(col) : col}
+							{typeof col === 'number' ? numberUtils.getNumberWithComma(col) : col}
 						</div>
 					)
 				})}
@@ -56,7 +56,7 @@ const AccordionTable: FunctionalComponent<AccordionTableProps> = ({ group, items
 							{ item.map((col, i) => {
 								return (
 									<div class={getClassNames(['accordion-table__item accordion-table__col', getColorClass(col, colors && colors[i]) ])}>
-										{typeof col === 'number' ? getNumberWithComma(col) : col}
+										{typeof col === 'number' ? numberUtils.getNumberWithComma(col) : col}
 									</div>
 								)
 							})}

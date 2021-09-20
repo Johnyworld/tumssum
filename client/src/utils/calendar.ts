@@ -1,4 +1,7 @@
 import { Account } from "types";
+import numberUtils from "./numberUtils";
+
+const { getZeroNumber } = numberUtils;
 
 export interface DayItem { 
 	each: number,
@@ -53,9 +56,6 @@ export const getTimeString = () => {
 }
 
 
-export const getZeroNumber = (value: number) => {
-	return (value < 10 ? '0' : '') + value;
-}
 
 
 export const getLocalString = (date?: Date) => {

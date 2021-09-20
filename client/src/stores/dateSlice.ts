@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getLocalString, getZeroNumber } from '~utils/calendar';
+import { getLocalString } from '~utils/calendar';
+import numberUtils from '~utils/numberUtils';
 
 const initialState = {
   currentDate: getLocalString().substr(0, 7)
@@ -15,14 +16,14 @@ const getMonth = (yyyymm: string, sum: number) => {
 
 	if (month < 1) {
 		month += 12;
-		return `${yyyy-1}-${getZeroNumber(month)}`
+		return `${yyyy-1}-${numberUtils.getZeroNumber(month)}`
 
 	} else if (month > 12) {
 		month -= 12;
-		return `${yyyy+1}-${getZeroNumber(month)}`
+		return `${yyyy+1}-${numberUtils.getZeroNumber(month)}`
 
 	} else {
-		return `${yyyy}-${getZeroNumber(month)}`
+		return `${yyyy}-${numberUtils.getZeroNumber(month)}`
 	}
 }
 

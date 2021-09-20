@@ -2,7 +2,7 @@ import { h, FunctionalComponent } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Color, DefaultProps, Size, Weight } from 'types';
 import { getClassNames } from '~utils/classNames';
-import { getNumberWithComma } from '~utils/number';
+import numberUtils from '~utils/numberUtils';
 import './ContentEditable.scss';
 
 export interface ContentEditableProps extends DefaultProps {
@@ -25,7 +25,7 @@ export interface ContentEditableProps extends DefaultProps {
 
 const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: className, style, styleType='button', value, color, size, weight, type='text', placeholder, isNumberNegative, isHideNumberSign, isFocusOnLoad, isOneLine, isChangeOnBlur, isHideIcon, onChange, onChangeNumberNegative }) => {
 
-	const [viewValue, setViewValue] = useState(type === 'number' && value ? getNumberWithComma(+value) : value);
+	const [viewValue, setViewValue] = useState(type === 'number' && value ? numberUtils.getNumberWithComma(+value) : value);
 
 	const ref = useRef<HTMLDivElement>(null);
 
@@ -74,7 +74,7 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 	const handleBlur: h.JSX.FocusEventHandler<HTMLDivElement> = (e) => {
 		if (type === 'number') {
 			const removeCharacters = ref.current.innerText.replace(/([^0-9])/gi, "");;
-			const addCommas = getNumberWithComma(+removeCharacters);
+			const addCommas = numberUtils.getNumberWithComma(+removeCharacters);
 			onChange(removeCharacters);
 			setViewValue(addCommas);
 		} else {

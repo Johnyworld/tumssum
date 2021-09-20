@@ -2,7 +2,8 @@ import { h, FunctionalComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import Portal from '~components/Portal';
-import { getHoursLimit, getLimit, getLocalString, getMinutesLimit, getZeroNumber } from '~utils/calendar';
+import { getHoursLimit, getMinutesLimit } from '~utils/calendar';
+import numberUtils from '~utils/numberUtils';
 import Icon from '../Icon';
 
 interface TimePickerTimerProps {
@@ -21,7 +22,7 @@ const TimePickerTimer: FunctionalComponent<TimePickerTimerProps> = ({ time, pos,
 
 	const [hours, setHours] = useState(time ? +time.split(':')[0] : new Date().getHours());
 	const [minutes, setMinutes] = useState(time ? +time.split(':')[1] : new Date().getMinutes());
-	const HHMM = getZeroNumber(hours) + ':' + getZeroNumber(minutes)
+	const HHMM = numberUtils.getZeroNumber(hours) + ':' + numberUtils.getZeroNumber(minutes)
 
 
 	const handleClear = () => {
