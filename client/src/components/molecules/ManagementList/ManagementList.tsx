@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 import { Vec2 } from 'types';
+import Card from '~components/atoms/Card';
 import ContentEditable from '~components/atoms/ContentEditable';
 import Divider from '~components/atoms/Divider';
 import Icon from '~components/atoms/Icon';
@@ -44,61 +45,34 @@ const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping
 
 	const T = useMemo(() => { return {
 		NO_NAME: '이름 없음',
-		EMPTY: '비어있음',
 		NO_GROUP: '그룹 미분류',
+		EMPTY: '비어있음',
 	}}, []);
 
 
 	return (
-		<div class='management-list gap-large pos-relative never-drag' onMouseMove={onDragging} onMouseUp={onDrop} >
-			<div class='gap-regular'>
+		<div class='management-list pos-relative never-drag' onMouseMove={onDragging} onMouseUp={onDrop} >
+			<div class='management-list__container'>
 				{ data.map(group => {
 					const [ hover, setHover ] = useState(false);
 					const handleHover = () => setHover(true);
 					const handleHoverOut = () => setHover(false);
 					return (
-						<div key={group.id} class='pos-relative' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate(group.id || null)}>
-							{!!grapping && hover && <div class='board-item__grapping' style={{ transform: 'scaleX(1.02)', borderRadius: '.25rem' }} />}
+						<div key={group.id} class='management-list__each' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate(group.id || null)}>
+							{!!grapping && hover && <div class='board-item__grapping' />}
 							{ group.id
 								? <div class='management-list__group pos-relative'>
-										<ContentEditable
-											value={group.title}
-											color='gray'
-											weight='bold'
-											styleType='transparent'
-											onChange={(value) => value !== group.title && onUpdateGroup({ id: group.id, title: value } as S)}
-											isChangeOnBlur
-											isFocusOnLoad={focusGroup === group.id}
-											placeholder={T.NO_NAME}
-										/>
-										<div class='management-list__content' >
-											<Icon class='management-list__icon' as='pencel' color='gray_strong' onClick={onClickGroup(group)} />
-										</div>
+										<p>{group.title || T.NO_NAME}</p>
+										<Icon class='management-list__icon' as='pencel' color='gray_strong' onClick={onClickGroup(group)} />
 									</div>
 								: <p class='management-list__group c-gray f-bold' >{group.title || T.NO_GROUP}</p>
 							}
-							<Divider />
-							<div class='gap-tiny'>
+							<div class='management-list__items gap-small'>
 								{ group.items && group.items.length > 0 ? group.items.map(item=> (
-									<div class='management-list__item pos-relative' onMouseDown={onGrap(item)}>
-										{ isDragging
-											? <div class={getClassNames([ 'content-box', [!item.title, 'c-gray'] ])}>{item.title || T.NO_NAME}</div>
-											: <ContentEditable
-													onChange={(value) => value !== item.title && onUpdate({ id: item.id, title: value } as T)}
-													style={!!grapping && { background: 'none' }}
-													class='fluid'
-													placeholder={T.NO_NAME}
-													isChangeOnBlur
-													isFocusOnLoad={focusItem === item.id}
-													value={item.title}
-												/>
-										}
-										<div class='management-list__content' >
-											{ item.balance && <p>{getNumberWithComma(item.balance)}</p> }
-											<Icon class='management-list__icon' as='pencel' color='gray_strong' onClick={onClick(item)} />
-										</div>
-									</div>
-								)) : <p class='management-list__item p-small c-gray'>{T.EMPTY}</p>}
+									<Card class='management-list__item' padding='small' onClick={onClick(item)} onMouseDown={onGrap(item)} >
+										<p class={`${item.title ? '' : 'c-gray'}`}>{item.title || T.NO_NAME}</p>
+									</Card>
+								)) : <p class='management-list__empty'>{T.EMPTY}</p>}
 							</div>
 						</div>
 					)
@@ -106,7 +80,7 @@ const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping
 			</div>
 
 			{ grapping && grappingPos &&
-				<div
+				<Card
 					class='calendar-grapping content-box'
 					style={{ left: grappingPos.x, top: grappingPos.y - grapping.height, width: grapping.width, height: grapping.height, backgroundColor: 'var(--color-white_weakest)' }} 
 					children={grapping.data.title}

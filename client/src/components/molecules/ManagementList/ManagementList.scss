@@ -1,46 +1,53 @@
 @import '~src/style/mixins';
 
 .management-list {
-	.management-list__item,
-	.management-list__group {
-		.management-list__content {
-			position: absolute;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			top: 50%;
-			transform: translateY(-50%);
-			right: .5rem;
-			gap: .5rem;
+
+	&__container {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+	}
+
+	&__each {
+		min-height: 5rem;
+		position: relative;
+	}
+
+	&__group {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		gap: .25rem;
+		margin-bottom: .25rem;
+
+		> p {
+			color: var(--color-gray);
+			font-weight: var(--weight-bold);
 		}
+
 		.management-list__icon {
-			visibility: hidden;
-		}
-		&:hover .management-list__icon {
-			visibility: visible;
+			transition: .3s;
+			opacity: 0;
 		}
 	}
+
+	&__group:hover .management-list__icon {
+		opacity: 1;
+	}
+
+	&__empty {
+		padding: .5rem 0;
+		color: var(--color-gray);
+		font-style: italic;
+	}
+
 }
 
 
 @include maxTablet {
 	.management-list {
-		.management-list__item,
-		.management-list__group {
-			.management-list__content {
-				right: 1rem;
-				.management-list__icon {
-					visibility: visible;
-				}
-			}
+		&__group .management-list__icon {
+			opacity: 1;
 		}
-		.management-list__group {
-			padding: 0 .5rem;
-		}
-		.management-list__item {
-			padding-left: .5rem;
-			padding-right: .5rem;
-		}
-
 	}
 }
