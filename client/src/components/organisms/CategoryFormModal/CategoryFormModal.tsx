@@ -13,11 +13,12 @@ import useInput from '~hooks/useInput';
 export interface CategoryFormModalProps {
 	category: Category;
 	groupList: CategoryGroup[];
-	onConfirm: (category: Category, budget: number | null) => void;
+	currentDate: string;
+	onConfirm: (category: Category, budget: number | null, date: string) => void;
 	onDelete: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
 }
 
-const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ category, groupList, onConfirm, onDelete }) => {
+const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ category, groupList, currentDate, onConfirm, onDelete }) => {
 
 	const { t } = useTranslation();
 	const [ title, changeTitle ] = useContentEditable(category.title || '');
@@ -33,9 +34,10 @@ const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ catego
 			{
 				id: category.id,
 				title,
-				group: group || null,
+				group: group ? +group : null,
 			} as Category,
-			budjet ? +budjet : null
+			budjet ? +budjet : null,
+			currentDate,
 		);
 	}
 

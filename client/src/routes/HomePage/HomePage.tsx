@@ -65,8 +65,6 @@ const HomePage: FunctionalComponent = ({  }) => {
 		handleDrop,
 	});
 
-	console.log('===== HomePage', detailView);
-
 	useEffect(() => {
 	}, [view]);
 

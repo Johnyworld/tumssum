@@ -39,6 +39,7 @@ export const combineCategoriesWithGroups = (categories: Category[], categoryGrou
 const CategoryPage: FunctionalComponent = ({  }) => {
 
 	const { categories, categoryGroups } = useSelector(state=> state.category);
+	const { currentDate } = useSelector(state=> state.date);
 
 	const { detailView, handleCloseDetail, handleViewDetail } = useDetails<Category>();
 	const { detailView: detailViewGroup, handleCloseDetail: handleCloseDetailGroup, handleViewDetail: handleViewDetailGroup } = useDetails<CategoryGroup>();
@@ -93,6 +94,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 					<CategoryFormModal
 						category={detailView}
 						groupList={categoryGroups}
+						currentDate={currentDate}
 						onConfirm={handleUpdateCategory}
 						onDelete={handleRemoveCategory}
 					/>

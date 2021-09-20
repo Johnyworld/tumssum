@@ -49,6 +49,15 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		}
 	});
 
+	const patchCategory = useFetch<Category>({
+		method: 'PATCH',
+		url: '/api/category/',
+		onSuccess: data => {
+			dispatch(updateCategory(data));
+			onCloseDetail();
+		}
+	});
+
 	const deleteCatogoryGroup = useFetch<{ id: number, items: Category[] }>({
 		method: 'DELETE',
 		url: '/api/category-group/',
@@ -90,23 +99,24 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		})
 	}
 
-	const handleUpdateCategory = (category: Category, budget: number | null) => {
+	const handleUpdateCategory = (category: Category, budget: number | null, date: string) => {
 		if ( putCategory.loading ) return;
 		putCategory.call({
 			category_id: category.id,
 			group_id: category.group,
 			title: category.title,
 			budget,
+			date,
 		})
 	}
 
 	const handleDropToUpdateCategory = (groupId: number | null) => () => {
-		if (putCategory.loading || !grapping ) return;
+		if (patchCategory.loading || !grapping ) return;
 		if (groupId === grapping.data.group) {
 			handleDrop();
 			return;
 		}
-		putCategory.call({
+		patchCategory.call({
 			category_id: grapping.data.id,
 			group_id: groupId || null
 		})
