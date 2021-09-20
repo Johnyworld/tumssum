@@ -1,7 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { Route, Router } from 'preact-router';
 import HomePage from '~routes/HomePage';
-import BudgetPage from '~routes/BudgetPage';
 import CategoryPage from '~routes/CategoryPage';
 import BankPage from '~routes/BankPage';
 import SettingsPage from '~routes/SettingsPage';
@@ -31,7 +30,6 @@ const UserLoggedInPage: FunctionalComponent = () => {
 
   const gnbMenuList = useMemo(() => { return [
 		{ id: 'home', text: 'Home', icon: 'home', href: '/' },
-		{ id: 'budget', text: 'Budget', icon: 'card', href: '/budget' },
 		{ id: 'category', text: 'Category', icon: 'category', href: '/category' },
 		{ id: 'bank', text: 'Bank', icon: 'storage', href: '/bank' },
 	] as AsideMenuItem[]}, []);
@@ -102,7 +100,6 @@ const UserLoggedInPage: FunctionalComponent = () => {
 			/>
 			<Router>
 				<Route path="/" component={HomePage} />
-				<Route path="/budget" component={BudgetPage} />
 				<Route path="/category" component={CategoryPage} />
 				<Route path="/bank" component={BankPage} />
 				<Route path="/settings" component={SettingsPage} />
