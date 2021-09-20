@@ -5,7 +5,6 @@ from rest_framework.permissions import IsAuthenticated
 
 from .budget.getBudgets import getBudgets
 from .budget.postBudget import postBudget
-from .budget.putBudget import putBudget
 
 
 @api_view(['GET'])
@@ -20,5 +19,3 @@ def budget(request):
   if request.method == 'POST':
     return postBudget(request)
 
-  elif request.method == 'PUT':
-    return putBudget(request)
