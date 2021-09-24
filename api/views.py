@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from .utils.serializers import UserSerializer, UserSerializerWithToken
-from .controllers import userController, bankController
+from .controllers import userController
 from api.utils.secret import get_secret
 from allauth.socialaccount.providers.google import views as google_view
 from allauth.socialaccount.providers.kakao import views as kakao_view
@@ -233,41 +233,4 @@ def user(request):
 
   elif request.method == 'DELETE':
     return userController.deleteUser(reqData)
-
-
-
-###################### BANK ######################
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def banks(request):
-  if request.method == 'GET':
-    return bankController.getBanks(request)
-
-
-@api_view(['POST', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticated])
-def bank(request):
-  reqData = json.loads(request.body)
-  if request.method == 'POST':
-    return bankController.postBank(reqData)
-
-  elif request.method == 'PUT':
-    return bankController.putBank(reqData)
-
-  elif request.method == 'DELETE':
-    return bankController.deleteBank(reqData)
-
-
-@api_view(['POST', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticated])
-def bankGroup(request):
-  reqData = json.loads(request.body)
-  if request.method == 'POST':
-    return bankController.postBankGroup(reqData)
-
-  elif request.method == 'PUT':
-    return bankController.putBankGroup(reqData)
-
-  elif request.method == 'DELETE':
-    return bankController.deleteBankGroup(reqData)
 
