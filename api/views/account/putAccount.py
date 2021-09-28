@@ -1,4 +1,4 @@
-from api.controllers.month.utils import getNewMonths
+from api.views.month.utils import getNewMonths
 from api.models import Account, Month
 from api.utils.serializers import AccountSerializer
 from django.http.response import JsonResponse

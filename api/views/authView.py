@@ -6,7 +6,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from .utils.serializers import UserSerializer, UserSerializerWithToken
+from api.utils.serializers import UserSerializer, UserSerializerWithToken
 from api.utils.secret import get_secret
 from allauth.socialaccount.providers.google import views as google_view
 from allauth.socialaccount.providers.kakao import views as kakao_view

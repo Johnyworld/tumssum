@@ -1,7 +1,7 @@
 from django.http.response import JsonResponse
 from api.utils.serializers import MonthSerializer
 from api.models import Month
-from api.controllers.month.utils import getMonthsData
+from api.views.month.utils import getMonthsData
 
 
 def getMonth(request):
