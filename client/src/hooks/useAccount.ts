@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { useCallback, useState } from "preact/hooks";
 import { Account, Month } from "types";
 import { addAccount, removeAccount, updateAccount } from '~stores/accountSlice';
 import { updateOrAddMonths } from "~stores/monthSlice";
@@ -75,17 +75,17 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		toggleCreateModal.handleOff();
 	}
 
-	const handleOpenCreateModalWithDate = (date: string) => () => {
+	const handleOpenCreateModalWithDate = useCallback((date: string) => () => {
 		setInitialValuesForCreate({ datetime: date } as Account);
 		toggleCreateModal.handleOn();
-	}
+	}, []);
 
-	const handleOpenCreateModalWithCategory = (categoryId: number) => () => {
+	const handleOpenCreateModalWithCategory = useCallback((categoryId: number) => () => {
 		setInitialValuesForCreate({ category: categoryId } as Account);
 		toggleCreateModal.handleOn();
-	}
+	}, []);
 
-	const handleCreateAccount = (accountData: Account) => {
+	const handleCreateAccount = useCallback((accountData: Account) => {
 		if (postAccount.loading) return;
 		const { id, title, account, datetime, category, bank, memo } = accountData;
 		postAccount.call({
@@ -97,16 +97,16 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 			bank_id: bank,
 			memo,
 		})
-	}
+	}, [postAccount.loading]);
 
-	const handleDeleteAccount = (id: number) => () => {
+	const handleDeleteAccount = useCallback((id: number) => () => {
 		if (deleteAccount.loading) return;
 		deleteAccount.call({
 			account_id: id,
 		})
-	}
+	}, [deleteAccount.loading]);
 
-	const handleUpdateAccount = (accountData: Account) => {
+	const handleUpdateAccount = useCallback((accountData: Account) => {
 		if (putAccount.loading) return;
 		const { id, title, account, datetime, category, bank, memo } = accountData;
 		if (!id) return;
@@ -119,9 +119,9 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 			bank_id: bank,
 			memo,
 		})
-	}
+	}, [putAccount.loading])
 
-	const handlePatchAccount = (accountData: Account) => {
+	const handlePatchAccount = useCallback((accountData: Account) => {
 		if (patchAccount.loading) return;
 		const { id, title, account, datetime, category, bank, memo } = accountData;
 		const data: any = { account_id: id }
@@ -132,15 +132,15 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		if (bank !== undefined) data.bank_id = accountData.bank;
 		if (category) data.category_id = accountData.category;
 		patchAccount.call(data);
-	}
+	}, [patchAccount.loading]);
 
-	const updateAndDrop = (data: Account) => {
+	const updateAndDrop = useCallback((data: Account) => {
 		if (!grapping) return;
 		dispatch(updateAccount({ id: grapping.data.id, data }));
 		handleDrop();
-	}
+	}, [grapping]);
 
-	const handleDropToUpdateDate = (date: string) => () => {
+	const handleDropToUpdateDate = useCallback((date: string) => () => {
 		if (patchAccount.loading || !grapping ) return;
 		const datetime = date + 'T' + grapping!.data.datetime.split('T')[1]
 		if (date === grapping.data.datetime.substr(0, 10)) {
@@ -154,9 +154,9 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 			account_id: grapping.data.id,
 			datetime: isoString,
 		});
-	}
+	}, [patchAccount.loading, grapping]);
 
-	const handleDropToUpdateCategory = (categoryId: number | null, categoryTitle: string) => () => {
+	const handleDropToUpdateCategory = useCallback((categoryId: number | null, categoryTitle: string) => () => {
 		if (patchAccount.loading || !grapping ) return;
 		if (categoryId === grapping.data.category) {
 			handleDrop();
@@ -167,7 +167,7 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 			account_id: grapping.data.id,
 			category_id: categoryId,
 		});
-	}
+	}, [patchAccount.loading, grapping]);
 
 	return {
 		initialValuesForCreate,
