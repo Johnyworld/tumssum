@@ -59,7 +59,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const { borderRef, sideWidth, handleBorderMouseDown, handleContainerMouseUp, handleContainerDrag } = useResizeSide();
 
 	const { 
-		initialValuesForCreate, detailView, handleViewDetail, handleCloseDetail,
+		initialValuesForCreate, selectedItem, handleSelectItem, handleClearSelectedItem,
 		isOpenCreateModal, handleOpenCreateModal, handleOpenCreateModalWithDate, handleOpenCreateModalWithCategory, handleCloseCreateModal,
 		handleCreateAccount, handleUpdateAccount, handlePatchAccount, handleDeleteAccount, handleDropToUpdateDate, handleDropToUpdateCategory
 	} = useAccount({
@@ -110,7 +110,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 						onGrap={handleGrap}
 						onDropToUpdate={handleDropToUpdateDate}
 						onDragging={handleDragging}
-						onClick={handleViewDetail}
+						onClick={handleSelectItem}
 						onClickPlus={handleOpenCreateModalWithDate}
 					/>
 				}
@@ -125,7 +125,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 						onDrop={handleDrop}
 						onDropToUpdate={handleDropToUpdateCategory}
 						onDragging={handleDragging}
-						onClick={handleViewDetail}
+						onClick={handleSelectItem}
 						onClickPlus={handleOpenCreateModalWithCategory}
 					/>
 				}
@@ -136,7 +136,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
 						onChange={handlePatchAccount}
-						onClickEdit={handleViewDetail}
+						onClickEdit={handleSelectItem}
 					/>
 				}
 			</section>
@@ -169,12 +169,12 @@ const HomePage: FunctionalComponent = ({  }) => {
 			/>
 
 			<Modal
-				isOpen={!!detailView}
-				onClose={handleCloseDetail}
+				isOpen={!!selectedItem}
+				onClose={handleClearSelectedItem}
 				children={
 					<AccountFormModal
 						currentDate={currentDate}
-						initialValues={detailView!}
+						initialValues={selectedItem!}
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
 						onConfirm={handleUpdateAccount}

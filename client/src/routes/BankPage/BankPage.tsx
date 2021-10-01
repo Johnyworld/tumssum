@@ -53,8 +53,6 @@ const BankPage: FunctionalComponent = ({  }) => {
 	const { grapping, grappingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(banks);
 
 	const {
-		focusGroup,
-		focusItem,
 		handleUpdateBankGroup,
 		handleUpdateBank,
 		handleDropToUpdateBank,
@@ -80,15 +78,10 @@ const BankPage: FunctionalComponent = ({  }) => {
 				data={combined}
 				grapping={grapping}
 				grappingPos={grappingPos}
-				focusGroup={focusGroup}
-				focusItem={focusItem}
-				isDragging={isDragging}
 				onGrap={handleGrap}
 				onDropToUpdate={handleDropToUpdateBank}
 				onDrop={handleDrop}
 				onDragging={handleDragging}
-				onUpdate={handleUpdateBank}
-				onUpdateGroup={handleUpdateBankGroup}
 				onClick={handleSelectItem}
 				onClickGroup={handleSelectedGroupItem}
 			/>
