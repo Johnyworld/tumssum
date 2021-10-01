@@ -4,7 +4,7 @@ import { addAccount, removeAccount, updateAccount } from '~stores/accountSlice';
 import { updateOrAddMonths } from "~stores/monthSlice";
 import { getLocalString, getLocalStringFromISOString } from '~utils/calendar';
 import { useDispatch } from '~utils/redux/hooks';
-import useDetails from "./useDetails";
+import useDetails from "./useSelectItem";
 import { GrappingData } from './useDrag';
 import useFetch from "./useFetch";
 import useToggle from "./useToggle";
@@ -22,7 +22,7 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 
 	const toggleCreateModal = useToggle();
 
-	const { detailView, handleCloseDetail, handleViewDetail } = useDetails<Account>();
+	const { selectedItem, handleClearSelectedItem, handleSelectItem } = useDetails<Account>();
 	
 	const postAccount = useFetch<{ account: Account, months?: Month[] }>({
 		method: 'POST',
@@ -43,7 +43,7 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 			dispatch(updateAccount({ id: account.id, data: account }));
 			if (data.months) dispatch(updateOrAddMonths(data.months));
 			toggleCreateModal.handleOff();
-			handleCloseDetail();
+			handleClearSelectedItem();
 		}
 	});
 
@@ -56,7 +56,7 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 			dispatch(updateAccount({ id: account.id, data: account }));
 			if (data.months) dispatch(updateOrAddMonths(data.months));
 			toggleCreateModal.handleOff();
-			handleCloseDetail();
+			handleClearSelectedItem();
 		}
 	});
 
@@ -66,7 +66,7 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		onSuccess: data => {
 			dispatch(removeAccount(data.account));
 			if (data.months) dispatch(updateOrAddMonths(data.months));
-			handleCloseDetail();
+			handleClearSelectedItem();
 		}
 	});
 
@@ -172,9 +172,9 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 	return {
 		initialValuesForCreate,
 
-		detailView,
-		handleViewDetail,
-		handleCloseDetail,
+		selectedItem,
+		handleSelectItem,
+		handleClearSelectedItem,
 
 		isOpenCreateModal: toggleCreateModal.checked,
 		handleOpenCreateModal: toggleCreateModal.handleOn,
