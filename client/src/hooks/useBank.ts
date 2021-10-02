@@ -14,8 +14,6 @@ interface UseBank {
 export default ({ grapping, onCloseDetail, handleDrop }: UseBank) => {
 	
 	const dispatch = useDispatch();
-	const [ focusItem, setFocusItem ] = useState<number | null>(null);
-	const [ focusGroup, setFocusGroup ] = useState<number | null>(null);
 
 
 	const postBankGroup = useFetch<BankGroup>({
@@ -23,8 +21,6 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseBank) => {
 		url: '/api/bank-group/',
 		onSuccess: data => {
 			dispatch(addBankGroup(data));
-			setFocusGroup(data.id);
-			setTimeout(() => setFocusGroup(null))
 		}
 	})
 
@@ -33,8 +29,6 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseBank) => {
 		url: '/api/bank/',
 		onSuccess: data => {
 			dispatch(addBank(data));
-			setFocusItem(data.id);
-			setTimeout(() => setFocusItem(null))
 		}
 	})
 
@@ -137,8 +131,6 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseBank) => {
 
 	
 	return {
-		focusItem,
-		focusGroup,
 		handleUpdateBank,
 		handleUpdateBankGroup,
 		handleDropToUpdateBank,

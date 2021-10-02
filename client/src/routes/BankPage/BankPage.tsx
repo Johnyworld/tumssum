@@ -9,7 +9,7 @@ import Modal from '~components/layouts/Modal';
 import BankFormModal from '~components/organisms/BankFormModal';
 import BankGroupFormModal from '~components/organisms/BankGroupFormModal/BankGroupFormModal';
 import useBank from '~hooks/useBank';
-import useDetails from '~hooks/useDetails';
+import useDetails from '~hooks/useSelectItem';
 import useDrag from '~hooks/useDrag';
 import { useSelector } from '~utils/redux/hooks';
 
@@ -40,12 +40,12 @@ export const combineBanksWithGroups = (banks: Bank[], bankGroups: BankGroup[]) =
 const BankPage: FunctionalComponent = ({  }) => {
 
 	const { banks, bankGroups } = useSelector(state=> state.bank);
-	const { detailView, handleCloseDetail, handleViewDetail } = useDetails<Bank>();
-	const { detailView: detailViewGroup, handleCloseDetail: handleCloseDetailGroup, handleViewDetail: handleViewDetailGroup } = useDetails<BankGroup>();
+	const { selectedItem, handleClearSelectedItem, handleSelectItem } = useDetails<Bank>();
+	const { selectedItem: selectedGroupItem, handleClearSelectedItem: handleClearSelectedGroupItem, handleSelectItem: handleSelectedGroupItem } = useDetails<BankGroup>();
 
 	const closeDetails = useCallback(() => {
-		handleCloseDetail();
-		handleCloseDetailGroup();
+		handleClearSelectedItem();
+		handleClearSelectedGroupItem();
 	}, []);
 
 	const combined = combineBanksWithGroups(banks, bankGroups);
@@ -53,8 +53,6 @@ const BankPage: FunctionalComponent = ({  }) => {
 	const { grapping, grappingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(banks);
 
 	const {
-		focusGroup,
-		focusItem,
 		handleUpdateBankGroup,
 		handleUpdateBank,
 		handleDropToUpdateBank,
@@ -80,23 +78,18 @@ const BankPage: FunctionalComponent = ({  }) => {
 				data={combined}
 				grapping={grapping}
 				grappingPos={grappingPos}
-				focusGroup={focusGroup}
-				focusItem={focusItem}
-				isDragging={isDragging}
 				onGrap={handleGrap}
 				onDropToUpdate={handleDropToUpdateBank}
 				onDrop={handleDrop}
 				onDragging={handleDragging}
-				onUpdate={handleUpdateBank}
-				onUpdateGroup={handleUpdateBankGroup}
-				onClick={handleViewDetail}
-				onClickGroup={handleViewDetailGroup}
+				onClick={handleSelectItem}
+				onClickGroup={handleSelectedGroupItem}
 			/>
 
-			<Modal isOpen={!!detailView} onClose={handleCloseDetail}>
-				{ detailView &&
+			<Modal isOpen={!!selectedItem} onClose={handleClearSelectedItem}>
+				{ selectedItem &&
 					<BankFormModal
-						bank={detailView}
+						bank={selectedItem}
 						groupList={bankGroups}
 						onConfirm={handleUpdateBank}
 						onDelete={handleRemoveBank}
@@ -104,10 +97,10 @@ const BankPage: FunctionalComponent = ({  }) => {
 				}
 			</Modal>
 
-			<Modal isOpen={!!detailViewGroup} onClose={handleCloseDetailGroup}>
-				{ detailViewGroup &&
+			<Modal isOpen={!!selectedGroupItem} onClose={handleClearSelectedGroupItem}>
+				{ selectedGroupItem &&
 					<BankGroupFormModal
-						group={detailViewGroup}
+						group={selectedGroupItem}
 						onConfirm={handleUpdateBankGroup}
 						onDelete={handleRemoveBankGroup}
 					/>

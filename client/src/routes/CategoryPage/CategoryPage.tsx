@@ -6,7 +6,7 @@ import useCategory from '~hooks/useCategory';
 import useDrag from '~hooks/useDrag';
 import { useSelector } from '~utils/redux/hooks';
 import Indicator from '~components/layouts/Indicator';
-import useDetails from '~hooks/useDetails';
+import useDetails from '~hooks/useSelectItem';
 import ManagementList from '~components/molecules/ManagementList';
 import Modal from '~components/layouts/Modal';
 import CategoryFormModal from '~components/organisms/CategoryFormModal';
@@ -62,12 +62,12 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 	const { budgets } = useSelector(state=> state.budget);
 	const today = getLocalString().substr(0, 7);
 
-	const { detailView, handleCloseDetail, handleViewDetail } = useDetails<Category>();
-	const { detailView: detailViewGroup, handleCloseDetail: handleCloseDetailGroup, handleViewDetail: handleViewDetailGroup } = useDetails<CategoryGroup>();
+	const { selectedItem, handleClearSelectedItem, handleSelectItem } = useDetails<Category>();
+	const { selectedItem: selectedGroupItem, handleClearSelectedItem: handleClearSelectedGroupItem, handleSelectItem: handleSelectGroupItem } = useDetails<CategoryGroup>();
 
 	const closeDetails = useCallback(() => {
-		handleCloseDetail();
-		handleCloseDetailGroup();
+		handleClearSelectedItem();
+		handleClearSelectedGroupItem();
 	}, []);
 
 	const combined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
@@ -106,14 +106,14 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 				onDropToUpdate={handleDropToUpdateCategory}
 				onDrop={handleDrop}
 				onDragging={handleDragging}
-				onClick={handleViewDetail}
-				onClickGroup={handleViewDetailGroup}
+				onClick={handleSelectItem}
+				onClickGroup={handleSelectGroupItem}
 			/>
 
-			<Modal isOpen={!!detailView} onClose={handleCloseDetail}>
-				{ detailView &&
+			<Modal isOpen={!!selectedItem} onClose={handleClearSelectedItem}>
+				{ selectedItem &&
 					<CategoryFormModal
-						category={detailView}
+						category={selectedItem}
 						groupList={categoryGroups}
 						currentDate={today}
 						onConfirm={handleUpdateCategory}
@@ -122,10 +122,10 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 				}
 			</Modal>
 
-			<Modal isOpen={!!detailViewGroup} onClose={handleCloseDetailGroup}>
-				{ detailViewGroup &&
+			<Modal isOpen={!!selectedGroupItem} onClose={handleClearSelectedGroupItem}>
+				{ selectedGroupItem &&
 					<CategoryGroupFormModal
-						group={detailViewGroup}
+						group={selectedGroupItem}
 						onConfirm={handleUpdateCategoryGroup}
 						onDelete={handleRemoveCategoryGroup}
 					/>
