@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useCallback, useState } from 'preact/hooks';
 import { Bank, BankGroup } from 'types';
 import { addBanks, addBank, addBankGroup, removeBank, removeBankGroup, updateBank, updateBankGroup } from '~stores/bankSlice';
 import { useDispatch } from '~utils/redux/hooks';
@@ -69,39 +69,39 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseBank) => {
 		}
 	})
 
-	const handleAddBankGroup = () => {
+	const handleAddBankGroup = useCallback(() => {
 		if ( postBankGroup.loading ) return;
 		postBankGroup.call({
 			title: '',
 		});
-	}
+	}, [postBankGroup.loading]);
 
-	const handleAddBank = () => {
+	const handleAddBank = useCallback(() => {
 		if ( postBank.loading ) return;
 		postBank.call({
 			title: '',
 			balance: 0,
 		});
-	}
+	}, [postBank.loading]);
 
-	const handleUpdateBankGroup = (group: BankGroup) => {
+	const handleUpdateBankGroup = useCallback((group: BankGroup) => {
 		if ( putBankGroup.loading ) return;
 		putBankGroup.call({
 			bank_group_id: group.id,
 			title: group.title,
 		})
-	}
+	}, [putBankGroup.loading]);
 
-	const handleUpdateBank = (bank: Bank) => {
+	const handleUpdateBank = useCallback((bank: Bank) => {
 		if ( putBank.loading ) return;
 		putBank.call({
 			bank_id: bank.id,
 			group_id: bank.group,
 			title: bank.title,
 		})
-	}
+	}, [putBank.loading]);
 
-	const handleDropToUpdateBank = (groupId: number | null) => () => {
+	const handleDropToUpdateBank = useCallback((groupId: number | null) => () => {
 		if (putBank.loading || !grapping ) return;
 		if (groupId === grapping.data.group) {
 			handleDrop();
@@ -113,21 +113,21 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseBank) => {
 		})
 		dispatch(updateBank({ id: grapping.data.id, group: groupId } as Bank));
 		handleDrop();
-	}
+	}, [putBank.loading, grapping]);
 
-	const handleRemoveBankGroup = (id: number) => () => {
+	const handleRemoveBankGroup = useCallback((id: number) => () => {
 		if (deleteBankGroup.loading) return;
 		deleteBankGroup.call({
 			bank_group_id: id
 		});
-	}
+	}, [deleteBankGroup.loading]);
 
-	const handleRemoveBank = (id: number) => () => {
+	const handleRemoveBank = useCallback((id: number) => () => {
 		if (deleteBank.loading) return;
 		deleteBank.call({
 			bank_id: id
 		});
-	}
+	}, [deleteBank.loading]);
 
 	
 	return {
