@@ -22,7 +22,8 @@ from django.conf import settings
 import requests
 import json
 
-REDIRECT_URI = "http://127.0.0.1:8000/api/login/kakao/callback/"
+BASE_URL = settings.BASE_URL
+REDIRECT_URI = BASE_URL + "/api/login/kakao/callback/"
 CLIENT_ID = get_secret("KAKAO_REST_KEY")
 
 ###################### AUTH ######################
@@ -103,7 +104,7 @@ def google_callback(request):
     # 기존에 Google로 가입된 유저
     data = {'access_token': access_token}
     accept = requests.post(
-      "http://127.0.0.1:8000/api/login/google/finish/", data=data)
+      BASE_URL + "/api/login/google/finish/", data=data)
     accept_status = accept.status_code
     if accept_status != 200:
       res = { 'ok': False, 'code': 'failed to signin' }
@@ -119,7 +120,7 @@ def google_callback(request):
   except User.DoesNotExist: # 기존에 가입된 유저가 없으면 새로 가입
     data = {'access_token': access_token}
     accept = requests.post(
-      "http://127.0.0.1:8000/api/login/google/finish/", data=data)
+      BASE_URL + "/api/login/google/finish/", data=data)
     accept_status = accept.status_code
     if accept_status != 200:
       res = { 'ok': False, 'code': 'failed to signup' }
@@ -168,7 +169,7 @@ def kakao_callback(request):
     # 기존에 Google로 가입된 유저
     data = {'access_token': access_token}
     accept = requests.post(
-      "http://127.0.0.1:8000/api/login/kakao/finish/", data=data)
+      BASE_URL + "/api/login/kakao/finish/", data=data)
     accept_status = accept.status_code
     if accept_status != 200:
       res = { 'ok': False, 'code': 'failed to signin' }
@@ -184,7 +185,7 @@ def kakao_callback(request):
   except User.DoesNotExist: # 기존에 가입된 유저가 없으면 새로 가입
     data = {'access_token': access_token}
     accept = requests.post(
-      "http://127.0.0.1:8000/api/login/kakao/finish/", data=data)
+      BASE_URL + "/api/login/kakao/finish/", data=data)
     accept_status = accept.status_code
     if accept_status != 200:
       res = { 'ok': False, 'code': 'failed to signup' }
