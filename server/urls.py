@@ -27,6 +27,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('profile/', views.profile, name='profile'),
+    path('login/', views.login, name='login'),
+    path('register/', views.register, name='register'),
     path('profile/<str:id>', views.profileDetail, name='profile-detail'),
     path('', views.index, name='index'),
     # url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.base.STATIC_ROOT}),
