@@ -3,12 +3,12 @@ import { Route, Router } from 'preact-router';
 import { useSelector } from '~utils/redux/hooks'
 
 import IntroPage from './IntroPage';
-import NotFoundPage from './NotFoundPage';
 import LoginPage from '~routes/LoginPage';
 import RegisterPage from '~routes/RegisterPage';
 import ConfirmToken from '~routes/ConfirmTokenPage/ConfirmTokenPage';
 import FullLoader from '../components/molecules/FullLoader';
 import AppLoggedInRouter from './AppLoggedInRouter';
+import Redirect from './Redirect';
 
 
 const App: FunctionalComponent = () => {
@@ -26,7 +26,7 @@ const App: FunctionalComponent = () => {
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/confirm" component={ConfirmToken} />
-          <NotFoundPage default />
+          <Redirect default to='/' />
         </Router>
       }
 
