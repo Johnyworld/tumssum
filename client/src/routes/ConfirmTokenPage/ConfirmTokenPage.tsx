@@ -11,7 +11,7 @@ const ConfirmTokenPage = () => {
   const queryObj = getQueryObj<{ email: string, token: string }>();
   useEffect(() => {
     axios.post('/api/login/', { username: queryObj.email, password: queryObj.token }).then(res => {
-      dispatch(setUser(res.data));
+      if (res.data) dispatch(setUser(res.data));
       route('/');
     }).catch(res => {
       route('/');

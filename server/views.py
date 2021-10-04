@@ -15,6 +15,11 @@ def register(request):
     'page_name': 'Register',
   })
 
+def confirm(request):
+  return render(request, 'index.html', {
+    'page_name': 'Tumssum',
+  })
+
 def profile(request):
   return render(request, 'index.html', {
     'page_name': 'Profile',

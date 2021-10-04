@@ -35,7 +35,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     for k, v in serializer.items():
       data[k] = v
 
-    return data
+    return { 'ok': True, 'data' : data }
 
 
 class MyTokenObtainPairView(TokenObtainPairView):

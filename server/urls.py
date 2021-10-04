@@ -29,6 +29,7 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
+    path('confirm/', views.confirm, name='confirm'),
     path('profile/<str:id>', views.profileDetail, name='profile-detail'),
     path('', views.index, name='index'),
     # url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.base.STATIC_ROOT}),
