@@ -145,14 +145,17 @@ def kakao_callback(request):
   # ----------------------------------------
   # Request User Informations
   # ----------------------------------------
-  profile_request = requests.get(
-    "https://kapi.kakao.com/v2/user/me", headers={"Authorization": f"Bearer {access_token}"})
-  profile_json = profile_request.json()
-  kakao_account = profile_json.get('kakao_account')
-  profile = kakao_account.get('profile')
-  email = kakao_account.get('email')
-  nickname = profile.get('nickname')
-  avatar = profile.get('profile_image_url')
+  try:
+    profile_request = requests.get(
+      "https://kapi.kakao.com/v2/user/me", headers={"Authorization": f"Bearer {access_token}"})
+    profile_json = profile_request.json()
+    kakao_account = profile_json.get('kakao_account')
+    profile = kakao_account.get('profile')
+    email = kakao_account.get('email')
+    nickname = profile.get('nickname')
+    avatar = profile.get('profile_image_url')
+  except:
+    print('카카오 유저 정보를 불러오는데 실패했습니다.')
   # ----------------------------------------
   # Signup or Signin Request
   # ----------------------------------------
