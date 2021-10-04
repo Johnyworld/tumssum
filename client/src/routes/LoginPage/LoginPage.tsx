@@ -21,6 +21,7 @@ const LoginPage: FunctionalComponent = () => {
   const login = useFetch({
     method: 'GET',
     url: `/api/login/send?email=${email}`,
+    isNoFetchWithoutCall: true, 
     onSuccess: () => {
       setEmail('');
       setSent(true);

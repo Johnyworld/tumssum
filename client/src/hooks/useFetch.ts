@@ -13,11 +13,12 @@ interface UseFetchParams<S> {
 	method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 	url: string;
 	params?: {},
+	isNoFetchWithoutCall?: boolean,
 	onError?: (error: ErrorObj) => void;
 	onSuccess?: (data: S) => void;
 }
 
-const useFetch = <S>({ method, url, params, onError, onSuccess }:UseFetchParams<S>) => {
+const useFetch = <S>({ method, url, params, isNoFetchWithoutCall, onError, onSuccess }:UseFetchParams<S>) => {
 
 	const { t } = useTranslation();
 	const user = useSelector(state=> state.user.userInfo);
@@ -71,7 +72,7 @@ const useFetch = <S>({ method, url, params, onError, onSuccess }:UseFetchParams<
 
 
 	useEffect(() => {
-		if (method === 'GET') fetching(null, params || {});
+		if (method === 'GET' && !isNoFetchWithoutCall) fetching(null, params || {});
 	}, []);
 
 
