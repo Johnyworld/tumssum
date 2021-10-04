@@ -30,11 +30,18 @@ const GoogleLogin: FunctionalComponent = () => {
       });
       //버튼 클릭시 사용자 정보 불러오기
       auth2.attachClickHandler(googleLoginBtn.current, {}, (googleUser: any) => {
+        const authResponse = googleUser.getAuthResponse();
+        const basicProfile = googleUser.getBasicProfile();
+
+        const name = basicProfile.getName();
+        const email = basicProfile.getEmail();
+        const access_token = authResponse.access_token;
+
         dispatch(changeFullLoading(true));
         axios.post('/api/login/google/', {
-          access_token: googleUser.mc.access_token,
-          email: googleUser.dt.Nt,
-          name: googleUser.dt.Ue,
+          access_token,
+          email,
+          name,
         })
         .then((res: any) => {
           if ( res.ok && !res.code ) {
