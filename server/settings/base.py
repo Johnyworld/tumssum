@@ -32,13 +32,6 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -175,8 +168,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # ALLAUTH
-SITE_ID = 2
 REST_USE_JWT = True
+JWT_AUTH_COOKIE = 'jwt-auth'
 
 
 # Internationalization

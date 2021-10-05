@@ -10,6 +10,7 @@ DJANGO_DB_PORT = get_secret("DJANGO_DB_PORT")
 DJANGO_EC2_IP = get_secret("DJANGO_EC2_IP")
 DJANGO_DOMAIN = get_secret("DJANGO_DOMAIN")
 
+SITE_ID = 3
 BASE_URL = 'https://tumssum.com'
 SITE_URL = 'https://tumssum.com'
 
@@ -19,8 +20,8 @@ ALLOWED_HOSTS = [
   '127.0.0.1',
   'localhost',
   '*.compute.amazonaws.com',
-  DJANGO_EC2_IP,
   DJANGO_DOMAIN,
+  DJANGO_EC2_IP,
 ]
 
 

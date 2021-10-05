@@ -5,6 +5,7 @@ ALLOWED_HOSTS = [
   '*',
 ]
 
+SITE_ID = 2
 BASE_URL = 'http://localhost:8000'
 SITE_URL = 'http://localhost:3000'
 
