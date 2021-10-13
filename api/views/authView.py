@@ -24,7 +24,6 @@ import json
 
 BASE_URL = settings.BASE_URL
 REDIRECT_URI = BASE_URL + "/api/login/kakao/callback/"
-CLIENT_ID = get_secret("KAKAO_REST_KEY")
 
 ###################### AUTH ######################
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
