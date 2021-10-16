@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useTranslation } from "preact-i18next";
-import { useEffect, useState } from "preact/hooks"
+import { useCallback, useEffect, useState } from "preact/hooks"
 import { useSelector } from "~utils/redux/hooks";
 
 
@@ -26,7 +26,7 @@ const useFetch = <S>({ method, url, params, isNoFetchWithoutCall, onError, onSuc
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<ErrorObj>({ code: '', message: '' });
 
-	const fetching = (reqData?: any, params?: any) => {
+	const fetching = useCallback((reqData?: any, params?: any) => {
 
 		if (loading) return;
 		setLoading(true);
@@ -62,13 +62,14 @@ const useFetch = <S>({ method, url, params, isNoFetchWithoutCall, onError, onSuc
 			setError(errObj);
 			setLoading(false);
 		});
-	}
+	}, [loading, error, data]);
+
 
 	useEffect(() => {
 		if (loading) return;
 		if (error.code && onError) onError(error);
 		else if (data && onSuccess) onSuccess(data);
-	}, [data, loading, error]);
+	}, [user, data, loading, error]);
 
 
 	useEffect(() => {
@@ -76,9 +77,9 @@ const useFetch = <S>({ method, url, params, isNoFetchWithoutCall, onError, onSuc
 	}, []);
 
 
-	const call = (reqData?: any) => {
+	const call = useCallback((reqData?: any) => {
 		fetching(reqData);
-	}
+	}, []);
 
 
 	return {
