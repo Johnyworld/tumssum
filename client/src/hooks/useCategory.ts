@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useCallback, useState } from 'preact/hooks';
 import { Budget, Category, CategoryGroup } from 'types';
 import { addOrUpdateBudget, removeBudget } from '~stores/budgetSlice';
 import { addCategories, addCategory, addCategoryGroup, removeCategory, removeCategoryGroup, updateCategory, updateCategoryGroup } from '~stores/categorySlice';
@@ -82,29 +82,29 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		}
 	})
 
-	const handleAddCategoryGroup = () => {
+	const handleAddCategoryGroup = useCallback(() => {
 		if ( postCategoryGroup.loading ) return;
 		postCategoryGroup.call({
 			title: '',
 		});
-	}
+	}, [postCategoryGroup.loading]);
 
-	const handleAddCategory = () => {
+	const handleAddCategory = useCallback(() => {
 		if ( postCategory.loading ) return;
 		postCategory.call({
 			title: '',
 		});
-	}
+	}, [postCategory.loading]);
 
-	const handleUpdateCategoryGroup = (group: CategoryGroup) => {
+	const handleUpdateCategoryGroup = useCallback((group: CategoryGroup) => {
 		if ( putCategoryGroup.loading ) return;
 		putCategoryGroup.call({
 			category_group_id: group.id,
 			title: group.title,
 		})
-	}
+	}, [putCategoryGroup.loading]);
 
-	const handleUpdateCategory = (category: Category, budget: number | null, date: string) => {
+	const handleUpdateCategory = useCallback((category: Category, budget: number | null, date: string) => {
 		if ( putCategory.loading ) return;
 		putCategory.call({
 			category_id: category.id,
@@ -113,9 +113,9 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 			budget,
 			date,
 		})
-	}
+	}, [putCategory.loading]);
 
-	const handleDropToUpdateCategory = (groupId: number | null) => () => {
+	const handleDropToUpdateCategory = useCallback((groupId: number | null) => () => {
 		if (patchCategory.loading || !grapping ) return;
 		if (groupId === grapping.data.group) {
 			handleDrop();
@@ -127,21 +127,21 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		})
 		dispatch(updateCategory({ id: grapping.data.id, group: groupId } as Category));
 		handleDrop();
-	}
+	}, [patchCategory.loading, grapping?.data]);
 
-	const handleRemoveCategoryGroup = (id: number) => () => {
+	const handleRemoveCategoryGroup = useCallback((id: number) => () => {
 		if (deleteCatogoryGroup.loading) return;
 		deleteCatogoryGroup.call({
 			category_group_id: id
 		});
-	}
+	}, [deleteCatogoryGroup.loading]);
 
-	const handleRemoveCategory = (id: number) => () => {
+	const handleRemoveCategory = useCallback((id: number) => () => {
 		if (deleteCatogory.loading) return;
 		deleteCatogory.call({
 			category_id: id
 		});
-	}
+	}, [deleteCatogory.loading]);
 
 	
 	return {

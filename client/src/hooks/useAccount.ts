@@ -70,10 +70,10 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		}
 	});
 
-	const handleCloseCreateModal = () => {
+	const handleCloseCreateModal = useCallback(() => {
 		setInitialValuesForCreate(null);
 		toggleCreateModal.handleOff();
-	}
+	}, []);
 
 	const handleOpenCreateModalWithDate = useCallback((date: string) => () => {
 		setInitialValuesForCreate({ datetime: date } as Account);
