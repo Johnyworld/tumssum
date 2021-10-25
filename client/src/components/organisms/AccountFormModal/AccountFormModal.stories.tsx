@@ -14,4 +14,11 @@ const Template: Story<AccountFormModalProps> = (args) => <AccountFormModal {...a
 
 export const Default = Template.bind({});
 Default.args = {
+	currentDate: '202109',
+	categoriesCombined: [
+
+	],
+	banksCombined: [
+
+	],
 };

@@ -10,7 +10,7 @@ export default {
 	}
 } as Meta;
 
-const Template: Story<AccountItemProps> = (args) => <AccountItem {...args} />
+const Template: Story<AccountItemProps> = (args) => <div style={{ width: '200px' }}><AccountItem {...args} /></div>
 
 export const Default = Template.bind({});
 Default.args = {
