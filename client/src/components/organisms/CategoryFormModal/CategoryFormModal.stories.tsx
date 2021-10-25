@@ -18,5 +18,9 @@ Default.args = {
 	category: {
 		id: 1,
 		title: 'Category',
-	}	as Category
+	}	as Category,
+	groupList: [
+
+	],
+	currentDate: '202109'
 };
