@@ -5,7 +5,7 @@ import { getClassNames } from '~utils/classNames';
 import Icon from '../Icon';
 import TimePickerTimer from './TimePickerTimer';
 
-interface TimePickerProps {
+export interface TimePickerProps {
 	label?: string;
 
 	/** HH:MM */
