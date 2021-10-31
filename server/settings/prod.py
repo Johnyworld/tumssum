@@ -11,7 +11,7 @@ DJANGO_EC2_IP = get_secret("DJANGO_EC2_IP")
 DJANGO_DOMAIN = get_secret("DJANGO_DOMAIN")
 
 SITE_ID = 3
-BASE_URL = 'http://3.37.73.141:8000'
+BASE_URL = 'https://tumssum.com'
 SITE_URL = 'https://tumssum.com'
 
 
