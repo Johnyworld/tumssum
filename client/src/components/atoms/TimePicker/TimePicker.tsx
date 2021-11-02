@@ -1,9 +1,10 @@
 import { h, FunctionalComponent } from 'preact';
 import { useCallback, useState } from 'preact/hooks';
 import { Vec2 } from 'types';
+import TimePickerModal from '~components/organisms/TimePickerModal';
+import Portal from '~components/Portal';
 import { getClassNames } from '~utils/classNames';
 import Icon from '../Icon';
-import TimePickerTimer from './TimePickerTimer';
 
 export interface TimePickerProps {
 	label?: string;
@@ -59,7 +60,7 @@ const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, fluid, 
 
 			{ label && <label class={styleType === 'input' ? 'input-label' : 'content-label'}>{label}</label> }
 
-			<div class={`time-picker-input ${styleType === 'input' ? 'input-box' : 'content-box fluid'}`} onClick={handleShowPicker}>
+			<div class={`time-picker__input ${styleType === 'input' ? 'input-box' : 'content-box fluid'}`} onClick={handleShowPicker}>
 				<p class={'t-nowrap' + (time ? '' : ' c-gray')}>{time || placeholder}</p>
 				{ !isHideIcon &&
 					<Icon as='time' color='gray_strong' />
@@ -67,14 +68,17 @@ const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, fluid, 
 			</div>
 
 			{ pos &&
-				<TimePickerTimer
-					time={time}
-					pos={pos}
-					width={PICKER_WIDTH}
-					height={PICKER_HEIGHT}
-					onChange={handleChange}
-					onClose={handleClosePicker}
-				/>
+				<Portal>
+					<div class='date-picker__dim' onClick={handleClosePicker} />
+					<TimePickerModal
+						time={time}
+						pos={pos}
+						width={PICKER_WIDTH}
+						height={PICKER_HEIGHT}
+						onChange={handleChange}
+						onClose={handleClosePicker}
+					/>
+				</Portal>
 			}
 
 		</div>
