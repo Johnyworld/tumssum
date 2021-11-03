@@ -1,32 +1,6 @@
-.time-picker-input {
+.time-picker__input {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	cursor: pointer;
-}
-
-.time-picker-timer {
-	position: fixed;
-	width: 180px;	
-	background-color: var(--color-paper);
-	box-shadow: var(--shadow-large);
-	border: 1px solid var(--color-gray_weak);
-	z-index: var(--layer-ui);
-
-	input {
-		background: var(--color-bg);
-    border: 1px solid var(--color-gray_weak);
-    padding: .25em .5em;
-    margin: .25em 0;
-    font-size: var(--font-large);
-    color: var(--color-pen);;
-	}
-}
-
-.time-picker-timer-buttons {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	padding: 1rem;
 }
