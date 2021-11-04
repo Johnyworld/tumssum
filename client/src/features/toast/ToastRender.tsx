@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from '~utils/redux/hooks';
 import ToastItem from './Toast';
 import { removeToast } from '~stores/toastSlice';
 import './Toast.scss';
+import useToast from '~hooks/useToast';
 
 
 const ToastRender: FunctionalComponent = ({  }) => {

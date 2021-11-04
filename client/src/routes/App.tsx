@@ -10,6 +10,7 @@ import FullLoader from '../components/molecules/FullLoader';
 import AppLoggedInRouter from './AppLoggedInRouter';
 import Redirect from './Redirect';
 import ToastRender from '~features/toast/ToastRender';
+import AlertRender from '~features/alert/AlertRender';
 
 
 const App: FunctionalComponent = () => {
@@ -36,6 +37,7 @@ const App: FunctionalComponent = () => {
       }
 
       <ToastRender />
+      <AlertRender />
 
     </div>
   );
