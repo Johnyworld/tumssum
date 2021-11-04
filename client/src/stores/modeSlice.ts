@@ -36,6 +36,6 @@ export const modeSlice = createSlice({
   }
 })
 
-export const { changeTheme, changeFullLoading } = modeSlice.actions
+export const { changeTheme, changeFullLoading } = modeSlice.actions;
 
 export default modeSlice.reducer;

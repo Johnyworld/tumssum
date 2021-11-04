@@ -25,6 +25,7 @@ declare module 'types' {
     bg: string;
     primary: string;
     red: string;
+    green: string;
     gray_strong: string,
     gray: string,
     gray_weak: string,

@@ -1,0 +1,35 @@
+.toast-item {
+	position: fixed;
+	top: 0;
+	right: 1rem;
+	padding: 0 1rem;
+	height: 48px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 2rem;
+	transition: .5s;
+	opacity: 1;
+	animation-name: toast_fadein;
+	animation-direction: normal;
+	animation-duration: .5s;
+	box-shadow: var(--shadow-small);
+	border-radius: .25rem;
+
+	.icon {
+		flex: 1 0 auto;
+	}
+
+	&--fadeout {
+		opacity: 0;
+	}
+}
+
+@keyframes toast_fadein {
+	0% {
+		opacity: 0;
+	}	
+	100% {
+		opacity: 100%;
+	}
+}

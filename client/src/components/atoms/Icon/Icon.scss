@@ -5,6 +5,16 @@
 	height: 16px;
   font-size: 0;
 
+  &--medium {
+    width: 20px;
+    height: 20px;
+  }
+
+  &--small {
+    width: 12px;
+    height: 12px;
+  }
+
 	svg {
     position: absolute;
     top: 0;
@@ -20,9 +30,4 @@
       vector-effect: non-scaling-stroke;
     }
   }
-}
-
-.icon-medium {
-	width: 20px;
-	height: 20px;
 }

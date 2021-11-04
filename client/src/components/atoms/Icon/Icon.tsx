@@ -5,7 +5,7 @@ import './Icon.scss';
 
 export interface IconProps extends DefaultProps {
 	as: IconType;
-	size?: 'regular' | 'medium';
+	size?: 'small' | 'regular' | 'medium';
 	strokeWidth?: number;
 	color?: Color;
 	onClick?: h.JSX.MouseEventHandler<HTMLDivElement>;
@@ -140,11 +140,13 @@ const getSVG = (as: IconType, color: Color, strokeWidth: number) => {
 
 const Icon: FunctionalComponent<IconProps> = ({ class: className, as, size='regular', strokeWidth=1, color='pen', onClick }) => {
 
-	const sizePx = size === 'medium' ? 20 : 16;
+	const sizePx
+		= size === 'medium' ? 20
+		: size === 'small' ? 12 : 16;
 
 	return (
 		<div class={getClassNames(['icon-container', 'never-drag', className, [!!onClick, 'pointer'] ])} onClick={onClick} >
-			<div class={getClassNames(['icon', `icon-${size}` ])} >
+			<div class={getClassNames(['icon', `icon--${size}` ])} >
 				<svg width={sizePx} height={sizePx} viewBox={`0 0 16 16`} fill="none" xmlns="http://www.w3.org/2000/svg">
 					{getSVG(as, color, strokeWidth)}
 				</svg>

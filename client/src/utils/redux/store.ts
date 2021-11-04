@@ -7,6 +7,7 @@ import categoryReducer from '~stores/categorySlice';
 import bankReducer from '~stores/bankSlice';
 import monthReducer from '~stores/monthSlice';
 import budgetReducer from '~stores/budgetSlice';
+import toastReducer from '~stores/toastSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     bank: bankReducer,
     month: monthReducer,
     budget: budgetReducer,
+    toast: toastReducer,
   },
 })
 

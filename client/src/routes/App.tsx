@@ -9,6 +9,7 @@ import ConfirmToken from '~routes/ConfirmTokenPage/ConfirmTokenPage';
 import FullLoader from '../components/molecules/FullLoader';
 import AppLoggedInRouter from './AppLoggedInRouter';
 import Redirect from './Redirect';
+import ToastRender from '~features/toast/ToastRender';
 
 
 const App: FunctionalComponent = () => {
@@ -33,6 +34,8 @@ const App: FunctionalComponent = () => {
       { userInfo &&
         <AppLoggedInRouter /> 
       }
+
+      <ToastRender />
 
     </div>
   );
