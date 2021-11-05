@@ -13,7 +13,7 @@ interface ToastProps {
 	onRemoveToast: (index: number) => void;
 }
 
-const TIMER = 3000;
+const TIMER = 5000;
 const TOAST_HEIGHT = 48;
 const TOAST_GAP = 8;
 const TOAST_MARGIN = 16;
@@ -24,7 +24,7 @@ const Toast: FunctionalComponent<ToastProps> = ({ id, index, message, color, onR
 	const [fadeout, setFadeout] = useState(false);
 
 	useEffect(() => {
-		if (count < 200 && !fadeout) setFadeout(true);
+		if (count < 500 && !fadeout) setFadeout(true);
 		if (count < 0) onRemoveToast(id);
 		const interval = setInterval(() => setCount(count-10), 10);
 		return () => clearInterval(interval);

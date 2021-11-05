@@ -4,10 +4,9 @@ import { useDispatch, useSelector } from '~utils/redux/hooks';
 import ToastItem from './Toast';
 import { removeToast } from '~stores/toastSlice';
 import './Toast.scss';
-import useToast from '~hooks/useToast';
 
 
-const ToastRender: FunctionalComponent = ({  }) => {
+const ToastRender: FunctionalComponent = () => {
 
 	const dispatch = useDispatch();
 	const toasts = useSelector(state=> state.toast.toasts);
@@ -20,9 +19,9 @@ const ToastRender: FunctionalComponent = ({  }) => {
 						key={toast.id}
 						id={toast.id}
 						index={toast.index!}
-						message={toast.message + toast.id}
+						message={toast.message}
 						color={toast.color}
-						onRemoveToast={index => dispatch(removeToast(index))}
+						onRemoveToast={id => dispatch(removeToast(id))}
 					/>
 				))}
 			</div>
