@@ -21,10 +21,10 @@ const AlertRender: FunctionalComponent<AlertRenderProps> = ({  }) => {
 		<Portal>
 			<Dim />
 			<Modal.Container>
-				<Modal.Content>
+				<Modal.Content padding>
 					{alert.message}
 				</Modal.Content>
-				<Modal.Footer flexEnd>
+				<Modal.Footer flexEnd padding>
 					<Button children='Confirm' onClick={handleConfirm} />
 				</Modal.Footer>
 			</Modal.Container>

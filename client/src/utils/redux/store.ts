@@ -9,6 +9,7 @@ import monthReducer from '~stores/monthSlice';
 import budgetReducer from '~stores/budgetSlice';
 import toastReducer from '~stores/toastSlice';
 import alertReducer from '~stores/alertSlice';
+import confirmReducer from '~stores/confirmSlice';
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     budget: budgetReducer,
     toast: toastReducer,
     alert: alertReducer,
+    confirm: confirmReducer,
   },
 })
 

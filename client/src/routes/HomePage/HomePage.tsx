@@ -21,7 +21,6 @@ import useCSV from '~hooks/useCSV';
 import useResizeSide from '~hooks/useResizeSide';
 import IconText from '~components/molecules/IconText';
 import Statistics from './Statistics';
-import useAlert from '~hooks/useAlert';
 
 
 const MENUS = [
@@ -69,8 +68,6 @@ const HomePage: FunctionalComponent = ({  }) => {
 	});
 
 
-	const { alert } = useAlert();
-
 	useEffect(() => {
 	}, [view]);
 
@@ -91,9 +88,6 @@ const HomePage: FunctionalComponent = ({  }) => {
 						onNext={() => dispatch(changeMonthNext())}
 					/>
 				</Header>
-
-				<button onClick={() => alert('하하하하하', () => { console.log('jhell') })}>Alert Test</button>
-				<button onClick={() => alert('glglglgglglgl', () => { console.log('PoWER') })}>Alert Test</button>
 
 				<Indicator>
 					<NavigationMenu

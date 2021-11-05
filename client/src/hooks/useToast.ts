@@ -11,5 +11,5 @@ export default () => {
 		dispatch(addToast({ message, color }));
 	}
 
-	return { toast };
+	return toast;
 }

@@ -11,6 +11,7 @@ import AppLoggedInRouter from './AppLoggedInRouter';
 import Redirect from './Redirect';
 import ToastRender from '~features/toast/ToastRender';
 import AlertRender from '~features/alert/AlertRender';
+import ConfirmRender from '~features/confirm/ConfirmRender';
 
 
 const App: FunctionalComponent = () => {
@@ -38,6 +39,7 @@ const App: FunctionalComponent = () => {
 
       <ToastRender />
       <AlertRender />
+      <ConfirmRender />
 
     </div>
   );

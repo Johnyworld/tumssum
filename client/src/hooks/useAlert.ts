@@ -9,7 +9,7 @@ export default () => {
 		callback = cb || null;
 		dispatch(openAlert({ message }));
 	}
-	return { alert };
+	return alert;
 }
 
 export const useAlertRender = () => {
