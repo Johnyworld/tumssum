@@ -38,6 +38,18 @@ $dark-theme: (
 	dim: rgba(0, 0, 0, 0.7),
 );
 
+$sizes: (
+	none: 0,
+	micro: .125rem,
+	tiny: .25rem,
+	small: .5rem,
+	regular: 1rem,
+	medium: 1.25rem,
+	large: 1.5rem,
+	big: 2rem,
+	huge: 3rem,
+);
+
 @each $key, $value in $common-theme {
 	.bgc-#{''+$key} {
 		background-color: var(--color-#{$key})
@@ -55,6 +67,42 @@ $dark-theme: (
 		color: var(--color-#{$key})
 	}
 }
+
+@each $key, $value in $sizes {
+	.gap-#{''+$key} {
+		gap: var(--size-#{$key})
+	}
+	.p-#{''+$key} {
+		padding: var(--size-#{$key})
+	}
+	.mv-#{''+$key} {
+		&:not(:first-child) { margin-top: var(--size-#{$key}) }
+		&:not(:last-child) { margin-bottom: var(--size-#{$key}) }
+	}
+	.mvc-#{''+$key} {
+    > * {
+      &:not(:first-child) { margin-top: var(--size-#{$key}) }
+      &:not(:last-child) { margin-bottom: var(--size-#{$key}) } 
+    }
+  }
+	.mhc-#{''+$key} {
+    > * {
+      &:not(:first-child) { margin-left: var(--size-#{$key}) }
+      &:not(:last-child) { margin-right: var(--size-#{$key}) } 
+    }
+  }
+	@include maxTablet {
+		.p-#{''+$key+'-tablet'} {
+			padding: var(--size-#{$key})
+		}
+	}
+	@include maxMobile {
+		.p-#{''+$key+'-mobile'} {
+			padding: var(--size-#{$key})
+		}
+	}
+}
+
 
 :root{
 
@@ -95,6 +143,10 @@ $dark-theme: (
 
 	@each $key, $value in $light-theme {
 		#{"--color-" + $key}: #{$value};
+	}
+
+	@each $key, $value in $sizes {
+		#{"--size-" + $key}: #{$value};
 	}
 }
 
