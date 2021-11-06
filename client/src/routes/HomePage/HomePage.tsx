@@ -90,16 +90,16 @@ const HomePage: FunctionalComponent = ({  }) => {
 					/>
 				</Header>
 
-				<Card padding='none'>
+				<Card padding='none' class='overflow-hidden'>
 					<div class='flex p-regular'>
 						<NavigationMenu
 							selected={view}
 							onChange={handleChangeView}
 							list={MENUS}
 						/>
-						<div class='flex gap-mv-regular'>
+						<div class='flex gap-regular'>
 							<IconText text='Download' icon='download' isHideTextForMobile onClick={() => getCSV('CSV')} />
-							<p class='pointer' onClick={() => dispatch(changeMonthToday())} >Today</p>
+							{/* <p class='pointer' onClick={() => dispatch(changeMonthToday())} >Today</p> */}
 							<Button class='hide-mobile' size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />
 						</div>
 					</div>
