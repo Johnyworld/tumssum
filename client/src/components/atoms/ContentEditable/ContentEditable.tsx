@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Color, DefaultProps, Size, Weight } from 'types';
-import { getClassNames } from '~utils/classNames';
+import { c } from '~utils/classNames';
 import numberUtils from '~utils/numberUtils';
 import './ContentEditable.scss';
 
@@ -29,7 +29,7 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 
 	const ref = useRef<HTMLDivElement>(null);
 
-	const classes = getClassNames([
+	const classes = c(
 		'content-editable',
 		[isOneLine, 't-nowrap'],
 		[value && type === 'number' && !isHideNumberSign, isNumberNegative ? 'content-editable--negative' : 'content-editable--positive'],
@@ -38,7 +38,7 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 		[!!color, `c-${color}`],
 		[!!size, `f-${size}`],
 		[!!weight, `f-${weight}`],
-	]);
+	);
 
 
 	const handleInput: h.JSX.GenericEventHandler<HTMLDivElement> = (e) => {

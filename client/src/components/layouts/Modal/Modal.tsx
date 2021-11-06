@@ -4,7 +4,7 @@ import { DefaultProps } from 'types';
 import Icon from '~components/atoms/Icon';
 import IconText from '~components/molecules/IconText';
 import Portal from '~components/Portal';
-import { getClassNames } from '~utils/classNames';
+import { c } from '~utils/classNames';
 import './Modal.scss';
 
 
@@ -67,13 +67,13 @@ export const ModalContainer: FunctionalComponent = ({ children }) => {
 
 export const ModalXbutton: FunctionalComponent<ModalXButtonProps> = ({ style, class: className, onClose }) => {
 	return (
-		<Icon class={getClassNames(['modal-x-button p-large p-regular-mobile', className ])} style={style} size='medium' as='x' onClick={onClose} />
+		<Icon class={c('modal-x-button p-large p-regular-mobile', className )} style={style} size='medium' as='x' onClick={onClose} />
 	)
 }
 
 export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, class: className, children, onGoBack }) => {
 	return (
-		<div class={getClassNames([ 'modal-header flex p-large p-regular-mobile', className ])} style={style} >
+		<div class={c( 'modal-header flex p-large p-regular-mobile', className )} style={style} >
 			{ onGoBack
 				? <IconText icon='arrowLeft' text={children+''} onClick={onGoBack} />
 				: <h3>{children}</h3>
@@ -84,7 +84,7 @@ export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, clas
 
 export const ModalContent: FunctionalComponent<ModalContentProps> = ({ children, style, class: className, padding }) => {
 	return (
-		<div class={getClassNames([ 'modal-content', className, [padding, 'p-large p-regular-mobile'] ])} style={style}>
+		<div class={c( 'modal-content', className, [padding, 'p-large p-regular-mobile'] )} style={style}>
 			{children}
 		</div>
 	)
@@ -92,7 +92,7 @@ export const ModalContent: FunctionalComponent<ModalContentProps> = ({ children,
 
 export const ModalFooter: FunctionalComponent<ModalFooterProps> = ({ children, style, class: className, flex, flexEnd, padding }) => {
 	return (
-		<div class={getClassNames([ 'modal-footer', className, [flex, 'flex'], [flexEnd, 'flex flex-end flex-gap-small'], [padding, 'p-large p-regular-mobile'] ])} style={style}>
+		<div class={c( 'modal-footer', className, [flex, 'flex'], [flexEnd, 'flex flex-end flex-gap-small'], [padding, 'p-large p-regular-mobile'])} style={style}>
 			{children}
 		</div>
 	)

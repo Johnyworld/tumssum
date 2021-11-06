@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { Color, DefaultProps, IconType } from 'types';
-import { getClassNames } from '~utils/classNames';
+import { c } from '~utils/classNames';
 import './Icon.scss';
 
 export interface IconProps extends DefaultProps {
@@ -145,8 +145,8 @@ const Icon: FunctionalComponent<IconProps> = ({ class: className, as, size='regu
 		: size === 'small' ? 12 : 16;
 
 	return (
-		<div class={getClassNames(['icon-container', 'never-drag', className, [!!onClick, 'pointer'] ])} onClick={onClick} >
-			<div class={getClassNames(['icon', `icon--${size}` ])} >
+		<div class={c('icon-container', 'never-drag', className, [!!onClick, 'pointer'] )} onClick={onClick} >
+			<div class={c('icon', `icon--${size}` )} >
 				<svg width={sizePx} height={sizePx} viewBox={`0 0 16 16`} fill="none" xmlns="http://www.w3.org/2000/svg">
 					{getSVG(as, color, strokeWidth)}
 				</svg>

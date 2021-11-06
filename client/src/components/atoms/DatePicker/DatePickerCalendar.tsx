@@ -4,7 +4,7 @@ import { useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import Portal from '~components/Portal';
 import { getCalendar, getDateString, getMonthDate } from '~utils/calendar';
-import { getClassNames } from '~utils/classNames';
+import { c } from '~utils/classNames';
 import Icon from '../Icon';
 
 interface DatePickerCalendarProps {
@@ -79,13 +79,13 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 						{ row.map(col => (
 							<div
 								class={
-									getClassNames([
+									c(
 										'date-picker__date',
 										[col.each, 'pointer'],
 										[today === col.date, 'date-picker__date--today'],
 										[date === col.date, 'date-picker__date--selected'],
 										[!col.each, 'date-picker__date--hidden'],
-									])
+									)
 								}
 								children={col.each || ''}
 								onClick={col.each ? onChange(col.date) : undefined}

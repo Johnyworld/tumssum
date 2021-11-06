@@ -1,4 +1,4 @@
-export const getClassNames = (arr: any[]) => {
+export const c = (...arr: any[]) => {
 	return arr.reduce((prev, curr) => {
 		if (curr === undefined) return prev;
 		if (typeof curr === 'string') return [...prev, curr];

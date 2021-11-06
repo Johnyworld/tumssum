@@ -15,7 +15,7 @@ import { useMemo, useState } from 'preact/hooks';
 import { AsideMenuItem } from '~components/molecules/AsideMenu/AsideMenu';
 import { useLocation } from 'wouter';
 import Aside from '~components/organisms/Aside';
-import { getClassNames } from '~utils/classNames';
+import { c } from '~utils/classNames';
 import { setMonths } from '~stores/monthSlice';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import NotFoundPage from './NotFoundPage';
@@ -99,7 +99,7 @@ const AppLoggedInRouter: FunctionalComponent = () => {
   });
 
   return (
-    <div class={getClassNames(['page-container', [ !isOpenAside, 'page-container--narrow-aside' ]])}>
+    <div class={c('page-container', [ !isOpenAside, 'page-container--narrow-aside' ])}>
       <Aside
 				path={path}
 				gnbMenuList={gnbMenuList}

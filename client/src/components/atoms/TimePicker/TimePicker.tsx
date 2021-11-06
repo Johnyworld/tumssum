@@ -3,7 +3,7 @@ import { useCallback, useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import TimePickerModal from '~components/organisms/TimePickerModal';
 import Portal from '~components/Portal';
-import { getClassNames } from '~utils/classNames';
+import { c } from '~utils/classNames';
 import Icon from '../Icon';
 
 export interface TimePickerProps {
@@ -56,7 +56,7 @@ const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, fluid, 
 	}, [pos, onChange]);
 
 	return (
-		<div class={getClassNames([ 'time-picker', styleType === 'input' ? 'input-container' : 'flex', [fluid, 'fluid'] ])}>
+		<div class={c( 'time-picker', styleType === 'input' ? 'input-container' : 'flex', [fluid, 'fluid'] )}>
 
 			{ label && <label class={styleType === 'input' ? 'input-label' : 'content-label'}>{label}</label> }
 

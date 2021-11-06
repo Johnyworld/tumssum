@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { Link } from 'preact-router';
 import { DefaultProps, IconType, SelectMenuItem } from 'types';
-import { getClassNames } from '~utils/classNames';
+import { c } from '~utils/classNames';
 import IconText from '../IconText';
 import './NavigationMenu.scss';
 
@@ -19,10 +19,10 @@ export interface NavigationMenuProps extends DefaultProps {
 
 const NavigationMenu: FunctionalComponent<NavigationMenuProps> = ({ class: className, list, selected, onChange }) => {
 	return (
-		<nav class={getClassNames([ 'navigation-menu', className ])} >
+		<nav class={c( 'navigation-menu', className )} >
 			{ list.map(item => {
 				const isSelected = selected === item.id;
-				const content = <div class={getClassNames([ 'navigation-menu-item', [isSelected, 'selected'] ])} onClick={onChange ? () => onChange(item.id) : undefined}>
+				const content = <div class={c( 'navigation-menu-item', [isSelected, 'selected'] )} onClick={onChange ? () => onChange(item.id) : undefined}>
 													<IconText
 														icon={item.icon}
 														text={item.text}
@@ -33,7 +33,7 @@ const NavigationMenu: FunctionalComponent<NavigationMenuProps> = ({ class: class
 
 				return (
 					item.href
-						? <Link href={item.href} class={getClassNames(['navigation-menu-item-content'])}>
+						? <Link href={item.href} class={c('navigation-menu-item-content')}>
 								{content}
 							</Link>
 						: content

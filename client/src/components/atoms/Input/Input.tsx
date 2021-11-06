@@ -1,6 +1,6 @@
 import { h, FunctionalComponent, Ref } from 'preact';
 import { DefaultProps } from 'types';
-import { getClassNames } from '~utils/classNames';
+import { c } from '~utils/classNames';
 import './Input.scss';
 
 export interface InputProps extends DefaultProps {
@@ -22,7 +22,7 @@ export interface InputProps extends DefaultProps {
 
 const Input: FunctionalComponent<InputProps> = ({ children, class: className, style, name, type, label, value, placeholder, fluid, required, readOnly, removeAutoComplete, min, max, maxLength, inputRef, onChange }) => {
 	return (
-		<div class={getClassNames([ 'input', 'input-container', className, [fluid, 'fluid'] ])}>
+		<div class={c( 'input', 'input-container', className, [fluid, 'fluid'] )}>
 			{ label && <label class='input-label'>{label}</label> }
 			<input
 				class='input-box'

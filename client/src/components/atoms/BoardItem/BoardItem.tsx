@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import { DefaultProps } from 'types';
-import { getClassNames } from '~utils/classNames';
+import { c } from '~utils/classNames';
 import Icon from '../Icon';
 import './BoardItem.scss';
 
@@ -19,9 +19,9 @@ const BoardItem: FunctionalComponent<BoardItemProps> = ({ children, class: class
 	const handleHoverOut = () => setHover(false);
 	
 	return (
-		<div class={getClassNames(['board-item never-drag gap-tiny', className ])} onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate}>
+		<div class={c('board-item never-drag gap-tiny', className )} onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate}>
 			<div class='flex' style={{ flexDirection: 'row-reverse' }}>
-				{ title && <p class={getClassNames([ 't-right', [disabled, 'c-gray'] ])}>{title}</p> }
+				{ title && <p class={c( 't-right', [disabled, 'c-gray'] )}>{title}</p> }
 				{onClickPlus &&
 					<Icon class='board-item__plus-button' color='gray' as='plusRounded' onClick={onClickPlus} />
 				}

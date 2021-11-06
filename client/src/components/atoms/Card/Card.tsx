@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { JSXInternal } from 'preact/src/jsx';
 import { DefaultProps } from 'types';
-import { getClassNames } from '~utils/classNames';
+import { c } from '~utils/classNames';
 import './Card.scss';
 
 export interface CardProps extends DefaultProps, JSXInternal.DOMAttributes<HTMLDivElement> {
@@ -14,7 +14,7 @@ const Card: FunctionalComponent<CardProps> = ({ children, class: className, styl
 	return (
 		<div
 			style={style}
-			class={getClassNames([ 'card', className, [padding !== 'none', `p-${padding}`], [!!onClick, 'card--hover'], [hideBorderOnMobile, 'card--hide-border'], ])}
+			class={c( 'card', className, [padding !== 'none', `p-${padding}`], [!!onClick, 'card--hover'], [hideBorderOnMobile, 'card--hide-border'], )}
 			onClick={onClick}
 			onMouseDown={onMouseDown}
 			children={children}

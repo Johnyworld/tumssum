@@ -2,7 +2,7 @@ import { h, FunctionalComponent } from 'preact';
 import { useEffect } from 'preact/hooks';
 import { Color } from 'types';
 import useToggle from '~hooks/useToggle';
-import { getClassNames } from '~utils/classNames';
+import { c } from '~utils/classNames';
 import numberUtils from '~utils/numberUtils';
 import './AccordionTable.scss';
 
@@ -40,22 +40,22 @@ const AccordionTable: FunctionalComponent<AccordionTableProps> = ({ group, items
 
 	return (
 		<div class='accordion-table'>
-			<div class={getClassNames(['accordion-table__row', [!!items, 'pointer']])} onClick={toggleOpenItems.handleToggle}>
+			<div class={c('accordion-table__row', [!!items, 'pointer'])} onClick={toggleOpenItems.handleToggle}>
 				{ group.map((col, i) => {
 					return (
-						<div class={getClassNames(['accordion-table__group accordion-table__col', getColorClass(col, colors && colors[i]) ])}>
+						<div class={c('accordion-table__group accordion-table__col', getColorClass(col, colors && colors[i]) )}>
 							{typeof col === 'number' ? numberUtils.getNumberWithComma(col) : col}
 						</div>
 					)
 				})}
 			</div>
 			{ items &&
-				<div style={{ height: `${ITEM_HEIGHT * items.length}px` }} class={getClassNames(['accordion-table__items', [!toggleOpenItems.checked, 'accordion-table__items--hide']])}>
+				<div style={{ height: `${ITEM_HEIGHT * items.length}px` }} class={c('accordion-table__items', [!toggleOpenItems.checked, 'accordion-table__items--hide'])}>
 					{ items.map(item => (
 						<div class='accordion-table__row'>
 							{ item.map((col, i) => {
 								return (
-									<div class={getClassNames(['accordion-table__item accordion-table__col', getColorClass(col, colors && colors[i]) ])}>
+									<div class={c('accordion-table__item accordion-table__col', getColorClass(col, colors && colors[i]) )}>
 										{typeof col === 'number' ? numberUtils.getNumberWithComma(col) : col}
 									</div>
 								)
