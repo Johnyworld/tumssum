@@ -29,7 +29,7 @@ export default () => {
 			const newWidth = tempWidth + movePos;
 			setSideWidth(newWidth > SIDE_WIDTH_MAX ? SIDE_WIDTH_MAX : newWidth < SIDE_WIDTH_MIN ? SIDE_WIDTH_MIN : newWidth);
 		}
-	}, []);
+	}, [grabPos]);
 
 	return {
 		borderRef,
