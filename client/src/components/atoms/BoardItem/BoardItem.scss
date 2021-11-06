@@ -8,6 +8,13 @@
 	border-bottom: 1px solid var(--color-gray_weaker);
 	border-right: 1px solid var(--color-gray_weaker);
 
+	&__title {
+		&--no-name {
+			color: var(--color-gray);
+			font-style: italic;
+		}
+	}
+
 	&__grabbing {
 		position: absolute;
 		top: -.25rem;

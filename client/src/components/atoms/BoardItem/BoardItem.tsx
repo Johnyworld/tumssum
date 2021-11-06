@@ -21,7 +21,7 @@ const BoardItem: FunctionalComponent<BoardItemProps> = ({ children, class: class
 	return (
 		<div class={c('board-item never-drag gap-mv-tiny', className )} onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate}>
 			<div class='flex' style={{ flexDirection: 'row-reverse' }}>
-				{ title && <p class={c( 't-right', [disabled, 'c-gray'] )}>{title}</p> }
+				<p class={c( 'board-item__title', 't-right', [disabled, 'c-gray'], [!title, 'board-item__title--no-name'] )}>{title || '이름 없음'}</p>
 				{onClickPlus &&
 					<Icon class='board-item__plus-button' color='gray' as='plusRounded' onClick={onClickPlus} />
 				}
