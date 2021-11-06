@@ -66,9 +66,7 @@ const BankPage: FunctionalComponent = ({  }) => {
 		<main class='bank-page'>
 			<div class='wrap gap-mv-large'>
 
-				<Header>
-					<h1 class='header-title'>뱅크 관리</h1>
-				</Header>
+				<Header title='뱅크 관리' />
 
 				<div class='flex flex-end gap-small'>
 					<Button size='small' onClick={handleAddBankGroup} color='gray' children='+ 그룹 추가' />

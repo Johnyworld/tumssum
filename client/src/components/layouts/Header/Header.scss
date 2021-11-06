@@ -7,15 +7,30 @@
 	box-sizing: content-box;
 	width: 100%;
 	height: var(--header-height);
+
+	&__hamburger {
+		display: none;
+	}
 }
 
 
 @include maxTablet {
 	.header {
-		padding-top: 0;
-	}
+		padding: 0;
+		background-color: var(--color-paper);
 
-	.header-title {
-		padding-left: 1rem;
+		&__hamburger {
+			display: block;
+			width: var(--header-height);
+			height: var(--header-height);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		&__title {
+			padding-left: 1rem;
+			font-size: var(--font-big);
+		}
 	}
 }

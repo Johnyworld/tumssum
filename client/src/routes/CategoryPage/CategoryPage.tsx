@@ -90,9 +90,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 		<main class='category-page main wrap' >
 			<div class='wrap gap-mv-large'>
 
-				<Header>
-					<h1 class='header-title'>카테고리 관리</h1>
-				</Header>
+				<Header title='카테고리 관리' />
 
 				<div class='flex flex-end gap-small'>
 					<Button size='small' onClick={handleAddCategoryGroup} color='gray' children='+ 그룹 추가' />
