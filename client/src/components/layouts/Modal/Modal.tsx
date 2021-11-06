@@ -92,7 +92,7 @@ export const ModalContent: FunctionalComponent<ModalContentProps> = ({ children,
 
 export const ModalFooter: FunctionalComponent<ModalFooterProps> = ({ children, style, class: className, flex, flexEnd, padding }) => {
 	return (
-		<div class={c( 'modal-footer', className, [flex, 'flex'], [flexEnd, 'flex flex-end flex-gap-small'], [padding, 'p-large p-regular-mobile'])} style={style}>
+		<div class={c( 'modal-footer', className, [flex, 'flex'], [flexEnd, 'flex flex-end gap-small'], [padding, 'p-large p-regular-mobile'])} style={style}>
 			{children}
 		</div>
 	)

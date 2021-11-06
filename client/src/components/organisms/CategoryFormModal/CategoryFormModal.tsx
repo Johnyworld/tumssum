@@ -43,7 +43,7 @@ const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ catego
 
 	return (
 		<Modal.Container>
-			<Modal.Content class='gap-regular' padding>
+			<Modal.Content class='gap-mv-regular' padding>
 
 				<ContentEditable
 					value={title}
@@ -55,7 +55,7 @@ const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ catego
 					onChange={changeTitle}
 				/>
 
-				<div class='gap-tiny'>
+				<div class='gap-mv-tiny'>
 					<Dropdown
 						list={[
 							{ id: 0, text: '그룹 미분류' },

@@ -35,7 +35,7 @@ const SettingsPage: FunctionalComponent = () => {
 				<button onClick={handleChangeLanguage('en')}>EN</button>
 			</div>
 			<Button onClick={handleChangeTheme}>{theme}</Button>
-			{ userInfo && <Button onClick={handleLogout} fluid class='gap-regular' type='submit'>logout</Button> }
+			{ userInfo && <Button onClick={handleLogout} fluid class='gap-mv-regular' type='submit'>logout</Button> }
 			{ userInfo && `Hello ${userInfo.name}` }
 		</main>
 	)

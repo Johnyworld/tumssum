@@ -70,7 +70,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 	return (
 		<Modal.Container>
 			<form onSubmit={handleSubmit}>
-				<Modal.Content padding class='gap-regular'>
+				<Modal.Content padding class='gap-mv-regular'>
 					<ContentEditable
 						value={title}
 						size='large'
@@ -80,7 +80,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 						placeholder='제목을 입력하세요.'
 						onChange={changeTitle}
 					/>
-					<div class='gap-tiny'>
+					<div class='gap-mv-tiny'>
 						<LabeledContentEditable
 							value={amount}
 							type='number'

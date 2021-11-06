@@ -79,13 +79,13 @@ $sizes: (
 		&:not(:first-child) { margin-top: var(--size-#{$key}) }
 		&:not(:last-child) { margin-bottom: var(--size-#{$key}) }
 	}
-	.mvc-#{''+$key} {
+	.gap-mv-#{''+$key} {
     > * {
       &:not(:first-child) { margin-top: var(--size-#{$key}) }
       &:not(:last-child) { margin-bottom: var(--size-#{$key}) } 
     }
   }
-	.mhc-#{''+$key} {
+	.gap-mh-#{''+$key} {
     > * {
       &:not(:first-child) { margin-left: var(--size-#{$key}) }
       &:not(:last-child) { margin-right: var(--size-#{$key}) } 

@@ -76,7 +76,7 @@ const TimePickerModal: FunctionalComponent<TimePickerModalProps> = ({ time, pos,
 			</div>
 			<div class='time-picker-modal__buttons f-bold flex'>
 				<span class='pointer c-red' onClick={handleClear}>Clear</span>
-				<div class='gap-h-tiny'>
+				<div class='gap-mh-tiny'>
 					<span class='pointer' onClick={onClose}>Cancel</span>
 					<span class='pointer' onClick={handleConfirm}>Ok</span>
 				</div>

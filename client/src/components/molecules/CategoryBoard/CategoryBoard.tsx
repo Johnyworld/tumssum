@@ -55,8 +55,8 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 
 	return (
 		<div class='category-board' onMouseMove={onDragging} onMouseUp={onDrop}>
-			<div class='gap-medium'>
-				<div class='gap-tiny'>
+			<div class='gap-mv-medium'>
+				<div class='gap-mv-tiny'>
 					<p class='c-gray f-small f-bold'>미분류</p>
 					<div class='category-board-row'>
 						<BoardItem
@@ -64,7 +64,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 							isGrapping={!!grapping}
 							onDropToUpdate={onDropToUpdate && onDropToUpdate( null, '' )}
 							children={
-								<div class='grid grid-col-4 grid-gap-tiny' style={{ flexWrap: 'wrap' }}>
+								<div class='grid grid-col-4 gap-tiny' style={{ flexWrap: 'wrap' }}>
 									{ noCategory && noCategory.map(account => (
 										<AccountItem
 											title={account.title}
@@ -79,7 +79,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 					</div>
 				</div>
 				{ accountsByCategories.map(group => (
-					<div key={group.id} class='gap-tiny'>
+					<div key={group.id} class='gap-mv-tiny'>
 						<p class='c-gray f-small f-bold'>{group.title || '카테고리 그룹 없음'}</p>
 						<div class='category-board-row'>
 							{ group.items && group.items.map(category => (

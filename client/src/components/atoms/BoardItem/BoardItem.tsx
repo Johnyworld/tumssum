@@ -19,7 +19,7 @@ const BoardItem: FunctionalComponent<BoardItemProps> = ({ children, class: class
 	const handleHoverOut = () => setHover(false);
 	
 	return (
-		<div class={c('board-item never-drag gap-tiny', className )} onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate}>
+		<div class={c('board-item never-drag gap-mv-tiny', className )} onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate}>
 			<div class='flex' style={{ flexDirection: 'row-reverse' }}>
 				{ title && <p class={c( 't-right', [disabled, 'c-gray'] )}>{title}</p> }
 				{onClickPlus &&

@@ -40,9 +40,9 @@ const LoginPage: FunctionalComponent = () => {
   return (
     <form class='page-login auth-page t-center wrap wrap-narrow' onSubmit={handleSubmit}>
       <AuthLogo />
-      <div class='mv-big gap-regular'>
+      <div class='mv-big gap-mv-regular'>
         <h3 class='c-pencel'>{t('auth_word_login')}</h3>
-        <Card class='gap-regular' hideBorderOnMobile>
+        <Card class='gap-mv-regular' hideBorderOnMobile>
           <Input name='email' value={email} onChange={changeEmail} label={t('auth_word_email')} placeholder={t('auth_word_email_placeholder')} fluid type='email' />
           <Button fluid disabled={login.loading} type='submit'>login</Button>
           { login.loading &&
@@ -55,7 +55,7 @@ const LoginPage: FunctionalComponent = () => {
             <p class='c-red'>{login.error.message}</p>
           }
         </Card>
-        <Card class='gap-regular' hideBorderOnMobile>
+        <Card class='gap-mv-regular' hideBorderOnMobile>
           {t('auth_register_is_aleady_user')} <Link class='t-underline' href='/register'>{t('auth_word_register')}</Link>
         </Card>
       </div>

@@ -1,5 +1,4 @@
 import { h, FunctionalComponent } from 'preact';
-import { Color } from 'types';
 import './Dropdown.scss';
 
 interface DropdownOption {

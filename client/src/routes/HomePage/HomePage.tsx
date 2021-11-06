@@ -97,7 +97,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 							onChange={handleChangeView}
 							list={MENUS}
 						/>
-						<div class='flex gap-regular'>
+						<div class='flex gap-mv-regular'>
 							<IconText text='Download' icon='download' isHideTextForMobile onClick={() => getCSV('CSV')} />
 							<p class='pointer' onClick={() => dispatch(changeMonthToday())} >Today</p>
 							<Button class='hide-mobile' size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />

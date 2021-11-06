@@ -9,7 +9,7 @@ export interface IndicatorProps extends DefaultProps {
 
 const Indicator: FunctionalComponent<IndicatorProps> = ({ style, class: className, children, flexEnd }) => {
 	return (
-		<div class={c('indicator', className, [flexEnd, 'flex-end flex-gap-small'])} style={style}>
+		<div class={c('indicator', className, [flexEnd, 'flex-end gap-small'])} style={style}>
 			{children}
 		</div>
 	)

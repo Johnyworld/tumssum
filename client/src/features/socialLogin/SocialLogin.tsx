@@ -5,7 +5,7 @@ import KakaoLogin from './KakaoLogin';
 
 const SocialLogin: FunctionalComponent = () => {
 	return (
-		<div class='gap-small'>
+		<div class='gap-mv-small'>
 			<KakaoLogin />
 			<GoogleLogin />
 		</div>

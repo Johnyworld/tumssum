@@ -26,7 +26,7 @@ const BankGroupFormModal: FunctionalComponent<BankGroupFormModalProps> = ({ grou
 
 	return (
 		<Modal.Container>
-			<Modal.Content class='gap-tiny' padding>
+			<Modal.Content class='gap-mv-tiny' padding>
 
 				<ContentEditable
 					value={title}

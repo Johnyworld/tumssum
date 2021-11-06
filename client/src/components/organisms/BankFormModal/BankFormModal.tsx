@@ -34,7 +34,7 @@ const BankFormModal: FunctionalComponent<BankFormModalProps> = ({ bank, groupLis
 
 	return (
 		<Modal.Container>
-			<Modal.Content class='gap-regular' padding>
+			<Modal.Content class='gap-mv-regular' padding>
 
 				<ContentEditable
 					value={title}
@@ -48,7 +48,7 @@ const BankFormModal: FunctionalComponent<BankFormModalProps> = ({ bank, groupLis
 
 				<Dropdown
 					list={[
-						{ id: 0, text: '그룹 미분류', color: 'gray_strong' },
+						{ id: 0, text: '그룹 미분류' },
 						...groupList.map(group => { return { id: group.id, text: group.title || '이름 없음' }}),
 					]}
 					label='뱅크 그룹'

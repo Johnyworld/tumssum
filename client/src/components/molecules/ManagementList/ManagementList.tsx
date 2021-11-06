@@ -60,7 +60,7 @@ const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping
 									</div>
 								: <p class='management-list__group c-gray f-bold' >{group.title || T.NO_GROUP}</p>
 							}
-							<div class='management-list__items gap-small'>
+							<div class='management-list__items gap-mv-small'>
 								{ group.items && group.items.length > 0 ? group.items.map(item=> (
 									<Card class='management-list__item' padding='small' onClick={onClick(item)} onMouseDown={onGrap(item)} >
 										<p class={`${item.title ? '' : 'c-gray f-italic'}`}>{item.title || T.NO_NAME}</p>

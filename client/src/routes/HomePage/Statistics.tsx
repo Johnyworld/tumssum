@@ -49,7 +49,7 @@ const Statistics: FunctionalComponent<StatisticsProps> = ({ date, accounts, cate
 
 	return (
 		<section class='home-page__side never-drag' style={{ minWidth: sideWidth }}>
-			<div class='home-page__side-inner p-regular gap-small' >
+			<div class='home-page__side-inner p-regular gap-mv-small' >
 				<CategoryStatistics categoriesCombined={categoriesCombined} aligned={aligned.categories} />
 				<Balances date={date} banksCombined={banksCombined} monthes={monthes} aligned={aligned.banks} />
 				<div ref={borderRef} class='home-page__side-border' onMouseDown={onBorderMouseDown} />
