@@ -22,6 +22,7 @@ const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ catego
 
 	const { t } = useTranslation();
 	const [ title, changeTitle ] = useContentEditable(category.title || '');
+	const [ memo, changeMemo ] = useContentEditable(category.memo || '');
 	const [ group, setGroup ] = useState<number|string>(category.group || 0);
 	const [ budjet, ___, setBudget ] = useInput(category.budget ? category.budget + '' : '');
 
@@ -34,6 +35,7 @@ const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ catego
 			{
 				id: category.id,
 				title,
+				memo,
 				group: group ? +group : null,
 			} as Category,
 			budjet ? +budjet : null,
@@ -74,6 +76,13 @@ const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ catego
 						placeholder='비어있음'
 						onChange={setBudget}
 						isHideNumberSign
+					/>
+
+					<LabeledContentEditable
+						value={memo}
+						label='메모'
+						placeholder='비어있음'
+						onChange={changeMemo}
 					/>
 				</div>
 

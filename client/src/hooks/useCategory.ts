@@ -116,6 +116,7 @@ export default ({ grabbing, onCloseDetail, handleDrop }: UseCategory) => {
 			category_id: category.id,
 			group_id: category.group,
 			title: category.title,
+			memo: category.memo,
 			budget,
 			date,
 		})

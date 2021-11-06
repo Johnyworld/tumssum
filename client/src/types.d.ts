@@ -71,6 +71,7 @@ declare module 'types' {
   export interface Category {
     id: number;
     title: string;
+    memo: string;
     group: number | null;
     user: number;
     budget?: number;
@@ -92,6 +93,7 @@ declare module 'types' {
   export interface Bank {
     id: number;
     title: string;
+    memo: string;
     balance: number;
     group: number | null;
     user: number;

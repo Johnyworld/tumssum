@@ -18,6 +18,7 @@ export interface ItemGroup<T> {
 export interface Item {
 	id: number;
 	title: string;
+	memo?: string;
 	budget?: number;
 	group: number | null;
 }
@@ -63,7 +64,8 @@ const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grabbing
 							<div class='management-list__items gap-mv-small'>
 								{ group.items && group.items.length > 0 ? group.items.map(item=> (
 									<Card class='management-list__item' padding='small' onClick={onClick(item)} onMouseDown={onGrap(item)} >
-										<p class={`${item.title ? '' : 'c-gray f-italic'}`}>{item.title || T.NO_NAME}</p>
+										<p class={`${item.title ? 'f-bold' : 'c-gray f-italic'}`}>{item.title || T.NO_NAME}</p>
+										{item.memo && <p class={'c-pencel ellipsis'}>{item.memo}</p> }
 										{item.budget && <p class={'c-primary'}>예산: {numberUtils.getNumberWithComma(item.budget)}</p>}
 									</Card>
 								)) : <p class='management-list__empty'>{T.EMPTY}</p>}

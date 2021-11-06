@@ -104,6 +104,7 @@ export default ({ grabbing, onCloseDetail, handleDrop }: UseBank) => {
 			bank_id: bank.id,
 			group_id: bank.group,
 			title: bank.title,
+			memo: bank.memo,
 		})
 	}, [putBank.loading]);
 
