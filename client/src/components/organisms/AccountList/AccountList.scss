@@ -3,7 +3,7 @@
 	position: relative;
 	margin-left: -2rem;
 	padding-left: 2rem;
-	padding-bottom: 1rem;
+	padding-bottom: 0;
 
 	&__edit-icon {
 		opacity: 0;
@@ -21,6 +21,7 @@
 
 			td {
 				white-space: nowrap;
+				background-color: var(--color-bg);
 				&:not(.t-right):not(.t-left) {
 					.time-picker,
 					.date-picker,
