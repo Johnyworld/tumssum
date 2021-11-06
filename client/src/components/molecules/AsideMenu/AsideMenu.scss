@@ -20,17 +20,17 @@
 		transform: translate(0, -50%);
 	}
 
-	.icon-text-p {
+	.icon-text__text {
 		font-weight: var(--weight-bold);
 		transition: .3s;
 		opacity: 1;
 	}
 
-	.hide-text .icon-text-p {
+	.hide-text .icon-text__text {
 		opacity: 0;
 	}
 
-	.icon-text-icon {
+	.icon-text__icon {
 		polygon, path, polyline, rect, line, circle, ellipse	{
 			stroke-width: 1.5;
 		}
