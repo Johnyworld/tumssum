@@ -2,7 +2,7 @@ import { h, FunctionalComponent } from 'preact';
 import { Link } from 'preact-router';
 import { DefaultProps, IconType, SelectMenuItem } from 'types';
 import { c } from '~utils/classNames';
-import IconText from '../IconText';
+import IconMenuItem from '../IconMenuItem';
 import './NavigationMenu.scss';
 
 
@@ -22,15 +22,13 @@ const NavigationMenu: FunctionalComponent<NavigationMenuProps> = ({ class: class
 		<nav class={c( 'navigation-menu', className )} >
 			{ list.map(item => {
 				const isSelected = selected === item.id;
-				const content = <div class={c( 'navigation-menu-item', [isSelected, 'selected'] )} onClick={onChange ? () => onChange(item.id) : undefined}>
-													<IconText
-														icon={item.icon}
-														text={item.text}
-														isHideTextForMobile
-														direction='column'
-														color={isSelected ? 'pen' : 'pencel'}
-													/>
-												</div>
+				const content
+					= <IconMenuItem
+							icon={item.icon}
+							text={item.text}
+							isSelected={isSelected}
+							onClick={onChange ? () => onChange(item.id) : undefined}
+						/>
 
 				return (
 					item.href

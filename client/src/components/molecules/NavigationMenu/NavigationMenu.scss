@@ -1,24 +1,6 @@
 .navigation-menu {
 	display: flex;
 	align-items: center;
-	> *:not(:first-child) {
-		margin-left: 1rem;
-	}
+	justify-items: flex-start;
+	gap: .5rem;
 }
-
-
-.navigation-menu-item {
-	cursor: pointer;
-
-	&.selected {
-		.icon-text-icon {
-			polygon, path, polyline, rect, line, circle, ellipse	{
-				stroke-width: 2;
-			}
-		}
-		.icon-text-p {
-			font-weight: vaR(--weight-bold);
-		}
-	}
-}
-
