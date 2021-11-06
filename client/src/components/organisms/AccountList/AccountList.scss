@@ -21,7 +21,7 @@
 
 			td {
 				white-space: nowrap;
-				background-color: var(--color-bg);
+				background-color: var(--color-bg_weak);
 				&:not(.t-right):not(.t-left) {
 					.time-picker,
 					.date-picker,

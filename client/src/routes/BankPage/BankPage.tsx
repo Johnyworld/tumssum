@@ -63,50 +63,52 @@ const BankPage: FunctionalComponent = ({  }) => {
 	} = useBank({ grabbing, onCloseDetail: closeDetails, handleDrop });
 
 	return (
-		<main class='bank-page main wrap'>
+		<main class='bank-page'>
+			<div class='wrap gap-mv-large'>
 
-			<Header>
-				<h1 class='header-title'>뱅크 관리</h1>
-			</Header>
+				<Header>
+					<h1 class='header-title'>뱅크 관리</h1>
+				</Header>
 
-			<Indicator flexEnd>
-				<Button size='small' onClick={handleAddBankGroup} color='gray' children='+ 그룹 추가' />
-				<Button size='small' onClick={handleAddBank} children='+ 뱅크 추가' />
-			</Indicator>
+				<div class='flex flex-end gap-small'>
+					<Button size='small' onClick={handleAddBankGroup} color='gray' children='+ 그룹 추가' />
+					<Button size='small' onClick={handleAddBank} children='+ 뱅크 추가' />
+				</div>
 
-			<ManagementList
-				data={combined}
-				grabbing={grabbing}
-				grabbingPos={grabbingPos}
-				onGrap={handleGrap}
-				onDropToUpdate={handleDropToUpdateBank}
-				onDrop={handleDrop}
-				onDragging={handleDragging}
-				onClick={handleSelectItem}
-				onClickGroup={handleSelectedGroupItem}
-			/>
+				<ManagementList
+					data={combined}
+					grabbing={grabbing}
+					grabbingPos={grabbingPos}
+					onGrap={handleGrap}
+					onDropToUpdate={handleDropToUpdateBank}
+					onDrop={handleDrop}
+					onDragging={handleDragging}
+					onClick={handleSelectItem}
+					onClickGroup={handleSelectedGroupItem}
+				/>
 
-			<Modal isOpen={!!selectedItem} onClose={handleClearSelectedItem}>
-				{ selectedItem &&
-					<BankFormModal
-						bank={selectedItem}
-						groupList={bankGroups}
-						onConfirm={handleUpdateBank}
-						onDelete={handleRemoveBank}
-					/>
-				}
-			</Modal>
+				<Modal isOpen={!!selectedItem} onClose={handleClearSelectedItem}>
+					{ selectedItem &&
+						<BankFormModal
+							bank={selectedItem}
+							groupList={bankGroups}
+							onConfirm={handleUpdateBank}
+							onDelete={handleRemoveBank}
+						/>
+					}
+				</Modal>
 
-			<Modal isOpen={!!selectedGroupItem} onClose={handleClearSelectedGroupItem}>
-				{ selectedGroupItem &&
-					<BankGroupFormModal
-						group={selectedGroupItem}
-						onConfirm={handleUpdateBankGroup}
-						onDelete={handleRemoveBankGroup}
-					/>
-				}
-			</Modal>
+				<Modal isOpen={!!selectedGroupItem} onClose={handleClearSelectedGroupItem}>
+					{ selectedGroupItem &&
+						<BankGroupFormModal
+							group={selectedGroupItem}
+							onConfirm={handleUpdateBankGroup}
+							onDelete={handleRemoveBankGroup}
+						/>
+					}
+				</Modal>
 
+			</div>
 		</main>
 	)
 }

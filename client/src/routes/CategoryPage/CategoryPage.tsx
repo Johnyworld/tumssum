@@ -88,50 +88,52 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 
 	return (
 		<main class='category-page main wrap' >
+			<div class='wrap gap-mv-large'>
 
-			<Header>
-				<h1 class='header-title'>카테고리 관리</h1>
-			</Header>
+				<Header>
+					<h1 class='header-title'>카테고리 관리</h1>
+				</Header>
 
-			<Indicator flexEnd>
-				<Button size='small' onClick={handleAddCategoryGroup} color='gray' children='+ 그룹 추가' />
-				<Button size='small' onClick={handleAddCategory} children='+ 카테고리 추가' />
-			</Indicator>
+				<div class='flex flex-end gap-small'>
+					<Button size='small' onClick={handleAddCategoryGroup} color='gray' children='+ 그룹 추가' />
+					<Button size='small' onClick={handleAddCategory} children='+ 카테고리 추가' />
+				</div>
 
-			<ManagementList
-				data={combinedWithBudgets}
-				grabbing={grabbing}
-				grabbingPos={grabbingPos}
-				onGrap={handleGrap}
-				onDropToUpdate={handleDropToUpdateCategory}
-				onDrop={handleDrop}
-				onDragging={handleDragging}
-				onClick={handleSelectItem}
-				onClickGroup={handleSelectGroupItem}
-			/>
+				<ManagementList
+					data={combinedWithBudgets}
+					grabbing={grabbing}
+					grabbingPos={grabbingPos}
+					onGrap={handleGrap}
+					onDropToUpdate={handleDropToUpdateCategory}
+					onDrop={handleDrop}
+					onDragging={handleDragging}
+					onClick={handleSelectItem}
+					onClickGroup={handleSelectGroupItem}
+				/>
 
-			<Modal isOpen={!!selectedItem} onClose={handleClearSelectedItem}>
-				{ selectedItem &&
-					<CategoryFormModal
-						category={selectedItem}
-						groupList={categoryGroups}
-						currentDate={today}
-						onConfirm={handleUpdateCategory}
-						onDelete={handleRemoveCategory}
-					/>
-				}
-			</Modal>
+				<Modal isOpen={!!selectedItem} onClose={handleClearSelectedItem}>
+					{ selectedItem &&
+						<CategoryFormModal
+							category={selectedItem}
+							groupList={categoryGroups}
+							currentDate={today}
+							onConfirm={handleUpdateCategory}
+							onDelete={handleRemoveCategory}
+						/>
+					}
+				</Modal>
 
-			<Modal isOpen={!!selectedGroupItem} onClose={handleClearSelectedGroupItem}>
-				{ selectedGroupItem &&
-					<CategoryGroupFormModal
-						group={selectedGroupItem}
-						onConfirm={handleUpdateCategoryGroup}
-						onDelete={handleRemoveCategoryGroup}
-					/>
-				}
-			</Modal>
+				<Modal isOpen={!!selectedGroupItem} onClose={handleClearSelectedGroupItem}>
+					{ selectedGroupItem &&
+						<CategoryGroupFormModal
+							group={selectedGroupItem}
+							onConfirm={handleUpdateCategoryGroup}
+							onDelete={handleRemoveCategoryGroup}
+						/>
+					}
+				</Modal>
 
+			</div>
 		</main>
 	)
 }
