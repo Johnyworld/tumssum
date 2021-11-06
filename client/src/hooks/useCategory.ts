@@ -5,6 +5,8 @@ import { addCategories, addCategory, addCategoryGroup, removeCategory, removeCat
 import { useDispatch } from '~utils/redux/hooks';
 import { GrappingData } from './useDrag';
 import useFetch from './useFetch';
+import useConfirm from "./useConfirm";
+import useToast from "./useToast";
 
 interface UseCategory {
 	grapping: GrappingData<Category> | null;
@@ -15,6 +17,8 @@ interface UseCategory {
 export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 	
 	const dispatch = useDispatch();
+	const confirm = useConfirm();
+	const toast = useToast();
 
 	const postCategoryGroup = useFetch<CategoryGroup>({
 		method: 'POST',
@@ -67,6 +71,7 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		method: 'DELETE',
 		url: '/api/category-group/',
 		onSuccess: data => {
+			toast('삭제되었습니다.', 'green');
 			dispatch(removeCategoryGroup(data.id));
 			dispatch(addCategories(data.items));
 			onCloseDetail();
@@ -77,6 +82,7 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 		method: 'DELETE',
 		url: '/api/category/',
 		onSuccess: data => {
+			toast('삭제되었습니다.', 'green');
 			dispatch(removeCategory(data));
 			onCloseDetail();
 		}
@@ -131,16 +137,20 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 
 	const handleRemoveCategoryGroup = useCallback((id: number) => () => {
 		if (deleteCatogoryGroup.loading) return;
-		deleteCatogoryGroup.call({
-			category_group_id: id
+		confirm('confirm', '정말 삭제할까요?', () => {
+			deleteCatogoryGroup.call({
+				category_group_id: id
+			});
 		});
 	}, [deleteCatogoryGroup.loading]);
 
 	const handleRemoveCategory = useCallback((id: number) => () => {
 		if (deleteCatogory.loading) return;
-		deleteCatogory.call({
-			category_id: id
-		});
+		confirm('confirm', '정말 삭제할까요?', () => {
+			deleteCatogory.call({
+				category_id: id
+			});
+		})
 	}, [deleteCatogory.loading]);
 
 	

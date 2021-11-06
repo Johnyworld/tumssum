@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type ConfirmType = 'warning' | 'error' | 'success'
+export type ConfirmType = 'confirm';
 
 interface ConfirmItem {
 	type: ConfirmType;

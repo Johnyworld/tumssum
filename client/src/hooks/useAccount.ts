@@ -8,6 +8,8 @@ import useDetails from "./useSelectItem";
 import { GrappingData } from './useDrag';
 import useFetch from "./useFetch";
 import useToggle from "./useToggle";
+import useConfirm from "./useConfirm";
+import useToast from "./useToast";
 
 interface UseAccount {
 	grapping: GrappingData<Account> | null;
@@ -17,12 +19,15 @@ interface UseAccount {
 export default ({ grapping, handleDrop }: UseAccount) => {
 
 	const dispatch = useDispatch();
+	const confirm = useConfirm();
+	const toast = useToast();
 
 	const [initialValuesForCreate, setInitialValuesForCreate] = useState<Account | null>(null);
 
 	const toggleCreateModal = useToggle();
 
 	const { selectedItem, handleClearSelectedItem, handleSelectItem } = useDetails<Account>();
+
 	
 	const postAccount = useFetch<{ account: Account, months?: Month[] }>({
 		method: 'POST',
@@ -64,6 +69,7 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 		method: 'DELETE',
 		url: '/api/account/',
 		onSuccess: data => {
+			toast('삭제되었습니다.', 'green');
 			dispatch(removeAccount(data.account));
 			if (data.months) dispatch(updateOrAddMonths(data.months));
 			handleClearSelectedItem();
@@ -101,9 +107,11 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 
 	const handleDeleteAccount = useCallback((id: number) => () => {
 		if (deleteAccount.loading) return;
-		deleteAccount.call({
-			account_id: id,
-		})
+		confirm('confirm', '정말 삭제할까요?', () => {
+			deleteAccount.call({
+				account_id: id,
+			})
+		});
 	}, [deleteAccount.loading]);
 
 	const handleUpdateAccount = useCallback((accountData: Account) => {

@@ -2,8 +2,10 @@ import { useCallback, useState } from 'preact/hooks';
 import { Bank, BankGroup } from 'types';
 import { addBanks, addBank, addBankGroup, removeBank, removeBankGroup, updateBank, updateBankGroup } from '~stores/bankSlice';
 import { useDispatch } from '~utils/redux/hooks';
+import useConfirm from './useConfirm';
 import { GrappingData } from './useDrag';
 import useFetch from './useFetch';
+import useToast from './useToast';
 
 interface UseBank {
 	grapping: GrappingData<Bank> | null;
@@ -14,6 +16,8 @@ interface UseBank {
 export default ({ grapping, onCloseDetail, handleDrop }: UseBank) => {
 	
 	const dispatch = useDispatch();
+	const confirm = useConfirm();
+	const toast = useToast();
 
 
 	const postBankGroup = useFetch<BankGroup>({
@@ -54,6 +58,7 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseBank) => {
 		method: 'DELETE',
 		url: '/api/bank-group/',
 		onSuccess: data => {
+			toast('삭제되었습니다.', 'green');
 			dispatch(removeBankGroup(data.id));
 			dispatch(addBanks(data.items));
 			onCloseDetail();
@@ -64,6 +69,7 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseBank) => {
 		method: 'DELETE',
 		url: '/api/bank/',
 		onSuccess: data => {
+			toast('삭제되었습니다.', 'green');
 			dispatch(removeBank(data));
 			onCloseDetail();
 		}
@@ -117,15 +123,19 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseBank) => {
 
 	const handleRemoveBankGroup = useCallback((id: number) => () => {
 		if (deleteBankGroup.loading) return;
-		deleteBankGroup.call({
-			bank_group_id: id
+		confirm('confirm', '정말 삭제할까요?', () => {
+			deleteBankGroup.call({
+				bank_group_id: id
+			});
 		});
 	}, [deleteBankGroup.loading]);
 
 	const handleRemoveBank = useCallback((id: number) => () => {
 		if (deleteBank.loading) return;
-		deleteBank.call({
-			bank_id: id
+		confirm('confirm', '정말 삭제할까요?', () => {
+			deleteBank.call({
+				bank_id: id
+			});
 		});
 	}, [deleteBank.loading]);
 
