@@ -56,8 +56,8 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 	return (
 		<div class='category-board' onMouseMove={onDragging} onMouseUp={onDrop}>
 			<div class='gap-mv-medium'>
-				<div class='gap-mv-tiny'>
-					<p class='c-gray f-small f-bold'>미분류</p>
+				<div>
+					<p class='category-board__group-title c-gray f-small f-bold'>미분류</p>
 					<div class='category-board__row'>
 						<BoardItem
 							title='미분류'
@@ -79,8 +79,8 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 					</div>
 				</div>
 				{ accountsByCategories.map(group => (
-					<div key={group.id} class='gap-mv-tiny'>
-						<p class='c-gray f-small f-bold'>{group.title || '카테고리 그룹 없음'}</p>
+					<div key={group.id} >
+						<p class='category-board__group-title'>{group.title || '카테고리 그룹 없음'}</p>
 						<div class='category-board__row'>
 							{ group.items && group.items.map(category => (
 								<BoardItem
