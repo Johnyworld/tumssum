@@ -27,17 +27,17 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grabbing, gr
 	return (
 		<div class='calendar' onMouseMove={onDragging}>
 
-			<div class='calendar-row'>
+			<div class='flex'>
 				{['sun', 'mon', 'tue', 'web', 'thu', 'fri', 'sat'].map(day => (
-					<p class='calendar-day'>
+					<p class='calendar__day'>
 						{day}
 					</p>
 				))}
 			</div>
 			
-			<div class='calendar-container'>
+			<div class='calendar__container'>
 				{ calendarWithData.map(row => (
-					<div class='calendar-row'>
+					<div class='calendar__row'>
 						{ row.map(col => {
 							return (
 								<BoardItem
@@ -65,7 +65,7 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grabbing, gr
 				<AccountItem
 					title={grabbing.data.title}
 					amount={grabbing.data.account}
-					class='calendar-grabbing'
+					class='calendar__grabbing'
 					style={{ left: grabbingPos.x, top: grabbingPos.y, width: grabbing.width, height: grabbing.height }} 
 				/>
 			}

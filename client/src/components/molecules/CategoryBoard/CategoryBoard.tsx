@@ -53,6 +53,8 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 
 	const { noCategory, accountsByCategories } = getAccountsByCategories(data, categoriesCombined);
 
+	console.log('===== CategoryBoard', categoriesCombined, accountsByCategories);
+
 	return (
 		<div class='category-board' onMouseMove={onDragging} onMouseUp={onDrop}>
 			<div class='gap-mv-medium'>
@@ -80,7 +82,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 				</div>
 				{ accountsByCategories.map(group => (
 					<div key={group.id} >
-						<p class='category-board__group-title'>{group.title || '카테고리 그룹 없음'}</p>
+						<p class='category-board__group-title'>{group.title || (group.title === '' ? '이름 없음' : '그룹 없는 카테고리')}</p>
 						<div class='category-board__row'>
 							{ group.items && group.items.map(category => (
 								<BoardItem
@@ -99,6 +101,9 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 									))}
 								/>
 							))}
+							{ group.items.length%4 !== 0 &&
+								<div />
+							}
 						</div>
 					</div>
 				))}

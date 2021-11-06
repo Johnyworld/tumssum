@@ -1,4 +1,4 @@
-import { h, FunctionalComponent } from 'preact';
+import { h, FunctionalComponent, Fragment } from 'preact';
 import { Ref } from 'preact/hooks';
 import { Account, BankGroup, CategoryGroup, Month } from 'types';
 import Balances from '~components/organisms/Balances';
@@ -10,9 +10,6 @@ export interface StatisticsProps {
 	categoriesCombined: CategoryGroup[];
 	banksCombined: BankGroup[];
 	monthes: Month[];
-	sideWidth: number;
-	borderRef: Ref<HTMLDivElement>;
-	onBorderMouseDown: h.JSX.MouseEventHandler<HTMLDivElement>;
 }
 
 export interface StatisticsItems {
@@ -43,18 +40,15 @@ const getDataAligned = (data: Account[]) => {
 }
 
 
-const Statistics: FunctionalComponent<StatisticsProps> = ({ date, accounts, categoriesCombined, banksCombined, monthes, sideWidth, borderRef, onBorderMouseDown }) => {
+const Statistics: FunctionalComponent<StatisticsProps> = ({ date, accounts, categoriesCombined, banksCombined, monthes }) => {
 
 	const aligned = getDataAligned(accounts);
 
 	return (
-		<section class='home-page__side never-drag' style={{ minWidth: sideWidth }}>
-			<div class='home-page__side-inner p-regular gap-mv-small' >
-				<CategoryStatistics categoriesCombined={categoriesCombined} aligned={aligned.categories} />
-				<Balances date={date} banksCombined={banksCombined} monthes={monthes} aligned={aligned.banks} />
-				<div ref={borderRef} class='home-page__side-border' onMouseDown={onBorderMouseDown} />
-			</div>
-		</section>
+		<Fragment>
+			<CategoryStatistics categoriesCombined={categoriesCombined} aligned={aligned.categories} />
+			<Balances date={date} banksCombined={banksCombined} monthes={monthes} aligned={aligned.banks} />
+		</Fragment>
 	)
 }
 

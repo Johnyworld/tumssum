@@ -1,18 +1,15 @@
 @import '~src/style/mixins';
 
 .aside {
+	position: fixed;
+	top: 0;
+	height: 100vh;
 	width: var(--aside-width);
 	min-width: var(--aside-width);
 	background-color: var(--color-paper);
 	transition: .3s;
 	padding: 0 1rem;
 	border-right: 1px solid var(--color-gray_weaker);
-
-	&__content {
-		position: sticky;
-		top: 0;
-		height: 100vh;
-	}
 
 	&__bottom {
 		position: absolute;

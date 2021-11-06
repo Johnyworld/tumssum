@@ -79,83 +79,87 @@ const HomePage: FunctionalComponent = ({  }) => {
 	}, [inputRef.current, isOpenCreateModal]);
 
 	return (
-		<main class='home-page main' onMouseUp={handleContainerMouseUp} onMouseLeave={handleContainerMouseUp} onMouseMove={handleContainerDrag}>
+		<main class='home-page' onMouseUp={handleContainerMouseUp} onMouseLeave={handleContainerMouseUp} onMouseMove={handleContainerDrag}>
 
-			<section class='home-page__content'>
-				<Header>
-					<MonthSelector
-						date={currentDate}
-						onPrev={() => dispatch(changeMonthPrev())}
-						onNext={() => dispatch(changeMonthNext())}
-					/>
-				</Header>
+			<Header>
+				<MonthSelector
+					date={currentDate}
+					onPrev={() => dispatch(changeMonthPrev())}
+					onNext={() => dispatch(changeMonthNext())}
+				/>
+			</Header>
 
-				<Card padding='none' class='overflow-hidden'>
-					<div class='flex p-regular'>
-						<NavigationMenu
-							selected={view}
-							onChange={handleChangeView}
-							list={MENUS}
-						/>
-						<div class='flex gap-regular'>
-							<IconText text='Download' icon='download' isHideTextForMobile onClick={() => getCSV('CSV')} />
-							{/* <p class='pointer' onClick={() => dispatch(changeMonthToday())} >Today</p> */}
-							<Button class='hide-mobile' size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />
+			<div class='home-page__container'>
+				<section class='home-page__content'>
+					<Card style={{ paddingBottom: '1rem' }} padding='none' class='overflow-hidden'>
+						<div class='flex p-regular'>
+							<NavigationMenu
+								selected={view}
+								onChange={handleChangeView}
+								list={MENUS}
+							/>
+							<div class='flex gap-regular'>
+								<IconText text='Download' icon='download' isHideTextForMobile onClick={() => getCSV('CSV')} />
+								{/* <p class='pointer' onClick={() => dispatch(changeMonthToday())} >Today</p> */}
+								<Button class='hide-mobile' size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />
+							</div>
 						</div>
-					</div>
 
-					{ view === 'calendar' &&
-						<Calendar
+						{ view === 'calendar' &&
+							<Calendar
+								date={currentDate}
+								data={accounts}
+								grabbing={grabbing}
+								grabbingPos={grabbingPos}
+								onGrap={handleGrap}
+								onDropToUpdate={handleDropToUpdateDate}
+								onDragging={handleDragging}
+								onClick={handleSelectItem}
+								onClickPlus={handleOpenCreateModalWithDate}
+							/>
+						}
+
+						{ view === 'category' &&
+							<CategoryBoard
+								categoriesCombined={categoriesCombined}
+								data={accountsThisMonth}
+								grabbing={grabbing}
+								grabbingPos={grabbingPos}
+								onGrap={handleGrap}
+								onDrop={handleDrop}
+								onDropToUpdate={handleDropToUpdateCategory}
+								onDragging={handleDragging}
+								onClick={handleSelectItem}
+								onClickPlus={handleOpenCreateModalWithCategory}
+							/>
+						}
+
+						{ view === 'list' &&
+							<AccountList
+								list={accountsThisMonth}
+								categoriesCombined={categoriesCombined}
+								banksCombined={banksCombined}
+								onChange={handlePatchAccount}
+								onClickEdit={handleSelectItem}
+							/>
+						}
+					</Card>
+				</section>
+
+				<section class='home-page__side never-drag' style={{ minWidth: sideWidth }}>
+					<div class='home-page__side-inner gap-mv-small' >
+						<Statistics
 							date={currentDate}
-							data={accounts}
-							grabbing={grabbing}
-							grabbingPos={grabbingPos}
-							onGrap={handleGrap}
-							onDropToUpdate={handleDropToUpdateDate}
-							onDragging={handleDragging}
-							onClick={handleSelectItem}
-							onClickPlus={handleOpenCreateModalWithDate}
-						/>
-					}
-
-					{ view === 'category' &&
-						<CategoryBoard
-							categoriesCombined={categoriesCombined}
-							data={accountsThisMonth}
-							grabbing={grabbing}
-							grabbingPos={grabbingPos}
-							onGrap={handleGrap}
-							onDrop={handleDrop}
-							onDropToUpdate={handleDropToUpdateCategory}
-							onDragging={handleDragging}
-							onClick={handleSelectItem}
-							onClickPlus={handleOpenCreateModalWithCategory}
-						/>
-					}
-
-					{ view === 'list' &&
-						<AccountList
-							list={accountsThisMonth}
-							categoriesCombined={categoriesCombined}
+							accounts={accountsThisMonth}
+							categoriesCombined={categoriesCombinedWithBudgets}
 							banksCombined={banksCombined}
-							onChange={handlePatchAccount}
-							onClickEdit={handleSelectItem}
+							monthes={monthes}
 						/>
-					}
-				</Card>
-			</section>
+					</div>
+					<div ref={borderRef} class='home-page__side-border' onMouseDown={handleBorderMouseDown} />
+				</section>
+			</div>
 
-			
-			<Statistics
-				date={currentDate}
-				accounts={accountsThisMonth}
-				categoriesCombined={categoriesCombinedWithBudgets}
-				banksCombined={banksCombined}
-				monthes={monthes}
-				sideWidth={sideWidth}
-				borderRef={borderRef}	
-				onBorderMouseDown={handleBorderMouseDown}
-			/>
 
 
 			<Modal

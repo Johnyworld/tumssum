@@ -16,28 +16,24 @@ interface Props extends DefaultProps {
 
 const Aside: FunctionalComponent<Props> = ({ class: className, path, gnbMenuList, bottomMenuList, isNarrow, onToggleAside }) => {
 	return (
-		<aside
-			class={c('aside', className, [isNarrow, 'aside--narrow'])}
-		>
-			<div class='aside__content'>
-				<div class='header'>
-					<button onClick={onToggleAside}>Test</button>
-					{/* <Logo /> */}
-				</div>
-				<Indicator>
+		<aside class={c('aside', className, [isNarrow, 'aside--narrow'])} >
+			<div class='header'>
+				<button onClick={onToggleAside}>Test</button>
+				{/* <Logo /> */}
+			</div>
+			<Indicator>
 
-				</Indicator>
+			</Indicator>
+			<AsideMenu
+				selected={path}
+				isOpen={!isNarrow}
+				list={gnbMenuList}
+			/>
+			<div class='aside__bottom'>
 				<AsideMenu
-					selected={path}
 					isOpen={!isNarrow}
-					list={gnbMenuList}
+					list={bottomMenuList}
 				/>
-				<div class='aside__bottom'>
-					<AsideMenu
-						isOpen={!isNarrow}
-						list={bottomMenuList}
-					/>
-				</div>
 			</div>
 		</aside>
 	)
