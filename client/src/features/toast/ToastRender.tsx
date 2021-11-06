@@ -3,7 +3,6 @@ import Portal from '~components/Portal';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import ToastItem from './Toast';
 import { removeToast } from '~stores/toastSlice';
-import './Toast.scss';
 
 
 const ToastRender: FunctionalComponent = () => {
@@ -13,7 +12,7 @@ const ToastRender: FunctionalComponent = () => {
 
 	return (
 		<Portal>
-			<div class='toast'>
+			<div class='toasts'>
 				{ toasts.map(toast=> (
 					<ToastItem
 						key={toast.id}
