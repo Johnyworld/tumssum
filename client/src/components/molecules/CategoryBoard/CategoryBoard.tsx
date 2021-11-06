@@ -53,8 +53,6 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 
 	const { noCategory, accountsByCategories } = getAccountsByCategories(data, categoriesCombined);
 
-	console.log('===== CategoryBoard', categoriesCombined, accountsByCategories);
-
 	return (
 		<div class='category-board' onMouseMove={onDragging} onMouseUp={onDrop}>
 			<div class='gap-mv-medium'>
@@ -113,7 +111,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 				<AccountItem
 					title={grabbing.data.title}
 					amount={grabbing.data.account}
-					class='calendar-grabbing'
+					class='calendar__grabbing'
 					style={{ left: grabbingPos.x, top: grabbingPos.y, width: grabbing.width, height: grabbing.height }} 
 				/>
 			}
