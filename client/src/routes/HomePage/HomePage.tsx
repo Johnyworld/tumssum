@@ -55,7 +55,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const categoriesCombinedWithBudgets = useMemo(() => combineCategoriesWithBudgets(categoriesCombined, budgets, currentDate), [categoriesCombined, budgets, currentDate]);
 	const banksCombined = useMemo(() => combineBanksWithGroups(banks, bankGroups), [banks, bankGroups]);
 
-	const { grapping, grappingPos, handleGrap, handleDrop, handleDragging } = useDrag(accounts);
+	const { grabbing, grabbingPos, handleGrap, handleDrop, handleDragging } = useDrag(accounts);
 
 	const { borderRef, sideWidth, handleBorderMouseDown, handleContainerMouseUp, handleContainerDrag } = useResizeSide();
 
@@ -64,7 +64,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 		isOpenCreateModal, handleOpenCreateModal, handleOpenCreateModalWithDate, handleOpenCreateModalWithCategory, handleCloseCreateModal,
 		handleCreateAccount, handleUpdateAccount, handlePatchAccount, handleDeleteAccount, handleDropToUpdateDate, handleDropToUpdateCategory
 	} = useAccount({
-		grapping,
+		grabbing,
 		handleDrop,
 	});
 
@@ -108,8 +108,8 @@ const HomePage: FunctionalComponent = ({  }) => {
 						<Calendar
 							date={currentDate}
 							data={accounts}
-							grapping={grapping}
-							grappingPos={grappingPos}
+							grabbing={grabbing}
+							grabbingPos={grabbingPos}
 							onGrap={handleGrap}
 							onDropToUpdate={handleDropToUpdateDate}
 							onDragging={handleDragging}
@@ -122,8 +122,8 @@ const HomePage: FunctionalComponent = ({  }) => {
 						<CategoryBoard
 							categoriesCombined={categoriesCombined}
 							data={accountsThisMonth}
-							grapping={grapping}
-							grappingPos={grappingPos}
+							grabbing={grabbing}
+							grabbingPos={grabbingPos}
 							onGrap={handleGrap}
 							onDrop={handleDrop}
 							onDropToUpdate={handleDropToUpdateCategory}

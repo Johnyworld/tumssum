@@ -3,7 +3,7 @@ import { useMemo, useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import Card from '~components/atoms/Card';
 import Icon from '~components/atoms/Icon';
-import { GrappingData } from '~hooks/useDrag';
+import { grabbingData } from '~hooks/useDrag';
 import numberUtils from '~utils/numberUtils';
 import './ManagementList.scss';
 
@@ -24,8 +24,8 @@ export interface Item {
 
 export interface ManagementListProps<T, S> {
 	data: S[];
-	grapping: GrappingData<T> | null;
-	grappingPos: Vec2 | null;
+	grabbing: grabbingData<T> | null;
+	grabbingPos: Vec2 | null;
 	onGrap: (data: T) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onDropToUpdate: (groupId: number | null) => h.JSX.MouseEventHandler<HTMLDivElement>;
 	onDrop: () => void;
@@ -34,7 +34,7 @@ export interface ManagementListProps<T, S> {
 	onClickGroup: (data: S) => h.JSX.MouseEventHandler<HTMLDivElement>;
 }
 
-const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping, grappingPos, onGrap, onDropToUpdate, onDrop, onDragging, onClick, onClickGroup }: ManagementListProps<T, S>) => {
+const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grabbing, grabbingPos, onGrap, onDropToUpdate, onDrop, onDragging, onClick, onClickGroup }: ManagementListProps<T, S>) => {
 
 	const T = useMemo(() => { return {
 		NO_NAME: '이름 없음',
@@ -52,7 +52,7 @@ const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping
 					const handleHoverOut = () => setHover(false);
 					return (
 						<div key={group.id} class='management-list__each' onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate(group.id || null)}>
-							{!!grapping && hover && <div class='board-item__grapping' />}
+							{!!grabbing && hover && <div class='board-item__grabbing' />}
 							{ group.id
 								? <div class='management-list__group pos-relative'>
 										<p>{group.title || T.NO_NAME}</p>
@@ -73,11 +73,11 @@ const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grapping
 				})}
 			</div>
 
-			{ grapping && grappingPos &&
+			{ grabbing && grabbingPos &&
 				<Card
-					class='calendar-grapping content-box'
-					style={{ left: grappingPos.x, top: grappingPos.y - grapping.height, width: grapping.width, height: grapping.height, backgroundColor: 'var(--color-white_weakest)' }} 
-					children={grapping.data.title}
+					class='calendar-grabbing content-box'
+					style={{ left: grabbingPos.x, top: grabbingPos.y - grabbing.height, width: grabbing.width, height: grabbing.height, backgroundColor: 'var(--color-white_weakest)' }} 
+					children={grabbing.data.title}
 				/>
 			}
 		</div>

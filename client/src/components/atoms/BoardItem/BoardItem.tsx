@@ -8,12 +8,12 @@ import './BoardItem.scss';
 interface BoardItemProps extends DefaultProps {
 	title?: string;
 	disabled?: boolean;
-	isGrapping?: boolean;
+	isgrabbing?: boolean;
 	onDropToUpdate?: h.JSX.MouseEventHandler<HTMLDivElement>;
 	onClickPlus?: () => void;
 }
 
-const BoardItem: FunctionalComponent<BoardItemProps> = ({ children, class: className, title, disabled, isGrapping, onDropToUpdate, onClickPlus }) => {
+const BoardItem: FunctionalComponent<BoardItemProps> = ({ children, class: className, title, disabled, isgrabbing, onDropToUpdate, onClickPlus }) => {
 	const [ hover, setHover ] = useState(false);
 	const handleHover = () => setHover(true);
 	const handleHoverOut = () => setHover(false);
@@ -26,7 +26,7 @@ const BoardItem: FunctionalComponent<BoardItemProps> = ({ children, class: class
 					<Icon class='board-item__plus-button' color='gray' as='plusRounded' onClick={onClickPlus} />
 				}
 			</div>
-			{isGrapping && hover && <div class='board-item__grapping' />}
+			{isgrabbing && hover && <div class='board-item__grabbing' />}
 			{children}
 		</div>
 	)

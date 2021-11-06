@@ -50,7 +50,7 @@ const BankPage: FunctionalComponent = ({  }) => {
 
 	const combined = combineBanksWithGroups(banks, bankGroups);
 
-	const { grapping, grappingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(banks);
+	const { grabbing, grabbingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(banks);
 
 	const {
 		handleUpdateBankGroup,
@@ -60,7 +60,7 @@ const BankPage: FunctionalComponent = ({  }) => {
 		handleAddBank,
 		handleRemoveBankGroup,
 		handleRemoveBank
-	} = useBank({ grapping, onCloseDetail: closeDetails, handleDrop });
+	} = useBank({ grabbing, onCloseDetail: closeDetails, handleDrop });
 
 	return (
 		<main class='bank-page main wrap'>
@@ -76,8 +76,8 @@ const BankPage: FunctionalComponent = ({  }) => {
 
 			<ManagementList
 				data={combined}
-				grapping={grapping}
-				grappingPos={grappingPos}
+				grabbing={grabbing}
+				grabbingPos={grabbingPos}
 				onGrap={handleGrap}
 				onDropToUpdate={handleDropToUpdateBank}
 				onDrop={handleDrop}

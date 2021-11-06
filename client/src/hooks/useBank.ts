@@ -3,17 +3,17 @@ import { Bank, BankGroup } from 'types';
 import { addBanks, addBank, addBankGroup, removeBank, removeBankGroup, updateBank, updateBankGroup } from '~stores/bankSlice';
 import { useDispatch } from '~utils/redux/hooks';
 import useConfirm from './useConfirm';
-import { GrappingData } from './useDrag';
+import { grabbingData } from './useDrag';
 import useFetch from './useFetch';
 import useToast from './useToast';
 
 interface UseBank {
-	grapping: GrappingData<Bank> | null;
+	grabbing: grabbingData<Bank> | null;
 	onCloseDetail: () => void;
 	handleDrop: () => void;
 }
 
-export default ({ grapping, onCloseDetail, handleDrop }: UseBank) => {
+export default ({ grabbing, onCloseDetail, handleDrop }: UseBank) => {
 	
 	const dispatch = useDispatch();
 	const confirm = useConfirm();
@@ -108,18 +108,18 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseBank) => {
 	}, [putBank.loading]);
 
 	const handleDropToUpdateBank = useCallback((groupId: number | null) => () => {
-		if (putBank.loading || !grapping ) return;
-		if (groupId === grapping.data.group) {
+		if (putBank.loading || !grabbing ) return;
+		if (groupId === grabbing.data.group) {
 			handleDrop();
 			return;
 		}
 		putBank.call({
-			bank_id: grapping.data.id,
+			bank_id: grabbing.data.id,
 			group_id: groupId || null
 		})
-		dispatch(updateBank({ id: grapping.data.id, group: groupId } as Bank));
+		dispatch(updateBank({ id: grabbing.data.id, group: groupId } as Bank));
 		handleDrop();
-	}, [putBank.loading, grapping]);
+	}, [putBank.loading, grabbing]);
 
 	const handleRemoveBankGroup = useCallback((id: number) => () => {
 		if (deleteBankGroup.loading) return;

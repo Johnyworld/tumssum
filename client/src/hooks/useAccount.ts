@@ -5,18 +5,18 @@ import { updateOrAddMonths } from "~stores/monthSlice";
 import { getLocalString, getLocalStringFromISOString } from '~utils/calendar';
 import { useDispatch } from '~utils/redux/hooks';
 import useDetails from "./useSelectItem";
-import { GrappingData } from './useDrag';
+import { grabbingData } from './useDrag';
 import useFetch from "./useFetch";
 import useToggle from "./useToggle";
 import useConfirm from "./useConfirm";
 import useToast from "./useToast";
 
 interface UseAccount {
-	grapping: GrappingData<Account> | null;
+	grabbing: grabbingData<Account> | null;
 	handleDrop: () => void;
 }
 
-export default ({ grapping, handleDrop }: UseAccount) => {
+export default ({ grabbing, handleDrop }: UseAccount) => {
 
 	const dispatch = useDispatch();
 	const confirm = useConfirm();
@@ -143,39 +143,39 @@ export default ({ grapping, handleDrop }: UseAccount) => {
 	}, [patchAccount.loading]);
 
 	const updateAndDrop = useCallback((data: Account) => {
-		if (!grapping) return;
-		dispatch(updateAccount({ id: grapping.data.id, data }));
+		if (!grabbing) return;
+		dispatch(updateAccount({ id: grabbing.data.id, data }));
 		handleDrop();
-	}, [grapping]);
+	}, [grabbing]);
 
 	const handleDropToUpdateDate = useCallback((date: string) => () => {
-		if (patchAccount.loading || !grapping ) return;
-		const datetime = date + 'T' + grapping!.data.datetime.split('T')[1]
-		if (date === grapping.data.datetime.substr(0, 10)) {
+		if (patchAccount.loading || !grabbing ) return;
+		const datetime = date + 'T' + grabbing!.data.datetime.split('T')[1]
+		if (date === grabbing.data.datetime.substr(0, 10)) {
 			handleDrop();
 			return;
 		}
-		const localtime = getLocalString(new Date(grapping.data.datetime)).split('T')[1];
+		const localtime = getLocalString(new Date(grabbing.data.datetime)).split('T')[1];
 		const isoString = new Date(date + 'T' + localtime).toISOString();
 		updateAndDrop({ datetime } as Account);
 		patchAccount.call({
-			account_id: grapping.data.id,
+			account_id: grabbing.data.id,
 			datetime: isoString,
 		});
-	}, [patchAccount.loading, grapping]);
+	}, [patchAccount.loading, grabbing]);
 
 	const handleDropToUpdateCategory = useCallback((categoryId: number | null, categoryTitle: string) => () => {
-		if (patchAccount.loading || !grapping ) return;
-		if (categoryId === grapping.data.category) {
+		if (patchAccount.loading || !grabbing ) return;
+		if (categoryId === grabbing.data.category) {
 			handleDrop();
 			return;
 		}
 		updateAndDrop({ category: categoryId, category_title: categoryTitle } as Account);
 		patchAccount.call({
-			account_id: grapping.data.id,
+			account_id: grabbing.data.id,
 			category_id: categoryId,
 		});
-	}, [patchAccount.loading, grapping]);
+	}, [patchAccount.loading, grabbing]);
 
 	return {
 		initialValuesForCreate,

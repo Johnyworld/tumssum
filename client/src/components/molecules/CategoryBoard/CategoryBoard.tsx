@@ -1,15 +1,15 @@
 import { h, FunctionalComponent } from 'preact';
 import { Account, CategoryGroup, Vec2 } from 'types';
 import BoardItem from '~components/atoms/BoardItem';
-import { GrappingData } from '~hooks/useDrag';
+import { grabbingData } from '~hooks/useDrag';
 import AccountItem from '../AccountItem';
 import './CategoryBoard.scss';
 
 interface CategoryBoardProps {
 	categoriesCombined: CategoryGroup[];
 	data: Account[];
-	grapping?: GrappingData<Account> | null;
-	grappingPos?: Vec2 | null;
+	grabbing?: grabbingData<Account> | null;
+	grabbingPos?: Vec2 | null;
 	onGrap?: (data: Account) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onDropToUpdate?: (categoryId: number | null, categoryTitle: string) => h.JSX.MouseEventHandler<HTMLDivElement>;
 	onDrop?: () => void;
@@ -49,7 +49,7 @@ export const getAccountsByCategories = (accounts: Account[], categoriesCombined:
 }
 
 
-const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesCombined, data, grapping, grappingPos, onGrap, onDropToUpdate, onDrop, onDragging, onClick, onClickPlus }) => {
+const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesCombined, data, grabbing, grabbingPos, onGrap, onDropToUpdate, onDrop, onDragging, onClick, onClickPlus }) => {
 
 	const { noCategory, accountsByCategories } = getAccountsByCategories(data, categoriesCombined);
 
@@ -61,7 +61,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 					<div class='category-board-row'>
 						<BoardItem
 							title='미분류'
-							isGrapping={!!grapping}
+							isgrabbing={!!grabbing}
 							onDropToUpdate={onDropToUpdate && onDropToUpdate( null, '' )}
 							children={
 								<div class='grid grid-col-4 gap-tiny' style={{ flexWrap: 'wrap' }}>
@@ -86,7 +86,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 								<BoardItem
 									class='board-item--col-4'
 									title={category.title}
-									isGrapping={!!grapping}
+									isgrabbing={!!grabbing}
 									onDropToUpdate={onDropToUpdate && onDropToUpdate( category.id, category.title )}
 									onClickPlus={onClickPlus && onClickPlus(category.id)}
 									children={category.accounts && category.accounts.map(account => (
@@ -104,12 +104,12 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 				))}
 			</div>
 
-			{ grapping && grappingPos &&
+			{ grabbing && grabbingPos &&
 				<AccountItem
-					title={grapping.data.title}
-					amount={grapping.data.account}
-					class='calendar-grapping'
-					style={{ left: grappingPos.x, top: grappingPos.y, width: grapping.width, height: grapping.height }} 
+					title={grabbing.data.title}
+					amount={grabbing.data.account}
+					class='calendar-grabbing'
+					style={{ left: grabbingPos.x, top: grabbingPos.y, width: grabbing.width, height: grabbing.height }} 
 				/>
 			}
 		</div>

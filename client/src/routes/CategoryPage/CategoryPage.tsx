@@ -73,7 +73,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 	const combined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
 	const combinedWithBudgets = useMemo(() => combineCategoriesWithBudgets(combined, budgets, today), [combined, budgets]);
 
-	const { grapping, grappingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(categories);
+	const { grabbing, grabbingPos, isDragging, handleGrap, handleDrop, handleDragging } = useDrag(categories);
 
 	const {
 		handleUpdateCategoryGroup,
@@ -83,7 +83,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 		handleAddCategory,
 		handleRemoveCategoryGroup,
 		handleRemoveCategory
-	} = useCategory({ grapping, onCloseDetail: closeDetails, handleDrop });
+	} = useCategory({ grabbing, onCloseDetail: closeDetails, handleDrop });
 
 
 	return (
@@ -100,8 +100,8 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 
 			<ManagementList
 				data={combinedWithBudgets}
-				grapping={grapping}
-				grappingPos={grappingPos}
+				grabbing={grabbing}
+				grabbingPos={grabbingPos}
 				onGrap={handleGrap}
 				onDropToUpdate={handleDropToUpdateCategory}
 				onDrop={handleDrop}

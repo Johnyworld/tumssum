@@ -3,18 +3,18 @@ import { Budget, Category, CategoryGroup } from 'types';
 import { addOrUpdateBudget, removeBudget } from '~stores/budgetSlice';
 import { addCategories, addCategory, addCategoryGroup, removeCategory, removeCategoryGroup, updateCategory, updateCategoryGroup } from '~stores/categorySlice';
 import { useDispatch } from '~utils/redux/hooks';
-import { GrappingData } from './useDrag';
+import { grabbingData } from './useDrag';
 import useFetch from './useFetch';
 import useConfirm from "./useConfirm";
 import useToast from "./useToast";
 
 interface UseCategory {
-	grapping: GrappingData<Category> | null;
+	grabbing: grabbingData<Category> | null;
 	onCloseDetail: () => void;
 	handleDrop: () => void;
 }
 
-export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
+export default ({ grabbing, onCloseDetail, handleDrop }: UseCategory) => {
 	
 	const dispatch = useDispatch();
 	const confirm = useConfirm();
@@ -122,18 +122,18 @@ export default ({ grapping, onCloseDetail, handleDrop }: UseCategory) => {
 	}, [putCategory.loading]);
 
 	const handleDropToUpdateCategory = useCallback((groupId: number | null) => () => {
-		if (patchCategory.loading || !grapping ) return;
-		if (groupId === grapping.data.group) {
+		if (patchCategory.loading || !grabbing ) return;
+		if (groupId === grabbing.data.group) {
 			handleDrop();
 			return;
 		}
 		patchCategory.call({
-			category_id: grapping.data.id,
+			category_id: grabbing.data.id,
 			group_id: groupId || null
 		})
-		dispatch(updateCategory({ id: grapping.data.id, group: groupId } as Category));
+		dispatch(updateCategory({ id: grabbing.data.id, group: groupId } as Category));
 		handleDrop();
-	}, [patchCategory.loading, grapping?.data]);
+	}, [patchCategory.loading, grabbing?.data]);
 
 	const handleRemoveCategoryGroup = useCallback((id: number) => () => {
 		if (deleteCatogoryGroup.loading) return;

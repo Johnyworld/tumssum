@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { Account, Vec2 } from 'types';
 import BoardItem from '~components/atoms/BoardItem';
-import { GrappingData } from '~hooks/useDrag';
+import { grabbingData } from '~hooks/useDrag';
 import { combineCalendarWithData, getCalendar } from '~utils/calendar';
 import AccountItem from '../AccountItem';
 import './Calendar.scss';
@@ -9,8 +9,8 @@ import './Calendar.scss';
 export interface CalendarProps {
 	date: string;
 	data?: Account[];
-	grapping?: GrappingData<Account> | null;
-	grappingPos?: Vec2 | null;
+	grabbing?: grabbingData<Account> | null;
+	grabbingPos?: Vec2 | null;
 	onGrap?: (data: Account) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onDropToUpdate?: (date: string) => h.JSX.MouseEventHandler<HTMLDivElement>;
 	onDragging?: (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
@@ -18,7 +18,7 @@ export interface CalendarProps {
 	onClickPlus?: (date: string) => () => void;
 }
 
-const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, grappingPos, onGrap, onDropToUpdate, onDragging, onClick, onClickPlus }) => {
+const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grabbing, grabbingPos, onGrap, onDropToUpdate, onDragging, onClick, onClickPlus }) => {
 
 	const then = new Date(date);
 	const calendar = getCalendar(then.getFullYear(), then.getMonth());
@@ -43,7 +43,7 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, gr
 								<BoardItem
 									title={col.each+''}
 									disabled={!col.isThisMonth}
-									isGrapping={!!grapping}
+									isgrabbing={!!grabbing}
 									onDropToUpdate={onDropToUpdate && onDropToUpdate(col.date)}
 									onClickPlus={onClickPlus && onClickPlus(col.date)}
 									children={ col.data && col.data.map(item => (
@@ -61,12 +61,12 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grapping, gr
 				))}
 			</div>
 
-			{ grapping && grappingPos &&
+			{ grabbing && grabbingPos &&
 				<AccountItem
-					title={grapping.data.title}
-					amount={grapping.data.account}
-					class='calendar-grapping'
-					style={{ left: grappingPos.x, top: grappingPos.y, width: grapping.width, height: grapping.height }} 
+					title={grabbing.data.title}
+					amount={grabbing.data.account}
+					class='calendar-grabbing'
+					style={{ left: grabbingPos.x, top: grabbingPos.y, width: grabbing.width, height: grabbing.height }} 
 				/>
 			}
 		</div>
