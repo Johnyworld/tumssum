@@ -21,6 +21,7 @@ import useCSV from '~hooks/useCSV';
 import useResizeSide from '~hooks/useResizeSide';
 import IconText from '~components/molecules/IconText';
 import Statistics from './Statistics';
+import Card from '~components/atoms/Card';
 
 
 const MENUS = [
@@ -89,57 +90,59 @@ const HomePage: FunctionalComponent = ({  }) => {
 					/>
 				</Header>
 
-				<Indicator>
-					<NavigationMenu
-						selected={view}
-						onChange={handleChangeView}
-						list={MENUS}
-					/>
-					<div class='flex flex-gap-regular'>
-						<IconText text='Download' icon='download' isHideTextForMobile onClick={() => getCSV('CSV')} />
-						<p class='pointer' onClick={() => dispatch(changeMonthToday())} >Today</p>
-						<Button class='hide-mobile' size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />
+				<Card padding='none'>
+					<div class='flex p-regular'>
+						<NavigationMenu
+							selected={view}
+							onChange={handleChangeView}
+							list={MENUS}
+						/>
+						<div class='flex gap-regular'>
+							<IconText text='Download' icon='download' isHideTextForMobile onClick={() => getCSV('CSV')} />
+							<p class='pointer' onClick={() => dispatch(changeMonthToday())} >Today</p>
+							<Button class='hide-mobile' size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />
+						</div>
 					</div>
-				</Indicator>
 
-				{ view === 'calendar' &&
-					<Calendar
-						date={currentDate}
-						data={accounts}
-						grapping={grapping}
-						grappingPos={grappingPos}
-						onGrap={handleGrap}
-						onDropToUpdate={handleDropToUpdateDate}
-						onDragging={handleDragging}
-						onClick={handleSelectItem}
-						onClickPlus={handleOpenCreateModalWithDate}
-					/>
-				}
+					{ view === 'calendar' &&
+						<Calendar
+							date={currentDate}
+							data={accounts}
+							grapping={grapping}
+							grappingPos={grappingPos}
+							onGrap={handleGrap}
+							onDropToUpdate={handleDropToUpdateDate}
+							onDragging={handleDragging}
+							onClick={handleSelectItem}
+							onClickPlus={handleOpenCreateModalWithDate}
+						/>
+					}
 
-				{ view === 'category' &&
-					<CategoryBoard
-						categoriesCombined={categoriesCombined}
-						data={accountsThisMonth}
-						grapping={grapping}
-						grappingPos={grappingPos}
-						onGrap={handleGrap}
-						onDrop={handleDrop}
-						onDropToUpdate={handleDropToUpdateCategory}
-						onDragging={handleDragging}
-						onClick={handleSelectItem}
-						onClickPlus={handleOpenCreateModalWithCategory}
-					/>
-				}
+					{ view === 'category' &&
+						<CategoryBoard
+							categoriesCombined={categoriesCombined}
+							data={accountsThisMonth}
+							grapping={grapping}
+							grappingPos={grappingPos}
+							onGrap={handleGrap}
+							onDrop={handleDrop}
+							onDropToUpdate={handleDropToUpdateCategory}
+							onDragging={handleDragging}
+							onClick={handleSelectItem}
+							onClickPlus={handleOpenCreateModalWithCategory}
+						/>
+					}
 
-				{ view === 'list' &&
-					<AccountList
-						list={accountsThisMonth}
-						categoriesCombined={categoriesCombined}
-						banksCombined={banksCombined}
-						onChange={handlePatchAccount}
-						onClickEdit={handleSelectItem}
-					/>
-				}
+					{ view === 'list' &&
+						<AccountList
+							list={accountsThisMonth}
+							categoriesCombined={categoriesCombined}
+							banksCombined={banksCombined}
+							onChange={handlePatchAccount}
+							onClickEdit={handleSelectItem}
+						/>
+					}
+				</Card>
 			</section>
 
 			

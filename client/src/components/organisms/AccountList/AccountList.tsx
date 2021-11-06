@@ -34,9 +34,7 @@ const AccountList: FunctionalComponent<AccountListProps> = ({ list, categoriesCo
 	return (
 		<div class='account-list'>
 			<table>
-
 				<Head />
-				
 				<tbody>
 					{ list.map((item, i) => (
 						<AccountListItem
