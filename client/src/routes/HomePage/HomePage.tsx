@@ -5,7 +5,6 @@ import Button from '~components/atoms/Button';
 import Calendar from '~components/molecules/Calendar';
 import CategoryBoard from '~components/molecules/CategoryBoard';
 import NavigationMenu from '~components/molecules/NavigationMenu';
-import Indicator from '~components/layouts/Indicator';
 import Modal from '~components/layouts/Modal';
 import AccountFormModal from '~components/organisms/AccountFormModal';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
@@ -17,7 +16,7 @@ import useDrag from '~hooks/useDrag';
 import { combineCategoriesWithBudgets, combineCategoriesWithGroups } from '~routes/CategoryPage/CategoryPage';
 import AccountList from '~components/organisms/AccountList';
 import { combineBanksWithGroups } from '~routes/BankPage/BankPage';
-import useCSV from '~hooks/useCSV';
+import useSaperatedValues from '~hooks/useSaperatedValues';
 import useResizeSide from '~hooks/useResizeSide';
 import IconText from '~components/molecules/IconText';
 import Statistics from './Statistics';
@@ -49,7 +48,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 		setView(newView);
 	}
 
-	const { getCSV } = useCSV({ accounts });
+	const { getCSV } = useSaperatedValues({ fileType: 'TSV', accounts });
 
 	const categoriesCombined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
 	const categoriesCombinedWithBudgets = useMemo(() => combineCategoriesWithBudgets(categoriesCombined, budgets, currentDate), [categoriesCombined, budgets, currentDate]);
