@@ -69,7 +69,6 @@ const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, fluid, 
 
 			{ pos &&
 				<Portal>
-					<div class='date-picker__dim' onClick={handleClosePicker} />
 					<TimePickerModal
 						time={time}
 						pos={pos}

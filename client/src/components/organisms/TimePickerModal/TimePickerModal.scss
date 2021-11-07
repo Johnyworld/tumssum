@@ -1,4 +1,4 @@
-.time-picker-timer {
+.time-picker__timer {
 	position: fixed;
 	width: 180px;	
 	background-color: var(--color-paper);
@@ -16,7 +16,7 @@
 	}
 }
 
-.time-picker-timer__buttons {
+.time-picker__timer-buttons {
 	position: absolute;
 	left: 0;
 	bottom: 0;

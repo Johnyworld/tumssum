@@ -2,6 +2,7 @@ import { h, FunctionalComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import Icon from '~components/atoms/Icon';
+import Portal from '~components/Portal';
 import { getHoursLimit, getMinutesLimit } from '~utils/calendar';
 import numberUtils from '~utils/numberUtils';
 import './TimePickerModal.scss';
@@ -57,7 +58,7 @@ const TimePickerModal: FunctionalComponent<TimePickerModalProps> = ({ time, pos,
 
 
 	return (
-		<div class='time-picker-modal p-regular' style={{ height: `${height}px`, width: `${width}px`, top: pos.y, left: pos.x }}>
+		<div class='time-picker__timer p-regular' style={{ height: `${height}px`, width: `${width}px`, top: pos.y, left: pos.x }}>
 
 			<div class='flex flex-around'>
 				<div class='flex flex-column'>
@@ -74,7 +75,7 @@ const TimePickerModal: FunctionalComponent<TimePickerModalProps> = ({ time, pos,
 					<Icon as='arrowDown' onClick={handleChangeMinutesByNumber(-1)} />
 				</div>
 			</div>
-			<div class='time-picker-modal__buttons f-bold flex'>
+			<div class='time-picker__timer-buttons f-bold flex'>
 				<span class='pointer c-red' onClick={handleClear}>Clear</span>
 				<div class='gap-mh-tiny'>
 					<span class='pointer' onClick={onClose}>Cancel</span>
