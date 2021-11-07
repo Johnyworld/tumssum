@@ -74,8 +74,8 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 					<ContentEditable
 						value={title}
 						size='large'
-						styleType='transparent'
 						weight='bold'
+						styleType='transparent'
 						isOneLine
 						placeholder='제목을 입력하세요.'
 						onChange={changeTitle}
