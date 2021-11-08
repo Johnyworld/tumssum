@@ -29,7 +29,7 @@ export default ({ fileType, accounts }: UseCSV) => {
 	const summary = useMemo(() => ['이번달 합계', '', '', '', `=sum(E2:E${accounts.length+1})`], [accounts])
 
 
-	const getCSV = useCallback((filename: string = 'Tumssum') => {
+	const download = useCallback((filename: string = 'Tumssum') => {
 
 		let el = document.createElement('a');
 
@@ -41,5 +41,5 @@ export default ({ fileType, accounts }: UseCSV) => {
 		el.click();
 	}, [accounts]);
 
-	return { getCSV }
+	return download;
 }

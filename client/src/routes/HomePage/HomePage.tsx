@@ -48,7 +48,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 		setView(newView);
 	}
 
-	const { getCSV } = useSaperatedValues({ fileType: 'TSV', accounts });
+	const downloadTSVfile = useSaperatedValues({ fileType: 'TSV', accounts });
 
 	const categoriesCombined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
 	const categoriesCombinedWithBudgets = useMemo(() => combineCategoriesWithBudgets(categoriesCombined, budgets, currentDate), [categoriesCombined, budgets, currentDate]);
@@ -98,7 +98,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 								list={MENUS}
 							/>
 							<div class='flex gap-regular'>
-								<IconText text='Download' icon='download' isHideTextForMobile onClick={() => getCSV('CSV')} />
+								<IconText text='Download' icon='download' isHideTextForMobile onClick={() => downloadTSVfile('CSV')} />
 								{/* <p class='pointer' onClick={() => dispatch(changeMonthToday())} >Today</p> */}
 								<Button class='hide-mobile' size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />
 							</div>
