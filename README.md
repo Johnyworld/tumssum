@@ -55,6 +55,11 @@
 - `source venv/bin/activate`: Run a virtual env.
 - `python3 manage.py runserver --settings=server.settings.local`: Run a development.
 
+### EC2
+
+- `sudo systemctl stop nginx uwsgi`: Stop webserver
+- `sudo sh build.sh`: Build client files and move to static folder
+- `sudo systemctl start nginx uwsgi`: Start webserver
 
 ## Branding
 ### Naming
