@@ -18,8 +18,8 @@ export const useAlertRender = () => {
 		if (callback) {
 			callback();
 			callback = null;
-			dispatch(closeAlert());
 		}
+		dispatch(closeAlert());
 	}
 	return { handleConfirm }
 }

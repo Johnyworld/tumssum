@@ -16,6 +16,7 @@ def patchAccount(request):
   user_id = reqData.get('user_id')
   bank_id = reqData.get('bank_id')
   datetime = reqData.get('datetime')
+  print('=== datetime', datetime)
 
   accountData = get_object_or_404(Account, pk=account_id)
 
@@ -74,6 +75,8 @@ def patchAccount(request):
 
   if bank_id == 0:
     accountData.bank_id = None 
+
+  print('=== accountData', accountData.datetime)
 
   accountData.save()
 

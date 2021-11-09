@@ -150,8 +150,10 @@ export default ({ grabbing, handleDrop }: UseAccount) => {
 
 	const handleDropToUpdateDate = useCallback((date: string) => () => {
 		if (patchAccount.loading || !grabbing ) return;
-		const datetime = date + 'T' + grabbing!.data.datetime.split('T')[1]
-		if (date === grabbing.data.datetime.substr(0, 10)) {
+		const grabbingItemDate = grabbing.data.datetime.substr(0, 10);
+		const grabbingItemTime = grabbing!.data.datetime.split('T')[1];
+		const datetime = date + 'T' + grabbingItemTime;
+		if (date === grabbingItemDate) {
 			handleDrop();
 			return;
 		}
@@ -160,7 +162,7 @@ export default ({ grabbing, handleDrop }: UseAccount) => {
 		updateAndDrop({ datetime } as Account);
 		patchAccount.call({
 			account_id: grabbing.data.id,
-			datetime: isoString,
+			datetime: grabbingItemTime ? isoString : isoString.substr(0, 10),
 		});
 	}, [patchAccount.loading, grabbing]);
 
