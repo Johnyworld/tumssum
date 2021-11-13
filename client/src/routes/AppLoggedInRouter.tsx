@@ -11,15 +11,15 @@ import { setCategories, setCategoryGroups } from '~stores/categorySlice';
 import { setAccounts } from '~stores/accountSlice';
 import { getLocalStringFromISOString } from '~utils/calendar';
 import { setBankGroups, setBanks } from '~stores/bankSlice';
-import { useMemo, useState } from 'preact/hooks';
+import { useMemo } from 'preact/hooks';
 import { AsideMenuItem } from '~components/molecules/AsideMenu/AsideMenu';
 import { useLocation } from 'wouter';
-import Aside from '~components/organisms/Aside';
-import { c } from '~utils/classNames';
 import { setMonths } from '~stores/monthSlice';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
 import NotFoundPage from './NotFoundPage';
 import { setBudgets } from '~stores/budgetSlice';
+import DashboardContainer from '~components/pages/DashboardContainer';
+import GlobalHeader from '~components/organisms/GlobalHeader';
 
 const AppLoggedInRouter: FunctionalComponent = () => {
 
@@ -27,28 +27,13 @@ const AppLoggedInRouter: FunctionalComponent = () => {
   const dispatch = useDispatch();
 	const [location] = useLocation();
 	const path = location.split('/')[1] || 'home';
-	const [isOpenAside, setIsOpenAside] = useState(localStorage.getItem('asideopen') === 'close' ? false : true);
 
-  const gnbMenuList = useMemo(() => { return [
+  const gnbMenus = useMemo(() => { return [
 		{ id: 'home', text: 'Home', icon: 'home', href: '/' },
 		{ id: 'category', text: 'Category', icon: 'category', href: '/category' },
 		{ id: 'bank', text: 'Bank', icon: 'storage', href: '/bank' },
+		{ id: 'settings', icon: 'gear', href: '/settings' },
 	] as AsideMenuItem[]}, []);
-
-	const bottomMenuList = useMemo(() => { return [
-		{ id: 'settings', text: 'Settings', icon: 'gear', href: '/settings' },
-	] as AsideMenuItem[]}, []);
-
-
-	const handleToggleAside = () => {
-		if (isOpenAside) {
-			setIsOpenAside(false);
-			localStorage.setItem('asideopen', 'close');
-		} else {
-			setIsOpenAside(true);
-			localStorage.setItem('asideopen', 'open');
-		}
-	}
 
 	useFetch<Account[]>({
 		method: 'GET',
@@ -99,14 +84,8 @@ const AppLoggedInRouter: FunctionalComponent = () => {
   });
 
   return (
-    <div class={c('page-container', [ !isOpenAside, '&--narrow-aside' ])}>
-      <Aside
-				path={path}
-				gnbMenuList={gnbMenuList}
-				bottomMenuList={bottomMenuList}
-				isNarrow={!isOpenAside}
-				onToggleAside={handleToggleAside}
-			/>
+		<DashboardContainer>
+			<GlobalHeader currentPage={path} menus={gnbMenus} />
 			<Router>
 				<Route path="/" component={HomePage} />
 				<Route path="/category" component={CategoryPage} />
@@ -114,7 +93,7 @@ const AppLoggedInRouter: FunctionalComponent = () => {
 				<Route path="/settings" component={SettingsPage} />
 				<NotFoundPage default />
 			</Router>
-    </div>
+		</DashboardContainer>
   )
 }
 

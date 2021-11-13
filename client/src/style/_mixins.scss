@@ -1,6 +1,19 @@
 @import "./variables";
 
 
+@mixin wrapper-wide {
+  max-width: #{$bp-6};
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@mixin wrapper-narrow {
+  max-width: #{$bp-2};
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+
 @mixin minMobile {
   @media (min-width: #{$bp-1}) {
     @content;

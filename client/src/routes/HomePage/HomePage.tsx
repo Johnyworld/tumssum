@@ -8,7 +8,7 @@ import NavigationMenu from '~components/molecules/NavigationMenu';
 import Modal from '~components/layouts/Modal';
 import AccountFormModal from '~components/organisms/AccountFormModal';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
-import { changeMonthNext, changeMonthPrev, changeMonthToday } from '~stores/dateSlice';
+import { changeMonthNext, changeMonthPrev } from '~stores/dateSlice';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { IconType } from 'types';
 import useAccount from '~hooks/useAccount';
@@ -21,9 +21,9 @@ import useResizeSide from '~hooks/useResizeSide';
 import IconText from '~components/molecules/IconText';
 import Statistics from './Statistics';
 import Card from '~components/atoms/Card';
-import useToggle from '~hooks/useToggle';
 import AccountTSVModal from '~components/organisms/AccountTSVModal/AccountTSVModal';
 import AccountPickerModal from '~components/organisms/AccountPickerModal';
+import './HomePage.scss';
 
 
 const MENUS = [
@@ -51,7 +51,6 @@ const HomePage: FunctionalComponent = ({  }) => {
 		setView(newView);
 	}
 
-
 	const {
 		toggleTSVModal,
 		uploadingAccounts,
@@ -60,7 +59,6 @@ const HomePage: FunctionalComponent = ({  }) => {
 		resetUploading,
 	} = useSaperatedValues({ fileType: 'CSV', accounts, banks, categories });
 
-	// console.table(uploadingAccounts);
 
 	const categoriesCombined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
 	const categoriesCombinedWithBudgets = useMemo(() => combineCategoriesWithBudgets(categoriesCombined, budgets, currentDate), [categoriesCombined, budgets, currentDate]);
@@ -106,13 +104,11 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 
 	useEffect(() => {
-	}, [view]);
-
-	useEffect(() => {
 		if (inputRef.current && isOpenCreateModal) {
 			inputRef.current.focus();
 		}
 	}, [inputRef.current, isOpenCreateModal]);
+
 
 	return (
 		<main class='home-page' onMouseUp={handleContainerMouseUp} onMouseLeave={handleContainerMouseUp} onMouseMove={handleContainerDrag}>

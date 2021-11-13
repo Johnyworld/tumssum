@@ -1,0 +1,23 @@
+.global-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 1rem;
+	height: var(--header-height);
+	background-color: var(--color-paper);
+	border-bottom: 1px solid var(--color-bg);
+
+	&__nav {
+		display: flex;
+		align-items: center;
+		gap: var(--size-large);
+	}
+
+	&__nav-item {
+		height: var(--header-height);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: var(--header-height);
+	}
+}

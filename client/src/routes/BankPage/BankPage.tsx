@@ -4,7 +4,6 @@ import { Bank, BankGroup } from 'types';
 import Button from '~components/atoms/Button';
 import ManagementList from '~components/molecules/ManagementList';
 import Header from '~components/layouts/Header';
-import Indicator from '~components/layouts/Indicator';
 import Modal from '~components/layouts/Modal';
 import BankFormModal from '~components/organisms/BankFormModal';
 import BankGroupFormModal from '~components/organisms/BankGroupFormModal/BankGroupFormModal';
@@ -64,9 +63,9 @@ const BankPage: FunctionalComponent = ({  }) => {
 
 	return (
 		<main class='bank-page'>
-			<div class='wrap gap-mv-large'>
+			<Header title='뱅크 관리' />
 
-				<Header title='뱅크 관리' />
+			<div class='wrap gap-mv-large'>
 
 				<div class='flex flex-end gap-small'>
 					<Button size='small' onClick={handleAddBankGroup} color='gray' children='+ 그룹 추가' />

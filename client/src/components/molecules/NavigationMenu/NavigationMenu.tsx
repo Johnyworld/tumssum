@@ -6,13 +6,13 @@ import IconMenuItem from '../IconMenuItem';
 import './NavigationMenu.scss';
 
 
-interface NavigationMenuItemInterface extends SelectMenuItem {
+export interface NavigationMenuItem extends SelectMenuItem {
 	icon: IconType;
 	href?: string
 }
 
 export interface NavigationMenuProps extends DefaultProps {
-	list: NavigationMenuItemInterface[];
+	list: NavigationMenuItem[];
 	selected?: string;
 	onChange?: (selected: string) => void;
 }

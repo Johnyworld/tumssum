@@ -6,7 +6,7 @@ import './IconText.scss';
 
 export interface IconTextProps extends DefaultProps {
 	icon: IconType;
-	text: string;
+	text: string | undefined;
 	textSize?: Size;
 	color?: Color;
 	direction?: 'row' | 'column';
@@ -19,7 +19,7 @@ const IconText: FunctionalComponent<IconTextProps> = ({ class: className, icon, 
 	return (
 		<div class={c('icon-text', className, [!!textSize, `f-${textSize}`], [!!onClick, 'pointer'], [direction==='column', '&--column'] )} onClick={onClick}>
 			<Icon class={'icon-text__icon'} color={color} as={icon} strokeWidth={bold ? 2 : 1} />
-			<p class={c('icon-text__text t-fit', ` c-${color}`, [bold, 'f-bold'], [isHideTextForMobile, 'hide-mobile'] )}>{text}</p>
+			{ text && <p class={c('icon-text__text t-fit', ` c-${color}`, [bold, 'f-bold'], [isHideTextForMobile, 'hide-mobile'] )}>{text}</p> }
 		</div>
 	)
 }

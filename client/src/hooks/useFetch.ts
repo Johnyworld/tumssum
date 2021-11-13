@@ -23,6 +23,7 @@ const useFetch = <S>({ method, url, params, isNoFetchWithoutCall, onError, onSuc
 	const { t } = useTranslation();
 	const user = useSelector(state=> state.user.userInfo);
 	const [data, setData] = useState<S | null>(null);
+	const [loaded, setLoaded] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<ErrorObj>({ code: '', message: '' });
 
@@ -51,16 +52,19 @@ const useFetch = <S>({ method, url, params, isNoFetchWithoutCall, onError, onSuc
 				res.data && setData(res.data);
 				setError({ code: '', message: '' });
 				setLoading(false);
+				setLoaded(true);
 
 			} else {
 				setError({ code: res.code, message: t(res.code) });
 				setLoading(false);
+				setLoaded(true);
 			}
 		}).catch(err => {
 			console.error(err);
 			const errObj = { code: err.message || err, message: err.message || err };
 			setError(errObj);
 			setLoading(false);
+			setLoaded(true);
 		});
 	}, [loading, error, data]);
 
@@ -83,7 +87,7 @@ const useFetch = <S>({ method, url, params, isNoFetchWithoutCall, onError, onSuc
 
 
 	return {
-		data, loading, error, call,
+		data, loading, loaded, error, call,
 	}
 }
 
