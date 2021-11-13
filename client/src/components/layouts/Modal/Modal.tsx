@@ -53,7 +53,7 @@ const Modal: FunctionalComponent<ModalProps> = ({ children, isOpen, onClose }) =
 		!isOpen ? null :
 		<Portal>
 			<div class='modal'>
-				<div class='modal-dim dim' onClick={onClose} />
+				<div class='modal__dim dim' onClick={onClose} />
 				{children}
 			</div>
 		</Portal>
@@ -62,7 +62,7 @@ const Modal: FunctionalComponent<ModalProps> = ({ children, isOpen, onClose }) =
 
 export const ModalContainer: FunctionalComponent = ({ children }) => {
 	return (
-		<div class='modal-container'>
+		<div class='modal__container'>
 			{children}
 		</div>
 	)
@@ -70,13 +70,13 @@ export const ModalContainer: FunctionalComponent = ({ children }) => {
 
 export const ModalXbutton: FunctionalComponent<ModalXButtonProps> = ({ style, class: className, onClose }) => {
 	return (
-		<Icon class={c('modal-x-button p-large p-regular-mobile', className )} style={style} size='medium' as='x' onClick={onClose} />
+		<Icon class={c('modal__x-button p-large p-regular-mobile', className )} style={style} size='medium' as='x' onClick={onClose} />
 	)
 }
 
 export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, class: className, children, sticky, shadow, onGoBack }) => {
 	return (
-		<div class={c( 'modal-header flex p-large p-regular-mobile', className, [sticky, 'modal-header--sticky'], [shadow, 'modal-header--shadow'] )} style={style} >
+		<div class={c( 'modal__header flex p-large p-regular-mobile', className, [sticky, 'modal__header--sticky'], [shadow, 'modal__header--shadow'] )} style={style} >
 			{ onGoBack
 				? <IconText icon='arrowLeft' text={children+''} onClick={onGoBack} />
 				: <h3>{children}</h3>
@@ -87,7 +87,7 @@ export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, clas
 
 export const ModalContent: FunctionalComponent<ModalContentProps> = ({ children, style, class: className, padding }) => {
 	return (
-		<div class={c( 'modal-content', className, [padding, 'p-large p-regular-mobile'] )} style={style}>
+		<div class={c( 'modal__content', className, [padding, 'p-large p-regular-mobile'] )} style={style}>
 			{children}
 		</div>
 	)
@@ -95,7 +95,7 @@ export const ModalContent: FunctionalComponent<ModalContentProps> = ({ children,
 
 export const ModalFooter: FunctionalComponent<ModalFooterProps> = ({ children, style, class: className, flex, flexEnd, padding, sticky }) => {
 	return (
-		<div class={c( 'modal-footer', className, [flex, 'flex'], [flexEnd, 'flex flex-end gap-small'], [padding, 'p-large p-regular-mobile'], [sticky, 'modal-footer--sticky'])} style={style}>
+		<div class={c( 'modal__footer', className, [flex, 'flex'], [flexEnd, 'flex flex-end gap-small'], [padding, 'p-large p-regular-mobile'], [sticky, 'modal__footer--sticky'])} style={style}>
 			{children}
 		</div>
 	)
