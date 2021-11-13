@@ -109,7 +109,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 					onClickGroup={handleSelectGroupItem}
 				/>
 
-				<Modal isOpen={!!selectedItem} onClose={handleClearSelectedItem}>
+				<Modal isOpen={!!selectedItem} >
 					{ selectedItem &&
 						<CategoryFormModal
 							category={selectedItem}
@@ -117,16 +117,18 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 							currentDate={today}
 							onConfirm={handleUpdateCategory}
 							onDelete={handleRemoveCategory}
+							onClose={handleClearSelectedItem}
 						/>
 					}
 				</Modal>
 
-				<Modal isOpen={!!selectedGroupItem} onClose={handleClearSelectedGroupItem}>
+				<Modal isOpen={!!selectedGroupItem} >
 					{ selectedGroupItem &&
 						<CategoryGroupFormModal
 							group={selectedGroupItem}
 							onConfirm={handleUpdateCategoryGroup}
 							onDelete={handleRemoveCategoryGroup}
+							onClose={handleClearSelectedGroupItem}
 						/>
 					}
 				</Modal>

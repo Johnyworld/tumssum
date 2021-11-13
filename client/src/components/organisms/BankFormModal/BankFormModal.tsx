@@ -14,9 +14,10 @@ export interface BankFormModalProps {
 	groupList: BankGroup[];
 	onConfirm: (bank: Bank) => void;
 	onDelete: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
+	onClose: () => void;
 }
 
-const BankFormModal: FunctionalComponent<BankFormModalProps> = ({ bank, groupList, onConfirm, onDelete }) => {
+const BankFormModal: FunctionalComponent<BankFormModalProps> = ({ bank, groupList, onConfirm, onDelete, onClose }) => {
 	const { t } = useTranslation();
 	const [ title, changeTitle ] = useContentEditable(bank.title || '');
 	const [ memo, changeMemo ] = useContentEditable(bank.memo || '');
@@ -36,7 +37,7 @@ const BankFormModal: FunctionalComponent<BankFormModalProps> = ({ bank, groupLis
 	}
 
 	return (
-		<Modal.Container>
+		<Modal.Container onClose={onClose}>
 			<Modal.Content class='gap-mv-regular' padding>
 
 				<ContentEditable

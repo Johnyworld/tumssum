@@ -10,9 +10,10 @@ export interface CategoryGroupFormModalProps {
 	group: CategoryGroup;
 	onConfirm: (group: CategoryGroup) => void;
 	onDelete: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
+	onClose: () => void;
 }
 
-const CategoryGroupFormModal: FunctionalComponent<CategoryGroupFormModalProps> = ({ group, onConfirm, onDelete }) => {
+const CategoryGroupFormModal: FunctionalComponent<CategoryGroupFormModalProps> = ({ group, onConfirm, onDelete, onClose }) => {
 
 	const { t } = useTranslation();
 	const [ title, changeTitle ] = useContentEditable(group.title || '');
@@ -25,7 +26,7 @@ const CategoryGroupFormModal: FunctionalComponent<CategoryGroupFormModalProps> =
 	}
 
 	return (
-		<Modal.Container>
+		<Modal.Container onClose={onClose}>
 			<Modal.Content class='gap-mv-tiny' padding>
 
 				<ContentEditable

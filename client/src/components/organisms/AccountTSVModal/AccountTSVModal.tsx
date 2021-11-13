@@ -11,7 +11,7 @@ export interface AccountTSVModalProps {
 
 const AccountTSVModal: FunctionalComponent<AccountTSVModalProps> = ({ onDownload, onUpload, onClose }) => {
 	return (
-		<Modal.Container>
+		<Modal.Container onClose={onClose}>
 			<Modal.XButton onClose={onClose} />
 			<Modal.Content padding>
 				<DragDropUploader onUpload={onUpload} />	

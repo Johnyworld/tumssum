@@ -20,9 +20,10 @@ export interface AccountFormModalProps {
 	banksCombined: BankGroup[];
 	onConfirm: (account: Account) => void;
 	onDelete?: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
+	onClose: () => void;
 }
 
-const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentDate, initialValues, categoriesCombined, banksCombined, onConfirm, onDelete }) => {
+const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentDate, initialValues, categoriesCombined, banksCombined, onConfirm, onDelete, onClose }) => {
 
 	const { t } = useTranslation();
 	const today = getLocalString();
@@ -68,7 +69,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 	}
 
 	return (
-		<Modal.Container>
+		<Modal.Container onClose={onClose}>
 			<form onSubmit={handleSubmit}>
 				<Modal.Content padding class='gap-mv-regular'>
 					<ContentEditable

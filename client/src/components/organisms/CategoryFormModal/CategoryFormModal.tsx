@@ -16,9 +16,10 @@ export interface CategoryFormModalProps {
 	currentDate: string;
 	onConfirm: (category: Category, budget: number | null, date: string) => void;
 	onDelete: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
+	onClose: () => void;
 }
 
-const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ category, groupList, currentDate, onConfirm, onDelete }) => {
+const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ category, groupList, currentDate, onConfirm, onDelete, onClose }) => {
 
 	const { t } = useTranslation();
 	const [ title, changeTitle ] = useContentEditable(category.title || '');
@@ -44,7 +45,7 @@ const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ catego
 	}
 
 	return (
-		<Modal.Container>
+		<Modal.Container onClose={onClose}>
 			<Modal.Content class='gap-mv-regular' padding>
 
 				<ContentEditable

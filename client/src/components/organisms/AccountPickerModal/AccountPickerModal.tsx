@@ -8,9 +8,10 @@ import useList from '~hooks/useList';
 export interface AccountPickerModalProps {
 	accounts: Account[];
 	onSubmit: (accounts: Account[]) => void;
+	onClose: () => void;
 }
 
-const AccountPickerModal: FunctionalComponent<AccountPickerModalProps> = ({ accounts, onSubmit }) => {
+const AccountPickerModal: FunctionalComponent<AccountPickerModalProps> = ({ accounts, onSubmit, onClose }) => {
 
 	const selectedList = useList<Account>([]);
 
@@ -24,7 +25,7 @@ const AccountPickerModal: FunctionalComponent<AccountPickerModalProps> = ({ acco
 	}
 
 	return (
-		<Modal.Container>
+		<Modal.Container onClose={onClose}>
 			<Modal.Header sticky >받기</Modal.Header>
 			<Modal.Content>
 				<p>추가하고 싶은 데이터를 고른 후, 보내기 버튼을 누르세요.</p>

@@ -193,10 +193,8 @@ const HomePage: FunctionalComponent = ({  }) => {
 			</div>
 
 
-
 			<Modal
 				isOpen={isOpenCreateModal}
-				onClose={handleCloseCreateModal}
 				children={
 					<AccountFormModal
 						currentDate={currentDate}
@@ -204,13 +202,13 @@ const HomePage: FunctionalComponent = ({  }) => {
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
 						onConfirm={handleCreateAccount}
+						onClose={handleCloseCreateModal}
 					/>
 				}
 			/>
 
 			<Modal
 				isOpen={!!selectedItem}
-				onClose={handleClearSelectedItem}
 				children={
 					<AccountFormModal
 						currentDate={currentDate}
@@ -219,13 +217,13 @@ const HomePage: FunctionalComponent = ({  }) => {
 						banksCombined={banksCombined}
 						onConfirm={handleUpdateAccount}
 						onDelete={handleDeleteAccount}
+						onClose={handleClearSelectedItem}
 					/>
 				}
 			/>
 
 			<Modal
 				isOpen={toggleTSVModal.checked}
-				onClose={toggleTSVModal.handleOff}
 				children={
 					<AccountTSVModal
 						onDownload={() => downloadCSVfile('CSV')}
@@ -237,11 +235,11 @@ const HomePage: FunctionalComponent = ({  }) => {
 
 			<Modal
 				isOpen={!!uploadingAccounts.length}
-				onClose={resetUploading}
 				children={
 					<AccountPickerModal
 						accounts={uploadingAccounts}
 						onSubmit={handleCreateAccounts}
+						onClose={resetUploading}
 					/>
 				}
 			/>

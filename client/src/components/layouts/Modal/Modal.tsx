@@ -10,7 +10,10 @@ import './Modal.scss';
 
 interface ModalProps extends DefaultProps {
 	isOpen: boolean;
-	onClose: () => void;
+}
+
+interface ModalContainerProps extends DefaultProps {
+	onClose?: () => void;
 }
 
 interface ModalXButtonProps extends DefaultProps {
@@ -34,15 +37,7 @@ interface ModalFooterProps extends DefaultProps {
 	sticky?: boolean;
 }
 
-const Modal: FunctionalComponent<ModalProps> = ({ children, isOpen, onClose }) => {
-
-	useEffect(() => {
-		const keyEvent = (ev: KeyboardEvent) => ev.key === 'Escape' && onClose();
-		if (isOpen) {
-			window.addEventListener('keydown', keyEvent);
-			return () => window.removeEventListener('keydown', keyEvent);
-		}
-	}, [isOpen]);
+const Modal: FunctionalComponent<ModalProps> = ({ children, isOpen }) => {
 
 	useEffect(() => {
     if (isOpen) document.body.style.overflow = 'hidden';
@@ -52,18 +47,26 @@ const Modal: FunctionalComponent<ModalProps> = ({ children, isOpen, onClose }) =
 	return (
 		!isOpen ? null :
 		<Portal>
-			<div class='modal'>
-				<div class='modal__dim dim' onClick={onClose} />
-				{children}
-			</div>
+			{children}
 		</Portal>
 	)
 }
 
-export const ModalContainer: FunctionalComponent = ({ children }) => {
+export const ModalContainer: FunctionalComponent<ModalContainerProps> = ({ children, onClose }) => {
+
+	useEffect(() => {
+		if (!onClose) return;
+		const keyEvent = (ev: KeyboardEvent) => ev.key === 'Escape' && onClose();
+		window.addEventListener('keydown', keyEvent);
+		return () => window.removeEventListener('keydown', keyEvent);
+	}, [onClose]);
+
 	return (
-		<div class='modal__container'>
-			{children}
+		<div class='modal'>
+			<div class='modal__dim dim' onClick={onClose} />
+			<div class='modal__container'>
+				{children}
+			</div>
 		</div>
 	)
 }

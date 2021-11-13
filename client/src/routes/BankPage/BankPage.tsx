@@ -84,23 +84,25 @@ const BankPage: FunctionalComponent = ({  }) => {
 					onClickGroup={handleSelectedGroupItem}
 				/>
 
-				<Modal isOpen={!!selectedItem} onClose={handleClearSelectedItem}>
+				<Modal isOpen={!!selectedItem} >
 					{ selectedItem &&
 						<BankFormModal
 							bank={selectedItem}
 							groupList={bankGroups}
 							onConfirm={handleUpdateBank}
 							onDelete={handleRemoveBank}
+							onClose={handleClearSelectedItem}
 						/>
 					}
 				</Modal>
 
-				<Modal isOpen={!!selectedGroupItem} onClose={handleClearSelectedGroupItem}>
+				<Modal isOpen={!!selectedGroupItem} >
 					{ selectedGroupItem &&
 						<BankGroupFormModal
 							group={selectedGroupItem}
 							onConfirm={handleUpdateBankGroup}
 							onDelete={handleRemoveBankGroup}
+							onClose={handleClearSelectedGroupItem}
 						/>
 					}
 				</Modal>
