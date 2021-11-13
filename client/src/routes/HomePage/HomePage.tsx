@@ -21,6 +21,9 @@ import useResizeSide from '~hooks/useResizeSide';
 import IconText from '~components/molecules/IconText';
 import Statistics from './Statistics';
 import Card from '~components/atoms/Card';
+import useToggle from '~hooks/useToggle';
+import AccountTSVModal from '~components/organisms/AccountTSVModal/AccountTSVModal';
+import AccountPickerModal from '~components/organisms/AccountPickerModal';
 
 
 const MENUS = [
@@ -48,20 +51,54 @@ const HomePage: FunctionalComponent = ({  }) => {
 		setView(newView);
 	}
 
-	const downloadTSVfile = useSaperatedValues({ fileType: 'TSV', accounts });
+
+	const {
+		toggleTSVModal,
+		uploadingAccounts,
+		download: downloadCSVfile,
+		upload: uploadCSVfile,
+		resetUploading,
+	} = useSaperatedValues({ fileType: 'CSV', accounts, banks, categories });
+
+	// console.table(uploadingAccounts);
 
 	const categoriesCombined = useMemo(() => combineCategoriesWithGroups(categories, categoryGroups), [categories, categoryGroups]);
 	const categoriesCombinedWithBudgets = useMemo(() => combineCategoriesWithBudgets(categoriesCombined, budgets, currentDate), [categoriesCombined, budgets, currentDate]);
 	const banksCombined = useMemo(() => combineBanksWithGroups(banks, bankGroups), [banks, bankGroups]);
 
-	const { grabbing, grabbingPos, handleGrap, handleDrop, handleDragging } = useDrag(accounts);
+	const {
+		grabbing,
+		grabbingPos,
+		handleGrap,
+		handleDrop,
+		handleDragging,
+	} = useDrag(accounts);
 
-	const { borderRef, sideWidth, handleBorderMouseDown, handleContainerMouseUp, handleContainerDrag } = useResizeSide();
+	const {
+		borderRef,
+		sideWidth,
+		handleBorderMouseDown,
+		handleContainerMouseUp,
+		handleContainerDrag,
+	} = useResizeSide();
 
 	const { 
-		initialValuesForCreate, selectedItem, handleSelectItem, handleClearSelectedItem,
-		isOpenCreateModal, handleOpenCreateModal, handleOpenCreateModalWithDate, handleOpenCreateModalWithCategory, handleCloseCreateModal,
-		handleCreateAccount, handleUpdateAccount, handlePatchAccount, handleDeleteAccount, handleDropToUpdateDate, handleDropToUpdateCategory
+		initialValuesForCreate,
+		selectedItem,
+		handleSelectItem,
+		handleClearSelectedItem,
+		isOpenCreateModal,
+		handleOpenCreateModal,
+		handleOpenCreateModalWithDate,
+		handleOpenCreateModalWithCategory,
+		handleCloseCreateModal,
+		handleCreateAccount,
+		handleCreateAccounts,
+		handleUpdateAccount,
+		handlePatchAccount,
+		handleDeleteAccount,
+		handleDropToUpdateDate,
+		handleDropToUpdateCategory
 	} = useAccount({
 		grabbing,
 		handleDrop,
@@ -98,7 +135,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 								list={MENUS}
 							/>
 							<div class='flex gap-regular'>
-								<IconText text='Download' icon='download' isHideTextForMobile onClick={() => downloadTSVfile('CSV')} />
+								<IconText text='Download' icon='download' isHideTextForMobile onClick={toggleTSVModal.handleOn} />
 								{/* <p class='pointer' onClick={() => dispatch(changeMonthToday())} >Today</p> */}
 								<Button class='hide-mobile' size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />
 							</div>
@@ -189,6 +226,30 @@ const HomePage: FunctionalComponent = ({  }) => {
 					/>
 				}
 			/>
+
+			<Modal
+				isOpen={toggleTSVModal.checked}
+				onClose={toggleTSVModal.handleOff}
+				children={
+					<AccountTSVModal
+						onDownload={() => downloadCSVfile('CSV')}
+						onUpload={uploadCSVfile}
+						onClose={toggleTSVModal.handleOff}
+					/>
+				}
+			/>
+
+			<Modal
+				isOpen={!!uploadingAccounts.length}
+				onClose={resetUploading}
+				children={
+					<AccountPickerModal
+						accounts={uploadingAccounts}
+						onSubmit={handleCreateAccounts}
+					/>
+				}
+			/>
+
 		</main>
 	)
 }

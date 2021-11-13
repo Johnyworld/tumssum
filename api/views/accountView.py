@@ -4,16 +4,20 @@ from rest_framework.permissions import IsAuthenticated
 
 
 from .account.getAccounts import getAccounts
+from .account.postAccounts import postAccounts
 from .account.postAccount import postAccount
 from .account.putAccount import putAccount
 from .account.patchAccount import patchAccount
 from .account.deleteAccount import deleteAccount
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def accounts(request):
-  return getAccounts(request)
+  if request.method == 'GET':
+    return getAccounts(request)
+  elif request.method == 'POST':
+    return postAccounts(request)
 
 
 @api_view(['POST', 'PUT', 'PATCH', 'DELETE'])

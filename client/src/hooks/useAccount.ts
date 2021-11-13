@@ -1,6 +1,6 @@
 import { useCallback, useState } from "preact/hooks";
 import { Account, Month } from "types";
-import { addAccount, removeAccount, updateAccount } from '~stores/accountSlice';
+import { addAccount, addAccounts, removeAccount, updateAccount } from '~stores/accountSlice';
 import { updateOrAddMonths } from "~stores/monthSlice";
 import { getLocalString, getLocalStringFromISOString } from '~utils/calendar';
 import { useDispatch } from '~utils/redux/hooks';
@@ -36,6 +36,18 @@ export default ({ grabbing, handleDrop }: UseAccount) => {
 			dispatch(addAccount(data.account));
 			if (data.months) dispatch(updateOrAddMonths(data.months));
 			toggleCreateModal.handleOff();
+		}
+	});
+
+	const postAccounts = useFetch<{ account: Account, months?: Month[] }[]>({
+		method: 'POST',
+		url: '/api/accounts/',
+		onSuccess: data => {
+			for (const item of data) {
+				dispatch(addAccount(item.account));
+				if (item.months) dispatch(updateOrAddMonths(item.months));
+				toggleCreateModal.handleOff();
+			}
 		}
 	});
 
@@ -104,6 +116,25 @@ export default ({ grabbing, handleDrop }: UseAccount) => {
 			memo,
 		})
 	}, [postAccount.loading]);
+
+	const handleCreateAccounts = useCallback((accounts: Account[]) => {
+		if (postAccounts.loading) return;
+		postAccounts.call({
+			accounts: accounts.map(item=> {
+				const split = item.datetime.split('T');
+				const theDate = split[0];
+				const theTime = split[1];
+				const then = new Date(theDate + 'T' + theTime);
+				const datetime = theTime ? then.toISOString() : then.toISOString().substr(0, 10);
+				return {
+					...item,
+					category_id: item.category,
+					bank_id: item.bank,
+					datetime,
+				}
+			})
+		});
+	}, [postAccounts.loading]);
 
 	const handleDeleteAccount = useCallback((id: number) => () => {
 		if (deleteAccount.loading) return;
@@ -179,6 +210,8 @@ export default ({ grabbing, handleDrop }: UseAccount) => {
 		});
 	}, [patchAccount.loading, grabbing]);
 
+
+
 	return {
 		initialValuesForCreate,
 
@@ -193,6 +226,7 @@ export default ({ grabbing, handleDrop }: UseAccount) => {
 		handleCloseCreateModal,
 
 		handleCreateAccount,
+		handleCreateAccounts,
 		handleDeleteAccount,
 		handleUpdateAccount,
 		handlePatchAccount,

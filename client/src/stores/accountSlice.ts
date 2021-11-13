@@ -15,6 +15,9 @@ export const accountSlice = createSlice({
 		addAccount: (state, { payload }: PayloadAction<Account>) => {
 			state.accounts = [ ...state.accounts, payload ];
 		},
+		addAccounts: (state, { payload }: PayloadAction<Account[]>) => {
+			state.accounts = [ ...state.accounts, ...payload ];
+		},
 		updateAccount: (state, {payload: { id, data }}: PayloadAction<{ id: number, data: Account }>) => {
 			state.accounts = state.accounts.map(account => {
 				if ( account.id === id ) return { ...account, ...data };
@@ -27,6 +30,6 @@ export const accountSlice = createSlice({
   }
 })
 
-export const { setAccounts, addAccount, updateAccount, removeAccount } = accountSlice.actions
+export const { setAccounts, addAccount, addAccounts, updateAccount, removeAccount } = accountSlice.actions
 
 export default accountSlice.reducer;

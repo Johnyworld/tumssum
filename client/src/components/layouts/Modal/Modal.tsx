@@ -18,6 +18,8 @@ interface ModalXButtonProps extends DefaultProps {
 }
 
 interface ModalHeaderProps extends DefaultProps {
+	sticky?: boolean;
+	shadow?: boolean;
 	onGoBack?: () => void;
 }
 
@@ -29,6 +31,7 @@ interface ModalFooterProps extends DefaultProps {
 	flex?: boolean;
 	flexEnd?: boolean;
 	padding?: boolean;
+	sticky?: boolean;
 }
 
 const Modal: FunctionalComponent<ModalProps> = ({ children, isOpen, onClose }) => {
@@ -71,9 +74,9 @@ export const ModalXbutton: FunctionalComponent<ModalXButtonProps> = ({ style, cl
 	)
 }
 
-export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, class: className, children, onGoBack }) => {
+export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, class: className, children, sticky, shadow, onGoBack }) => {
 	return (
-		<div class={c( 'modal-header flex p-large p-regular-mobile', className )} style={style} >
+		<div class={c( 'modal-header flex p-large p-regular-mobile', className, [sticky, 'modal-header--sticky'], [shadow, 'modal-header--shadow'] )} style={style} >
 			{ onGoBack
 				? <IconText icon='arrowLeft' text={children+''} onClick={onGoBack} />
 				: <h3>{children}</h3>
@@ -90,9 +93,9 @@ export const ModalContent: FunctionalComponent<ModalContentProps> = ({ children,
 	)
 }
 
-export const ModalFooter: FunctionalComponent<ModalFooterProps> = ({ children, style, class: className, flex, flexEnd, padding }) => {
+export const ModalFooter: FunctionalComponent<ModalFooterProps> = ({ children, style, class: className, flex, flexEnd, padding, sticky }) => {
 	return (
-		<div class={c( 'modal-footer', className, [flex, 'flex'], [flexEnd, 'flex flex-end gap-small'], [padding, 'p-large p-regular-mobile'])} style={style}>
+		<div class={c( 'modal-footer', className, [flex, 'flex'], [flexEnd, 'flex flex-end gap-small'], [padding, 'p-large p-regular-mobile'], [sticky, 'modal-footer--sticky'])} style={style}>
 			{children}
 		</div>
 	)
