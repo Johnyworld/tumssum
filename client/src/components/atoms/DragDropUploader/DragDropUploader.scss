@@ -1,0 +1,41 @@
+.drag-drop-uploader {
+	position: relative;
+
+	&__field {
+		height: 200px;
+		border: 4px dashed var(--color-gray_weak);
+		border-radius: 10px;
+		
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		transition: 0.2s;
+
+		&--drag {
+			border-color: var(--color-primary);
+		}
+	}
+
+	&__content {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+	}
+
+	&__text {
+		font-size: var(--font-medium);
+		font-weight: var(--weight-bold);
+		color: var(--color-gray);
+		margin-bottom: .5rem;
+		transition: 0.2s;
+
+		&--drag {
+			color: var(--color-primary);
+		}
+	}
+
+}
