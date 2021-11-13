@@ -17,9 +17,9 @@ const ConfirmRender: FunctionalComponent = () => {
 		confirm &&
 		<Portal>
 			<Dim />
-			<Modal isOpen={!!confirm} onClose={handleCancel}>
-				<Modal.Container>
-					<Modal.Content padding>
+			<Modal isOpen={!!confirm}>
+				<Modal.Container onClose={handleCancel}>
+					<Modal.Content preLine padding>
 						{confirm.message}
 					</Modal.Content>
 					<Modal.Footer flexEnd padding>

@@ -138,7 +138,7 @@ export default ({ grabbing, handleDrop }: UseAccount) => {
 
 	const handleDeleteAccount = useCallback((id: number) => () => {
 		if (deleteAccount.loading) return;
-		confirm('confirm', '정말 삭제할까요?', () => {
+		confirm('정말 삭제할까요?', () => {
 			deleteAccount.call({
 				account_id: id,
 			})

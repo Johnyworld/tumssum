@@ -1,13 +1,15 @@
-import { closeConfirm, ConfirmType, openConfirm } from "~stores/confirmSlice";
+import { closeConfirm, openConfirm } from "~stores/confirmSlice";
 import { useDispatch } from "~utils/redux/hooks";
 
 let callback: Function | null = null;
 
+export type ConfirmFunction = (message: string, cb?: Function) => void;
+
 export default () => {
 	const dispatch = useDispatch();
-	const confirm = (type: ConfirmType, message: string, cb?: Function) => {
+	const confirm: ConfirmFunction = (message, cb) => {
 		callback = cb || null;
-		dispatch(openConfirm({ type, message }));
+		dispatch(openConfirm({ message }));
 	}
 	return confirm;
 }

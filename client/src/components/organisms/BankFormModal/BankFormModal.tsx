@@ -1,27 +1,37 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
-import { useCallback, useState } from 'preact/hooks';
+import { useCallback, useMemo, useState } from 'preact/hooks';
 import { Bank, BankGroup } from 'types';
 import Button from '~components/atoms/Button';
 import ContentEditable from '~components/atoms/ContentEditable';
 import Dropdown from '~components/atoms/Dropdown';
 import Modal from '~components/layouts/Modal';
 import LabeledContentEditable from '~components/molecules/LabeledContentEditable';
+import { ConfirmFunction } from '~hooks/useConfirm';
 import useContentEditable from '~hooks/useContentEditable';;
 
 export interface BankFormModalProps {
 	bank: Bank;
 	groupList: BankGroup[];
+	confirm: ConfirmFunction;
 	onConfirm: (bank: Bank) => void;
 	onDelete: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
 	onClose: () => void;
 }
 
-const BankFormModal: FunctionalComponent<BankFormModalProps> = ({ bank, groupList, onConfirm, onDelete, onClose }) => {
+const BankFormModal: FunctionalComponent<BankFormModalProps> = ({ bank, groupList, confirm, onConfirm, onDelete, onClose }) => {
+
 	const { t } = useTranslation();
-	const [ title, changeTitle ] = useContentEditable(bank.title || '');
-	const [ memo, changeMemo ] = useContentEditable(bank.memo || '');
-	const [ group, setGroup ] = useState<number|string>(bank.group || 0);
+
+	const initV = useMemo(() => { return {
+		title: bank.title || '',
+		memo: bank.memo || '',
+		group: bank.group || 0,
+	}}, [bank]);
+
+	const [ title, changeTitle ] = useContentEditable(initV.title);
+	const [ memo, changeMemo ] = useContentEditable(initV.memo);
+	const [ group, setGroup ] = useState<number|string>(initV.group);
 
 	const handleChange: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
 		setGroup(e.currentTarget.value);
@@ -36,8 +46,21 @@ const BankFormModal: FunctionalComponent<BankFormModalProps> = ({ bank, groupLis
 		} as Bank);
 	}
 
+	const handleClose = () => {
+		if (
+			title !== initV.title ||
+			memo !== initV.memo ||
+			group !== initV.group
+		) {
+			confirm('저장되지 않은 변경사항이 있네요!\n저장하지 않고 창을 닫으시겠어요?', () => {
+				onClose();
+			});
+		}
+		else onClose();
+	}
+
 	return (
-		<Modal.Container onClose={onClose}>
+		<Modal.Container onClose={handleClose}>
 			<Modal.Content class='gap-mv-regular' padding>
 
 				<ContentEditable

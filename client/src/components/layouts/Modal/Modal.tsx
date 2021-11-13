@@ -28,6 +28,7 @@ interface ModalHeaderProps extends DefaultProps {
 
 interface ModalContentProps extends DefaultProps {
 	padding?: boolean;
+	preLine?: boolean;
 }
 
 interface ModalFooterProps extends DefaultProps {
@@ -88,9 +89,9 @@ export const ModalHeader: FunctionalComponent<ModalHeaderProps> = ({ style, clas
 	)
 }
 
-export const ModalContent: FunctionalComponent<ModalContentProps> = ({ children, style, class: className, padding }) => {
+export const ModalContent: FunctionalComponent<ModalContentProps> = ({ children, style, class: className, padding, preLine }) => {
 	return (
-		<div class={c('modal__content', className, [padding, 'p-large p-regular-mobile'] )} style={style}>
+		<div class={c('modal__content', className, [padding, 'p-large p-regular-mobile'], [preLine, '&--pre-line'] )} style={style}>
 			{children}
 		</div>
 	)

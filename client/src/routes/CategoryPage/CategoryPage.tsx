@@ -14,6 +14,7 @@ import CategoryGroupFormModal from '~components/organisms/CategoryGroupFormModal
 import { useCallback, useMemo } from 'preact/hooks';
 import budgetUtils from '~utils/budgetUtils';
 import { getLocalString } from '~utils/calendar';
+import useConfirm from '~hooks/useConfirm';
 
 
 const getCategoriesAligned = (categories: Category[]) => {
@@ -61,6 +62,8 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 	const { categories, categoryGroups } = useSelector(state=> state.category);
 	const { budgets } = useSelector(state=> state.budget);
 	const today = getLocalString().substr(0, 7);
+
+	const confirm = useConfirm();
 
 	const { selectedItem, handleClearSelectedItem, handleSelectItem } = useDetails<Category>();
 	const { selectedItem: selectedGroupItem, handleClearSelectedItem: handleClearSelectedGroupItem, handleSelectItem: handleSelectGroupItem } = useDetails<CategoryGroup>();
@@ -115,6 +118,7 @@ const CategoryPage: FunctionalComponent = ({  }) => {
 							category={selectedItem}
 							groupList={categoryGroups}
 							currentDate={today}
+							confirm={confirm}
 							onConfirm={handleUpdateCategory}
 							onDelete={handleRemoveCategory}
 							onClose={handleClearSelectedItem}

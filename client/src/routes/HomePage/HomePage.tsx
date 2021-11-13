@@ -24,6 +24,7 @@ import Card from '~components/atoms/Card';
 import AccountTSVModal from '~components/organisms/AccountTSVModal/AccountTSVModal';
 import AccountPickerModal from '~components/organisms/AccountPickerModal';
 import './HomePage.scss';
+import useConfirm from '~hooks/useConfirm';
 
 
 const MENUS = [
@@ -42,6 +43,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 	const { budgets } = useSelector(state=> state.budget);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const dispatch = useDispatch();
+	const confirm = useConfirm();
 
 	const accountsThisMonth = useMemo(() => accounts.filter(account => account.datetime.substr(0, 7) === currentDate.substr(0, 7)), [accounts, currentDate]);
 
@@ -201,6 +203,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 						initialValues={initialValuesForCreate}
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
+						confirm={confirm}
 						onConfirm={handleCreateAccount}
 						onClose={handleCloseCreateModal}
 					/>
@@ -215,6 +218,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 						initialValues={selectedItem!}
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
+						confirm={confirm}
 						onConfirm={handleUpdateAccount}
 						onDelete={handleDeleteAccount}
 						onClose={handleClearSelectedItem}

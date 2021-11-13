@@ -50,6 +50,12 @@
 	}
 }
 
+.modal__content {
+	&--pre-line {
+		white-space: pre-line;
+	}
+}
+
 .modal__footer {
 	z-index: var(--layer-on);
 

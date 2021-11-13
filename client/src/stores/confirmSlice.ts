@@ -1,9 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type ConfirmType = 'confirm';
 
 interface ConfirmItem {
-	type: ConfirmType;
 	message: string;
 	callback?: () => void;
 }

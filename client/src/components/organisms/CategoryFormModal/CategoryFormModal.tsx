@@ -1,12 +1,13 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
-import { useCallback, useState } from 'preact/hooks';
+import { useCallback, useMemo, useState } from 'preact/hooks';
 import { Category, CategoryGroup } from 'types';
 import Button from '~components/atoms/Button';
 import ContentEditable from '~components/atoms/ContentEditable';
 import Dropdown from '~components/atoms/Dropdown';
 import Modal from '~components/layouts/Modal';
 import LabeledContentEditable from '~components/molecules/LabeledContentEditable';
+import { ConfirmFunction } from '~hooks/useConfirm';
 import useContentEditable from '~hooks/useContentEditable';
 import useInput from '~hooks/useInput';
 
@@ -14,18 +15,27 @@ export interface CategoryFormModalProps {
 	category: Category;
 	groupList: CategoryGroup[];
 	currentDate: string;
+	confirm: ConfirmFunction;
 	onConfirm: (category: Category, budget: number | null, date: string) => void;
 	onDelete: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
 	onClose: () => void;
 }
 
-const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ category, groupList, currentDate, onConfirm, onDelete, onClose }) => {
+const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ category, groupList, currentDate, confirm, onConfirm, onDelete, onClose }) => {
 
 	const { t } = useTranslation();
-	const [ title, changeTitle ] = useContentEditable(category.title || '');
-	const [ memo, changeMemo ] = useContentEditable(category.memo || '');
-	const [ group, setGroup ] = useState<number|string>(category.group || 0);
-	const [ budjet, ___, setBudget ] = useInput(category.budget ? category.budget + '' : '');
+
+	const initV = useMemo(() => { return {
+		title: category.title || '',
+		memo: category.memo || '',
+		group: category.group || 0,
+		budget: category.budget ? category.budget + '' : '',
+	}}, [category]);
+
+	const [ title, changeTitle ] = useContentEditable(initV.title);
+	const [ memo, changeMemo ] = useContentEditable(initV.memo);
+	const [ group, setGroup ] = useState<number|string>(initV.group);
+	const [ budjet, ___, setBudget ] = useInput(initV.budget);
 
 	const handleChange: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
 		setGroup(e.currentTarget.value);
@@ -44,8 +54,22 @@ const CategoryFormModal: FunctionalComponent<CategoryFormModalProps> = ({ catego
 		);
 	}
 
+	const handleClose = () => {
+		if (
+			title !== initV.title ||
+			memo !== initV.memo ||
+			group !== initV.group ||
+			budjet !== initV.budget
+		) {
+			confirm('저장되지 않은 변경사항이 있네요!\n저장하지 않고 창을 닫으시겠어요?', () => {
+				onClose();
+			});
+		}
+		else onClose();
+	}
+
 	return (
-		<Modal.Container onClose={onClose}>
+		<Modal.Container onClose={handleClose}>
 			<Modal.Content class='gap-mv-regular' padding>
 
 				<ContentEditable

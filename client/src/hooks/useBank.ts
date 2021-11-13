@@ -124,7 +124,7 @@ export default ({ grabbing, onCloseDetail, handleDrop }: UseBank) => {
 
 	const handleRemoveBankGroup = useCallback((id: number) => () => {
 		if (deleteBankGroup.loading) return;
-		confirm('confirm', '정말 삭제할까요?', () => {
+		confirm('정말 삭제할까요?', () => {
 			deleteBankGroup.call({
 				bank_group_id: id
 			});
@@ -133,7 +133,7 @@ export default ({ grabbing, onCloseDetail, handleDrop }: UseBank) => {
 
 	const handleRemoveBank = useCallback((id: number) => () => {
 		if (deleteBank.loading) return;
-		confirm('confirm', '정말 삭제할까요?', () => {
+		confirm('정말 삭제할까요?', () => {
 			deleteBank.call({
 				bank_id: id
 			});

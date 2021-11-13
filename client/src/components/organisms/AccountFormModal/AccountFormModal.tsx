@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
-import { useCallback, useState } from 'preact/hooks';
+import { useCallback, useMemo, useState } from 'preact/hooks';
 import { Account, BankGroup, CategoryGroup } from 'types';
 import Button from '~components/atoms/Button';
 import ContentEditable from '~components/atoms/ContentEditable';
@@ -12,30 +12,42 @@ import Modal from '~components/layouts/Modal';
 import useContentEditable from '~hooks/useContentEditable';
 import useInput from '~hooks/useInput';
 import { getLocalString } from '~utils/calendar';
+import { ConfirmFunction } from '~hooks/useConfirm';
 
 export interface AccountFormModalProps {
 	currentDate: string;
 	initialValues?: Account | null;
 	categoriesCombined: CategoryGroup[];
 	banksCombined: BankGroup[];
+	confirm: ConfirmFunction;
 	onConfirm: (account: Account) => void;
 	onDelete?: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
 	onClose: () => void;
 }
 
-const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentDate, initialValues, categoriesCombined, banksCombined, onConfirm, onDelete, onClose }) => {
+const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentDate, initialValues, categoriesCombined, banksCombined, confirm, onConfirm, onDelete, onClose }) => {
 
 	const { t } = useTranslation();
 	const today = getLocalString();
 
-	const [ title, changeTitle ] = useContentEditable(initialValues?.title || '');
-	const [amount, ___, setAmmount] = useInput(initialValues?.account ? Math.abs(initialValues.account)+'' : '');
+	const initV = useMemo(() => { return {
+		title: initialValues?.title || '',
+		amount: initialValues?.account ? Math.abs(initialValues.account)+'' : '',
+		date: initialValues?.datetime || (today.substr(0, 7) === currentDate ? today : currentDate + '-01'),
+		time: initialValues?.datetime?.split('T')[1]?.substr(0,5) || '',
+		memo: initialValues?.memo || '',
+		category: initialValues?.category || '',
+		bank: initialValues?.bank || '',
+	}}, [initialValues]);
+
+	const [ title, changeTitle ] = useContentEditable(initV.title);
+	const [amount, ___, setAmmount] = useInput(initV.amount);
 	const [isIncome, setIsIncome] = useState(initialValues?.account ? !(initialValues.account < 0) : false);
-	const [date, _, setDate] = useInput(initialValues?.datetime || (today.substr(0, 7) === currentDate ? today : currentDate + '-01'));
-	const [time, __, setTime] = useInput(initialValues?.datetime?.split('T')[1]?.substr(0,5) || '');
-	const [ memo, changeMemo ] = useContentEditable(initialValues?.memo || '');
-	const [ category, setCategory ] = useState<number|string>(initialValues?.category || '');
-	const [ bank, setBank ] = useState<number|string>(initialValues?.bank || '');
+	const [date, _, setDate] = useInput(initV.date);
+	const [time, __, setTime] = useInput(initV.time);
+	const [ memo, changeMemo ] = useContentEditable(initV.memo);
+	const [ category, setCategory ] = useState<number|string>(initV.category);
+	const [ bank, setBank ] = useState<number|string>(initV.bank);
 
 
 	const handleChangeCategory: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
@@ -68,8 +80,25 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 		} as Account);
 	}
 
+	const handleClose = () => {
+		if (
+			title !== initV.title ||
+			amount !== initV.amount ||
+			date !== initV.date ||
+			time !== initV.time ||
+			memo !== initV.memo ||
+			category !== initV.category ||
+			bank !== initV.bank
+		) {
+			confirm('저장되지 않은 변경사항이 있네요!\n저장하지 않고 창을 닫으시겠어요?', () => {
+				onClose();
+			});
+		}
+		else onClose();
+	}
+
 	return (
-		<Modal.Container onClose={onClose}>
+		<Modal.Container onClose={handleClose}>
 			<form onSubmit={handleSubmit}>
 				<Modal.Content padding class='gap-mv-regular'>
 					<ContentEditable

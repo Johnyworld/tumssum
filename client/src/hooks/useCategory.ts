@@ -138,7 +138,7 @@ export default ({ grabbing, onCloseDetail, handleDrop }: UseCategory) => {
 
 	const handleRemoveCategoryGroup = useCallback((id: number) => () => {
 		if (deleteCatogoryGroup.loading) return;
-		confirm('confirm', '정말 삭제할까요?', () => {
+		confirm('정말 삭제할까요?', () => {
 			deleteCatogoryGroup.call({
 				category_group_id: id
 			});
@@ -147,7 +147,7 @@ export default ({ grabbing, onCloseDetail, handleDrop }: UseCategory) => {
 
 	const handleRemoveCategory = useCallback((id: number) => () => {
 		if (deleteCatogory.loading) return;
-		confirm('confirm', '정말 삭제할까요?', () => {
+		confirm('정말 삭제할까요?', () => {
 			deleteCatogory.call({
 				category_id: id
 			});

@@ -11,6 +11,7 @@ import useBank from '~hooks/useBank';
 import useDetails from '~hooks/useSelectItem';
 import useDrag from '~hooks/useDrag';
 import { useSelector } from '~utils/redux/hooks';
+import useConfirm from '~hooks/useConfirm';
 
 
 const getBankAligned = (banks: Bank[]) => {
@@ -41,6 +42,8 @@ const BankPage: FunctionalComponent = ({  }) => {
 	const { banks, bankGroups } = useSelector(state=> state.bank);
 	const { selectedItem, handleClearSelectedItem, handleSelectItem } = useDetails<Bank>();
 	const { selectedItem: selectedGroupItem, handleClearSelectedItem: handleClearSelectedGroupItem, handleSelectItem: handleSelectedGroupItem } = useDetails<BankGroup>();
+
+	const confirm = useConfirm();
 
 	const closeDetails = useCallback(() => {
 		handleClearSelectedItem();
@@ -89,6 +92,7 @@ const BankPage: FunctionalComponent = ({  }) => {
 						<BankFormModal
 							bank={selectedItem}
 							groupList={bankGroups}
+							confirm={confirm}
 							onConfirm={handleUpdateBank}
 							onDelete={handleRemoveBank}
 							onClose={handleClearSelectedItem}
