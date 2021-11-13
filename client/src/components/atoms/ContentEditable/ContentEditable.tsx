@@ -31,7 +31,7 @@ const ContentEditable: FunctionalComponent<ContentEditableProps> = ({ class: cla
 
 	const classes = c(
 		'content-editable',
-		[value && type === 'number' && !isHideNumberSign, isNumberNegative ? 'content-editable--negative' : 'content-editable--positive'],
+		[value && type === 'number' && !isHideNumberSign, isNumberNegative ? '&--negative' : '&--positive'],
 		styleType === 'button' ? 'content-box' : 'content-text',
 		className,
 		[!!color, `c-${color}`],

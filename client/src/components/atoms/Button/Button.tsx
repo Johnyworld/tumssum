@@ -19,7 +19,7 @@ const Button: FunctionalComponent<ButtonProps> = ({ children, class: className, 
   return (
     <button
       style={style}
-      class={c( 'button', className, [border, `button--${border}`], [fluid, 'button--fluid'], [disabled, 'button--disabled'], [size, `button--${size}`], [paddingX, `button--${paddingX}`], [color, `bgc-${color}`] )}
+      class={c( 'button', className, [border, `&--${border}`], [fluid, '&--fluid'], [disabled, '&--disabled'], [size, `&--${size}`], [paddingX, `&--${paddingX}`], [color, `bgc-${color}`] )}
       children={children}
       disabled={disabled}
       type={type}

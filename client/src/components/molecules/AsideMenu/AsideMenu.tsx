@@ -25,7 +25,7 @@ const AsideMenu: FunctionalComponent<AsideMenuProps> = ({ class: className, styl
 				const isSelected = selected === item.id;
 				return (
 					<Link key={item.id} href={item.href}>
-						<div class={c( 'aside-menu-item', [isOpen, 'aside-menu-item-open'], [isSelected, 'selected'] )}>
+						<div class={c('aside-menu__item', [isOpen, '&--open'], [isSelected, 'selected'] )}>
 							<IconText
 								icon={item.icon}
 								text={item.text}

@@ -32,7 +32,7 @@ const NavigationMenu: FunctionalComponent<NavigationMenuProps> = ({ class: class
 
 				return (
 					item.href
-						? <Link href={item.href} class={c('navigation-menu-item-content')}>
+						? <Link href={item.href}>
 								{content}
 							</Link>
 						: content

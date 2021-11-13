@@ -14,7 +14,7 @@ const Card: FunctionalComponent<CardProps> = ({ children, class: className, styl
 	return (
 		<div
 			style={style}
-			class={c( 'card', className, [padding !== 'none', `p-${padding}`], [!!onClick, 'card--hover'], [hideBorderOnMobile, 'card--hide-border'], )}
+			class={c('card', className, [padding !== 'none', `p-${padding}`], [!!onClick, '&--hover'], [hideBorderOnMobile, '&--hide-border'], )}
 			onClick={onClick}
 			onMouseDown={onMouseDown}
 			children={children}

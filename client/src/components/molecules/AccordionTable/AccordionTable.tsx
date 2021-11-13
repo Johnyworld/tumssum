@@ -50,12 +50,12 @@ const AccordionTable: FunctionalComponent<AccordionTableProps> = ({ group, items
 				})}
 			</div>
 			{ items &&
-				<div style={{ height: `${ITEM_HEIGHT * items.length}px` }} class={c('accordion-table__items', [!toggleOpenItems.checked, 'accordion-table__items--hide'])}>
+				<div style={{ height: `${ITEM_HEIGHT * items.length}px` }} class={c('accordion-table__items', [!toggleOpenItems.checked, '&--hide'])}>
 					{ items.map(item => (
 						<div class='accordion-table__row'>
 							{ item.map((col, i) => {
 								return (
-									<div class={c('accordion-table__item accordion-table__col', getColorClass(col, colors && colors[i]) )}>
+									<div class={c('accordion-table__item', 'accordion-table__col', getColorClass(col, colors && colors[i]) )}>
 										{typeof col === 'number' ? numberUtils.getNumberWithComma(col) : col}
 									</div>
 								)

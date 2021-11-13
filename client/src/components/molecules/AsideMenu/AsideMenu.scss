@@ -1,4 +1,4 @@
-.aside-menu-item {
+.aside-menu__item {
 	position: relative;
 	cursor: pointer;
 	transition: .3s;
@@ -37,7 +37,7 @@
 	}
 }
 
-.aside-menu-item-open {
+.aside-menu__item--open {
 	$aside-menu-item-open-margin: .375rem;
 	border-radius: .25rem;
 	margin: #{$aside-menu-item-open-margin} 0;

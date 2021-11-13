@@ -16,7 +16,7 @@ interface Props extends DefaultProps {
 
 const Aside: FunctionalComponent<Props> = ({ class: className, path, gnbMenuList, bottomMenuList, isNarrow, onToggleAside }) => {
 	return (
-		<aside class={c('aside', className, [isNarrow, 'aside--narrow'])} >
+		<aside class={c('aside', className, [isNarrow, '&--narrow'])} >
 			<div class='header'>
 				<button onClick={onToggleAside}>Test</button>
 				{/* <Logo /> */}

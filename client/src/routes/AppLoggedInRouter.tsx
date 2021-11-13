@@ -99,7 +99,7 @@ const AppLoggedInRouter: FunctionalComponent = () => {
   });
 
   return (
-    <div class={c('page-container', [ !isOpenAside, 'page-container--narrow-aside' ])}>
+    <div class={c('page-container', [ !isOpenAside, '&--narrow-aside' ])}>
       <Aside
 				path={path}
 				gnbMenuList={gnbMenuList}

@@ -61,7 +61,7 @@ const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, fluid, 
 	}, [pos, onChange]);
 
 	return (
-		<div class={c( 'date-picker', styleType === 'input' ? 'input-container' : 'flex', [fluid, 'fluid'] )}>
+		<div class={c('date-picker', styleType === 'input' ? 'input-container' : 'flex', [fluid, 'fluid'] )}>
 
 			{ label && <label class={styleType === 'input' ? 'input-label' : 'content-label'}>{label}</label> }
 

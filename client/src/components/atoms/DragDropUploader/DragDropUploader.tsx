@@ -56,14 +56,14 @@ const DragDropUploader: FunctionalComponent<DragDropUploaderProps> = ({ onUpload
 				onChange={handleChangeFile}
 			/>
 			<label
-				class={c('drag-drop-uploader__field', [toggleDragging.checked, 'drag-drop-uploader__field--drag'])}
+				class={c('drag-drop-uploader__field', [toggleDragging.checked, '&--drag'])}
 				onDrop={handleDrop}
 				onDragEnter={handleDragEnter}
 				onDragLeave={handleDragLeave}
 				onDragOver={handleDragOver}
 			/>
 			<div class='drag-drop-uploader__content'>
-				<p class={c('drag-drop-uploader__text', [toggleDragging.checked, 'drag-drop-uploader__text--drag'])}>
+				<p class={c('drag-drop-uploader__text', [toggleDragging.checked, '&--drag'])}>
 					파일을 여기로 드래그하세요.
 				</p>
 				<Button border='rounded' size='small' onClick={handleClickUpload} children='직접 업로드 하기' />

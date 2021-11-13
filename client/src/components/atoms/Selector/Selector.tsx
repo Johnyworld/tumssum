@@ -13,11 +13,11 @@ export interface SelectorProps extends DefaultProps {
 
 const Selector: FunctionalComponent<SelectorProps> = ({ class: className, list, selected, label, fluid, onChange }) => {
 	return (
-		<div class={c( 'selector', 'input-container', className, [fluid, 'fluid'] )}>
+		<div class={c('selector', 'input-container', className, [fluid, 'fluid'] )}>
 			{ label && <label class='input-label'>{label}</label> }
 			<ul class='flex'>
 				{ list.map(item=> (
-					<li class={c( 'selector-item', 'input-box', [item.id === selected, 'selector-item-selected'] )} onClick={onChange ? onChange(item.id) : undefined}> 
+					<li class={c('selector-item', 'input-box', [item.id === selected, '&--selected'] )} onClick={onChange ? onChange(item.id) : undefined}> 
 						{item.text}
 					</li>
 				))}

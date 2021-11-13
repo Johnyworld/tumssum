@@ -146,7 +146,7 @@ const Icon: FunctionalComponent<IconProps> = ({ class: className, as, size='regu
 
 	return (
 		<div class={c('icon-container', 'never-drag', className, [!!onClick, 'pointer'] )} onClick={onClick} >
-			<div class={c('icon', `icon--${size}` )} >
+			<div class={c('icon', `&--${size}` )} >
 				<svg width={sizePx} height={sizePx} viewBox={`0 0 16 16`} fill="none" xmlns="http://www.w3.org/2000/svg">
 					{getSVG(as, color, strokeWidth)}
 				</svg>

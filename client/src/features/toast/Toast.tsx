@@ -32,7 +32,7 @@ const Toast: FunctionalComponent<ToastProps> = ({ id, index, message, color, onR
 	}, [count]);
 
 	return (
-		<div class={c( 'toast', `bgc-${color}`, [fadeout, 'toast--fadeout'])} style={{ top: index*(TOAST_HEIGHT + TOAST_GAP) + TOAST_MARGIN }}>
+		<div class={c( 'toast', `bgc-${color}`, [fadeout, '&--fadeout'])} style={{ top: index*(TOAST_HEIGHT + TOAST_GAP) + TOAST_MARGIN }}>
 			<p>{message}</p>
 			<Icon as='x' size='small' color='white' strokeWidth={1.5} onClick={() => onRemoveToast(id)} />
 		</div>

@@ -17,7 +17,7 @@ export interface IconTextProps extends DefaultProps {
 
 const IconText: FunctionalComponent<IconTextProps> = ({ class: className, icon, text, textSize, color='pen', direction, bold, isHideTextForMobile, onClick }) => {
 	return (
-		<div class={c( 'icon-text', className, [!!textSize, `f-${textSize}`], [!!onClick, 'pointer'], [direction==='column', 'icon-text--column'] )} onClick={onClick}>
+		<div class={c('icon-text', className, [!!textSize, `f-${textSize}`], [!!onClick, 'pointer'], [direction==='column', '&--column'] )} onClick={onClick}>
 			<Icon class={'icon-text__icon'} color={color} as={icon} strokeWidth={bold ? 2 : 1} />
 			<p class={c('icon-text__text t-fit', ` c-${color}`, [bold, 'f-bold'], [isHideTextForMobile, 'hide-mobile'] )}>{text}</p>
 		</div>
