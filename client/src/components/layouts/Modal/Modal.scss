@@ -7,7 +7,7 @@
 	z-index: var(--layer-modal);
 }
 
-.modal-dim {
+.modal__dim {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -16,7 +16,7 @@
 	background-color: rgba(0, 0, 0, 0.3);
 }
 
-.modal-container {
+.modal__container {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -29,14 +29,14 @@
 	box-shadow: var(--shadow-large);
 }
 
-.modal-x-button {
+.modal__x-button {
 	position: absolute;
 	top: 0;
 	right: 0;
 	z-index: var(--layer-on);
 }
 
-.modal-header {
+.modal__header {
 	z-index: var(--layer-on);
 
 	&--sticky {
@@ -50,7 +50,7 @@
 	}
 }
 
-.modal-footer {
+.modal__footer {
 	z-index: var(--layer-on);
 
 	&--sticky {
