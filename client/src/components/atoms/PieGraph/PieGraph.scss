@@ -1,0 +1,38 @@
+@import '~src/style/mixins';
+
+.pie-graph {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	&__svg {
+		width: 100%;
+		transform: rotate(-90deg);
+	}
+
+	&__list {
+		padding: 1rem;
+		overflow: hidden;
+		flex: 1 0 50%;
+	}
+
+	&__list-item {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;	
+		gap: .25rem;
+		margin-bottom: .5rem;
+	}
+
+	&__dash {
+		flex: 0 0 16px;
+		width: 16px;
+		height: 16px;
+		border-radius: .25rem;
+		background-color: var(--color-gray);
+	}
+
+	&__text {
+		@include ellipsis;
+	}
+}

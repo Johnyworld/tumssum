@@ -1,6 +1,10 @@
 import { h, FunctionalComponent } from 'preact';
-import { Category, CategoryGroup } from 'types';
+import { useState } from 'preact/hooks';
+import { Category, CategoryGroup, IconType } from 'types';
+import PieGraph from '~components/atoms/PieGraph';
 import AccordionTable from '~components/molecules/AccordionTable';
+import NavigationMenu from '~components/molecules/NavigationMenu';
+import useNavigationMenu from '~hooks/useNavigationMenu';
 import { StatisticsItems } from '~routes/HomePage/Statistics';
 import './CategoryStatistics.scss';
 
@@ -68,22 +72,53 @@ const combineData = (categoriesCombined: CategoryGroup[], aligned: StatisticsIte
 const Statistics: FunctionalComponent<StatisticsProps> = ({ categoriesCombined, aligned }) => {
 
 	const { data, all } = combineData(categoriesCombined, aligned);
+	
+	console.log('===== CategoryStatistics', data, all);
+
+	const navigationMenu = useNavigationMenu<'graph' | 'list'>([
+		{ id: 'graph', icon: 'graph' as IconType },
+		{ id: 'list', icon: 'menu' as IconType },
+	]);
 
 	return (
 		<div class='category-statistics card'>
-			<h3 class='p-small'>이번 달 통계</h3>
-		
-			<AccordionTable.Head head={['카테고리', '예산', '소비']} />
 
-			{ data.map(group => group.items.length > 0 && (
-				<AccordionTable
-					group={[ group.title === undefined ? '그룹 미분류' : group.title || '이름 없음', group.budget || 0, group.total ]}
-					items={group.items.map(category => {
-						return [ category.title === undefined ? '카테고리 미분류' : category.title || '이름 없음', category.budget || 0, category.total ]
-					})}
-				>
-				</AccordionTable>
-			))}
+			<div class='flex p-small'> 
+				<h3>이번 달 통계</h3>
+				<NavigationMenu
+					selected={navigationMenu.currentMenu}
+					onChange={navigationMenu.handleChangeMenu}
+					hideText='always'
+					list={navigationMenu.menus}
+				/>
+			</div>
+
+			{ navigationMenu.currentMenu === 'graph' &&
+				<div>
+					<PieGraph data={[
+						{ id: '1', text: '1번', value: 50 },
+						{ id: '2', text: '2번', value: 80 },
+						{ id: '3', text: '3번', value: 130 },
+						{ id: '4', text: '4번', value: 30 },
+					]} />
+				</div>
+			}
+
+			{ navigationMenu.currentMenu === 'list' &&
+				<div>
+					<AccordionTable.Head head={['카테고리', '예산', '소비']} />
+		
+					{ data.map(group => group.items.length > 0 && (
+						<AccordionTable
+							group={[ group.title === undefined ? '그룹 미분류' : group.title || '이름 없음', group.budget || 0, group.total ]}
+							items={group.items.map(category => {
+								return [ category.title === undefined ? '카테고리 미분류' : category.title || '이름 없음', category.budget || 0, category.total ]
+							})}
+						>
+						</AccordionTable>
+					))}
+				</div>
+			}
 
 		</div>
 	)
