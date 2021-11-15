@@ -47,7 +47,7 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, today, data, grabb
 									title={col.each+''}
 									disabled={!col.isThisMonth}
 									isGrabbing={!!grabbing}
-									isFocused={col.isToday}
+									isFocused={col.isToday || false}
 									onDropToUpdate={onDropToUpdate && onDropToUpdate(col.date)}
 									onClickPlus={onClickPlus && onClickPlus(col.date)}
 									children={ col.data && col.data.map(item => (

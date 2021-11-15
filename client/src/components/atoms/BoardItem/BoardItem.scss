@@ -24,14 +24,16 @@
 
 	&__title {
 		line-height: 1.2;
-		height: 20px;
-		width: 20px;
-		border-radius: 50%;
 		@include flex-default('center');
 
 		&--no-name {
 			color: var(--color-gray);
 			font-style: italic;
+		}
+		&--focusable {
+			height: 20px;
+			width: 20px;
+			border-radius: 50%;
 		}
 		&--focused {
 			color: var(--color-white);

@@ -22,7 +22,7 @@ const BoardItem: FunctionalComponent<BoardItemProps> = ({ children, class: class
 	return (
 		<div class={c('board-item', 'never-drag', className )} onMouseEnter={handleHover} onMouseLeave={handleHoverOut} onMouseUp={onDropToUpdate}>
 			<div class='board-item__header' style={{ flexDirection: 'row-reverse' }}>
-				<p class={c('board-item__title', 't-right', [disabled, 'c-gray'], [!title, '&--no-name'], [isFocused, '&--focused'] )}>{title || '이름 없음'}</p>
+				<p class={c('board-item__title', 't-right', [disabled, 'c-gray'], [!title, '&--no-name'], [isFocused!==undefined, '&--focusable'], [isFocused, '&--focused'] )}>{title || '이름 없음'}</p>
 				{onClickPlus &&
 					<Icon class='board-item__plus-button' color='gray' as='plusRounded' onClick={onClickPlus} />
 				}
