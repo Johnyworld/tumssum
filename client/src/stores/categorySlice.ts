@@ -4,12 +4,16 @@ import { Category, CategoryGroup } from 'types';
 const initialState = {
   categories: [] as Category[],
   categoryGroups: [] as CategoryGroup[],
+  loaded: false,
 }
 
 export const categorySlice = createSlice({
   name: 'mode',
   initialState,
   reducers: {
+    setIsLoaded: (state) => {
+      state.loaded = true;
+    },
     setCategories: (state, { payload }: PayloadAction<Category[]>) => {
       state.categories = payload;
     },
@@ -46,6 +50,6 @@ export const categorySlice = createSlice({
   }
 })
 
-export const { setCategories, setCategoryGroups, addCategoryGroup, addCategories, addCategory, updateCategoryGroup, updateCategory, removeCategoryGroup, removeCategory } = categorySlice.actions;
+export const { setIsLoaded, setCategories, setCategoryGroups, addCategoryGroup, addCategories, addCategory, updateCategoryGroup, updateCategory, removeCategoryGroup, removeCategory } = categorySlice.actions;
 
 export default categorySlice.reducer;

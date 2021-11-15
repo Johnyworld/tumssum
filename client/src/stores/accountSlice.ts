@@ -3,12 +3,16 @@ import { Account } from 'types';
 
 const initialState = {
   accounts: [] as Account[],
+	loaded: false,
 }
 
 export const accountSlice = createSlice({
   name: 'mode',
   initialState,
   reducers: {
+    setIsLoaded: (state) => {
+      state.loaded = true;
+    },
     setAccounts: (state, { payload }: PayloadAction<Account[]>) => {
       state.accounts = payload;
     },
@@ -30,6 +34,6 @@ export const accountSlice = createSlice({
   }
 })
 
-export const { setAccounts, addAccount, addAccounts, updateAccount, removeAccount } = accountSlice.actions
+export const { setIsLoaded, setAccounts, addAccount, addAccounts, updateAccount, removeAccount } = accountSlice.actions
 
 export default accountSlice.reducer;

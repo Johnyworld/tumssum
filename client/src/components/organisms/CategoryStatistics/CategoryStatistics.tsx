@@ -1,12 +1,16 @@
 import { h, FunctionalComponent } from 'preact';
-import { Category, CategoryGroup } from 'types';
+import { Category, CategoryGroup, IconType } from 'types';
+import PieGraph from '~components/atoms/PieGraph';
 import AccordionTable from '~components/molecules/AccordionTable';
+import NavigationMenu from '~components/molecules/NavigationMenu';
+import useNavigationMenu from '~hooks/useNavigationMenu';
 import { StatisticsItems } from '~routes/HomePage/Statistics';
 import './CategoryStatistics.scss';
 
 export interface StatisticsProps {
 	categoriesCombined: CategoryGroup[];
 	aligned: StatisticsItems;
+	loaded: boolean;
 }
 
 interface StatisticsGroup extends CategoryGroup {
@@ -24,11 +28,13 @@ interface StatisticsItem extends Category {
 
 const combineData = (categoriesCombined: CategoryGroup[], aligned: StatisticsItems) => {
 
-	let all = {
+	let totals = {
 		income: 0,
 		expenditure: 0,
 		total: 0,
 	};
+
+	let categories: StatisticsItem[] = [];
 
 	const data = categoriesCombined.map(group => {
 		let income = 0;
@@ -42,15 +48,21 @@ const combineData = (categoriesCombined: CategoryGroup[], aligned: StatisticsIte
 			const itemExpenditure = aligned[category.id]?.expenditure || 0;
 			const itemTotal = aligned[category.id]?.total || 0;
 			income += itemIncome;
-			all.income += itemIncome;
+			totals.income += itemIncome;
 			expenditure += itemExpenditure;
-			all.expenditure += itemExpenditure;
+			totals.expenditure += itemExpenditure;
 			total += itemTotal;
-			all.total += itemTotal;
-			return {
+			totals.total += itemTotal;
+
+			const results = {
 				...category,
+				income: itemIncome,
+				expenditure: itemExpenditure,
 				total: itemTotal,
 			} as StatisticsItem;
+			
+			categories.push(results);
+			return results;
 		});
 
 		return {
@@ -62,31 +74,68 @@ const combineData = (categoriesCombined: CategoryGroup[], aligned: StatisticsIte
 		} as StatisticsGroup;
 	})
 	
-	return { data, all }
+	return { data, totals, categories }
 }
 
-const Statistics: FunctionalComponent<StatisticsProps> = ({ categoriesCombined, aligned }) => {
+const CategoryStatistics: FunctionalComponent<StatisticsProps> = ({ categoriesCombined, aligned, loaded }) => {
 
-	const { data, all } = combineData(categoriesCombined, aligned);
+	const { data, totals, categories } = combineData(categoriesCombined, aligned);
+
+	const navigationMenu = useNavigationMenu<'graph' | 'list'>([
+		{ id: 'graph', icon: 'graph' as IconType },
+		{ id: 'list', icon: 'menu' as IconType },
+	]);
 
 	return (
 		<div class='category-statistics card'>
-			<h3 class='p-small'>이번 달 통계</h3>
-		
-			<AccordionTable.Head head={['카테고리', '예산', '소비']} />
 
-			{ data.map(group => group.items.length > 0 && (
-				<AccordionTable
-					group={[ group.title === undefined ? '그룹 미분류' : group.title || '이름 없음', group.budget || 0, group.total ]}
-					items={group.items.map(category => {
-						return [ category.title === undefined ? '카테고리 미분류' : category.title || '이름 없음', category.budget || 0, category.total ]
-					})}
-				>
-				</AccordionTable>
-			))}
+			<div class='flex p-small'> 
+				<h3>이번 달 통계</h3>
+				<NavigationMenu
+					selected={navigationMenu.currentMenu}
+					onChange={navigationMenu.handleChangeMenu}
+					hideText='always'
+					list={navigationMenu.menus}
+				/>
+			</div>
+
+			{ navigationMenu.currentMenu === 'graph' &&
+				<div class='p-regular gap-mv-regular' >
+					<PieGraph loaded={loaded} data={data.filter(item => item.expenditure < 0).map(item => {
+						return {
+							id: item.id+'',
+							text: item.title || (item.id ? '이름 없음' : '그룹 미분류'),
+							value: item.expenditure,
+						}
+					})} />
+					<PieGraph loaded={loaded} data={categories.filter(item => item.expenditure < 0).map(item => {
+						return {
+							id: item.id+'',
+							text: item.title || (item.id ? '이름 없음' : '그룹 미분류'),
+							value: item.expenditure,
+						}
+					})} />
+				</div>
+			}
+
+			{ navigationMenu.currentMenu === 'list' &&
+				<div>
+					<AccordionTable.Head head={['카테고리', '예산', '소비']} />
+		
+					{ data.map(group => group.items.length > 0 && (
+						<AccordionTable
+							group={[ group.title === undefined ? '그룹 미분류' : group.title || '이름 없음', group.budget || 0, group.total ]}
+							items={group.items.map(category => {
+								return [ category.title === undefined ? '카테고리 미분류' : category.title || '이름 없음', category.budget || 0, category.total ]
+							})}
+						>
+						</AccordionTable>
+					))}
+				</div>
+			}
 
 		</div>
 	)
 }
 
-export default Statistics;
+export default CategoryStatistics;
