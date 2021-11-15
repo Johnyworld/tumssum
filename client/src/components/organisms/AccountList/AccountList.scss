@@ -14,14 +14,20 @@
 
 		tbody {
 
-			tr:hover .account-list__edit-icon {
-				opacity: 1;
-				cursor: pointer;
+			tr:hover {
+				td {
+					background-color: var(--color-bg_weak);
+				}
+
+				.account-list__edit-icon {
+					opacity: 1;
+					cursor: pointer;
+				}
 			}
 
 			td {
 				white-space: nowrap;
-				background-color: var(--color-bg_weak);
+				// background-color: var(--color-bg_weak);
 				&:not(.t-right):not(.t-left) {
 					.time-picker,
 					.date-picker,
