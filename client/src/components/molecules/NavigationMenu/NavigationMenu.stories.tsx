@@ -6,12 +6,12 @@ export default {
 	title: 'Items/NavigationMenu',
 	component: NavigationMenu,
 	argTypes: {
-    direction: { control: { type: 'select', options: [ 'column', 'row' ]}},
-    menuItemType: { control: { type: 'select', options: [ 'text', 'box' ]}},
+    hideText: { control: { type: 'select', options: [ 'always', 'maxBp1', 'maxBp2' ]}},
+    // menuItemType: { control: { type: 'select', options: [ 'text', 'box' ]}},
 	}
 } as Meta;
 
-const Template: Story<NavigationMenuProps> = (args) => <NavigationMenu {...args} />
+const Template: Story<NavigationMenuProps<any>> = (args) => <NavigationMenu {...args} />
 
 export const Default = Template.bind({});
 Default.args = {
@@ -21,3 +21,4 @@ Default.args = {
 	],
 	selected: 'home',
 };
+

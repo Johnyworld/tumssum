@@ -1,34 +1,36 @@
 import { h, FunctionalComponent } from 'preact';
 import { Link } from 'preact-router';
-import { DefaultProps, IconType, SelectMenuItem } from 'types';
+import { DefaultProps } from 'types';
+import { NavigationMenuItem } from '~hooks/useNavigationMenu';
 import { c } from '~utils/classNames';
-import IconMenuItem from '../IconMenuItem';
+import IconText from '../IconText';
 import './NavigationMenu.scss';
 
 
-export interface NavigationMenuItem extends SelectMenuItem {
-	icon: IconType;
-	href?: string
+export interface NavigationMenuProps<S> extends DefaultProps {
+	list: NavigationMenuItem<S>[];
+	selected?: S;
+	hideText?: 'always' | 'max-mobile' | 'max-tablet';
+	onChange?: (selected: S) => void;
 }
 
-export interface NavigationMenuProps extends DefaultProps {
-	list: NavigationMenuItem[];
-	selected?: string;
-	onChange?: (selected: string) => void;
-}
-
-const NavigationMenu: FunctionalComponent<NavigationMenuProps> = ({ class: className, list, selected, onChange }) => {
+const NavigationMenu = <S extends string>({ class: className, list, selected, hideText, onChange }: NavigationMenuProps<S>) => {
 	return (
-		<nav class={c( 'navigation-menu', className )} >
+		<nav class={c( 'navigation-menu', className, [hideText, `&--hide-text`] )} >
 			{ list.map(item => {
 				const isSelected = selected === item.id;
 				const content
-					= <IconMenuItem
-							icon={item.icon}
-							text={item.text}
-							isSelected={isSelected}
-							onClick={onChange ? () => onChange(item.id) : undefined}
-						/>
+					= <div class={c('navigation-menu__item', [hideText, `&--hide-text-${hideText}`])} onClick={onChange ? () => onChange(item.id) : undefined}>
+							<IconText
+								icon={item.icon}
+								text={item.text}
+								textSize='tiny'
+								direction='column'
+								bold
+								isHideTextForMobile
+								color={isSelected ? 'pen' : 'gray'}
+							/>
+						</div>
 
 				return (
 					item.href
