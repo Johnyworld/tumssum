@@ -3,7 +3,8 @@ import { getLocalString } from '~utils/calendar';
 import numberUtils from '~utils/numberUtils';
 
 const initialState = {
-  currentDate: getLocalString().substr(0, 7)
+  currentDate: getLocalString().substr(0, 7),
+	today: getLocalString().substr(0, 10),
 }
 
 

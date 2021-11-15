@@ -61,7 +61,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 					<div class='category-board__row'>
 						<BoardItem
 							title='미분류'
-							isgrabbing={!!grabbing}
+							isGrabbing={!!grabbing}
 							onDropToUpdate={onDropToUpdate && onDropToUpdate( null, '' )}
 							children={
 								<div class='grid grid-col-4 gap-tiny' style={{ flexWrap: 'wrap' }}>
@@ -86,7 +86,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 								<BoardItem
 									class='board-item--col-4'
 									title={category.title}
-									isgrabbing={!!grabbing}
+									isGrabbing={!!grabbing}
 									onDropToUpdate={onDropToUpdate && onDropToUpdate( category.id, category.title )}
 									onClickPlus={onClickPlus && onClickPlus(category.id)}
 									children={category.accounts && category.accounts.map(account => (

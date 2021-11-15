@@ -1,18 +1,42 @@
+@import '~src/style/mixins';
+
 .board-item {
 	position: relative;
 	min-height: 100px;
 	flex: 1 0 0px;
-	padding: .5rem;
 	background-color: var(--color-bg_weak);
 	overflow: hidden;
 	&:not(:last-child) {
 		border-right: 1px solid var(--color-gray_weaker);
 	}
 
+	&__header {
+		@include flex-default('');
+		height: 32px;
+		flex-direction: row-reverse;
+		padding: 0 .25rem;
+	}
+
+	&__body {
+		@include gap(var(--size-tiny));
+		padding: 0 .5rem .5rem;
+	}
+
 	&__title {
+		line-height: 1.2;
+		height: 20px;
+		width: 20px;
+		border-radius: 50%;
+		@include flex-default('center');
+
 		&--no-name {
 			color: var(--color-gray);
 			font-style: italic;
+		}
+		&--focused {
+			color: var(--color-white);
+			font-weight: var(--weight-bold);
+			background-color: var(--color-primary);
 		}
 	}
 

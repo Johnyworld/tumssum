@@ -6,7 +6,8 @@ const { getZeroNumber } = numberUtils;
 export interface DayItem { 
 	each: number,
 	date: string,
-	isThisMonth: boolean,	
+	isThisMonth?: boolean,	
+	isToday?: boolean,
 	data?: Account[];
 }
 
@@ -163,7 +164,6 @@ export const getCalendar = ( year: number, month: number, onlyThisMonth?: boolea
 		calendar[0].push({
 			each: onlyThisMonth ? 0 : day,
 			date: YMD,
-			isThisMonth: false,
 		});
 	}
 
@@ -180,7 +180,6 @@ export const getCalendar = ( year: number, month: number, onlyThisMonth?: boolea
 			thisWeek.push({
 				each: onlyThisMonth ? 0 : day,
 				date: YMD,
-				isThisMonth: false,
 			})
 
 		} else {
@@ -190,6 +189,7 @@ export const getCalendar = ( year: number, month: number, onlyThisMonth?: boolea
 				each: i,
 				date: YMD,
 				isThisMonth: true,
+				isToday: getLocalString().substr(0, 10) === YMD,
 			});
 		}
 

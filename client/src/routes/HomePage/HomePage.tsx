@@ -35,7 +35,7 @@ const MENUS = [
 
 const HomePage: FunctionalComponent = ({  }) => {
 
-	const currentDate = useSelector(state=> state.date.currentDate);
+	const { currentDate, today } = useSelector(state=> state.date);
 	const { accounts, loaded: accountLoaded } = useSelector(state=> state.account);
 	const { categories, categoryGroups, loaded: categoryLoaded } = useSelector(state=> state.category);
 	const { banks, bankGroups } = useSelector(state=> state.bank);
@@ -142,6 +142,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 						{ view === 'calendar' &&
 							<Calendar
 								date={currentDate}
+								today={today}
 								data={accounts}
 								grabbing={grabbing}
 								grabbingPos={grabbingPos}

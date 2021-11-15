@@ -13,11 +13,33 @@
   padding: 0 1rem;
 }
 
-
 @mixin ellipsis {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+@mixin flex-default($style) {
+  @if $style == 'center' {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } @else if $style == 'end' {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  } @else {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@mixin gap($size) {
+  > * {
+    &:not(:first-child) { margin-top: #{$size} }
+    &:not(:last-child) { margin-bottom: #{$size} } 
+  }
 }
 
 

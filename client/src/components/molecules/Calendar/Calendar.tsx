@@ -8,6 +8,7 @@ import './Calendar.scss';
 
 export interface CalendarProps {
 	date: string;
+	today: string;
 	data?: Account[];
 	grabbing?: grabbingData<Account> | null;
 	grabbingPos?: Vec2 | null;
@@ -18,11 +19,13 @@ export interface CalendarProps {
 	onClickPlus?: (date: string) => () => void;
 }
 
-const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grabbing, grabbingPos, onGrap, onDropToUpdate, onDragging, onClick, onClickPlus }) => {
+const Calendar: FunctionalComponent<CalendarProps> = ({ date, today, data, grabbing, grabbingPos, onGrap, onDropToUpdate, onDragging, onClick, onClickPlus }) => {
 
 	const then = new Date(date);
 	const calendar = getCalendar(then.getFullYear(), then.getMonth());
 	const calendarWithData = combineCalendarWithData(calendar, data);
+
+	console.log('===== Calendar', today, calendarWithData);
 
 	return (
 		<div class='calendar' onMouseMove={onDragging}>
@@ -43,7 +46,8 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grabbing, gr
 								<BoardItem
 									title={col.each+''}
 									disabled={!col.isThisMonth}
-									isgrabbing={!!grabbing}
+									isGrabbing={!!grabbing}
+									isFocused={col.isToday}
 									onDropToUpdate={onDropToUpdate && onDropToUpdate(col.date)}
 									onClickPlus={onClickPlus && onClickPlus(col.date)}
 									children={ col.data && col.data.map(item => (
