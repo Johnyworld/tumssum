@@ -19,7 +19,7 @@ $light-theme: (
 	gray: #C0C4C8,
 	gray_weak: #E5E6EA,
 	gray_weaker: #efeff7,
-	white_weakest: rgba(0, 0, 0, 0.05),
+	dark_weakest: rgba(0, 0, 0, 0.05),
 	dim: rgba(255, 255, 255, 0.3),
 );
 
@@ -36,7 +36,7 @@ $dark-theme: (
 	gray: #4d5154,
 	gray_weak: #37383b,
 	gray_weaker: #262729,
-	white_weakest: rgba(255, 255, 255, 0.05),
+	dark_weakest: rgba(255, 255, 255, 0.05),
 	dim: rgba(0, 0, 0, 0.7),
 );
 

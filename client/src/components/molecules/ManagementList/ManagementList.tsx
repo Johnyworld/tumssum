@@ -78,7 +78,7 @@ const ManagementList = <T extends Item, S extends ItemGroup<T>>({ data, grabbing
 			{ grabbing && grabbingPos &&
 				<Card
 					class='calendar-grabbing content-box'
-					style={{ left: grabbingPos.x, top: grabbingPos.y - grabbing.height, width: grabbing.width, height: grabbing.height, backgroundColor: 'var(--color-white_weakest)' }} 
+					style={{ left: grabbingPos.x, top: grabbingPos.y - grabbing.height, width: grabbing.width, height: grabbing.height, backgroundColor: 'var(--color-dark_weakest)' }} 
 					children={grabbing.data.title}
 				/>
 			}
