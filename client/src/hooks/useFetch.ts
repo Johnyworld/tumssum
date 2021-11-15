@@ -36,7 +36,10 @@ const useFetch = <S>({ method, url, params, isNoFetchWithoutCall, onError, onSuc
 		let sendingParams = params;
 		if (user && reqData) sendingData = {...reqData, user_id: user.id};
 		if (user && params) sendingParams = {...params, user_id: user.id};
-		console.log('%c:: 📝 REQUEST :: ', 'color: #bada55', method, url, { data: sendingData, params: sendingParams },);
+
+		if (process.env.NODE_ENV === 'development') {
+			console.log('%c:: 📝 REQUEST :: ', 'color: #bada55', method, url, { data: sendingData, params: sendingParams },);
+		}
 
 		axios({
 			method,
