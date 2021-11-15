@@ -8,7 +8,7 @@ export const c = (...arr: any[]) => {
 		if (curr === undefined) return prev;
 		if (typeof curr === 'string') return [...prev, replaceDefaultClassName(defaultClassName, curr)];
 		if (curr.length) {
-			if (curr[0]) return [...prev, replaceDefaultClassName(defaultClassName, curr[1])];
+			if (!!curr[0]) return [...prev, replaceDefaultClassName(defaultClassName, curr[1])];
 			else return prev;
 		}
 	}, []).join(' ')
