@@ -20,6 +20,8 @@ import NotFoundPage from './NotFoundPage';
 import { setBudgets } from '~stores/budgetSlice';
 import DashboardContainer from '~components/pages/DashboardContainer';
 import GlobalHeader from '~components/organisms/GlobalHeader';
+import { logout } from '~stores/userSlice';
+import useAlert from '~hooks/useAlert';
 
 const AppLoggedInRouter: FunctionalComponent = () => {
 
@@ -27,6 +29,7 @@ const AppLoggedInRouter: FunctionalComponent = () => {
   const dispatch = useDispatch();
 	const [location] = useLocation();
 	const path = location.split('/')[1] || 'home';
+	const alert = useAlert();
 
   const gnbMenus = useMemo(() => { return [
 		{ id: 'home', text: 'Home', icon: 'home', href: '/' },
@@ -43,6 +46,11 @@ const AppLoggedInRouter: FunctionalComponent = () => {
 				data.datetime = getLocalStringFromISOString(data.datetime);
 				return data;
 			})));
+		},
+		onError: () => {
+			alert('로그인 기간이 만료되었네요!\n다시 로그인해주세요 :)', () => {
+				dispatch(logout());
+			});
 		}
 	});
 

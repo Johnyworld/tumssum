@@ -27,7 +27,6 @@ const KakaoLogin: FunctionalComponent = () => {
     Kakao.Auth.login({
       scope: 'profile',
       success: (res: any) => {
-        console.log('===== KakaoLogin', res);
         Kakao.Auth.setAccessToken(res.access_token);
         // const csrftoken = Cookies.get('csrftoken');
         axios.post('/api/login/kakao/', {
