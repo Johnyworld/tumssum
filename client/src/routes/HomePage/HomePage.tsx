@@ -36,8 +36,8 @@ const MENUS = [
 const HomePage: FunctionalComponent = ({  }) => {
 
 	const currentDate = useSelector(state=> state.date.currentDate);
-	const accounts = useSelector(state=> state.account.accounts);
-	const { categories, categoryGroups } = useSelector(state=> state.category);
+	const { accounts, loaded: accountLoaded } = useSelector(state=> state.account);
+	const { categories, categoryGroups, loaded: categoryLoaded } = useSelector(state=> state.category);
 	const { banks, bankGroups } = useSelector(state=> state.bank);
 	const { monthes } = useSelector(state=> state.month);
 	const { budgets } = useSelector(state=> state.budget);
@@ -188,6 +188,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 							categoriesCombined={categoriesCombinedWithBudgets}
 							banksCombined={banksCombined}
 							monthes={monthes}
+							loaded={categoryLoaded && accountLoaded}
 						/>
 					</div>
 					<div ref={borderRef} class='home-page__side-border' onMouseDown={handleBorderMouseDown} />

@@ -1,5 +1,4 @@
 import { h, FunctionalComponent, Fragment } from 'preact';
-import { Ref } from 'preact/hooks';
 import { Account, BankGroup, CategoryGroup, Month } from 'types';
 import Balances from '~components/organisms/Balances';
 import CategoryStatistics from '~components/organisms/CategoryStatistics';
@@ -10,6 +9,7 @@ export interface StatisticsProps {
 	categoriesCombined: CategoryGroup[];
 	banksCombined: BankGroup[];
 	monthes: Month[];
+	loaded: boolean;
 }
 
 export interface StatisticsItems {
@@ -40,13 +40,13 @@ const getDataAligned = (data: Account[]) => {
 }
 
 
-const Statistics: FunctionalComponent<StatisticsProps> = ({ date, accounts, categoriesCombined, banksCombined, monthes }) => {
+const Statistics: FunctionalComponent<StatisticsProps> = ({ date, accounts, categoriesCombined, banksCombined, monthes, loaded }) => {
 
 	const aligned = getDataAligned(accounts);
 
 	return (
 		<Fragment>
-			<CategoryStatistics categoriesCombined={categoriesCombined} aligned={aligned.categories} />
+			<CategoryStatistics categoriesCombined={categoriesCombined} aligned={aligned.categories} loaded={loaded} />
 			<Balances date={date} banksCombined={banksCombined} monthes={monthes} aligned={aligned.banks} />
 		</Fragment>
 	)

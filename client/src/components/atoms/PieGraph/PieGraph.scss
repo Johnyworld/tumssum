@@ -35,4 +35,9 @@
 	&__text {
 		@include ellipsis;
 	}
+
+	&__empty {
+		font-weight: var(--weightr-bold);
+		color: var(--color-gray);
+	}
 }

@@ -7,8 +7,8 @@ import SettingsPage from '~routes/SettingsPage';
 
 import useFetch from '~hooks/useFetch';
 import { Account, Bank, BankGroup, Budget, Category, CategoryGroup, Month } from 'types';
-import { setCategories, setCategoryGroups } from '~stores/categorySlice';
-import { setAccounts } from '~stores/accountSlice';
+import { setCategories, setCategoryGroups, setIsLoaded as setCategoryIsLoaded } from '~stores/categorySlice';
+import { setAccounts, setIsLoaded as setAccountIsLoaded } from '~stores/accountSlice';
 import { getLocalStringFromISOString } from '~utils/calendar';
 import { setBankGroups, setBanks } from '~stores/bankSlice';
 import { useMemo } from 'preact/hooks';
@@ -42,6 +42,7 @@ const AppLoggedInRouter: FunctionalComponent = () => {
 		method: 'GET',
 		url: `/api/accounts/`,
 		onSuccess: data => {
+			dispatch(setAccountIsLoaded);
       dispatch(setAccounts(data.map(data => {
 				data.datetime = getLocalStringFromISOString(data.datetime);
 				return data;
@@ -60,6 +61,7 @@ const AppLoggedInRouter: FunctionalComponent = () => {
 		onSuccess: data => {
       dispatch(setCategoryGroups(data.groups));
       dispatch(setCategories(data.categories));
+			dispatch(setCategoryIsLoaded);
 		}
 	});
 

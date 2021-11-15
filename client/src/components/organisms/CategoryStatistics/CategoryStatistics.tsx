@@ -1,5 +1,4 @@
 import { h, FunctionalComponent } from 'preact';
-import { useState } from 'preact/hooks';
 import { Category, CategoryGroup, IconType } from 'types';
 import PieGraph from '~components/atoms/PieGraph';
 import AccordionTable from '~components/molecules/AccordionTable';
@@ -11,6 +10,7 @@ import './CategoryStatistics.scss';
 export interface StatisticsProps {
 	categoriesCombined: CategoryGroup[];
 	aligned: StatisticsItems;
+	loaded: boolean;
 }
 
 interface StatisticsGroup extends CategoryGroup {
@@ -28,11 +28,13 @@ interface StatisticsItem extends Category {
 
 const combineData = (categoriesCombined: CategoryGroup[], aligned: StatisticsItems) => {
 
-	let all = {
+	let totals = {
 		income: 0,
 		expenditure: 0,
 		total: 0,
 	};
+
+	let categories: StatisticsItem[] = [];
 
 	const data = categoriesCombined.map(group => {
 		let income = 0;
@@ -46,15 +48,21 @@ const combineData = (categoriesCombined: CategoryGroup[], aligned: StatisticsIte
 			const itemExpenditure = aligned[category.id]?.expenditure || 0;
 			const itemTotal = aligned[category.id]?.total || 0;
 			income += itemIncome;
-			all.income += itemIncome;
+			totals.income += itemIncome;
 			expenditure += itemExpenditure;
-			all.expenditure += itemExpenditure;
+			totals.expenditure += itemExpenditure;
 			total += itemTotal;
-			all.total += itemTotal;
-			return {
+			totals.total += itemTotal;
+
+			const results = {
 				...category,
+				income: itemIncome,
+				expenditure: itemExpenditure,
 				total: itemTotal,
 			} as StatisticsItem;
+			
+			categories.push(results);
+			return results;
 		});
 
 		return {
@@ -66,14 +74,12 @@ const combineData = (categoriesCombined: CategoryGroup[], aligned: StatisticsIte
 		} as StatisticsGroup;
 	})
 	
-	return { data, all }
+	return { data, totals, categories }
 }
 
-const Statistics: FunctionalComponent<StatisticsProps> = ({ categoriesCombined, aligned }) => {
+const CategoryStatistics: FunctionalComponent<StatisticsProps> = ({ categoriesCombined, aligned, loaded }) => {
 
-	const { data, all } = combineData(categoriesCombined, aligned);
-	
-	console.log('===== CategoryStatistics', data, all);
+	const { data, totals, categories } = combineData(categoriesCombined, aligned);
 
 	const navigationMenu = useNavigationMenu<'graph' | 'list'>([
 		{ id: 'graph', icon: 'graph' as IconType },
@@ -94,13 +100,21 @@ const Statistics: FunctionalComponent<StatisticsProps> = ({ categoriesCombined, 
 			</div>
 
 			{ navigationMenu.currentMenu === 'graph' &&
-				<div>
-					<PieGraph data={[
-						{ id: '1', text: '1번', value: 50 },
-						{ id: '2', text: '2번', value: 80 },
-						{ id: '3', text: '3번', value: 130 },
-						{ id: '4', text: '4번', value: 30 },
-					]} />
+				<div class='p-regular gap-mv-regular' >
+					<PieGraph loaded={loaded} data={data.filter(item => item.expenditure < 0).map(item => {
+						return {
+							id: item.id+'',
+							text: item.title || (item.id ? '이름 없음' : '그룹 미분류'),
+							value: item.expenditure,
+						}
+					})} />
+					<PieGraph loaded={loaded} data={categories.filter(item => item.expenditure < 0).map(item => {
+						return {
+							id: item.id+'',
+							text: item.title || (item.id ? '이름 없음' : '그룹 미분류'),
+							value: item.expenditure,
+						}
+					})} />
 				</div>
 			}
 
@@ -124,4 +138,4 @@ const Statistics: FunctionalComponent<StatisticsProps> = ({ categoriesCombined, 
 	)
 }
 
-export default Statistics;
+export default CategoryStatistics;
