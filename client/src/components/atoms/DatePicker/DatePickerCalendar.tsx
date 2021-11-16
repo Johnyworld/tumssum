@@ -2,7 +2,6 @@ import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
 import { useState } from 'preact/hooks';
 import { Vec2 } from 'types';
-import Portal from '~components/Portal';
 import { getCalendar, getDateString, getMonthDate } from '~utils/calendar';
 import { c } from '~utils/classNames';
 import Icon from '../Icon';
@@ -45,7 +44,7 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 	const cal = getCalendar(Y, M, true);
 
 	return (
-		<Portal>
+		<div class='date-picker'>
 			<div class='date-picker__dim' onClick={onClose} />
 			<div class='date-picker__calendar p-small' style={{ height: `${height}px`, width: `${width}px`, top: pos.y, left: pos.x }}>
 				<div class='flex'>
@@ -101,7 +100,7 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 				/>
 
 			</div>
-		</Portal>
+		</div>
 	)
 }
 

@@ -2,7 +2,6 @@ import { h, FunctionalComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import Icon from '~components/atoms/Icon';
-import Portal from '~components/Portal';
 import { getHoursLimit, getMinutesLimit } from '~utils/calendar';
 import numberUtils from '~utils/numberUtils';
 import './TimePickerModal.scss';
@@ -58,29 +57,33 @@ const TimePickerModal: FunctionalComponent<TimePickerModalProps> = ({ time, pos,
 
 
 	return (
-		<div class='time-picker__timer p-regular' style={{ height: `${height}px`, width: `${width}px`, top: pos.y, left: pos.x }}>
+		<div class='time-picker'>
+			<div class='time-picker__timer p-regular' style={{ height: `${height}px`, width: `${width}px`, top: pos.y, left: pos.x }}>
 
-			<div class='flex flex-around'>
-				<div class='flex flex-column'>
-					<Icon as='arrowUp' onClick={handleChangeHoursByNumber(+1)} />
-					<input class='t-center hide-spin' type='number' min={0} max={23} maxLength={2} value={hours} onChange={handleChangeHours} />
-					<Icon as='arrowDown' onClick={handleChangeHoursByNumber(-1)} />
+				<div class='flex flex-around'>
+					<div class='flex flex-column'>
+						<Icon as='arrowUp' onClick={handleChangeHoursByNumber(+1)} />
+						<input class='t-center hide-spin' type='number' min={0} max={23} maxLength={2} value={hours} onChange={handleChangeHours} />
+						<Icon as='arrowDown' onClick={handleChangeHoursByNumber(-1)} />
+					</div>
+
+					<p>:</p>
+
+					<div class='flex flex-column'>
+						<Icon as='arrowUp' onClick={handleChangeMinutesByNumber(+1)} />
+						<input class='t-center hide-spin' type='number' min={0} max={59} maxLength={2} value={minutes} onChange={handleChangeMinutes} />
+						<Icon as='arrowDown' onClick={handleChangeMinutesByNumber(-1)} />
+					</div>
 				</div>
 
-				<p>:</p>
+				<div class='time-picker__timer-buttons f-bold flex'>
+					<span class='pointer c-red' onClick={handleClear}>Clear</span>
+					<div class='gap-mh-tiny'>
+						<span class='pointer' onClick={onClose}>Cancel</span>
+						<span class='pointer' onClick={handleConfirm}>Ok</span>
+					</div>
+				</div>
 
-				<div class='flex flex-column'>
-					<Icon as='arrowUp' onClick={handleChangeMinutesByNumber(+1)} />
-					<input class='t-center hide-spin' type='number' min={0} max={59} maxLength={2} value={minutes} onChange={handleChangeMinutes} />
-					<Icon as='arrowDown' onClick={handleChangeMinutesByNumber(-1)} />
-				</div>
-			</div>
-			<div class='time-picker__timer-buttons f-bold flex'>
-				<span class='pointer c-red' onClick={handleClear}>Clear</span>
-				<div class='gap-mh-tiny'>
-					<span class='pointer' onClick={onClose}>Cancel</span>
-					<span class='pointer' onClick={handleConfirm}>Ok</span>
-				</div>
 			</div>
 		</div>
 	)

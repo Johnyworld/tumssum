@@ -1,28 +1,20 @@
-import { h, FunctionalComponent } from 'preact';
+import { h, FunctionalComponent, Fragment } from 'preact';
 import { useTranslation } from 'preact-i18next';
-import { useCallback, useState } from 'preact/hooks';
-import { Vec2 } from 'types';
+import { useCallback } from 'preact/hooks';
 import { getDateStringByDateType } from '~utils/calendar';
-import { c } from '~utils/classNames';
 import DatePickerCalendar from './DatePickerCalendar';
+import ContentClickable from '../ContentClickable';
+import Portal from '~components/Portal';
+import useMiniPopup from '~hooks/useMiniPopup';
 import './DatePicker.scss';
-import Icon from '../Icon';
 
 
 interface DatePickerProps {
-	label?: string;
-
 	/** YYYY-MM-DD */
 	date?: string;
 
-	fluid?: boolean;
-
-	styleType?: 'contentEditable' | 'input';
-
+	label?: string;
 	placeholder?: string;
-
-	isHideIcon?: boolean;
-
 	onChange?: (date: string) => void;
 }
 
@@ -31,59 +23,42 @@ const PICKER_HEIGHT = 256;
 const PICKER_WIDTH = 200;
 
 
-const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, fluid, styleType='contentEditable', placeholder, isHideIcon, onChange }) => {
+const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, placeholder, onChange }) => {
 
 	const { i18n } = useTranslation();
-	const [pos, setPos] = useState<Vec2 | null>(null);
 
-	const handleShowPicker: h.JSX.MouseEventHandler<HTMLDivElement> = (e) => {
-		if (pos) {
-			setPos(null);
-
-		} else {
-			const rect = e.currentTarget.getBoundingClientRect();
-			let x = rect.x;
-			let y = rect.y + rect.height - 1;
-			if ( y + PICKER_HEIGHT > window.innerHeight && y > PICKER_HEIGHT ) {
-				y = y - PICKER_HEIGHT - rect.height + 2;
-			}
-			setPos({ x, y });
-		}
-	}
-
-	const handleClosePicker = useCallback(() => {
-		setPos(null);
-	}, [pos]);
+	const { pos, handleShowPicker, handleClosePicker } = useMiniPopup({ height: PICKER_HEIGHT });
 
 	const handleChange = useCallback((date: string) => () => {
 		onChange && onChange(date);
-		setPos(null);
+		handleClosePicker();
 	}, [pos, onChange]);
 
 	return (
-		<div class={c('date-picker', styleType === 'input' ? 'input-container' : 'flex', [fluid, 'fluid'] )}>
+		<Fragment>
 
-			{ label && <label class={styleType === 'input' ? 'input-label' : 'content-label'}>{label}</label> }
-
-			<div class={`date-picker__input ${styleType === 'input' ? 'input-box' : 'content-box fluid'}`} onClick={handleShowPicker}>
-				<p class={'t-nowrap' + (date ? '' : ' c-gray')}>{date ? getDateStringByDateType(i18n.language, new Date(date)) : placeholder}</p>
-				{ !isHideIcon &&
-					<Icon as='calendar' color='gray_strong' />
-				}
-			</div>
+			<ContentClickable
+				label={label}
+				icon='calendar'
+				value={date ? getDateStringByDateType(i18n.language, new Date(date)) : undefined}
+				placeholder={placeholder}
+				onClick={handleShowPicker}
+			/>
 
 			{ pos &&
-				<DatePickerCalendar
-					date={date || new Date().toISOString()}
-					pos={pos}
-					width={PICKER_WIDTH}
-					height={PICKER_HEIGHT}
-					onChange={handleChange}
-					onClose={handleClosePicker}
-				/>
+				<Portal>
+					<DatePickerCalendar
+						date={date || new Date().toISOString()}
+						pos={pos}
+						width={PICKER_WIDTH}
+						height={PICKER_HEIGHT}
+						onChange={handleChange}
+						onClose={handleClosePicker}
+					/>
+				</Portal>
 			}
 
-		</div>
+		</Fragment>
 	)
 }
 

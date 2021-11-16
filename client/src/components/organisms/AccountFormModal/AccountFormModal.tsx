@@ -154,8 +154,8 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 							selected={bank}
 							onChange={handleChangeBank}
 						/>
-						<DatePicker fluid label='날짜' date={date} onChange={(date) => setDate(date)} placeholder='비어있음' />
-						<TimePicker fluid label='시간' time={time} onChange={(date) => setTime(date)} placeholder='비어있음' />
+						<DatePicker label='날짜' date={date} onChange={(date) => setDate(date)} placeholder='비어있음' />
+						<TimePicker label='시간' time={time} onChange={(date) => setTime(date)} placeholder='비어있음' />
 						<LabeledContentEditable
 							value={memo}
 							label='메모'

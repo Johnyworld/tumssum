@@ -1,25 +1,16 @@
-import { h, FunctionalComponent } from 'preact';
-import { useCallback, useState } from 'preact/hooks';
-import { Vec2 } from 'types';
+import { h, FunctionalComponent, Fragment } from 'preact';
+import { useCallback } from 'preact/hooks';
 import TimePickerModal from '~components/organisms/TimePickerModal';
 import Portal from '~components/Portal';
-import { c } from '~utils/classNames';
-import Icon from '../Icon';
+import useMiniPopup from '~hooks/useMiniPopup';
+import ContentClickable from '../ContentClickable';
 
 export interface TimePickerProps {
-	label?: string;
-
 	/** HH:MM */
 	time: string;
-
-	fluid?: boolean;
-
-	styleType?: 'contentEditable' | 'input';
-
+	
+	label?: string;
 	placeholder?: string;
-
-	isHideIcon?: boolean;
-
 	onChange?: (time: string) => void;
 }
 
@@ -27,45 +18,25 @@ export interface TimePickerProps {
 const PICKER_HEIGHT = 162;
 const PICKER_WIDTH = 200;
 
-const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, fluid, styleType, placeholder, isHideIcon, onChange }) => {
+const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, placeholder, onChange }) => {
 
-	const [pos, setPos] = useState<Vec2 | null>(null);
-
-	const handleShowPicker: h.JSX.MouseEventHandler<HTMLDivElement> = (e) => {
-		if (pos) {
-			setPos(null);
-
-		} else {
-			const rect = e.currentTarget.getBoundingClientRect();
-			let x = rect.x;
-			let y = rect.y + rect.height - 1;
-			if ( y + PICKER_HEIGHT > window.innerHeight && y > PICKER_HEIGHT ) {
-				y = y - PICKER_HEIGHT - rect.height + 2;
-			}
-			setPos({ x, y });
-		}
-	}
-
-	const handleClosePicker = useCallback(() => {
-		setPos(null);
-	}, [pos]);
+	const { pos, handleShowPicker, handleClosePicker } = useMiniPopup({ height: PICKER_HEIGHT });
 
 	const handleChange = useCallback((time: string) => {
 		onChange && onChange(time);
-		setPos(null);
+		handleClosePicker();
 	}, [pos, onChange]);
 
 	return (
-		<div class={c( 'time-picker', styleType === 'input' ? 'input-container' : 'flex', [fluid, 'fluid'] )}>
+		<Fragment>
 
-			{ label && <label class={styleType === 'input' ? 'input-label' : 'content-label'}>{label}</label> }
-
-			<div class={`time-picker__input ${styleType === 'input' ? 'input-box' : 'content-box fluid'}`} onClick={handleShowPicker}>
-				<p class={'t-nowrap' + (time ? '' : ' c-gray')}>{time || placeholder}</p>
-				{ !isHideIcon &&
-					<Icon as='time' color='gray_strong' />
-				}
-			</div>
+			<ContentClickable
+				label={label}
+				icon='time'
+				value={time}
+				placeholder={placeholder}
+				onClick={handleShowPicker}
+			/>
 
 			{ pos &&
 				<Portal>
@@ -80,7 +51,7 @@ const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, fluid, 
 				</Portal>
 			}
 
-		</div>
+		</Fragment>
 	)
 }
 

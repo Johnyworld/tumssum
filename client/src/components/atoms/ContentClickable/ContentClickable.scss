@@ -1,0 +1,21 @@
+@import '~src/style/mixins';
+
+.date-input {
+
+	width: 100%;
+
+	@include flex-default('');
+
+	&__label {
+		@include content-label;
+	}
+
+	&__content {
+		@include content-box;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		cursor: pointer;
+		width: 100%;
+	}
+}
