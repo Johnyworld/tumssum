@@ -1,16 +1,16 @@
 import { h } from 'preact';
 import { Story, Meta } from '@storybook/preact';
-import TimePickerModal, { TimePickerModalProps } from './TimePickerModal';
+import TimePicker, { TimePickerProps } from './TimePicker';
 
 export default {
-	title: 'Organisms/TimePickerModal',
-	component: TimePickerModal,
+	title: 'Organisms/TimePicker',
+	component: TimePicker,
 	argTypes: {
 	
 	}
 } as Meta;
 
-const Template: Story<TimePickerModalProps> = (args) => <TimePickerModal {...args} />
+const Template: Story<TimePickerProps> = (args) => <TimePicker {...args} />
 
 export const Default = Template.bind({});
 Default.args = {

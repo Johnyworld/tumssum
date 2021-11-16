@@ -1,9 +1,9 @@
 import { h, FunctionalComponent, Fragment } from 'preact';
 import { useCallback } from 'preact/hooks';
-import TimePickerModal from '~components/organisms/TimePickerModal';
+import ContentClickable from '~components/atoms/ContentClickable';
+import TimePicker from '~components/organisms/TimePicker';
 import Portal from '~components/Portal';
 import useMiniPopup from '~hooks/useMiniPopup';
-import ContentClickable from '../ContentClickable';
 
 export interface TimePickerProps {
 	/** HH:MM */
@@ -11,6 +11,7 @@ export interface TimePickerProps {
 	
 	label?: string;
 	placeholder?: string;
+	isHideIcon?: boolean;
 	onChange?: (time: string) => void;
 }
 
@@ -18,7 +19,7 @@ export interface TimePickerProps {
 const PICKER_HEIGHT = 162;
 const PICKER_WIDTH = 200;
 
-const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, placeholder, onChange }) => {
+const TimeContent: FunctionalComponent<TimePickerProps> = ({ label, time, placeholder, isHideIcon, onChange }) => {
 
 	const { pos, handleShowPicker, handleClosePicker } = useMiniPopup({ height: PICKER_HEIGHT });
 
@@ -32,7 +33,7 @@ const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, placeho
 
 			<ContentClickable
 				label={label}
-				icon='time'
+				icon={isHideIcon ? undefined : 'time'}
 				value={time}
 				placeholder={placeholder}
 				onClick={handleShowPicker}
@@ -40,7 +41,7 @@ const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, placeho
 
 			{ pos &&
 				<Portal>
-					<TimePickerModal
+					<TimePicker
 						time={time}
 						pos={pos}
 						width={PICKER_WIDTH}
@@ -55,4 +56,4 @@ const TimePicker: FunctionalComponent<TimePickerProps> = ({ label, time, placeho
 	)
 }
 
-export default TimePicker;
+export default TimeContent;

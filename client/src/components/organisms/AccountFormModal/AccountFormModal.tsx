@@ -4,15 +4,15 @@ import { useCallback, useMemo, useState } from 'preact/hooks';
 import { Account, BankGroup, CategoryGroup } from 'types';
 import Button from '~components/atoms/Button';
 import ContentEditable from '~components/atoms/ContentEditable';
-import DatePicker from '~components/atoms/DatePicker';
 import Dropdown from '~components/atoms/Dropdown';
-import TimePicker from '~components/atoms/TimePicker';
 import LabeledContentEditable from '~components/molecules/LabeledContentEditable';
 import Modal from '~components/layouts/Modal';
 import useContentEditable from '~hooks/useContentEditable';
 import useInput from '~hooks/useInput';
 import { getLocalString } from '~utils/calendar';
 import { ConfirmFunction } from '~hooks/useConfirm';
+import DateContent from '~features/DateContent';
+import TimeContent from '~features/TimeContent';
 
 export interface AccountFormModalProps {
 	currentDate: string;
@@ -154,8 +154,9 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 							selected={bank}
 							onChange={handleChangeBank}
 						/>
-						<DatePicker label='날짜' date={date} onChange={(date) => setDate(date)} placeholder='비어있음' />
-						<TimePicker label='시간' time={time} onChange={(date) => setTime(date)} placeholder='비어있음' />
+						
+						<DateContent label='날짜' date={date} onChange={(date) => setDate(date)} placeholder='비어있음' />
+						<TimeContent label='시간' time={time} onChange={(date) => setTime(date)} placeholder='비어있음' />
 						<LabeledContentEditable
 							value={memo}
 							label='메모'

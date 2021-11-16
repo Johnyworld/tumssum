@@ -1,30 +1,26 @@
-import { h, FunctionalComponent, Fragment } from 'preact';
+import { h, Fragment, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
 import { useCallback } from 'preact/hooks';
 import { getDateStringByDateType } from '~utils/calendar';
-import DatePickerCalendar from './DatePickerCalendar';
-import ContentClickable from '../ContentClickable';
 import Portal from '~components/Portal';
 import useMiniPopup from '~hooks/useMiniPopup';
-import './DatePicker.scss';
+import ContentClickable from '~components/atoms/ContentClickable';
+import DatePicker from '~components/organisms/DatePicker/DatePicker';
 
-
-interface DatePickerProps {
+export interface DateContentProps {
 	/** YYYY-MM-DD */
 	date?: string;
 
 	label?: string;
 	placeholder?: string;
+	isHideIcon?: boolean;
 	onChange?: (date: string) => void;
 }
-
 
 const PICKER_HEIGHT = 256;
 const PICKER_WIDTH = 200;
 
-
-const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, placeholder, onChange }) => {
-
+const DateContent: FunctionalComponent<DateContentProps> = ({ label, date, placeholder, isHideIcon, onChange }) => {
 	const { i18n } = useTranslation();
 
 	const { pos, handleShowPicker, handleClosePicker } = useMiniPopup({ height: PICKER_HEIGHT });
@@ -39,7 +35,7 @@ const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, placeho
 
 			<ContentClickable
 				label={label}
-				icon='calendar'
+				icon={isHideIcon ? undefined : 'calendar'}
 				value={date ? getDateStringByDateType(i18n.language, new Date(date)) : undefined}
 				placeholder={placeholder}
 				onClick={handleShowPicker}
@@ -47,7 +43,7 @@ const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, placeho
 
 			{ pos &&
 				<Portal>
-					<DatePickerCalendar
+					<DatePicker
 						date={date || new Date().toISOString()}
 						pos={pos}
 						width={PICKER_WIDTH}
@@ -62,4 +58,5 @@ const DatePicker: FunctionalComponent<DatePickerProps> = ({ label, date, placeho
 	)
 }
 
-export default DatePicker;
+export default DateContent;
+

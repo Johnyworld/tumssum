@@ -4,9 +4,9 @@ import { Vec2 } from 'types';
 import Icon from '~components/atoms/Icon';
 import { getHoursLimit, getMinutesLimit } from '~utils/calendar';
 import numberUtils from '~utils/numberUtils';
-import './TimePickerModal.scss';
+import './TimePicker.scss';
 
-export interface TimePickerModalProps {
+export interface TimePickerProps {
 	
 	/** ex) 00:00 */
 	time: string;
@@ -18,7 +18,7 @@ export interface TimePickerModalProps {
 	onClose: () => void;
 }
 
-const TimePickerModal: FunctionalComponent<TimePickerModalProps> = ({ time, pos, width=200, height=162, onChange, onClose  }) => {
+const TimePicker: FunctionalComponent<TimePickerProps> = ({ time, pos, width=200, height=162, onChange, onClose  }) => {
 
 	const [hours, setHours] = useState(time ? +time.split(':')[0] : new Date().getHours());
 	const [minutes, setMinutes] = useState(time ? +time.split(':')[1] : new Date().getMinutes());
@@ -89,4 +89,4 @@ const TimePickerModal: FunctionalComponent<TimePickerModalProps> = ({ time, pos,
 	)
 }
 
-export default TimePickerModal;
+export default TimePicker;

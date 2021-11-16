@@ -7,13 +7,6 @@
 	z-index: var(--layer-ui);
 }
 
-.date-picker__input {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	cursor: pointer;
-}
-
 .date-picker__calendar {
 	position: fixed;
 	width: 180px;	

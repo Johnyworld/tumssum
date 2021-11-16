@@ -4,9 +4,10 @@ import { useState } from 'preact/hooks';
 import { Vec2 } from 'types';
 import { getCalendar, getDateString, getMonthDate } from '~utils/calendar';
 import { c } from '~utils/classNames';
-import Icon from '../Icon';
+import Icon from '../../atoms/Icon';
+import './DatePicker.scss'
 
-interface DatePickerCalendarProps {
+interface DatePickerProps {
 	date: string;
 	pos: Vec2;
 	width: number;
@@ -15,7 +16,7 @@ interface DatePickerCalendarProps {
 	onClose: () => void;
 }
 
-const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date, pos, width, height, onChange, onClose }) => {
+const DatePicker: FunctionalComponent<DatePickerProps> = ({ date, pos, width, height, onChange, onClose }) => {
 
 	const { t } = useTranslation();
 
@@ -104,4 +105,4 @@ const DatePickerCalendar: FunctionalComponent<DatePickerCalendarProps> = ({ date
 	)
 }
 
-export default DatePickerCalendar;
+export default DatePicker;
