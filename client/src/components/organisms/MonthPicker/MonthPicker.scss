@@ -1,4 +1,4 @@
-.date-picker {
+.month-picker {
 
 	&__dim {
 		position: absolute;
@@ -8,8 +8,8 @@
 		bottom: 0;
 		z-index: var(--layer-ui);
 	}
-	
-	&__content {
+
+	&__calendar {
 		position: fixed;
 		width: 180px;	
 		background-color: var(--color-paper);
@@ -18,53 +18,43 @@
 		z-index: var(--layer-ui);
 	}
 
-	&__calendar {
+	&__months {
+		display: grid;	
+		gap: .25rem;
+		width: 100%;
 		padding: .5rem;
+		grid-template-columns: repeat(6, 1fr);
 	}
 
-	&__day {
-		flex: 0 0 1;
+	&__month {
 		padding: .375em 0;
 		text-align: center;
-		width: 100%;
-		font-size: var(--font-small);
-		color: var(--color-gray);
-		border-radius: .25rem;
-	}
-	
-	&__date {
-		flex: 0 0 1;
-		padding: .375em 0;
-		text-align: center;
-		width: 100%;
 		font-size: var(--font-small);
 		border-radius: .25rem;
-	
+		cursor: pointer;
 		&:hover {
 			background-color: var(--color-bg);
 		}
-	
 		&--selected {
 			background-color: var(--color-bg);
 		}
-	
-		&--today {
+		&--this-month {
 			color: var(--color-white);
 			background-color: var(--color-primary);
 			&:hover {
 				background-color: var(--color-primary);
 			}
 		}
-	
-		&--hidden {
-			visibility: hidden;
-		}
 	}
-	
-	&__today-button {
-		position: absolute;
-		right: 0;
-		bottom: 0;
-	}
-}
 
+	&__current-button {
+		position: absolute;
+    right: 0;
+    bottom: 0;
+		font-size: var(--font-small);
+		font-weight: var(--weight-bold);
+		padding: var(--size-regular);
+		cursor: pointer;
+	}
+
+}

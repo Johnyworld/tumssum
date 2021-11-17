@@ -35,6 +35,14 @@
   }
 }
 
+@mixin never-drag {
+  -ms-user-select: none; 
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 @mixin content-label {
 	font-weight: var(--weight-bold);
 	color: var(--color-gray_strong);

@@ -8,7 +8,7 @@ import NavigationMenu from '~components/molecules/NavigationMenu';
 import Modal from '~components/layouts/Modal';
 import AccountFormModal from '~components/organisms/AccountFormModal';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
-import { changeMonthNext, changeMonthPrev } from '~stores/dateSlice';
+import { changeMonth, changeMonthNext, changeMonthPrev } from '~stores/dateSlice';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { IconType } from 'types';
 import useAccount from '~hooks/useAccount';
@@ -118,6 +118,8 @@ const HomePage: FunctionalComponent = ({  }) => {
 			<Header>
 				<MonthSelector
 					date={currentDate}
+					today={today}
+					onChange={yyyymm => dispatch(changeMonth(yyyymm))}
 					onPrev={() => dispatch(changeMonthPrev())}
 					onNext={() => dispatch(changeMonthNext())}
 				/>

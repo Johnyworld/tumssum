@@ -1,0 +1,25 @@
+@import '~src/style/mixins';
+
+.picker-header {
+	padding: .5rem;
+	padding-right: 0.25rem;
+
+	@include flex-default('');
+
+	&__arrows {
+		@include flex-default('');
+	}
+
+	&__arrow {
+		font-size: var(--font-small);
+		cursor: pointer;
+		padding: var(--size-small);
+		border-radius: .25rem;
+
+		@include never-drag;
+
+		&:hover {
+			background-color: var(--color-bg);
+		}
+	}
+}

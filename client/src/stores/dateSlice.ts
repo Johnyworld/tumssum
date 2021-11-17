@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getLocalString } from '~utils/calendar';
 import numberUtils from '~utils/numberUtils';
 
@@ -33,6 +33,9 @@ export const dateSlice = createSlice({
   name: 'month',
   initialState,
   reducers: {
+		changeMonth: (state, { payload }: PayloadAction<string>) => {
+			state.currentDate = payload;
+		},
 		changeMonthPrev: (state) => {
 			state.currentDate = getMonth(state.currentDate, -1);
 		},
@@ -41,10 +44,10 @@ export const dateSlice = createSlice({
 		},
 		changeMonthToday: (state) => {
 			state.currentDate = getLocalString();
-		}
+		},
   }
 })
 
-export const { changeMonthNext, changeMonthPrev, changeMonthToday } = dateSlice.actions
+export const { changeMonth, changeMonthNext, changeMonthPrev, changeMonthToday } = dateSlice.actions
 
 export default dateSlice.reducer;

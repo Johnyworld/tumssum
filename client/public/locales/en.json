@@ -26,11 +26,11 @@
   "day_4_long": "Thursday",
   "day_5_long": "Friday",
   "day_6_long": "Saturday",
-  "day_0_short": "Sun",
-  "day_1_short": "Mon",
-  "day_2_short": "Tue",
-  "day_3_short": "Wed",
-  "day_4_short": "Thu",
-  "day_5_short": "Fri",
-  "day_6_short": "Sat"
+  "day_0_short": "sun",
+  "day_1_short": "mon",
+  "day_2_short": "tue",
+  "day_3_short": "wed",
+  "day_4_short": "thu",
+  "day_5_short": "fri",
+  "day_6_short": "sat"
 }

@@ -7,34 +7,41 @@
 	align-items: center;
 	position: relative;
 	height: var(--header-height);
+
+	&__date {
+		@include never-drag;
+		cursor: pointer;
+		position: absolute;
+		left: 0;
+		border-radius: .25rem;
+		transition: .2s;
+		&:hover {
+			background-color: var(--color-dark_weakest);
+		}
+	}
+
+	&__icons {
+		@include flex-default('');
+	}
+
+	&__icon {
+		width: var(--header-height);
+		height: var(--header-height);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+	}
 }
 
-.month-selector-date {
-	position: absolute;
-	left: 0;
-}
-
-.month-selector-icons {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.month-selector-icon {
-	width: var(--header-height);
-	height: var(--header-height);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-}
 
 @include minLaptop {
 	.month-selector {
 		justify-content: center;
-	}
-	.month-selector-date {
-		position: static;
-		padding: 0 2rem;
+		&__date {
+			position: static;
+			padding: 0 1rem;
+			margin: 0 1rem;
+		}
 	}
 }
