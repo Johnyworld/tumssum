@@ -7,6 +7,12 @@
   padding: 0 1rem;
 }
 
+@mixin wrapper-normal {
+  max-width: #{$bp-3};
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
 @mixin wrapper-narrow {
   max-width: #{$bp-2};
   margin: 0 auto;

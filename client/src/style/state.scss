@@ -16,12 +16,11 @@ input[type=number].hide-spin {
 }
 
 .wrap {
-  max-width: 1024px;
-  margin: 0 auto;
+  @include wrapper-normal;
 }
 
 .wrap-narrow {
-  max-width: 400px;
+  @include wrapper-narrow;
 }
 
 .pos-relative {

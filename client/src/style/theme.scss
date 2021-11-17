@@ -79,6 +79,10 @@ $sizes: (
 	.p-#{''+$key} {
 		padding: var(--size-#{$key})
 	}
+	.pv-#{''+$key} {
+		padding-top: var(--size-#{$key});
+		padding-bottom: var(--size-#{$key});
+	}
 	.mv-#{''+$key} {
 		&:not(:first-child) { margin-top: var(--size-#{$key}) }
 		&:not(:last-child) { margin-bottom: var(--size-#{$key}) }
