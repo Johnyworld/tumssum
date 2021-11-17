@@ -22,15 +22,19 @@ from django.views.generic import TemplateView
 from django.views.decorators.cache import cache_control
 from . import views
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-    path('profile/', views.profile, name='profile'),
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
     path('confirm/', views.confirm, name='confirm'),
-    path('profile/<str:id>', views.profileDetail, name='profile-detail'),
+    path('category/', views.category, name='profile'),
+    path('bank/', views.bank, name='profile'),
+    path('settings/', views.settings, name='profile'),
+    path('manage/category', views.category, name='profile'),
+    path('manage/bank', views.bank, name='profile'),
+    path('manage/budget', views.budget, name='profile'),
+    # path('profile/<str:id>', views.profileDetail, name='profile-detail'),
     path('', views.index, name='index'),
     # url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.base.STATIC_ROOT}),
     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.base.STATIC_ROOT}),

@@ -20,9 +20,24 @@ def confirm(request):
     'page_name': 'Tumssum',
   })
 
-def profile(request):
+def settings(request):
   return render(request, 'index.html', {
-    'page_name': 'Profile',
+    'page_name': 'Settings',
+  })
+
+def category(request):
+  return render(request, 'index.html', {
+    'page_name': 'Category',
+  })
+
+def bank(request):
+  return render(request, 'index.html', {
+    'page_name': 'Bank',
+  })
+
+def budget(request):
+  return render(request, 'index.html', {
+    'page_name': 'Budget',
   })
 
 def profileDetail(request, id):
