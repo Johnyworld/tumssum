@@ -6,23 +6,32 @@
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
-		overflow-x: auto;
 		@include wrapper-wide;
 	}
 
 	&__content {
 		flex: 100%;
+		padding-bottom: var(--header-height);
 	}
 
 	&__side {
+		position: sticky;
+		top: calc(var(--header-height) + 1rem);
 		flex: 1 0 auto;
 		display: none;
 		width: 320px;
 		height: 100vh;
+		max-height: calc(100vh - var(--header-height) - 1rem);
+		padding-bottom: var(--header-height);
 		z-index: var(--layer-on);
 		overflow-y: auto;
-		position: relative;
 		padding-left: 1rem;
+
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+		&::-webkit-scrollbar {
+			display: none; /* Chrome, Safari, Opera*/
+		}
 	}
 
 	&__side-inner {
