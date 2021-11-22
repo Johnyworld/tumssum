@@ -20,7 +20,7 @@ export interface GlobalHeaderProps {
 const GlobalHeader: FunctionalComponent<GlobalHeaderProps> = ({ currentPage, menus }) => {
 	return (
 		<header class='global-header'>
-			<Logo  />
+			<Logo href='/' />
 			<nav class='global-header__nav'>
 				{ menus.map(menu => {
 					const component =

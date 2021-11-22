@@ -1,12 +1,20 @@
 @import '~src/style/mixins';
 
+@mixin hide-text {
+	width: 32px;
+	height: 32px;
+	.icon-text__text {
+		display: none;
+	}	
+}
+
 .navigation-menu {
 	display: flex;
 	align-items: center;
 	justify-items: flex-start;
 	gap: .5rem;
 
-	&--hide-text {
+	&--hide-text-always {
 		gap: 0;
 	}
 
@@ -22,18 +30,27 @@
 		&:hover {
 			background-color: var(--color-dark_weakest);
 		}
+
+		&--hide-text-always {
+			@include hide-text;
+		}
 	}
 }
 
 @include maxMobile {
-	.navigation-menu {
-		&__item {
-			width: 44px;	
-			height: 44px;
-		}
-		.icon-text__text {
-			display: none;
-		}
+	.navigation-menu--hide-text-max-mobile {
+		gap: 0;
+	}
+	.navigation-menu__item--hide-text-max-mobile {
+		@include hide-text;
 	}
 }
 
+@include maxTablet {
+	.navigation-menu--hide-text-max-mobile {
+		gap: 0;
+	}
+	.navigation-menu__item--hide-text-max-tablet {
+		@include hide-text;
+	}
+}

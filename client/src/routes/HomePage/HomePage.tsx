@@ -132,6 +132,7 @@ const HomePage: FunctionalComponent = ({  }) => {
 							<NavigationMenu
 								selected={view}
 								onChange={handleChangeView}
+								hideText='max-mobile'
 								list={MENUS}
 							/>
 							<div class='flex gap-regular'>
