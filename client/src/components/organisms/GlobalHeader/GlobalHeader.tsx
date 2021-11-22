@@ -29,7 +29,6 @@ const GlobalHeader: FunctionalComponent<GlobalHeaderProps> = ({ currentPage, men
 								icon={menu.icon}
 								text={menu.text}
 								bold
-								isHideTextForMobile
 								color={currentPage === menu.id ? 'pen' : 'gray'}
 							/>
 						</div>

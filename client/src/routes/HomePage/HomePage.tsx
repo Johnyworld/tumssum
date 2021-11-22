@@ -128,14 +128,14 @@ const HomePage: FunctionalComponent = ({  }) => {
 			<div class='home-page__container'>
 				<section class='home-page__content'>
 					<Card style={{ paddingBottom: '1rem' }} padding='none' class='overflow-hidden'>
-						<div class='flex p-regular'>
+						<div class='home-page__board'>
 							<NavigationMenu
 								selected={view}
 								onChange={handleChangeView}
 								list={MENUS}
 							/>
 							<div class='flex gap-regular'>
-								<IconText text='Download' icon='download' isHideTextForMobile onClick={toggleTSVModal.handleOn} />
+								<IconText text='Download' icon='download' onClick={toggleTSVModal.handleOn} />
 								{/* <p class='pointer' onClick={() => dispatch(changeMonthToday())} >Today</p> */}
 								<Button class='hide-mobile' size='small' onClick={handleOpenCreateModal} children='+ 새로 추가' />
 							</div>

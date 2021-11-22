@@ -50,5 +50,9 @@
 		&__group .management-list__icon {
 			opacity: 1;
 		}
+
+		&__container {
+			grid-template-columns: 1fr;
+		}
 	}
 }

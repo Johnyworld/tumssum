@@ -1,8 +1,7 @@
 @import '~src/style/mixins';
 
 .header {
-	display: flex;
-	align-items: center;
+	@include flex-default('center');
 	box-sizing: content-box;
 	width: 100%;
 	height: var(--header-height);
@@ -15,6 +14,10 @@
 
 	&__hamburger {
 		display: none;
+	}
+
+	&__title {
+		text-align: center;
 	}
 }
 

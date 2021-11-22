@@ -12,6 +12,12 @@
 	&__content {
 		flex: 100%;
 		padding-bottom: var(--header-height);
+		overflow: hidden;
+	}
+
+	&__board {
+		@include flex-default('');
+		padding: 1rem;
 	}
 
 	&__side {
@@ -48,6 +54,17 @@
 		top: 0;
 		left: 0;
 		cursor: ew-resize;
+	}
+}
+
+@include maxMobile {
+	.home-page {
+		&__board {
+			padding: .5rem;
+			.icon-text__text {
+				display: none;
+			}
+		}
 	}
 }
 

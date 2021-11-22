@@ -12,7 +12,7 @@
 		@include never-drag;
 		cursor: pointer;
 		position: absolute;
-		left: 0;
+		left: 1rem;
 		border-radius: .25rem;
 		transition: .2s;
 		&:hover {

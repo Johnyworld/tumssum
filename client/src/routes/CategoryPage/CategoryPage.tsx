@@ -5,7 +5,6 @@ import Header from '~components/layouts/Header';
 import useCategory from '~hooks/useCategory';
 import useDrag from '~hooks/useDrag';
 import { useSelector } from '~utils/redux/hooks';
-import Indicator from '~components/layouts/Indicator';
 import useDetails from '~hooks/useSelectItem';
 import ManagementList from '~components/molecules/ManagementList';
 import Modal from '~components/layouts/Modal';

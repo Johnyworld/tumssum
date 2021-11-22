@@ -10,24 +10,22 @@ import './NavigationMenu.scss';
 export interface NavigationMenuProps<S> extends DefaultProps {
 	list: NavigationMenuItem<S>[];
 	selected?: S;
-	hideText?: 'always' | 'max-mobile' | 'max-tablet';
 	onChange?: (selected: S) => void;
 }
 
-const NavigationMenu = <S extends string>({ class: className, list, selected, hideText, onChange }: NavigationMenuProps<S>) => {
+const NavigationMenu = <S extends string>({ class: className, list, selected, onChange }: NavigationMenuProps<S>) => {
 	return (
-		<nav class={c( 'navigation-menu', className, [hideText, `&--hide-text`] )} >
+		<nav class={c( 'navigation-menu', className )} >
 			{ list.map(item => {
 				const isSelected = selected === item.id;
 				const content
-					= <div class={c('navigation-menu__item', [hideText, `&--hide-text-${hideText}`])} onClick={onChange ? () => onChange(item.id) : undefined}>
+					= <div class={c('navigation-menu__item')} onClick={onChange ? () => onChange(item.id) : undefined}>
 							<IconText
 								icon={item.icon}
 								text={item.text}
 								textSize='tiny'
 								direction='column'
 								bold
-								isHideTextForMobile
 								color={isSelected ? 'pen' : 'gray'}
 							/>
 						</div>
