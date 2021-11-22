@@ -38,7 +38,7 @@ const LoginPage: FunctionalComponent = () => {
 
 
   return (
-    <form class='page-login auth-page t-center wrap wrap-narrow' onSubmit={handleSubmit}>
+    <form class='auth-pages' onSubmit={handleSubmit}>
       <AuthLogo />
       <div class='mv-big gap-mv-regular'>
         <h3 class='c-pencel'>{t('auth_word_login')}</h3>

@@ -14,10 +14,12 @@
 }
 
 @mixin wrapper-narrow {
-  max-width: #{$bp-2};
+  max-width: #{$bp-1};
   margin: 0 auto;
   padding: 0 1rem;
 }
+
+
 
 @mixin ellipsis {
   white-space: nowrap;

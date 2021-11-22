@@ -35,7 +35,7 @@ const RegisterPage = () => {
 
 
   return (
-    <form class='page-register auth-page t-center wrap wrap-narrow' onSubmit={handleSubmit}>
+    <form class='auth-pages' onSubmit={handleSubmit}>
       <AuthLogo />
       <div class='gap-mv-regular mv-big'>
         <h3 class='c-pencel'>{t('auth_word_register')}</h3>

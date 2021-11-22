@@ -1,12 +1,13 @@
 @import "~src/style/mixins";
 
-
-.auth-page {
+.auth-pages {
+	@include wrapper-narrow;
 	padding-top: 10rem;
+	text-align: center;
 }
 
 @include maxTablet {
-	.auth-page {
+	.auth-pages {
 		padding-top: 3rem;
 	}
 }

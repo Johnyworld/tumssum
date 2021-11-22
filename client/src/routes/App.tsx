@@ -25,7 +25,8 @@ const App: FunctionalComponent = () => {
 
       { !userInfo &&
         <Router>
-          <Route path="/" component={IntroPage} />
+          {/* <Route path="/" component={IntroPage} /> */}
+          <Route path="/" component={LoginPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/confirm" component={ConfirmToken} />
