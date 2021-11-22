@@ -1,4 +1,4 @@
-import { h, FunctionalComponent } from 'preact';
+import { h } from 'preact';
 import { Link } from 'preact-router';
 import { DefaultProps } from 'types';
 import { NavigationMenuItem } from '~hooks/useNavigationMenu';
