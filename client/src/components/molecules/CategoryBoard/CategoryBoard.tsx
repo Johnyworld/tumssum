@@ -5,7 +5,7 @@ import { grabbingData } from '~hooks/useDrag';
 import AccountItem from '../AccountItem';
 import './CategoryBoard.scss';
 
-interface CategoryBoardProps {
+export interface CategoryBoardProps {
 	categoriesCombined: CategoryGroup[];
 	data: Account[];
 	grabbing?: grabbingData<Account> | null;

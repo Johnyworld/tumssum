@@ -4,7 +4,7 @@ import PieGraph from '~components/atoms/PieGraph';
 import AccordionTable from '~components/molecules/AccordionTable';
 import NavigationMenu from '~components/molecules/NavigationMenu';
 import useNavigationMenu from '~hooks/useNavigationMenu';
-import { StatisticsItems } from '~routes/HomePage/Statistics';
+import { StatisticsItems } from '~pages/HomePage/Statistics';
 import './CategoryStatistics.scss';
 
 export interface StatisticsProps {

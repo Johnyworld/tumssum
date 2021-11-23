@@ -3,9 +3,9 @@ import { Route, Router } from 'preact-router';
 import { useSelector } from '~utils/redux/hooks'
 
 import IntroPage from './IntroPage';
-import LoginPage from '~routes/LoginPage';
-import RegisterPage from '~routes/RegisterPage';
-import ConfirmToken from '~routes/ConfirmTokenPage/ConfirmTokenPage';
+import LoginPage from '~pages/LoginPage';
+import RegisterPage from '~pages/RegisterPage';
+import ConfirmToken from '~pages/ConfirmTokenPage/ConfirmTokenPage';
 import FullLoader from '../components/molecules/FullLoader';
 import AppLoggedInRouter from './AppLoggedInRouter';
 import Redirect from './Redirect';
