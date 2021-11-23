@@ -1,5 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
-import { Account, CategoryGroup, Vec2 } from 'types';
+import { memo } from 'preact/compat';
+import { Account, CategoryGroup } from 'types';
 import BoardItem from '~components/atoms/BoardItem';
 import { grabbingData } from '~hooks/useDrag';
 import AccountItem from '../AccountItem';
@@ -9,7 +10,6 @@ export interface CategoryBoardProps {
 	categoriesCombined: CategoryGroup[];
 	data: Account[];
 	grabbing?: grabbingData<Account> | null;
-	grabbingPos?: Vec2 | null;
 	onGrap?: (data: Account) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onDropToUpdate?: (categoryId: number | null, categoryTitle: string) => h.JSX.MouseEventHandler<HTMLDivElement>;
 	onDrop?: () => void;
@@ -49,7 +49,7 @@ export const getAccountsByCategories = (accounts: Account[], categoriesCombined:
 }
 
 
-const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesCombined, data, grabbing, grabbingPos, onGrap, onDropToUpdate, onDrop, onDragging, onClick, onClickPlus }) => {
+const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesCombined, data, grabbing, onGrap, onDropToUpdate, onDrop, onDragging, onClick, onClickPlus }) => {
 
 	const { noCategory, accountsByCategories } = getAccountsByCategories(data, categoriesCombined);
 
@@ -106,17 +106,8 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 					</div>
 				))}
 			</div>
-
-			{ grabbing && grabbingPos &&
-				<AccountItem
-					title={grabbing.data.title}
-					amount={grabbing.data.account}
-					class='calendar__grabbing'
-					style={{ left: grabbingPos.x, top: grabbingPos.y, width: grabbing.width, height: grabbing.height }} 
-				/>
-			}
 		</div>
 	)
 }
 
-export default CategoryBoard;
+export default memo(CategoryBoard);

@@ -22,6 +22,7 @@ import AccountPickerModal from '~components/organisms/AccountPickerModal';
 import useConfirm from '~hooks/useConfirm';
 import { NavigationMenuProps } from '~components/molecules/NavigationMenu/NavigationMenu';
 import { NavigationMenuItem } from '~hooks/useNavigationMenu';
+import AccountItem from '~components/molecules/AccountItem';
 
 type AccountManagerMenuType = 'calendar' | 'category' | 'list';
 
@@ -33,7 +34,7 @@ const MENUS = [
 
 const AccountManagerContainer: FunctionalComponent = ({  }) => {
 
-	const { currentDate, today } = useSelector(state=> state.date);
+	const { currentDate } = useSelector(state=> state.date);
 	const { accounts } = useSelector(state=> state.account);
 	const { categories, categoryGroups } = useSelector(state=> state.category);
 	const { banks, bankGroups } = useSelector(state=> state.bank);
@@ -104,7 +105,6 @@ const AccountManagerContainer: FunctionalComponent = ({  }) => {
 		list: MENUS,
 	}
 
-
 	return (
 		<Fragment>
 			<Card style={{ paddingBottom: '1rem' }} padding='none' class='overflow-hidden'>
@@ -120,10 +120,8 @@ const AccountManagerContainer: FunctionalComponent = ({  }) => {
 				{ view === 'calendar' &&
 					<Calendar
 						date={currentDate}
-						today={today}
 						data={accounts}
 						grabbing={grabbing}
-						grabbingPos={grabbingPos}
 						onGrap={handleGrap}
 						onDropToUpdate={handleDropToUpdateDate}
 						onDragging={handleDragging}
@@ -137,7 +135,6 @@ const AccountManagerContainer: FunctionalComponent = ({  }) => {
 						categoriesCombined={categoriesCombined}
 						data={accountsThisMonth}
 						grabbing={grabbing}
-						grabbingPos={grabbingPos}
 						onGrap={handleGrap}
 						onDrop={handleDrop}
 						onDropToUpdate={handleDropToUpdateCategory}
@@ -157,6 +154,15 @@ const AccountManagerContainer: FunctionalComponent = ({  }) => {
 					/>
 				}
 			</Card>
+
+			{ grabbing && grabbingPos &&
+				<AccountItem
+					title={grabbing.data.title}
+					amount={grabbing.data.account}
+					class='calendar__grabbing'
+					style={{ left: grabbingPos.x, top: grabbingPos.y, width: grabbing.width, height: grabbing.height }} 
+				/>
+			}
 
 			<Modal
 				isOpen={isOpenCreateModal}
