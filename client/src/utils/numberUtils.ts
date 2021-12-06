@@ -1,5 +1,10 @@
+const option = {
+  maximumFractionDigits: 4
+};
+
 const getNumberWithComma = (value: number) => {
-	return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	return value.toLocaleString('en-US', option);
+	// return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
 
 const getZeroNumber = (value: number) => {
