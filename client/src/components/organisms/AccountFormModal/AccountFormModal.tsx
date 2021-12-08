@@ -134,7 +134,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 						onChange={setMode}
 						list={[
 							{ id: 'WRITE', icon: 'pencel' },
-							{ id: 'SEND', icon: 'arrowRight' },
+							{ id: 'SEND', icon: 'storage' },
 						]}
 					/>
 				</div>
@@ -144,7 +144,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 				<Modal.Content padding class='gap-mv-big'>
 
 					{ mode === 'SEND' && isCreateMode &&
-						<div style={{ height: '34px' }} />
+						<h3 style={{ lineHeight: '34px' }}>다른 뱅크로 금액을 보냅니다.</h3>
 					}
 
 					{ mode === 'WRITE' &&
