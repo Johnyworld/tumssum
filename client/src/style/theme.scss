@@ -19,8 +19,8 @@ $light-theme: (
 	gray: #C0C4C8,
 	gray_weak: #E5E6EA,
 	gray_weaker: #efeff7,
-	bright_weakest: rgba(245, 235, 255, 0.05),
-	dark_weakest: rgba(10, 0, 20, 0.05),
+	bright_weakest: rgba(250, 252, 255, 0.05),
+	dark_weakest: rgba(7, 9, 10, 0.05),
 	dim: rgba(255, 255, 255, 0.3),
 );
 
@@ -37,8 +37,8 @@ $dark-theme: (
 	gray: #4d5154,
 	gray_weak: #37383b,
 	gray_weaker: #262729,
-	bright_weakest: rgba(10, 0, 20, 0.05),
-	dark_weakest: rgba(245, 235, 255, 0.05),
+	bright_weakest: rgba(255, 255, 255, 0.03),
+	dark_weakest: rgba(0, 0, 0, 0.08),
 	dim: rgba(0, 0, 0, 0.7),
 );
 
@@ -162,7 +162,7 @@ $sizes: (
 
 [data-theme="dark"] {
 
-	--shadow-small: 0 2px 2px rgba(0, 0, 0, 0.4);
+	--shadow-small: 0 2px 2px rgba(0, 0, 0, 0.2);
 
 	@each $key, $value in $dark-theme {
 		#{"--color-" + $key}: #{$value};

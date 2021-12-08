@@ -26,28 +26,11 @@
 }
 
 .content-label {
-	font-weight: var(--weight-bold);
-	color: var(--color-gray_strong);
-  padding: .5em 0;
-	min-width: 150px;	
+	@include content-label;
 }
 
 .content-box {
-	min-height: 1em;
-  line-height: 1.4;
-  border-radius: .25em;
-	padding: .5em .75em;
-  cursor: pointer;
-	white-space: pre-wrap;
-
-	&:hover {
-		background-color: var(--color-dark_weakest);
-	}
-
-	&:focus {
-		background-color: var(--color-dark_weakest);
-		box-shadow: var(--shadow-large);
-	}
+	@include content-box;
 }
 
 select.content-box {

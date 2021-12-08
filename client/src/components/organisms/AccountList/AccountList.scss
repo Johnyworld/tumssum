@@ -16,7 +16,7 @@
 
 			tr:hover {
 				td {
-					background-color: var(--color-bg_weak);
+					background-color: var(--color-dark_weakest);
 				}
 
 				.account-list__edit-icon {
@@ -43,6 +43,17 @@
 						-moz-text-align-last: center;
 					}
 				}
+
+				.date-input__content,
+				.date-input__content,
+				.content-editable,
+				.content-box {
+					&:hover:not(:focus) {
+						background-color: var(--color-dark_weakest);
+					}
+				}
+
+
 
 				
 			}

@@ -1,6 +1,6 @@
 @import "./variables";
 
-
+// ================= Wrapper =================
 @mixin wrapper-wide {
   max-width: #{$bp-6};
   margin: 0 auto;
@@ -20,13 +20,7 @@
 }
 
 
-
-@mixin ellipsis {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
+// ================= Flex =================
 @mixin flex-default($style) {
   @if $style == 'center' {
     display: flex;
@@ -36,6 +30,10 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+  } @else if $style == 'v-center' {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   } @else {
     display: flex;
     justify-content: space-between;
@@ -43,37 +41,19 @@
   }
 }
 
+
+// ================= Event =================
 @mixin never-drag {
-  -ms-user-select: none; 
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
+  -webkit-touch-callout: none;
   -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 
-@mixin content-label {
-	font-weight: var(--weight-bold);
-	color: var(--color-gray_strong);
-  padding: .5em 0;
-	min-width: 150px;
-}
 
-@mixin content-box {
-  min-height: 1em;
-  line-height: 1.4;
-  border-radius: .25em;
-  padding: .5em .75em;
-  cursor: pointer;
-  white-space: pre-wrap;
-  &:hover {
-    background-color: var(--color-dark_weakest);
-  }
-  &:focus {
-    background-color: var(--color-dark_weakest);
-    box-shadow: var(--shadow-large);
-  }
-}
-
+// ================= Layout =================
 @mixin gap($size) {
   > * {
     &:not(:first-child) { margin-top: #{$size} }
@@ -82,6 +62,39 @@
 }
 
 
+// ================= Image =================
+@mixin image-base {
+  background-size: cover;
+	background-position: center;
+	background-color: var(--color-gray_weaker);
+}
+
+
+// ================= Scroll =================
+@mixin hide-scroll {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@mixin scroll-y {
+  overflow-y: auto;
+  overflow-x: hidden;
+  touch-action: pan-y;
+}
+
+
+// ================= Text =================
+@mixin ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+// ================= Break point =================
 @mixin minMobile {
   @media (min-width: #{$bp-1}) {
     @content;
@@ -130,3 +143,27 @@
   }
 }
 
+
+// ================= Custom =================
+@mixin content-label {
+	font-weight: var(--weight-bold);
+	color: var(--color-gray_strong);
+  padding: .5em 0;
+	min-width: 150px;
+}
+
+@mixin content-box {
+  min-height: 1em;
+  line-height: 1.4;
+  border-radius: .25em;
+  padding: .5em .75em;
+  cursor: pointer;
+  white-space: pre-wrap;
+  &:hover {
+    background-color: var(--color-bright_weakest);
+  }
+  &:focus {
+    background-color: var(--color-bright_weakest);
+    box-shadow: var(--shadow-large);
+  }
+}
