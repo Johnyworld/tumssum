@@ -5,7 +5,6 @@ from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
 from .utils import checkAndCreateBank
 import json
-import requests
 
 def putAccount(request):
   
@@ -16,9 +15,11 @@ def putAccount(request):
   account = reqData.get('account')
   user_id = reqData.get('user_id')
   bank_id = reqData.get('bank_id')
+  to_id = reqData.get('to')
   datetime = reqData.get('datetime')
 
   new_month_id = None
+  new_to_id = None
   months = None
 
   accountData = get_object_or_404(Account, pk=account_id)
@@ -32,6 +33,9 @@ def putAccount(request):
     if (bank_id):
       # Bank ID 가 Request 에서 넘어왔다면, Bank를 새로 연결하는 것이다. Bank와 연결 된 새로운 Month를 생성한다.
       new_month_id = checkAndCreateBank(user_id, bank_id, datetime, account, headers)
+
+      if (to_id):
+        new_to_id = checkAndCreateBank(user_id, to_id, datetime, -account, headers)
 
   else:
     # 이미 Bank 와 연결 된 Month 데이터가 있는 경우, 기존 Month 데이터를 지우고 새로운 Month 데이터를 연결해야 한다.
@@ -47,6 +51,7 @@ def putAccount(request):
       # Bank 를 변경하거나 Datetime 의 달을 변경하는 경우이다.
       month.expenditure = month.expenditure - accountData.account # 기존 Month
       new_month_id = checkAndCreateBank(user_id, bank_id, datetime, account, headers) # 새로운 Month
+      new_to_id = checkAndCreateBank(user_id, to_id, datetime, -account, headers) # 새로운 Month
 
     else: # 아무것도 하지 않거나 Account 만 변경하는 경우
       month.expenditure = month.expenditure + expenditureGap
@@ -55,6 +60,10 @@ def putAccount(request):
 
   if new_month_id != None:
     accountData.month_id = new_month_id
+
+  if new_to_id != None:
+    accountData.to = new_month_id
+  
 
   # ==== MONTH LINK END ====
 

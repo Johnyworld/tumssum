@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { memo } from 'preact/compat';
-import { Account } from 'types';
+import { Account, Bank } from 'types';
 import BoardItem from '~components/atoms/BoardItem';
 import { grabbingData } from '~hooks/useDrag';
 import { combineCalendarWithData, getCalendar } from '~utils/calendar';
@@ -10,6 +10,7 @@ import './Calendar.scss';
 export interface CalendarProps {
 	date: string;
 	data?: Account[];
+	banks: Bank[]
 	grabbing?: grabbingData<Account> | null;
 	onGrap?: (data: Account) => (e: h.JSX.TargetedMouseEvent<HTMLDivElement>) => void;
 	onDropToUpdate?: (date: string) => h.JSX.MouseEventHandler<HTMLDivElement>;
@@ -18,7 +19,7 @@ export interface CalendarProps {
 	onClickPlus?: (date: string) => () => void;
 }
 
-const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grabbing, onGrap, onDropToUpdate, onDragging, onClick, onClickPlus }) => {
+const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, banks, grabbing, onGrap, onDropToUpdate, onDragging, onClick, onClickPlus }) => {
 
 	const then = new Date(date);
 	const calendar = getCalendar(then.getFullYear(), then.getMonth());
@@ -49,7 +50,7 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, grabbing, on
 									onClickPlus={onClickPlus && onClickPlus(col.date)}
 									children={ col.data && col.data.map(item => (
 										<AccountItem
-											title={item.title}
+											title={item.to ? (item.bank_title || '📤') + ' ➡ ' + (banks.find(bank => bank.id === item.to)?.title || '📥') : item.title}
 											amount={item.account}
 											onClick={onClick && onClick(item)}
 											onMouseDown={onGrap ? onGrap(item) : undefined}

@@ -105,7 +105,7 @@ export default ({ grabbing, handleDrop }: UseAccount) => {
 
 	const handleCreateAccount = useCallback((accountData: Account) => {
 		if (postAccount.loading) return;
-		const { id, title, account, datetime, category, bank, memo } = accountData;
+		const { id, title, account, datetime, category, bank, to, memo } = accountData;
 		postAccount.call({
 			account_id: id,
 			title,
@@ -113,6 +113,7 @@ export default ({ grabbing, handleDrop }: UseAccount) => {
 			datetime,
 			category_id: category,
 			bank_id: bank,
+			to,
 			memo,
 		})
 	}, [postAccount.loading]);
@@ -147,7 +148,7 @@ export default ({ grabbing, handleDrop }: UseAccount) => {
 
 	const handleUpdateAccount = useCallback((accountData: Account) => {
 		if (putAccount.loading) return;
-		const { id, title, account, datetime, category, bank, memo } = accountData;
+		const { id, title, account, datetime, category, bank, to, memo } = accountData;
 		if (!id) return;
 		putAccount.call({
 			account_id: id,
@@ -156,6 +157,7 @@ export default ({ grabbing, handleDrop }: UseAccount) => {
 			datetime,
 			category_id: category,
 			bank_id: bank,
+			to,
 			memo,
 		})
 	}, [putAccount.loading])

@@ -92,6 +92,7 @@ class Account(models.Model):
   title = models.CharField(max_length=40)
   account = models.IntegerField()
   datetime = models.CharField(max_length=40)
+  to = models.IntegerField(blank=True, null=True)
   # Required Relations
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   # Not Require fields

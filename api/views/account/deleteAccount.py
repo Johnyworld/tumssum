@@ -1,7 +1,7 @@
 from api.views.month.utils import getNewMonths
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
-from api.models import Account, Month
+from api.models import Account, Bank, Month
 import json
 
 
@@ -22,6 +22,10 @@ def deleteAccount(request):
     month.expenditure = month.expenditure - accountData.account
     month.save()
 
+    if (accountData.to != None):
+      toMonth = Month.objects.get(user_id=user_id, bank_id=accountData.to, date=accountData.datetime[:7])
+      toMonth.expenditure = toMonth.expenditure + accountData.account
+      toMonth.save()
 
   if accountData.bank_id:
     months = getNewMonths(
@@ -30,6 +34,7 @@ def deleteAccount(request):
       accountData.datetime[:7],
       headers,
     )
+
 
   accountData.delete()
 

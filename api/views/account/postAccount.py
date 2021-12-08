@@ -19,27 +19,50 @@ def postAccount(request):
   location = reqData.get('location') # Not Required
   category_id = reqData.get('category_id') # Not Required
   bank_id = reqData.get('bank_id') # Not Required
+  to_id = reqData.get('to') # Not Required
   month = None
   months = None
+  toMonth = None
+
+  print('-- to_id:' ,to_id)
 
   if (bank_id != None):
     yyyymm = datetime[:7]
     try:
+      # Modify
+      print('Mod')
       month = Month.objects.get(bank_id=bank_id, date=yyyymm)
-      month.expenditure = month.expenditure + account;
+      month.expenditure = month.expenditure + account
       month.save()
+      if (to_id != None):
+        print('hello')
+        toMonth = Month.objects.get(bank_id=to_id, date=yyyymm)
+        print(toMonth)
+        toMonth.expenditure = toMonth.expenditure - account
+        toMonth.save()
     except:
+      # New
+      print('New')
       data = {
         'user_id': user_id,
         'bank_id': bank_id,
         'date': yyyymm,
         'expenditure': account,
       }
+      toData = {
+        'user_id': user_id,
+        'bank_id': to_id,
+        'date': yyyymm,
+        'expenditure': -account,
+      }
       requests.post("http://127.0.0.1:8000/api/month/", json=data, headers=headers)
+      requests.post("http://127.0.0.1:8000/api/month/", json=toData, headers=headers)
       month = Month.objects.get(bank_id=bank_id, date=yyyymm)
+      toMonth = Month.objects.get(bank_id=to_id, date=yyyymm)
 
     months = getNewMonths( user_id, bank_id, yyyymm, headers )
 
+  print('--' ,toMonth)
 
   newAccount = Account(
     title = title,
@@ -50,6 +73,7 @@ def postAccount(request):
     location = location if location != None else '',
     category_id = category_id,
     bank_id = bank_id,
+    to = to_id if toMonth != None else None,
     month_id = month.id if month != None else None,
   )
 

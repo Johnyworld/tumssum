@@ -16,11 +16,11 @@ def patchAccount(request):
   user_id = reqData.get('user_id')
   bank_id = reqData.get('bank_id')
   datetime = reqData.get('datetime')
-  print('=== datetime', datetime)
 
   accountData = get_object_or_404(Account, pk=account_id)
 
   new_month_id = None
+  new_to_id = None
   months = None
 
   if (accountData.month_id == None):
@@ -48,6 +48,18 @@ def patchAccount(request):
           accountData.account,
           headers
         )
+        if (accountData.to != None):
+          print('###', accountData.to)
+          toMonth = Month.objects.get(user_id=user_id, bank_id=accountData.to, date=accountData.datetime[:7])
+          toMonth.expenditure = toMonth.expenditure + accountData.account
+          toMonth.save()
+          new_to_id = checkAndCreateBank(
+            user_id,
+            accountData.to,
+            datetime,
+            -accountData.account,
+            headers
+          )
 
     elif (account):
       expenditureGap = account - accountData.account
@@ -66,6 +78,13 @@ def patchAccount(request):
       headers,
     )
 
+  if new_to_id != None:
+    months = months + getNewMonths(
+      user_id, 
+      accountData.to,
+      datetime[:7] if datetime != None else accountData.datetime,
+      headers,
+    )
 
   if new_month_id != None:
     accountData.month_id = new_month_id
@@ -76,10 +95,7 @@ def patchAccount(request):
   if bank_id == 0:
     accountData.bank_id = None 
 
-  print('=== accountData', accountData.datetime)
-
   accountData.save()
-
 
   data = {
     'account': AccountSerializer(accountData, many=False).data,

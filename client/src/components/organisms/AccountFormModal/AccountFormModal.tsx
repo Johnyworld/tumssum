@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
-import { useCallback, useMemo, useState } from 'preact/hooks';
+import { useCallback, useEffect, useMemo, useState } from 'preact/hooks';
 import { Account, BankGroup, CategoryGroup } from 'types';
 import Button from '~components/atoms/Button';
 import ContentEditable from '~components/atoms/ContentEditable';
@@ -13,6 +13,9 @@ import { getLocalString } from '~utils/calendar';
 import { ConfirmFunction } from '~hooks/useConfirm';
 import DateContent from '~features/DateContent';
 import TimeContent from '~features/TimeContent';
+import './AccountFormModal.scss';
+import NavigationMenu from '~components/molecules/NavigationMenu';
+import useToast from '~hooks/useToast';
 
 export interface AccountFormModalProps {
 	currentDate: string;
@@ -20,14 +23,18 @@ export interface AccountFormModalProps {
 	categoriesCombined: CategoryGroup[];
 	banksCombined: BankGroup[];
 	confirm: ConfirmFunction;
+	isCreateMode?: boolean;
 	onConfirm: (account: Account) => void;
 	onDelete?: (id: number) => h.JSX.MouseEventHandler<HTMLParagraphElement>;
 	onClose: () => void;
 }
 
-const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentDate, initialValues, categoriesCombined, banksCombined, confirm, onConfirm, onDelete, onClose }) => {
+type Mode = 'WRITE' | 'SEND';
+
+const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentDate, initialValues, categoriesCombined, banksCombined, confirm, isCreateMode, onConfirm, onDelete, onClose }) => {
 
 	const { t } = useTranslation();
+	const toast = useToast();
 	const today = getLocalString();
 
 	const initV = useMemo(() => { return {
@@ -38,8 +45,10 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 		memo: initialValues?.memo || '',
 		category: initialValues?.category || '',
 		bank: initialValues?.bank || '',
+		to: initialValues?.to || '',
 	}}, [initialValues]);
 
+	const [ mode, setMode ] = useState<Mode>(initialValues?.to ? 'SEND' : 'WRITE');
 	const [ title, changeTitle ] = useContentEditable(initV.title);
 	const [amount, ___, setAmmount] = useInput(initV.amount);
 	const [isIncome, setIsIncome] = useState(initialValues?.account ? !(initialValues.account < 0) : false);
@@ -48,6 +57,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 	const [ memo, changeMemo ] = useContentEditable(initV.memo);
 	const [ category, setCategory ] = useState<number|string>(initV.category);
 	const [ bank, setBank ] = useState<number|string>(initV.bank);
+	const [ to, setTo ] = useState<number|string>(initV.to);
 
 
 	const handleChangeCategory: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
@@ -56,6 +66,10 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 
 	const handleChangeBank: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
 		setBank(e.currentTarget.value);
+	}, [category])
+
+	const handleChangeTo: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
+		setTo(e.currentTarget.value);
 	}, [category])
 
 	const handleChangeIsIncome = useCallback((value: boolean) => {
@@ -69,14 +83,19 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 		const theTime = time ? 'T' + time : '';
 		const then = new Date(theDate + theTime);
 		const datetime = time ? then.toISOString() : then.toISOString().substr(0, 10);
+		if (mode === 'SEND' && (!bank || !to)) {
+			toast('받는 곳과 보내는 곳을 선택해주세요!', 'red');
+			return;
+		}
 		onConfirm({
 			id: initialValues?.id,
-			title,
+			title: mode === 'WRITE' ? title : '',
 			account: isIncome ? +amount : -amount,
 			datetime,
 			memo,
-			category: +category || null,
+			category: mode === 'WRITE' ? +category || null : null,
 			bank: +bank || null,
+			to: mode === 'SEND' ? +to || null : null,
 		} as Account);
 	}
 
@@ -88,7 +107,8 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 			time !== initV.time ||
 			memo !== initV.memo ||
 			category !== initV.category ||
-			bank !== initV.bank
+			bank !== initV.bank ||
+			to !== initV.to
 		) {
 			confirm('저장되지 않은 변경사항이 있네요!\n저장하지 않고 창을 닫으시겠어요?', () => {
 				onClose();
@@ -97,19 +117,48 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 		else onClose();
 	}
 
+	useEffect(() => {
+		if (mode === 'SEND') {
+			setIsIncome(false);
+		}
+	}, [mode]);
+
 	return (
 		<Modal.Container onClose={handleClose}>
-			<form onSubmit={handleSubmit}>
-				<Modal.Content padding class='gap-mv-regular'>
-					<ContentEditable
-						value={title}
-						size='large'
-						weight='bold'
-						styleType='transparent'
-						isOneLine
-						placeholder='제목을 입력하세요.'
-						onChange={changeTitle}
+
+			{ isCreateMode &&
+				<div class='account-form__menu-wrap'>
+					<NavigationMenu
+						selected={mode}
+						hideText='always'
+						onChange={setMode}
+						list={[
+							{ id: 'WRITE', icon: 'pencel' },
+							{ id: 'SEND', icon: 'arrowRight' },
+						]}
 					/>
+				</div>
+			}
+
+			<form onSubmit={handleSubmit}>
+				<Modal.Content padding class='gap-mv-big'>
+
+					{ mode === 'SEND' && isCreateMode &&
+						<div style={{ height: '34px' }} />
+					}
+
+					{ mode === 'WRITE' &&
+						<ContentEditable
+							value={title}
+							size='large'
+							weight='bold'
+							styleType='transparent'
+							isOneLine
+							placeholder='제목을 입력하세요.'
+							onChange={changeTitle}
+						/>
+					}
+
 					<div class='gap-mv-tiny'>
 						<LabeledContentEditable
 							value={amount}
@@ -120,24 +169,28 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 							placeholder='비어있음'
 							isNumberNegative={!isIncome}
 							onChange={setAmmount}
-							onChangeNumberNegative={handleChangeIsIncome}
+							onChangeNumberNegative={mode === 'WRITE' ? handleChangeIsIncome : undefined}
 						/>
-						<Dropdown
-							list={[
-								...categoriesCombined.map(group => { return {
-									id: group.id,
-									text: group.title || '이름 없음',
-									children: group.items.map(category => { return {
-										id: category.id,
-										text: category.title,
-									}})
-								}}),
-							]}
-							label='카테고리'
-							placeholder='미분류'
-							selected={category}
-							onChange={handleChangeCategory}
-						/>
+
+						{ mode === 'WRITE' &&
+							<Dropdown
+								list={[
+									...categoriesCombined.map(group => { return {
+										id: group.id,
+										text: group.title || '이름 없음',
+										children: group.items.map(category => { return {
+											id: category.id,
+											text: category.title,
+										}})
+									}}),
+								]}
+								label='카테고리'
+								placeholder='미분류'
+								selected={category}
+								onChange={handleChangeCategory}
+							/>
+						}
+
 						<Dropdown
 							list={[
 								...banksCombined.map(group => { return {
@@ -149,11 +202,30 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 									}})
 								}}),
 							]}
-							label='뱅크'
+							label={mode === 'WRITE' ? '뱅크' : '보내는 곳'}
 							placeholder='미분류'
 							selected={bank}
 							onChange={handleChangeBank}
 						/>
+
+						{ mode === 'SEND' &&
+							<Dropdown
+								list={[
+									...banksCombined.map(group => { return {
+										id: group.id,
+										text: group.title || '이름 없음',
+										children: group.items.map(bank => { return {
+											id: bank.id,
+											text: bank.title,
+										}})
+									}}),
+								]}
+								label='받는 곳'
+								placeholder='미분류'
+								selected={to}
+								onChange={handleChangeTo}
+							/>
+						}
 						
 						<DateContent label='날짜' date={date} onChange={(date) => setDate(date)} placeholder='비어있음' />
 						<TimeContent label='시간' time={time} onChange={(date) => setTime(date)} placeholder='비어있음' />
@@ -165,10 +237,12 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 						/>
 					</div>
 				</Modal.Content>
+
 				<Modal.Footer flex padding>
 					{ onDelete && initialValues ? <p class='c-red f-bold pointer' onClick={onDelete(initialValues.id)}>삭제</p> : <p /> }
 					<Button type='submit' children={t('common_save')} />
 				</Modal.Footer>
+
 			</form>
 		</Modal.Container>
 	)

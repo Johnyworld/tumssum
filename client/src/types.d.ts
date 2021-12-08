@@ -55,6 +55,8 @@ declare module 'types' {
     id: number;
     title: string;
     account: number;
+    /** 타 뱅크로 전송 */
+    to: number;
     datetime: string;
     location: string;
     memo: string;
@@ -132,4 +134,18 @@ declare module 'types' {
     created_at: string;
     updated_at: string;
   }
+
+
+  interface MenuItem {
+    id: string;
+    text: string;
+    href?: string;
+    onClick?: () => void;
+  }
+
+  interface ListItem {
+    id: string;
+    text: string;
+  }
+
 }

@@ -112,7 +112,8 @@ const Balances: FunctionalComponent<BalancesProps> = ({ date, banksCombined, mon
 						return [
 							bank.title === undefined ? '카테고리 미분류' : bank.title || '이름 없음',
 							bank.carry_over,
-							bank.carry_over + bank.total ]
+							bank.carry_over + bank.total,
+						]
 					})}
 				>
 				</AccordionTable>

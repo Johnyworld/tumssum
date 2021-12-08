@@ -121,6 +121,7 @@ const AccountManagerContainer: FunctionalComponent = ({  }) => {
 					<Calendar
 						date={currentDate}
 						data={accounts}
+						banks={banks}
 						grabbing={grabbing}
 						onGrap={handleGrap}
 						onDropToUpdate={handleDropToUpdateDate}
@@ -170,6 +171,7 @@ const AccountManagerContainer: FunctionalComponent = ({  }) => {
 					<AccountFormModal
 						currentDate={currentDate}
 						initialValues={initialValuesForCreate}
+						isCreateMode
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
 						confirm={confirm}
