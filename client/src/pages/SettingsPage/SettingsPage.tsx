@@ -1,8 +1,8 @@
 import { h, FunctionalComponent } from 'preact';
-import { useTranslation } from 'preact-i18next';
 import Button from '~components/atoms/Button';
 import Card from '~components/atoms/Card';
-import useToast from '~hooks/useToast';
+// import { useTranslation } from 'preact-i18next';
+// import useToast from '~hooks/useToast';
 import { changeTheme } from '~stores/modeSlice';
 import { logout } from '~stores/userSlice';
 import { useDispatch, useSelector } from '~utils/redux/hooks';
@@ -10,19 +10,19 @@ import { useDispatch, useSelector } from '~utils/redux/hooks';
 
 const SettingsPage: FunctionalComponent = () => {
 
-	const { i18n } = useTranslation();
+	// const { i18n } = useTranslation();
 
 	const userInfo = useSelector(state=> state.user.userInfo);
-  const theme = useSelector(state => state.mode.theme)
   const dispatch = useDispatch();
-	const toast = useToast();
+  // const theme = useSelector(state => state.mode.theme)
+	// const toast = useToast();
 
-	const handleChangeLanguage = (lang: string) => () => {
-    i18n.changeLanguage(lang);
-    localStorage.setItem('language', lang);
-    document.documentElement.setAttribute("lang", lang);
-		toast(`언어를 ${lang === 'ko' ? '한국어' : '영어'}로 변경했습니다.`, 'green')
-  }
+	// const handleChangeLanguage = (lang: string) => () => {
+  //   i18n.changeLanguage(lang);
+  //   localStorage.setItem('language', lang);
+  //   document.documentElement.setAttribute("lang", lang);
+	// 	toast(`언어를 ${lang === 'ko' ? '한국어' : '영어'}로 변경했습니다.`, 'green')
+  // }
 
   const handleLogout = () => {
     dispatch(logout());
@@ -50,13 +50,13 @@ const SettingsPage: FunctionalComponent = () => {
 					</div>
 				</Card>
 
-				<Card>
+				{/* <Card>
 					<h3>언어</h3>
 					<div class='flex flex-end gap-small'>
 						<Button onClick={handleChangeLanguage('ko')}>한국어</Button>
 						<Button onClick={handleChangeLanguage('en')}>English</Button>
 					</div>
-				</Card>
+				</Card> */}
 			</div>
 
 			<div class='flex mv-huge'>
