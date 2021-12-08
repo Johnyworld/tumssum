@@ -39,7 +39,6 @@ const KakaoLogin: FunctionalComponent = () => {
           },
         })
         .then((res: any) => {
-          console.log('===== KakaoLogin', res.data.access);
           if (res.ok && !res.code) {
             dispatch(setUser(res.data));
             route('/');
