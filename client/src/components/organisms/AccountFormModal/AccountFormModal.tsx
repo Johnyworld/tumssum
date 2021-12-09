@@ -164,10 +164,11 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 							value={amount}
 							type='number'
 							label='금액'
-							color={isIncome ? 'pen' : 'red'}
+							color={mode === 'SEND' ? 'pen' : isIncome ? 'pen' : 'red'}
 							weight='bold'
 							placeholder='비어있음'
-							isNumberNegative={!isIncome}
+							isNumberNegative={mode === 'SEND' ? false : !isIncome}
+							isHideNumberSign={mode === 'SEND'}
 							onChange={setAmmount}
 							onChangeNumberNegative={mode === 'WRITE' ? handleChangeIsIncome : undefined}
 						/>

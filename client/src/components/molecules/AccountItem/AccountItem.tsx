@@ -21,8 +21,8 @@ const AccountItem: FunctionalComponent<AccountItemProps> = ({ style, class: clas
 
 	return (
 		<Card padding='tiny' style={style} class={c( 'account-item', className, [isTransparent, '&--transparent'] )} onClick={onClick} onMouseDown={onMouseDown} >
-			<p class='f-small f-bold ellipsis'>{_title}</p>
-			<p class={c( 'f-small', 't-right', account < 0 ? 'c-red' : 'c-pencel' )}>{numberUtils.getNumberWithComma(account || 0)}</p>
+			<p class={c('f-small f-bold ellipsis', [to, 'c-gray_strong'])}>{_title}</p>
+			<p class={c( 'f-small', 't-right', to ? 'c-pencel' : account < 0 ? 'c-red' : 'c-blue' )}>{numberUtils.getNumberWithComma(account ? to ? -account : account : 0)}</p>
 		</Card>
 	)
 }
