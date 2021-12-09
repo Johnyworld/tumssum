@@ -50,8 +50,9 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, banks, grabb
 									onClickPlus={onClickPlus && onClickPlus(col.date)}
 									children={ col.data && col.data.map(item => (
 										<AccountItem
-											title={item.to ? (item.bank_title || '📤') + ' ➡ ' + (banks.find(bank => bank.id === item.to)?.title || '📥') : item.title}
-											amount={item.account}
+											data={item}
+											banks={banks}
+											isTransparent={!!item.to}
 											onClick={onClick && onClick(item)}
 											onMouseDown={onGrap ? onGrap(item) : undefined}
 										/>

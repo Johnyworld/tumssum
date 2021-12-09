@@ -158,8 +158,8 @@ const AccountManagerContainer: FunctionalComponent = ({  }) => {
 
 			{ grabbing && grabbingPos &&
 				<AccountItem
-					title={grabbing.data.title}
-					amount={grabbing.data.account}
+					data={grabbing.data}
+					banks={banks}
 					class='calendar__grabbing'
 					style={{ left: grabbingPos.x, top: grabbingPos.y, width: grabbing.width, height: grabbing.height }} 
 				/>
