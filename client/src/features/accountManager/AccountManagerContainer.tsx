@@ -134,7 +134,7 @@ const AccountManagerContainer: FunctionalComponent = ({  }) => {
 				{ view === 'category' &&
 					<CategoryBoard
 						categoriesCombined={categoriesCombined}
-						data={accountsThisMonth}
+						data={accountsThisMonth.filter(item => !item.to)}
 						grabbing={grabbing}
 						onGrap={handleGrap}
 						onDrop={handleDrop}
@@ -147,7 +147,7 @@ const AccountManagerContainer: FunctionalComponent = ({  }) => {
 
 				{ view === 'list' &&
 					<AccountList
-						list={accountsThisMonth}
+						list={accountsThisMonth.filter(item => !item.to)}
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
 						onChange={handlePatchAccount}

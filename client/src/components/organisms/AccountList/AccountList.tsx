@@ -36,7 +36,7 @@ const AccountList: FunctionalComponent<AccountListProps> = ({ list, categoriesCo
 			<table>
 				<Head />
 				<tbody>
-					{ list.filter(item => !item.to).map((item, i) => (
+					{ list.map((item, i) => (
 						<AccountListItem
 							index={i}
 							key={item.id}
