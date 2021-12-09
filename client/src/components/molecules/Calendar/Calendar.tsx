@@ -52,7 +52,6 @@ const Calendar: FunctionalComponent<CalendarProps> = ({ date, data, banks, grabb
 										<AccountItem
 											data={item}
 											banks={banks}
-											isTransparent={!!item.to}
 											onClick={onClick && onClick(item)}
 											onMouseDown={onGrap ? onGrap(item) : undefined}
 										/>

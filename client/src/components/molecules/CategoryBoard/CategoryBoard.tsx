@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { memo } from 'preact/compat';
-import { Account, CategoryGroup } from 'types';
+import { Account, Bank, CategoryGroup } from 'types';
 import BoardItem from '~components/atoms/BoardItem';
 import { grabbingData } from '~hooks/useDrag';
 import AccountItem from '../AccountItem';
@@ -67,8 +67,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 								<div class='grid grid-col-4 gap-tiny' style={{ flexWrap: 'wrap' }}>
 									{ noCategory && noCategory.map(account => (
 										<AccountItem
-											title={account.title}
-											amount={account.account}
+											data={account}
 											onClick={onClick && onClick(account)}
 											onMouseDown={onGrap ? onGrap(account) : undefined}
 										/>
@@ -91,8 +90,7 @@ const CategoryBoard: FunctionalComponent<CategoryBoardProps> = ({ categoriesComb
 									onClickPlus={onClickPlus && onClickPlus(category.id)}
 									children={category.accounts && category.accounts.map(account => (
 										<AccountItem
-											title={account.title}
-											amount={account.account}
+											data={account}
 											onClick={onClick && onClick(account)}
 											onMouseDown={onGrap ? onGrap(account) : undefined}
 										/>
