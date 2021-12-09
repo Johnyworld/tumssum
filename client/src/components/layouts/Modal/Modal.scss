@@ -1,3 +1,5 @@
+@import '~src/style/mixins';
+
 .modal {
 	position: fixed;
 	top: 0;
@@ -27,6 +29,7 @@
 	overflow: auto;
 	background-color: var(--color-paper);
 	box-shadow: var(--shadow-large);
+	border-radius: .25rem;
 }
 
 .modal__x-button {
@@ -64,4 +67,10 @@
 		bottom: 0;
 		background-color: var(--color-paper);
 	}
+}
+
+@include maxMobile {
+	.modal__container {
+		max-width: calc(100vw - 2rem);
+	}	
 }
