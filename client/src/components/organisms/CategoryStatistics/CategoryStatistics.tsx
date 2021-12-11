@@ -1,9 +1,11 @@
 import { h, FunctionalComponent } from 'preact';
+import { useCallback } from 'preact/hooks';
 import { Category, CategoryGroup, IconType } from 'types';
 import PieGraph from '~components/atoms/PieGraph';
 import AccordionTable from '~components/molecules/AccordionTable';
 import NavigationMenu from '~components/molecules/NavigationMenu';
-import useNavigationMenu from '~hooks/useNavigationMenu';
+import useStatistics from '~hooks/useStatistics';
+import statisticsHooks from '~hooks/useStatistics';
 import { StatisticsItems } from '~pages/HomePage/Statistics';
 import './CategoryStatistics.scss';
 
@@ -81,10 +83,10 @@ const CategoryStatistics: FunctionalComponent<StatisticsProps> = ({ categoriesCo
 
 	const { data, totals, categories } = combineData(categoriesCombined, aligned);
 
-	const navigationMenu = useNavigationMenu<'graph' | 'list'>([
-		{ id: 'graph', icon: 'graph' as IconType },
-		{ id: 'list', icon: 'menu' as IconType },
-	]);
+	const {
+		navigationMenu,
+		handleChangeMenu,
+	} = useStatistics.navigation();
 
 	return (
 		<div class='category-statistics card'>
@@ -93,7 +95,7 @@ const CategoryStatistics: FunctionalComponent<StatisticsProps> = ({ categoriesCo
 				<h3>이번 달 통계</h3>
 				<NavigationMenu
 					selected={navigationMenu.currentMenu}
-					onChange={navigationMenu.handleChangeMenu}
+					onChange={handleChangeMenu}
 					hideText='always'
 					list={navigationMenu.menus}
 				/>

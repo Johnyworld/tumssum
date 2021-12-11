@@ -10,8 +10,8 @@ export interface NavigationMenuItem<S> {
 	href?: string
 }
 
-export default <S>(menus: NavigationMenuItem<S>[]) => {
-	const [currentMenu, setCurrentMenu] = useState<S>(menus[0].id);
+export default <S>(menus: NavigationMenuItem<S>[], initialValue?: S) => {
+	const [currentMenu, setCurrentMenu] = useState<S>(initialValue || menus[0].id);
 	const handleChangeMenu = useCallback((newView: S) => setCurrentMenu(newView), []);
 	return { menus, currentMenu, handleChangeMenu };
 }
