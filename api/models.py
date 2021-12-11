@@ -74,7 +74,7 @@ class Month(models.Model):
 
 class Budget(models.Model):
   # Require fields
-  budget = models.IntegerField()
+  budget = models.IntegerField(blank=True, null=True)
   # Required Relations
   category = models.ForeignKey(Category, on_delete=models.CASCADE)
   user = models.ForeignKey(User, on_delete=models.CASCADE)

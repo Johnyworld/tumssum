@@ -2,6 +2,10 @@
 	display: inline-flex;
 	gap: .5em;
 
+	&__text {
+		line-height: 1;
+	}
+
 	&--column {
 		flex-direction: column;
 		align-items: center;
