@@ -23,6 +23,10 @@ html, body {
 	}
 }
 
+body {
+	touch-action: pan-y;
+}
+
 body::-webkit-scrollbar {
 	display: none;
 }
