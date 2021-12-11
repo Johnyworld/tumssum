@@ -1,7 +1,7 @@
 import { h, FunctionalComponent } from 'preact';
 import { useTranslation } from 'preact-i18next';
 import { useCallback, useEffect, useMemo, useState } from 'preact/hooks';
-import { Account, BankGroup, CategoryGroup } from 'types';
+import { Account, Bank, BankGroup, CategoryGroup } from 'types';
 import Button from '~components/atoms/Button';
 import ContentEditable from '~components/atoms/ContentEditable';
 import Dropdown from '~components/atoms/Dropdown';
@@ -22,6 +22,7 @@ export interface AccountFormModalProps {
 	initialValues?: Account | null;
 	categoriesCombined: CategoryGroup[];
 	banksCombined: BankGroup[];
+	banks: Bank[];
 	confirm: ConfirmFunction;
 	isCreateMode?: boolean;
 	onConfirm: (account: Account) => void;
@@ -29,9 +30,18 @@ export interface AccountFormModalProps {
 	onClose: () => void;
 }
 
+
+const getIsIncludeInBanks = (id: number | string | null, banks: Bank[]) => {
+	// 리스트에 존재하면 id 를 리턴
+	// 리스트에 존재하지 않으면 null 리턴
+	if (!id) return '';
+	const bank = banks.find(bank => bank.id === +id);
+	return bank ? bank.id : '';
+}
+
 type Mode = 'WRITE' | 'SEND';
 
-const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentDate, initialValues, categoriesCombined, banksCombined, confirm, isCreateMode, onConfirm, onDelete, onClose }) => {
+const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentDate, initialValues, categoriesCombined, banksCombined, banks, confirm, isCreateMode, onConfirm, onDelete, onClose }) => {
 
 	const { t } = useTranslation();
 	const toast = useToast();
@@ -44,7 +54,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 		time: initialValues?.datetime?.split('T')[1]?.substr(0,5) || '',
 		memo: initialValues?.memo || '',
 		category: initialValues?.category || '',
-		bank: initialValues?.bank || '',
+		bank: initialValues?.bank || (isCreateMode ? getIsIncludeInBanks(localStorage.getItem('account-bank'), banks) : ''),
 		to: initialValues?.to || '',
 	}}, [initialValues]);
 
@@ -66,6 +76,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 
 	const handleChangeBank: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {
 		setBank(e.currentTarget.value);
+		localStorage.setItem('account-bank', e.currentTarget.value);
 	}, [category])
 
 	const handleChangeTo: h.JSX.GenericEventHandler<HTMLSelectElement> = useCallback((e) => {

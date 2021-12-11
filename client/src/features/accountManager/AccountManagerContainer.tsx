@@ -174,6 +174,7 @@ const AccountManagerContainer: FunctionalComponent = ({  }) => {
 						isCreateMode
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
+						banks={banks}
 						confirm={confirm}
 						onConfirm={handleCreateAccount}
 						onClose={handleCloseCreateModal}
@@ -189,6 +190,7 @@ const AccountManagerContainer: FunctionalComponent = ({  }) => {
 						initialValues={selectedItem!}
 						categoriesCombined={categoriesCombined}
 						banksCombined={banksCombined}
+						banks={banks}
 						confirm={confirm}
 						onConfirm={handleUpdateAccount}
 						onDelete={handleDeleteAccount}
