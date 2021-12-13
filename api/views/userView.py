@@ -6,6 +6,7 @@ from .user.getUsers import getUsers
 from .user.getUser import getUser
 from .user.postUser import postUser
 from .user.putUser import putUser
+from .user.patchUser import patchUser
 from .user.deleteUser import deleteUser
 
 
@@ -22,7 +23,7 @@ def register(request):
     return postUser(request)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def user(request):
   if request.method == 'GET':
@@ -30,6 +31,9 @@ def user(request):
 
   elif request.method == 'PUT':
     return putUser(request)
+
+  elif request.method == 'PATCH':
+    return patchUser(request)
 
   elif request.method == 'DELETE':
     return deleteUser(request)
