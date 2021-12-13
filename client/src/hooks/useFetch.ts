@@ -76,7 +76,7 @@ const useFetch = <S>({ method, url, params, isNoFetchWithoutCall, onError, onSuc
 		if (loading) return;
 		if (error.code && onError) onError(error);
 		else if (data && onSuccess) onSuccess(data);
-	}, [user, data, loading, error]);
+	}, [user?.id, data, loading, error]);
 
 
 	useEffect(() => {

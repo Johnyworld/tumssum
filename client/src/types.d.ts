@@ -148,4 +148,6 @@ declare module 'types' {
     text: string;
   }
 
+  type Lang = 'ko' | 'en'
+
 }

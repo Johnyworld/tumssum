@@ -1,0 +1,6 @@
+@import '~src/style/mixins';
+
+.settings-page {
+	@include gap(var(--size-large));
+	padding: var(--size-huge);
+}
