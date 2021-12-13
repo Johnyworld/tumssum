@@ -22,6 +22,11 @@ const userSlice = createSlice({
       state.userInfo = payload; 
       localStorage.setItem('userInfo', JSON.stringify(payload));
     },
+    updateUser: (state, {payload}: PayloadAction<User>) => {
+      const userData = {...state.userInfo, ...payload};
+      state.userInfo = userData;
+      localStorage.setItem('userInfo', JSON.stringify(userData));
+    },
     logout: (state) => {
       state.userInfo = null;
       localStorage.removeItem('userInfo');
@@ -40,6 +45,6 @@ const userSlice = createSlice({
 });
 
 
-export const { setUser, logout } = userSlice.actions;
+export const { setUser, updateUser, logout } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -7,9 +7,9 @@ import json
 
 def getUser(request):
 
-  reqData = json.loads(request.body)
-
-  user_id = reqData.get('user_id')
+  user_id = request.GET.get('user_id')
 
   user = get_object_or_404(User, pk=user_id)
-  return Response(UserSerializer(user).data)
+
+  res = { 'ok': True, 'data': UserSerializer(user).data}
+  return Response(res)

@@ -16,14 +16,15 @@ import ConfirmRender from '~features/confirm/ConfirmRender';
 
 const App: FunctionalComponent = () => {
 
-  const { userInfo } = useSelector(state=> state.user);
+  const id = useSelector(state=> state.user.userInfo?.id);
+  const isLoggedIn = !!id;
  
   return (
     <div id='preact_root'>
     
       <FullLoader />
 
-      { !userInfo &&
+      { !isLoggedIn &&
         <Router>
           {/* <Route path="/" component={IntroPage} /> */}
           <Route path="/" component={LoginPage} />
@@ -34,7 +35,7 @@ const App: FunctionalComponent = () => {
         </Router>
       }
 
-      { userInfo &&
+      { isLoggedIn &&
         <AppLoggedInRouter /> 
       }
 
