@@ -1,11 +1,9 @@
 import { h, FunctionalComponent } from 'preact';
-import { useCallback } from 'preact/hooks';
-import { Category, CategoryGroup, IconType } from 'types';
+import { Category, CategoryGroup } from 'types';
 import PieGraph from '~components/atoms/PieGraph';
 import AccordionTable from '~components/molecules/AccordionTable';
 import NavigationMenu from '~components/molecules/NavigationMenu';
-import useStatistics from '~hooks/useStatistics';
-import statisticsHooks from '~hooks/useStatistics';
+import useStatistics from '~hooks/statisticsHooks';
 import { StatisticsItems } from '~pages/HomePage/Statistics';
 import './CategoryStatistics.scss';
 
@@ -86,7 +84,7 @@ const CategoryStatistics: FunctionalComponent<StatisticsProps> = ({ categoriesCo
 	const {
 		navigationMenu,
 		handleChangeMenu,
-	} = useStatistics.navigation();
+	} = useStatistics.useNavigation();
 
 	return (
 		<div class='category-statistics card'>
