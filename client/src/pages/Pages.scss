@@ -1,9 +1,16 @@
-@import "~src/style/mixins";
+@import '~src/style/mixins';
+
+.page-container {
+	@include height-100vh;
+	display: flex;
+	flex-direction: column;
+}
 
 .auth-pages {
 	@include wrapper-narrow;
 	padding-top: 10rem;
 	text-align: center;
+	width: 100%;
 }
 
 @include maxTablet {

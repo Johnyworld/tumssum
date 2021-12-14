@@ -25,7 +25,7 @@ const SettingsContainer: FunctionalComponent<settingsContainerProps> = ({ user }
 	}
 
 	return (
-		<main class='settings-page main wrap'>
+		<section class='gap-mv-big'>
 			
 			<p
 				class='f-huge pre'
@@ -50,7 +50,7 @@ const SettingsContainer: FunctionalComponent<settingsContainerProps> = ({ user }
 				<Button color='red' onClick={onLogout} class='gap-mv-regular' type='submit'>로그아웃</Button>
 			</div>
 
-		</main>
+		</section>
 	)
 }
 

@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import useFetch from '~hooks/useFetch';
-import { Account, Bank, BankGroup, Budget, Category, CategoryGroup, Month, User } from 'types';
+import { Account, Bank, BankGroup, Budget, Category, CategoryGroup, Month } from 'types';
 import { setCategories, setCategoryGroups, setIsLoaded as setCategoryIsLoaded } from '~stores/categorySlice';
 import { setAccounts, setIsLoaded as setAccountIsLoaded } from '~stores/accountSlice';
 import { getLocalStringFromISOString } from '~utils/calendar';
@@ -17,6 +17,7 @@ import BankPage from '~pages/BankPage';
 import SettingsPage from '~pages/SettingsPage';
 import NotFoundPage from '~pages/NotFoundPage';
 import GlobalHeaderContainer from '~features/globalHeader';
+import './Pages.scss';
 
 const AppLoggedInRouter: FunctionalComponent = () => {
 
