@@ -2,5 +2,7 @@
 
 .settings-page {
 	@include gap(var(--size-large));
-	padding: var(--size-huge);
+	@include wrapper-normal;
+	padding: var(--size-huge) 1rem;
+	width: 100%;
 }

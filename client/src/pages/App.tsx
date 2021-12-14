@@ -12,6 +12,7 @@ import Redirect from './Redirect';
 import ToastRender from '~features/toast/ToastRender';
 import AlertRender from '~features/alert/AlertRender';
 import ConfirmRender from '~features/confirm/ConfirmRender';
+import NotFoundPage from './NotFoundPage';
 
 
 const App: FunctionalComponent = () => {
@@ -25,14 +26,16 @@ const App: FunctionalComponent = () => {
       <FullLoader />
 
       { !isLoggedIn &&
-        <Router>
-          {/* <Route path="/" component={IntroPage} /> */}
-          <Route path="/" component={LoginPage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegisterPage} />
-          <Route path="/confirm" component={ConfirmToken} />
-          <Redirect default to='/' />
-        </Router>
+        <div class='page-container'>
+          <Router>
+            {/* <Route path="/" component={IntroPage} /> */}
+            <Route path="/" component={LoginPage} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/register" component={RegisterPage} />
+            <Route path="/confirm" component={ConfirmToken} />
+            <NotFoundPage default />
+          </Router>
+        </div>
       }
 
       { isLoggedIn &&
