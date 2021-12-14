@@ -155,7 +155,7 @@
 
 // ================= Custom =================
 @mixin content-label {
-	font-weight: var(--weight-bold);
+	font-weight: var(--font-bold);
 	color: var(--color-gray_strong);
   padding: .5em 0;
 	min-width: 150px;

@@ -4,7 +4,7 @@
 	align-items: center;
 	cursor: pointer;
 	color: var(--color-gray);
-	font-weight: var(--weight-bold);
+	font-weight: var(--font-bold);
 
 	&:not(:first-child) {
 		border-left: 0;
