@@ -24,45 +24,46 @@ def postAccount(request):
   months = None
   toMonth = None
 
-  print('-- to_id:' ,to_id)
-
-  if (bank_id != None):
+  if (to_id != None):
+    print('1', account)
+    account = -account
     yyyymm = datetime[:7]
     try:
-      # Modify
-      print('Mod')
-      month = Month.objects.get(bank_id=bank_id, date=yyyymm)
-      month.expenditure = month.expenditure + account
-      month.save()
-      if (to_id != None):
-        print('hello')
-        toMonth = Month.objects.get(bank_id=to_id, date=yyyymm)
-        print(toMonth)
-        toMonth.expenditure = toMonth.expenditure - account
-        toMonth.save()
+      toMonth = Month.objects.get(bank_id=to_id, date=yyyymm)
+      toMonth.expenditure = toMonth.expenditure - account
+      toMonth.save()
     except:
-      # New
-      print('New')
-      data = {
-        'user_id': user_id,
-        'bank_id': bank_id,
-        'date': yyyymm,
-        'expenditure': account,
-      }
       toData = {
         'user_id': user_id,
         'bank_id': to_id,
         'date': yyyymm,
         'expenditure': -account,
       }
-      requests.post("http://127.0.0.1:8000/api/month/", json=data, headers=headers)
       requests.post("http://127.0.0.1:8000/api/month/", json=toData, headers=headers)
-      month = Month.objects.get(bank_id=bank_id, date=yyyymm)
       toMonth = Month.objects.get(bank_id=to_id, date=yyyymm)
 
-    months = getNewMonths( user_id, bank_id, yyyymm, headers )
+  if (bank_id != None):
+    print('2', account)
+    yyyymm = datetime[:7]
+    try:
+      # Modify
+      month = Month.objects.get(bank_id=bank_id, date=yyyymm)
+      month.expenditure = month.expenditure + account
+      month.save()
+      
+    except:
+      # New
+      data = {
+        'user_id': user_id,
+        'bank_id': bank_id,
+        'date': yyyymm,
+        'expenditure': account,
+      }
+      requests.post("http://127.0.0.1:8000/api/month/", json=data, headers=headers)
+      month = Month.objects.get(bank_id=bank_id, date=yyyymm)
 
-  print('--' ,toMonth)
+  if (bank_id != None or to_id != None):
+    months = getNewMonths( user_id, bank_id, yyyymm, headers )
 
   newAccount = Account(
     title = title,
@@ -79,12 +80,10 @@ def postAccount(request):
 
   newAccount.save()
 
-
   data = {
     'account': AccountSerializer(newAccount, many=False).data,
     'months': months,
   }
-  
 
   res = { 'ok': True, 'data': data }
   return JsonResponse(res)
