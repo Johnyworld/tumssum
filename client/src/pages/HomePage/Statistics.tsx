@@ -24,19 +24,20 @@ const getDataAligned = (data: Account[]) => {
 	const banks: StatisticsItems = {}
 	const categories: StatisticsItems = {}
 	for ( const item of data ) {
+		const isModify = !item.bank && item.to;
 		const bank = item.bank || 0;
 		const to = item.to || 0;
 		if (!banks[bank]) banks[bank] = { income: 0, expenditure: 0, total: 0 };
 		if (!banks[to]) banks[to] = { income: 0, expenditure: 0, total: 0 };
 		if (item.account < 0) {
-			banks[bank].expenditure += item.account;
+			if (!isModify) banks[bank].expenditure += item.account;
 			banks[to].expenditure -= item.account;
 		}
 		if (item.account >= 0) {
-			banks[bank].income += item.account;
+			if (!isModify) banks[bank].income += item.account;
 			banks[to].income -= item.account;
 		}
-		banks[bank].total += item.account;
+		if (!isModify) banks[bank].total += item.account;
 		banks[to].total -= item.account;
 
 		if (item.to) continue; // 뱅크 to 뱅크로 전송한 기록은, Category 통계에 포함하지 않습니다.
@@ -54,6 +55,7 @@ const getDataAligned = (data: Account[]) => {
 const Statistics: FunctionalComponent<StatisticsProps> = ({ date, accounts, categoriesCombined, banksCombined, monthes, loaded }) => {
 
 	const aligned = getDataAligned(accounts);
+	console.log('===== Statistics', accounts, aligned);
 
 	return (
 		<Fragment>
