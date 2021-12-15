@@ -226,7 +226,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 										}})
 									}}),
 								]}
-								label={mode === 'WRITE' ? '뱅크' : '보내는 곳'}
+								label={mode === 'SEND' ? '보내는 곳' : '뱅크'}
 								placeholder='미분류'
 								selected={bank}
 								onChange={handleChangeBank}
@@ -245,7 +245,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 										}})
 									}}),
 								]}
-								label='받는 곳'
+								label={mode === 'SEND' ? '받는 곳' : '뱅크'}
 								placeholder='미분류'
 								selected={to}
 								onChange={handleChangeTo}
