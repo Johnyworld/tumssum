@@ -14,14 +14,15 @@ export interface AccountItemProps extends DefaultProps {
 
 const AccountItem: FunctionalComponent<AccountItemProps> = ({ style, class: className, data, banks, onClick, onMouseDown }) => {
 
-	const { title, to, account, bank_title } = data;
+	const { title, to, bank, account, bank_title } = data;
 
 	const _title = to ? (bank_title || '📤') + ' ➡ ' + (banks && banks.find(bank => bank.id === to)?.title || '📥') : title || '제목없음';
+	const isSend = to && bank;
 
 	return (
 		<Card padding='tiny' style={style} class={c( 'account-item', className, [!!to, '&--transparent'] )} onClick={onClick} onMouseDown={onMouseDown} >
 			<p class={c('f-small f-bold ellipsis', [to, 'c-gray_strong'])}>{_title}</p>
-			<p class={c( 'f-small', 't-right', to ? 'c-pencel' : account < 0 ? 'c-red' : 'c-blue' )}>{numberUtils.getNumberWithComma(account || 0)}</p>
+			<p class={c( 'f-small', 't-right', isSend ? 'c-pencel' : account < 0 ? 'c-red' : 'c-blue' )}>{numberUtils.getNumberWithComma(isSend ? Math.abs(account) : account || 0)}</p>
 		</Card>
 	)
 }
