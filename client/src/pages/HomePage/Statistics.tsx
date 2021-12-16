@@ -30,15 +30,27 @@ const getDataAligned = (data: Account[]) => {
 		if (!banks[bank]) banks[bank] = { income: 0, expenditure: 0, total: 0 };
 		if (!banks[to]) banks[to] = { income: 0, expenditure: 0, total: 0 };
 		if (item.account < 0) {
-			if (!isModify) banks[bank].expenditure += item.account;
-			banks[to].expenditure -= item.account;
+			if (!isModify) {
+				banks[bank].expenditure += item.account;
+				banks[to].expenditure -= item.account;
+			} else {
+				banks[to].expenditure += item.account;
+			}
 		}
 		if (item.account >= 0) {
-			if (!isModify) banks[bank].income += item.account;
-			banks[to].income -= item.account;
+			if (!isModify) {
+				banks[bank].income += item.account;
+				banks[to].income -= item.account;
+			} else {
+				banks[to].income += item.account;
+			}
 		}
-		if (!isModify) banks[bank].total += item.account;
-		banks[to].total -= item.account;
+		if (!isModify) {
+			banks[bank].total += item.account;
+			banks[to].total -= item.account;
+		} else {
+			banks[to].total += item.account;
+		}
 
 		if (item.to) continue; // 뱅크 to 뱅크로 전송한 기록은, Category 통계에 포함하지 않습니다.
 

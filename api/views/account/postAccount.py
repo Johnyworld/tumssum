@@ -20,6 +20,7 @@ def postAccount(request):
   category_id = reqData.get('category_id') # Not Required
   bank_id = reqData.get('bank_id') # Not Required
   to_id = reqData.get('to') # Not Required
+
   month = None
   months = None
   toMonth = None
@@ -67,7 +68,7 @@ def postAccount(request):
 
   newAccount = Account(
     title = title,
-    account = account,
+    account = -account if to_id != None and bank_id == None else account,
     datetime = datetime,
     user_id = user_id,
     memo = memo if memo != None else '',

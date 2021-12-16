@@ -25,17 +25,20 @@ def putAccount(request):
   accountData = get_object_or_404(Account, pk=account_id)
 
 
+  if (to_id):
+    account = -account
+    new_to_id = checkAndCreateBank(user_id, to_id, datetime, -account, headers)
+
   # ==== MONTH LINK START ====
   # Bank 를 변경하는 경우와 Datetime 을 변경하는 경우에는 Month를 다시 연결해야 한다. 
 
   if (accountData.month_id == None):
     # 이미 Bank 와 연결 된 Month 데이터가 없는 경우
+
     if (bank_id):
       # Bank ID 가 Request 에서 넘어왔다면, Bank를 새로 연결하는 것이다. Bank와 연결 된 새로운 Month를 생성한다.
       new_month_id = checkAndCreateBank(user_id, bank_id, datetime, account, headers)
 
-    if (to_id):
-      new_to_id = checkAndCreateBank(user_id, to_id, datetime, -account, headers)
 
   else:
     # 이미 Bank 와 연결 된 Month 데이터가 있는 경우, 기존 Month 데이터를 지우고 새로운 Month 데이터를 연결해야 한다.

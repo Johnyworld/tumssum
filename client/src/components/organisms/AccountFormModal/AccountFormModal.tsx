@@ -50,6 +50,7 @@ type Mode
 	| 'MODIFY'; // 하나의 뱅크에 금액을 수정합니다.
 
 const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentDate, initialValues, categoriesCombined, banksCombined, banks, confirm, isCreateMode, onConfirm, onDelete, onClose }) => {
+	console.log('===== AccountFormModal', initialValues?.account);
 
 	const { t } = useTranslation();
 	const toast = useToast();
