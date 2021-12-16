@@ -22,10 +22,10 @@ def deleteAccount(request):
     month.expenditure = month.expenditure - accountData.account
     month.save()
 
-    if (accountData.to != None):
-      toMonth = Month.objects.get(user_id=user_id, bank_id=accountData.to, date=accountData.datetime[:7])
-      toMonth.expenditure = toMonth.expenditure + accountData.account
-      toMonth.save()
+  if (accountData.to != None):
+    toMonth = Month.objects.get(user_id=user_id, bank_id=accountData.to, date=accountData.datetime[:7])
+    toMonth.expenditure = toMonth.expenditure + accountData.account if accountData.bank else toMonth.expenditure - accountData.account
+    toMonth.save()
 
   if accountData.bank_id:
     months = getNewMonths(
