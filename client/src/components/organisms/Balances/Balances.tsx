@@ -26,23 +26,24 @@ interface StatisticsItem extends Bank {
 	carry_over: number;
 }
 
-const findMonthRecursive: (monthes: Month[], Y: number, M: number, count: number) => null | Month = (monthes, Y, M, count) => {
+const findMonthRecursive: (monthes: Month[], Y: number, M: number) => null | Month = (monthes, Y, M) => {
 	const dateString = Y + '-' + (M < 10 ? '0'+M : M);
 	const month = monthes.find(month => month.date === dateString);
 	if (month) return month;
-	if (count <= 0) return null;
 	else {
-		if (M === 1) return findMonthRecursive(monthes, Y-1, 12, count-1);
-		else return findMonthRecursive(monthes, Y, M-1, count-1);
+		if (M === 1) return findMonthRecursive(monthes, Y-1, 12);
+		else return findMonthRecursive(monthes, Y, M-1);
 	}
 }
 
-const findMonth = (months: Month[], date: string) => {
-	if (!months.length) return null;
+const findMonth = (bankId: number, months: Month[], date: string) => {
+	const filtered = months.filter(month=> month.bank === bankId && month.date < date);
+	if (!filtered.length) return null;
+	if (filtered.length === 1) return filtered[0];
 	const split = date.split('-');
 	const Y = +split[0];
 	const M = +split[1];
-	return findMonthRecursive(months, Y, M, months.length);
+	return findMonthRecursive(filtered, Y, M);
 }
 
 const combineData = (banksGroup: BankGroup[], monthes: Month[], aligned: StatisticsItems, date: string) => {
@@ -69,7 +70,7 @@ const combineData = (banksGroup: BankGroup[], monthes: Month[], aligned: Statist
 		const groupItems = group.id ? group.items : [...group.items, { id: 0 }];
 
 		const items = groupItems.map(bank => {
-			const month = findMonth(monthes.filter(month=> month.bank === bank.id), date);
+			const month = findMonth(bank.id, monthes, date);
 			const itemIncome = aligned[bank.id]?.income || 0;
 			const itemExpenditure = aligned[bank.id]?.expenditure || 0;
 			const itemTotal = aligned[bank.id]?.total || 0;

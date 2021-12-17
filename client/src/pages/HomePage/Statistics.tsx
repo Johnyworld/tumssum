@@ -75,7 +75,6 @@ const getDataAligned = (data: Account[]) => {
 const Statistics: FunctionalComponent<StatisticsProps> = ({ date, accounts, categoriesCombined, banksCombined, monthes, loaded }) => {
 
 	const aligned = getDataAligned(accounts);
-	console.log('===== Statistics', accounts, aligned);
 
 	return (
 		<Fragment>
