@@ -18,18 +18,18 @@ def putAccount(request):
   to_id = reqData.get('to')
   datetime = reqData.get('datetime')
 
+  accountData = get_object_or_404(Account, pk=account_id)
+
   new_month_id = None
   new_to_id = None
   months = None
-
-  accountData = get_object_or_404(Account, pk=account_id)
 
   actionType = 'WRITE' if to_id == None else 'SEND' if bank_id != None else 'MODIFY'
   bankMonthAccount = -account if actionType == 'SEND' else account
   toMonthAccount = account
 
   if (to_id):
-    toMonth = Month.objects.get(bank_id=accountData.to, date=accountData.datetime[:7])
+    toMonth = Month.objects.get(user_id=user_id, bank_id=accountData.to, date=accountData.datetime[:7])
     expenditureGap = account - accountData.account # (바뀐 후 Account.account - 바뀌기 전 Account.account)
     # to_id만 삭제할 수 있는 경우는 없다.
 
