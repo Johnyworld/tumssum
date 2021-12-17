@@ -20,6 +20,15 @@
 }
 
 
+// ================= Size =================
+@mixin height-100vh {
+  height: 100vh;
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+}
+
+
 // ================= Flex =================
 @mixin flex-default($style) {
   @if $style == 'center' {
@@ -146,7 +155,7 @@
 
 // ================= Custom =================
 @mixin content-label {
-	font-weight: var(--weight-bold);
+	font-weight: var(--font-bold);
 	color: var(--color-gray_strong);
   padding: .5em 0;
 	min-width: 150px;

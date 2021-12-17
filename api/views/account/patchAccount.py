@@ -23,46 +23,51 @@ def patchAccount(request):
   new_to_id = None
   months = None
 
+  actionType = 'WRITE' if accountData.to == None else 'SEND' if accountData.bank != None else 'MODIFY'
+  bankMonthAccount = -accountData.account if actionType == 'SEND' else accountData.account
+  toMonthAccount = accountData.account
+
+  if (accountData.to != None):
+    if (datetime[:7] != accountData.datetime[:7]):
+      toMonth = Month.objects.get(user_id=user_id, bank_id=accountData.to, date=accountData.datetime[:7])
+      toMonth.expenditure = toMonth.expenditure - toMonthAccount 
+      toMonth.save()
+      new_to_id = checkAndCreateBank(
+        user_id,
+        accountData.to,
+        datetime,
+        toMonthAccount,
+        headers
+      )
+
   if (accountData.month_id == None):
     if (bank_id):
-      new_month_id = checkAndCreateBank(user_id, bank_id, accountData.datetime, accountData.account, headers)
+      new_month_id = checkAndCreateBank(user_id, bank_id, accountData.datetime, bankMonthAccount, headers)
 
   else:
     month = Month.objects.get(id=accountData.month_id)
 
     if (bank_id == 0):
-      month.expenditure = month.expenditure - accountData.account
+      month.expenditure = month.expenditure - bankMonthAccount
       accountData.month_id = None
 
     elif (bank_id):
-      month.expenditure = month.expenditure - accountData.account
-      new_month_id = checkAndCreateBank(user_id, bank_id, accountData.datetime, accountData.account, headers)
+      month.expenditure = month.expenditure - bankMonthAccount
+      new_month_id = checkAndCreateBank(user_id, bank_id, accountData.datetime, bankMonthAccount, headers)
 
     elif (datetime):
       if (datetime[:7] != accountData.datetime[:7]):
-        month.expenditure = month.expenditure - accountData.account 
+        month.expenditure = month.expenditure - bankMonthAccount 
         new_month_id = checkAndCreateBank(
           user_id,
           accountData.bank_id,
           datetime,
-          accountData.account,
+          bankMonthAccount,
           headers
         )
-        if (accountData.to != None):
-          print('###', accountData.to)
-          toMonth = Month.objects.get(user_id=user_id, bank_id=accountData.to, date=accountData.datetime[:7])
-          toMonth.expenditure = toMonth.expenditure + accountData.account
-          toMonth.save()
-          new_to_id = checkAndCreateBank(
-            user_id,
-            accountData.to,
-            datetime,
-            -accountData.account,
-            headers
-          )
 
     elif (account):
-      expenditureGap = account - accountData.account
+      expenditureGap = account - bankMonthAccount
       month.expenditure = month.expenditure + expenditureGap
 
     month.save()
@@ -79,12 +84,13 @@ def patchAccount(request):
     )
 
   if new_to_id != None:
-    months = months + getNewMonths(
+    toMonths = getNewMonths(
       user_id, 
       accountData.to,
       datetime[:7] if datetime != None else accountData.datetime,
       headers,
     )
+    months = months  + toMonths if (months != None) else toMonths
 
   if new_month_id != None:
     accountData.month_id = new_month_id

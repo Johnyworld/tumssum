@@ -1,0 +1,15 @@
+@import '~src/style/mixins';
+
+.not-found-page {
+	@include flex-default('center');
+	height: 100%;
+	overflow: hidden;
+	padding: 0 1rem;
+	word-break: keep-all;
+
+	&__title {
+		font-weight: var(--font-thin);	
+		font-size: 5rem;
+		line-height: 1;
+	}
+}
