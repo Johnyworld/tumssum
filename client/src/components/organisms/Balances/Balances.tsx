@@ -26,23 +26,24 @@ interface StatisticsItem extends Bank {
 	carry_over: number;
 }
 
-const findMonthRecursive: (monthes: Month[], Y: number, M: number, count: number) => null | Month = (monthes, Y, M, count) => {
+const findMonthRecursive: (monthes: Month[], Y: number, M: number) => null | Month = (monthes, Y, M) => {
 	const dateString = Y + '-' + (M < 10 ? '0'+M : M);
 	const month = monthes.find(month => month.date === dateString);
 	if (month) return month;
-	if (count <= 0) return null;
 	else {
-		if (M === 1) return findMonthRecursive(monthes, Y-1, 12, count-1);
-		else return findMonthRecursive(monthes, Y, M-1, count-1);
+		if (M === 1) return findMonthRecursive(monthes, Y-1, 12);
+		else return findMonthRecursive(monthes, Y, M-1);
 	}
 }
 
-const findMonth = (months: Month[], date: string) => {
-	if (!months.length) return null;
+const findMonth = (bankId: number, months: Month[], date: string) => {
+	const filtered = months.filter(month=> month.bank === bankId && month.date < date);
+	if (!filtered.length) return null;
+	if (filtered.length === 1) return filtered[0];
 	const split = date.split('-');
 	const Y = +split[0];
 	const M = +split[1];
-	return findMonthRecursive(months, Y, M, months.length);
+	return findMonthRecursive(filtered, Y, M);
 }
 
 const combineData = (banksGroup: BankGroup[], monthes: Month[], aligned: StatisticsItems, date: string) => {
@@ -51,6 +52,9 @@ const combineData = (banksGroup: BankGroup[], monthes: Month[], aligned: Statist
 		income: 0,
 		expenditure: 0,
 		total: 0,
+		incomeWriteOnly: 0,
+		expenditureWriteOnly: 0,
+		totalWriteOnly: 0,
 		carry_over: 0,
 	};
 
@@ -58,23 +62,35 @@ const combineData = (banksGroup: BankGroup[], monthes: Month[], aligned: Statist
 		let income = 0;
 		let expenditure = 0;
 		let total = 0;
+		let incomeWriteOnly = 0;
+		let expenditureWriteOnly = 0;
+		let totalWriteOnly = 0;
 		let carry_over = 0;
 
 		const groupItems = group.id ? group.items : [...group.items, { id: 0 }];
 
 		const items = groupItems.map(bank => {
-			const month = findMonth(monthes.filter(month=> month.bank === bank.id), date);
+			const month = findMonth(bank.id, monthes, date);
 			const itemIncome = aligned[bank.id]?.income || 0;
 			const itemExpenditure = aligned[bank.id]?.expenditure || 0;
 			const itemTotal = aligned[bank.id]?.total || 0;
+			const itemIncomeWriteOnly = aligned[bank.id]?.incomeWriteOnly || 0;
+			const itemExpenditureWriteOnly = aligned[bank.id]?.expenditureWriteOnly || 0;
+			const itemTotalWriteOnly = aligned[bank.id]?.totalWriteOnly || 0;
 			const itemCarryOver = month ? month.date === date.substr(0, 7) ? month.carry_over : month.balance : 0;
 			income += itemIncome;
-			all.income += itemIncome;
 			expenditure += itemExpenditure;
-			all.expenditure += itemExpenditure;
 			total += itemTotal;
-			all.total += itemTotal;
+			incomeWriteOnly += itemIncomeWriteOnly;
+			expenditureWriteOnly += itemExpenditureWriteOnly;
+			totalWriteOnly += itemTotalWriteOnly;
 			carry_over += itemCarryOver;
+			all.income += itemIncome;
+			all.expenditure += itemExpenditure;
+			all.total += itemTotal;
+			all.incomeWriteOnly += itemIncomeWriteOnly;
+			all.expenditureWriteOnly += itemExpenditureWriteOnly;
+			all.totalWriteOnly += itemTotalWriteOnly;
 			all.carry_over += itemCarryOver;
 			return {
 				...bank,
@@ -88,6 +104,9 @@ const combineData = (banksGroup: BankGroup[], monthes: Month[], aligned: Statist
 			income,
 			expenditure,
 			total,
+			incomeWriteOnly,
+			expenditureWriteOnly,
+			totalWriteOnly,
 			carry_over,
 			items,
 		} as StatisticsGroup;
@@ -122,15 +141,15 @@ const Balances: FunctionalComponent<BalancesProps> = ({ date, banksCombined, mon
 			<AccordionTable.Head head={['합계', '예산', '소비']} />
 			
 			<AccordionTable
-				group={[ '월 지출', 0, all.expenditure ]}
+				group={[ '월 지출', 0, all.expenditureWriteOnly ]}
 			/>
 
 			<AccordionTable
-				group={[ '월 수입', 0, all.income ]}
+				group={[ '월 수입', 0, all.incomeWriteOnly ]}
 			/>
 
 			<AccordionTable
-				group={[ '월 손익', 0, all.expenditure + all.income ]}
+				group={[ '월 손익', 0, all.expenditureWriteOnly + all.incomeWriteOnly ]}
 			/>
 
 			<AccordionTable
@@ -139,7 +158,7 @@ const Balances: FunctionalComponent<BalancesProps> = ({ date, banksCombined, mon
 			/>
 
 			<AccordionTable
-				group={[ '남은 금액', 0, all.carry_over + all.total ]}
+				group={[ '남은 금액', 0, all.carry_over + all.totalWriteOnly ]}
 			/>
 
 		</div>

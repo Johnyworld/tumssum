@@ -31,6 +31,11 @@ export interface AccountFormModalProps {
 }
 
 
+const getInitialMode = (initialValues?: Account | null) => {
+	if (initialValues?.to) return initialValues.bank ? 'SEND' : 'MODIFY';
+	return 'WRITE';
+}
+
 const getIsIncludeInBanks = (id: number | string | null, banks: Bank[]) => {
 	// 리스트에 존재하면 id 를 리턴
 	// 리스트에 존재하지 않으면 null 리턴
@@ -39,7 +44,10 @@ const getIsIncludeInBanks = (id: number | string | null, banks: Bank[]) => {
 	return bank ? bank.id : '';
 }
 
-type Mode = 'WRITE' | 'SEND';
+type Mode
+	= 'WRITE' // 가계부를 입력합니다.
+	| 'SEND' // 뱅크 => 뱅크간 금액을 전달합니다.
+	| 'MODIFY'; // 하나의 뱅크에 금액을 수정합니다.
 
 const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentDate, initialValues, categoriesCombined, banksCombined, banks, confirm, isCreateMode, onConfirm, onDelete, onClose }) => {
 
@@ -58,7 +66,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 		to: initialValues?.to || '',
 	}}, [initialValues]);
 
-	const [ mode, setMode ] = useState<Mode>(initialValues?.to ? 'SEND' : 'WRITE');
+	const [ mode, setMode ] = useState<Mode>(getInitialMode(initialValues));
 	const [ title, changeTitle ] = useContentEditable(initV.title);
 	const [amount, ___, setAmmount] = useInput(initV.amount);
 	const [isIncome, setIsIncome] = useState(initialValues?.account ? !(initialValues.account < 0) : false);
@@ -98,15 +106,19 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 			toast('받는 곳과 보내는 곳을 선택해주세요!', 'red');
 			return;
 		}
+		if (mode === 'MODIFY' && !to) {
+			toast('받는 곳을 선택해주세요!', 'red');
+			return;
+		}
 		onConfirm({
 			id: initialValues?.id,
 			title: mode === 'WRITE' ? title : '',
-			account: isIncome ? +amount : -amount,
+			account: mode === 'SEND' ? Math.abs(+amount) : isIncome ? +amount : -amount,
 			datetime,
 			memo,
 			category: mode === 'WRITE' ? +category || null : null,
-			bank: +bank || null,
-			to: mode === 'SEND' ? +to || null : null,
+			bank: mode === 'MODIFY' ? null : +bank || null,
+			to: (mode === 'SEND' || mode === 'MODIFY') ? +to || null : null,
 		} as Account);
 	}
 
@@ -128,12 +140,6 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 		else onClose();
 	}
 
-	useEffect(() => {
-		if (mode === 'SEND') {
-			setIsIncome(false);
-		}
-	}, [mode]);
-
 	return (
 		<Modal.Container onClose={handleClose}>
 
@@ -145,7 +151,8 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 						onChange={setMode}
 						list={[
 							{ id: 'WRITE', icon: 'pencel' },
-							{ id: 'SEND', icon: 'storage' },
+							{ id: 'SEND', icon: 'arrowRight' },
+							{ id: 'MODIFY', icon: 'storage' },
 						]}
 					/>
 				</div>
@@ -156,6 +163,10 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 
 					{ mode === 'SEND' && isCreateMode &&
 						<h3 style={{ lineHeight: '34px' }}>다른 뱅크로 금액을 보냅니다.</h3>
+					}
+
+					{ mode === 'MODIFY' && isCreateMode &&
+						<h3 style={{ lineHeight: '34px' }}>뱅크의 금액을 수정합니다.</h3>
 					}
 
 					{ mode === 'WRITE' &&
@@ -178,10 +189,10 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 							color={mode === 'SEND' ? 'pen' : isIncome ? 'pen' : 'red'}
 							weight='bold'
 							placeholder='비어있음'
-							isNumberNegative={mode === 'SEND' ? false : !isIncome}
+							isNumberNegative={!isIncome}
 							isHideNumberSign={mode === 'SEND'}
 							onChange={setAmmount}
-							onChangeNumberNegative={mode === 'WRITE' ? handleChangeIsIncome : undefined}
+							onChangeNumberNegative={mode === 'SEND' ? undefined : handleChangeIsIncome}
 						/>
 
 						{ mode === 'WRITE' &&
@@ -203,24 +214,7 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 							/>
 						}
 
-						<Dropdown
-							list={[
-								...banksCombined.map(group => { return {
-									id: group.id,
-									text: group.title || '이름 없음',
-									children: group.items.map(bank => { return {
-										id: bank.id,
-										text: bank.title,
-									}})
-								}}),
-							]}
-							label={mode === 'WRITE' ? '뱅크' : '보내는 곳'}
-							placeholder='미분류'
-							selected={bank}
-							onChange={handleChangeBank}
-						/>
-
-						{ mode === 'SEND' &&
+						{( mode === 'WRITE' || mode === 'SEND' ) &&
 							<Dropdown
 								list={[
 									...banksCombined.map(group => { return {
@@ -232,7 +226,26 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 										}})
 									}}),
 								]}
-								label='받는 곳'
+								label={mode === 'SEND' ? '보내는 곳' : '뱅크'}
+								placeholder='미분류'
+								selected={bank}
+								onChange={handleChangeBank}
+							/>
+						}
+
+						{( mode === 'SEND' || mode === 'MODIFY' ) &&
+							<Dropdown
+								list={[
+									...banksCombined.map(group => { return {
+										id: group.id,
+										text: group.title || '이름 없음',
+										children: group.items.map(bank => { return {
+											id: bank.id,
+											text: bank.title,
+										}})
+									}}),
+								]}
+								label={mode === 'SEND' ? '받는 곳' : '뱅크'}
 								placeholder='미분류'
 								selected={to}
 								onChange={handleChangeTo}
