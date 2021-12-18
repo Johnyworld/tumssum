@@ -20,7 +20,5 @@ def deleteCategoryGroup(request):
   categoryGroup = get_object_or_404(CategoryGroup, pk=category_group_id)
   categoryGroup.delete()
 
-  print(categoriesSerialized)
-
   res = { 'ok': True, 'data': { 'id': category_group_id, 'items': categoriesSerialized } }
   return JsonResponse(res)

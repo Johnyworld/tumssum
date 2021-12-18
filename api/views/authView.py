@@ -55,7 +55,6 @@ class KakaoLogin(SocialLoginView):
 
 
 def sendEmail(request):
-  print(request.GET)
   if request.method == 'GET':
     email = request.GET.get('email')
     try:
