@@ -26,7 +26,6 @@ def postAccount(request):
   toMonth = None
 
   if (to_id != None):
-    print('1', account)
     account = -account
     yyyymm = datetime[:7]
     try:
@@ -44,7 +43,6 @@ def postAccount(request):
       toMonth = Month.objects.get(bank_id=to_id, date=yyyymm)
 
   if (bank_id != None):
-    print('2', account)
     yyyymm = datetime[:7]
     try:
       # Modify

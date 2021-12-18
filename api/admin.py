@@ -14,37 +14,37 @@ class BankInline(admin.TabularInline):
 
 
 class CategoryGroupAdmin(admin.ModelAdmin):
-  list_display = ('title', 'id')
+  list_display = ('id', 'title')
   search_fields = ['title']
 
 
 class CategoryAdmin(admin.ModelAdmin):
-  list_display = ('title', 'group', 'user', 'id')
+  list_display = ('id', 'title', 'group', 'user')
   search_fields = ['title']
 
 
 class BankGroupAdmin(admin.ModelAdmin):
-  list_display = ('title', 'id', 'user')
+  list_display = ('id', 'title', 'user')
   search_fields = ['title']
 
 
 class BankAdmin(admin.ModelAdmin):
-  list_display = ('title', 'group', 'balance', 'user', 'id')
+  list_display = ('id', 'title', 'group', 'balance', 'user')
   search_fields = ['title']
 
 
 class MonthAdmin(admin.ModelAdmin):
-  list_display = ('date', 'user', 'bank', 'expenditure')
+  list_display = ('id', 'date', 'user', 'bank', 'expenditure')
   search_fields = ['title']
 
 
 class BudgetAdmin(admin.ModelAdmin):
-  list_display = ('date', 'user', 'category', 'budget')
+  list_display = ('id', 'date', 'user', 'category', 'budget')
   search_fields = ['title']
 
 
 class AccountAdmin(admin.ModelAdmin):
-  list_display = ('title', 'user', 'category', 'bank', 'month', 'account', 'datetime')
+  list_display = ('id', 'title', 'user', 'category', 'bank', 'month', 'account', 'datetime')
   search_fields = ['title']
 
 

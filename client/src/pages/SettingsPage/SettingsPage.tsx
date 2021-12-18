@@ -1,4 +1,5 @@
 import { h, FunctionalComponent } from 'preact';
+import VersionText from '~components/atoms/VersionText';
 import SettingsContainer from '~containers/SettingsContainer';
 import { useSelector } from '~utils/redux/hooks';
 import './SettingsPage.scss';
@@ -14,6 +15,7 @@ const SettingsPage: FunctionalComponent = () => {
 				? <p>유저 데이터가 없네요!</p>
 				: <SettingsContainer user={userInfo} />
 			}
+			<VersionText />
 		</main>
 	)
 	

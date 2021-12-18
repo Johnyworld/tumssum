@@ -6,7 +6,7 @@ import json
 
 def postMonth(request):
   reqData = json.loads(request.body)
-  print(reqData)
+
   user_id = reqData.get('user_id')
   bank_id = reqData.get('bank_id')
   date = reqData.get('date')
