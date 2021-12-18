@@ -30,6 +30,7 @@
     "axios": "^0.21.1",
     "i18next": "^20.3.1",
     "i18next-xhr-backend": "^3.2.2",
+    "package.json": "^2.0.1",
     "preact": "^10.3.1",
     "preact-i18next": "^11.8.5",
     "preact-render-to-string": "^5.1.4",
