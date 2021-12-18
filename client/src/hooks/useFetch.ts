@@ -84,8 +84,8 @@ const useFetch = <S>({ method, url, params, isNoFetchWithoutCall, onError, onSuc
 	}, []);
 
 
-	const call = useCallback((reqData?: any) => {
-		fetching(reqData);
+	const call = useCallback((reqData?: any, params?: any) => {
+		fetching(reqData, params);
 	}, []);
 
 

@@ -10,6 +10,7 @@ import Input from '~components/atoms/Input';
 import AuthLogo from '~components/molecules/AuthLogo';
 import SocialLogin from '~features/socialLogin/SocialLogin';
 import useFetch from '~hooks/useFetch';
+import VersionText from '~components/atoms/VersionText';
 
 
 const LoginPage: FunctionalComponent = () => {
@@ -32,10 +33,9 @@ const LoginPage: FunctionalComponent = () => {
     e.preventDefault();
     if ( !login.loading ) {
       setSent(false);
-      login.call();
+      login.call(null, { email });
     }
   }
-
 
   return (
     <form class='auth-pages' onSubmit={handleSubmit}>
@@ -61,6 +61,8 @@ const LoginPage: FunctionalComponent = () => {
       </div>
 
       <SocialLogin /> 
+
+      <VersionText />
 
     </form>
   )
