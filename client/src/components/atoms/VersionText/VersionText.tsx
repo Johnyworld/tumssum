@@ -1,10 +1,13 @@
 import { h, FunctionalComponent } from 'preact';
 import { version } from '../../../../package.json';
+import './VersionText.scss';
 
 
 const VersionText: FunctionalComponent = ({  }) => {
 	return (
-		<p class='f-small c-gray mv-regular'>Version. {version}</p>
+		<a class='version-text' target='_blank' href='https://github.com/Johnyworld/tumssum/blob/master/CHANGELOG.md'>
+			Version. {version}
+		</a>
 	)
 }
 
