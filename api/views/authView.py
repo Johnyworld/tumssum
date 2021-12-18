@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.http import JsonResponse
+from api.utils.generators import codeGenerator
 from rest_framework import status
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -54,11 +55,12 @@ class KakaoLogin(SocialLoginView):
 
 
 def sendEmail(request):
+  print(request.GET)
   if request.method == 'GET':
     email = request.GET.get('email')
     try:
       # 유저가 존재할 경우 토큰 이메일 전송
-      token = 'A9ffjdsdf73D'
+      token = codeGenerator(18)
       url = settings.SITE_URL
       user = User.objects.get(email = email)
       user.set_password(token)

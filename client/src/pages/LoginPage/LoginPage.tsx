@@ -32,10 +32,9 @@ const LoginPage: FunctionalComponent = () => {
     e.preventDefault();
     if ( !login.loading ) {
       setSent(false);
-      login.call();
+      login.call(null, { email });
     }
   }
-
 
   return (
     <form class='auth-pages' onSubmit={handleSubmit}>
