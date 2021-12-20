@@ -3,10 +3,13 @@ import { Suspense } from 'preact/compat';
 import { Provider } from 'react-redux';
 import './style/index.scss';
 import App from './pages/App';
-import 'preact/debug';
 import axios from 'axios';
 import { store } from '~utils/redux/store';
 import './i18n'
+
+if (process.env.NODE_ENV === 'development') {
+  require('preact/debug');
+}
 
 
 axios.interceptors.response.use(function (response) {

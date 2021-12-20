@@ -11,7 +11,9 @@ import toastReducer from '~stores/toastSlice';
 import alertReducer from '~stores/alertSlice';
 import confirmReducer from '~stores/confirmSlice';
 
+
 export const store = configureStore({
+  devTools: process.env.NODE_ENV === 'development',
   reducer: {
     mode: modeReducer,
     user: userReducer,
