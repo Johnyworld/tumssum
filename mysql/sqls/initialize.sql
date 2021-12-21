@@ -1,0 +1,10 @@
+DROP DATABASE IF EXISTS tumssumdev;
+
+CREATE DATABASE tumssumdev;
+USE tumssumdev;
+
+CREATE TABLE list (
+	id INTEGER AUTO_INCREMENT,
+	value TEXT,
+	PRIMARY KEY (id)
+)
