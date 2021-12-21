@@ -2,7 +2,6 @@ FROM node:14.14-alpine
 ENV NODE_ENV=development
 WORKDIR /usr/src/app/client
 COPY package.json .
-RUN sudo apt-get install bc
 RUN npm install -g parcel-bundler
 RUN npm install
 COPY . .
