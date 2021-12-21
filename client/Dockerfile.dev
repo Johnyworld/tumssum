@@ -1,4 +1,4 @@
-FROM node:12.12
+FROM node:14.14-alpine
 ENV NODE_ENV=development
 WORKDIR /usr/src/app/client
 COPY package.json .
