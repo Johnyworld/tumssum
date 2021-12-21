@@ -1,7 +1,6 @@
 from api.utils.secret import get_secret
 from .base import *
 
-
 DJANGO_DB_NAME = get_secret("DJANGO_DB_NAME")
 DJANGO_DB_USERNAME = get_secret("DJANGO_DB_USERNAME")
 DJANGO_DB_PASSWORD = get_secret("DJANGO_DB_PASSWORD")
@@ -13,7 +12,6 @@ DJANGO_DOMAIN = get_secret("DJANGO_DOMAIN")
 SITE_ID = 3
 BASE_URL = 'https://tumssum.com'
 SITE_URL = 'https://tumssum.com'
-
 
 DEBUG = False
 ALLOWED_HOSTS = [
