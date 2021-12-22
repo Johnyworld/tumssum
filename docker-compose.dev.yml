@@ -1,7 +1,7 @@
 version: '3.4'
 services:
 
-  client:
+  client-dev:
     build:
       context: ./client
       dockerfile: Dockerfile.dev
@@ -10,11 +10,11 @@ services:
       - ./client:/usr/src/app
     environment:
       NODE_ENV: development
-      PARCEL_WORKERS: 2
+      PARCEL_WORKERS: 1
     ports:
       - 3000:3000
 
-  server:
+  server-dev:
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -23,12 +23,6 @@ services:
       - .:/usr/src/app
     ports:
       - 8000:8000
-    environment:
-      DJANGO_DB_HOST: $DJANGO_DB_HOST
-      DJANGO_DB_NAME: $DJANGO_DB_NAME
-      DJANGO_DB_USERNAME: $DJANGO_DB_USERNAME
-      DJANGO_DB_PASSWORD: $DJANGO_DB_PASSWORD
-      DJANGO_DB_PORT: $DJANGO_DB_PORT
 
   # mysql:
   #   build: ./mysql
