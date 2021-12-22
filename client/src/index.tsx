@@ -27,20 +27,20 @@ render(
   </Suspense>
 , app!);
 
-if ('serviceWorker' in navigator) {
-  if ( process.env.NODE_ENV === 'production' ) {
-    window.addEventListener('load', () => {
-      registerSW();
-    })
-  }
-}
+// if ('serviceWorker' in navigator) {
+//   if ( process.env.NODE_ENV === 'production' ) {
+//     window.addEventListener('load', () => {
+//       registerSW();
+//     })
+//   }
+// }
 
-const registerSW = async () => {
-  try {
-    await navigator.serviceWorker.register('./sw.ts', {
-      scope: '/'
-    });
-  } catch {
-    console.log('SW registration failed');
-  }
-}
+// const registerSW = async () => {
+//   try {
+//     await navigator.serviceWorker.register('./sw.ts', {
+//       scope: '/'
+//     });
+//   } catch {
+//     console.log('SW registration failed');
+//   }
+// }

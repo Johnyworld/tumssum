@@ -1,5 +1,6 @@
 FROM node:14.14-alpine
 ENV NODE_ENV=development
+ENV PARCEL_WORKERS=1
 WORKDIR /usr/src/app/client
 COPY package.json .
 RUN npm install -g parcel-bundler
