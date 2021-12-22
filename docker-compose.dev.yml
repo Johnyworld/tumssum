@@ -14,21 +14,21 @@ services:
     ports:
       - 3000:3000
 
-  # server:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.dev
-  #   volumes:
-  #     - /usr/src/app/client
-  #     - .:/usr/src/app
-  #   ports:
-  #     - 8000:8000
-  #   environment:
-  #     DJANGO_DB_HOST: mysql
-  #     DJANGO_DB_NAME: tumssumdev
-  #     DJANGO_DB_USERNAME: root
-  #     DJANGO_DB_PASSWORD: 
-  #     DJANGO_DB_PORT: 3306
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /usr/src/app/client
+      - .:/usr/src/app
+    ports:
+      - 8000:8000
+    environment:
+      DJANGO_DB_HOST: $DJANGO_DB_HOST
+      DJANGO_DB_NAME: $DJANGO_DB_NAME
+      DJANGO_DB_USERNAME: $DJANGO_DB_USERNAME
+      DJANGO_DB_PASSWORD: $DJANGO_DB_PASSWORD
+      DJANGO_DB_PORT: $DJANGO_DB_PORT
 
   # mysql:
   #   build: ./mysql
@@ -40,4 +40,6 @@ services:
   #     - ./mysql/mysql_data:/var/lib/mysql
   #     - ./mysql/sqls/:/docker-entrypoint-initdb.d/
   #   environment:
+  #     MYSQL_NAME: root
+  #     MYSQL_PASSWORD: root
   #     MYSQL_DATABASE: tumssumdev

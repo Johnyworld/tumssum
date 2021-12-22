@@ -1,0 +1,33 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install: 
+  # - docker build -t johnyworld/tumssum-test -f ./frontend/Dockerfile.dev ./frontend
+
+script:
+  # - docker run -e CI=true johnyworld/tumssum-test npm run test
+
+after_success:
+  - docker build -t johnyworld/ts-client ./client
+  - docker build -t johnyworld/ts-server ./server
+  # - docker build -t johnyworld/docker-nginx ./nginx
+
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
+
+  - docker push johnyworld/ts-client
+  - docker push johnyworld/ts-server
+  # - docker push johnyworld/docker-nginx
+
+# deploy:
+#   provider: elasticbeanstalk
+#   region: ap-northeast-2
+#   app: docker-node-react
+#   env: Dockernodereact-env
+#   bucket_name: elasticbeanstalk-ap-northeast-2-683369338492
+#   bucket_path: docker-node-react
+#   on:
+#     branch: master 
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_access_key_id: $AWS_SECRET_ACCESS_KEY
