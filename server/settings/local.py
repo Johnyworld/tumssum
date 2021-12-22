@@ -1,11 +1,11 @@
-import os
+from api.utils.secret import get_secret_dev
 from .base import *
 
-DJANGO_DB_NAME = os.getenv("DJANGO_DB_NAME")
-DJANGO_DB_USERNAME = os.getenv("DJANGO_DB_USERNAME")
-DJANGO_DB_PASSWORD = os.getenv("DJANGO_DB_PASSWORD")
-DJANGO_DB_HOST = os.getenv("DJANGO_DB_HOST")
-DJANGO_DB_PORT = os.getenv("DJANGO_DB_PORT")
+DJANGO_DB_NAME = get_secret_dev("DJANGO_DB_NAME")
+DJANGO_DB_USERNAME = get_secret_dev("DJANGO_DB_USERNAME")
+DJANGO_DB_PASSWORD = get_secret_dev("DJANGO_DB_PASSWORD")
+DJANGO_DB_HOST = get_secret_dev("DJANGO_DB_HOST")
+DJANGO_DB_PORT = get_secret_dev("DJANGO_DB_PORT")
 
 DEBUG = True
 ALLOWED_HOSTS = [
