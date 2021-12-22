@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'preact-i18next';
 import backend from "i18next-xhr-backend";
 
-const userLanguage = window.navigator.language;
+const userLanguage = window.navigator.language?.split('-')[0];
 
 i18n.use(backend).use(initReactI18next).init({
   lng: localStorage.getItem('language') || userLanguage || 'en',
