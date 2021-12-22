@@ -10,12 +10,12 @@ RUN npm run build
 
 FROM python:3.9
 WORKDIR /usr/src/app
-COPY requirements.txt .
+COPY server/requirements.txt .
 RUN pip3 install -r requirements.txt
 RUN pip3 install uwsgi
 RUN mkdir -p /var/log/uwsgi
-COPY . .
+COPY server .
 COPY --from=builder /usr/src/app/client/build /usr/src/app/client/build
 RUN python3 manage.py collectstatic --settings=server.settings.prod
-CMD ["uwsgi", "uwsgi.ini"]
+CMD ["uwsgi", "server/uwsgi.ini"]
 EXPOSE 8000

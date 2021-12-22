@@ -16,11 +16,10 @@ services:
 
   server-dev:
     build:
-      context: .
+      context: ./server
       dockerfile: Dockerfile.dev
     volumes:
-      - /usr/src/app/client
-      - .:/usr/src/app
+      - ./server:/usr/src/app
     ports:
       - 8000:8000
 
