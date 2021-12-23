@@ -1,6 +1,18 @@
 version: '3.4'
 services:
 
+  nginx:
+    restart: always
+    ports:
+      - 80:80
+    volumes_from:
+      - server:ro
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    depends_on : 
+      - server
+
   server:
     build:
       context: .
@@ -13,19 +25,5 @@ services:
       DJANGO_DB_USERNAME: $DJANGO_DB_USERNAME
       DJANGO_DB_PASSWORD: $DJANGO_DB_PASSWORD
       DJANGO_DB_PORT: $DJANGO_DB_PORT
-    ports:
-      - 8000:8000
-
-  # mysql:
-  #   build: ./mysql
-  #   restart: unless-stopped
-  #   container_name: app_mysql
-  #   ports:
-  #     - 3306:3306
-  #   volumes:
-  #     - ./mysql/mysql_data:/var/lib/mysql
-  #     - ./mysql/sqls/:/docker-entrypoint-initdb.d/
-  #   environment:
-  #     MYSQL_NAME: root
-  #     MYSQL_PASSWORD: root
-  #     MYSQL_DATABASE: tumssumdev
+    # ports:
+    #   - 8000:8000
