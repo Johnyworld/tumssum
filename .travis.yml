@@ -10,7 +10,7 @@ script:
   # - docker run -e CI=true johnyworld/tumssum-test npm run test
 
 after_success:
-  - docker build -t johnyworld/ts-server ./server
+  - docker build -t johnyworld/ts-server .
   - docker build -t johnyworld/ts-nginx ./nginx
 
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
