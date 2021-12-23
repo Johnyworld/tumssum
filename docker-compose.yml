@@ -25,5 +25,7 @@ services:
       DJANGO_DB_USERNAME: $DJANGO_DB_USERNAME
       DJANGO_DB_PASSWORD: $DJANGO_DB_PASSWORD
       DJANGO_DB_PORT: $DJANGO_DB_PORT
-    # ports:
-    #   - 8000:8000
+    ports:
+      - 8000:8000
+    expose:
+      - 5000
