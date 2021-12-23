@@ -22,7 +22,7 @@ deploy:
   provider: elasticbeanstalk
   region: ap-northeast-2
   app: tumssum
-  env: Tumssum-env
+  env: Tumssumweb-env
   bucket_name: elasticbeanstalk-ap-northeast-2-683369338492
   bucket_path: tumssum
   on:
