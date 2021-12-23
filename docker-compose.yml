@@ -12,6 +12,8 @@ services:
       context: ./nginx
     depends_on : 
       - server
+    expose:
+      - 80
 
   server:
     build:
