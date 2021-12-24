@@ -1,13 +1,16 @@
-from api.utils.secret import get_secret
 from .base import *
+import environ
 
-DJANGO_DB_NAME = get_secret("DJANGO_DB_NAME")
-DJANGO_DB_USERNAME = get_secret("DJANGO_DB_USERNAME")
-DJANGO_DB_PASSWORD = get_secret("DJANGO_DB_PASSWORD")
-DJANGO_DB_HOST = get_secret("DJANGO_DB_HOST")
-DJANGO_DB_PORT = get_secret("DJANGO_DB_PORT")
-DJANGO_EC2_IP = get_secret("DJANGO_EC2_IP")
-DJANGO_DOMAIN = get_secret("DJANGO_DOMAIN")
+env = environ.Env(DEBUG=(bool, False))
+environ.Env.read_env()
+
+DJANGO_DB_NAME = env("DJANGO_DB_NAME")
+DJANGO_DB_USERNAME = env("DJANGO_DB_USERNAME")
+DJANGO_DB_PASSWORD = env("DJANGO_DB_PASSWORD")
+DJANGO_DB_HOST = env("DJANGO_DB_HOST")
+DJANGO_DB_PORT = env("DJANGO_DB_PORT")
+DJANGO_EC2_IP = env("DJANGO_EC2_IP")
+DJANGO_DOMAIN = env("DJANGO_DOMAIN")
 
 SITE_ID = 3
 BASE_URL = 'https://tumssum.com'

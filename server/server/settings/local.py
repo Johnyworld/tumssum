@@ -1,11 +1,16 @@
-from api.utils.secret import get_secret_dev
 from .base import *
+import environ
 
-DJANGO_DB_NAME = get_secret_dev("DJANGO_DB_NAME")
-DJANGO_DB_USERNAME = get_secret_dev("DJANGO_DB_USERNAME")
-DJANGO_DB_PASSWORD = get_secret_dev("DJANGO_DB_PASSWORD")
-DJANGO_DB_HOST = get_secret_dev("DJANGO_DB_HOST")
-DJANGO_DB_PORT = get_secret_dev("DJANGO_DB_PORT")
+env = environ.Env(DEBUG=(bool, False))
+environ.Env.read_env()
+
+DJANGO_DB_NAME = env('DJANGO_DB_NAME') + '-dev'
+DJANGO_DB_USERNAME = env("DJANGO_DB_USERNAME")
+DJANGO_DB_PASSWORD = env("DJANGO_DB_PASSWORD")
+DJANGO_DB_HOST = env("DJANGO_DB_HOST")
+DJANGO_DB_PORT = env("DJANGO_DB_PORT")
+
+print('***', DJANGO_DB_NAME)
 
 DEBUG = True
 ALLOWED_HOSTS = [
