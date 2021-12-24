@@ -10,14 +10,16 @@ script:
   # - docker run -e CI=true johnyworld/ts-test npm run test
 
 after_success:
-  docker-compose up
-  # - docker build -t johnyworld/ts-server .
-  # - docker build -t johnyworld/ts-nginx ./nginx
+  # docker-compose up
+  - docker build -t johnyworld/ts-server .
+  - docker build -t johnyworld/ts-nginx ./nginx
 
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
 
-  - docker push tumssum_server
-  - docker push tumssum_nginx
+  # - docker push tumssum_server
+  # - docker push tumssum_nginx
+  - docker push johnyworld/ts-server
+  - docker push johnyworld/ts-nginx
 
 deploy:
   provider: elasticbeanstalk
