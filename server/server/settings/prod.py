@@ -9,8 +9,6 @@ DJANGO_DB_USERNAME = env("DJANGO_DB_USERNAME")
 DJANGO_DB_PASSWORD = env("DJANGO_DB_PASSWORD")
 DJANGO_DB_HOST = env("DJANGO_DB_HOST")
 DJANGO_DB_PORT = env("DJANGO_DB_PORT")
-DJANGO_EC2_IP = env("DJANGO_EC2_IP")
-DJANGO_DOMAIN = env("DJANGO_DOMAIN")
 
 SITE_ID = 3
 BASE_URL = 'https://tumssum.com'
@@ -21,8 +19,6 @@ ALLOWED_HOSTS = [
   '127.0.0.1',
   'localhost',
   '*.compute.amazonaws.com',
-  DJANGO_DOMAIN,
-  DJANGO_EC2_IP,
 ]
 
 
