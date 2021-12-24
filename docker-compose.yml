@@ -5,8 +5,6 @@ services:
     restart: always
     ports:
       - 80:80
-    volumes_from:
-      - server:ro
     build:
       dockerfile: Dockerfile
       context: ./nginx
@@ -22,6 +20,7 @@ services:
     volumes:
       - ./server:/usr/src/app
     environment:
+      PARCEL_WORKERS: 1
       DJANGO_DB_HOST: $DJANGO_DB_HOST
       DJANGO_DB_NAME: $DJANGO_DB_NAME
       DJANGO_DB_USERNAME: $DJANGO_DB_USERNAME
