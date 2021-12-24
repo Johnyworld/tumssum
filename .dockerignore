@@ -1,15 +1,12 @@
 **/.cache
 **/.env
-**/env.json
+**/venv
+**/env*.json
 **/.git
 **/.gitignore
 **/.vscode
-**/.dockerignore
-**/docker-compose*
-**/Dockerfile*
 **/node_modules
 **/dist
 **/build
 README.md
 CHANGELOG.md
-mysql_data
