@@ -1,7 +1,6 @@
 **/.cache
 **/.env
 **/venv
-**/env*.json
 **/.git
 **/.gitignore
 **/.vscode
