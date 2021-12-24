@@ -20,6 +20,13 @@
 				}
 			],
 			"links": ["server"],
+			"mountPoints": [
+        {
+          "sourceVolume": "server",
+          "containerPath": "/usr/src/app",
+          "readOnly": true
+        }
+			],
 			"memory": 128
 		}
 	]
