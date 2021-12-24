@@ -20,7 +20,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - .:/usr/src/app
+      - ./server:/usr/src/app
     environment:
       DJANGO_DB_HOST: $DJANGO_DB_HOST
       DJANGO_DB_NAME: $DJANGO_DB_NAME

@@ -17,5 +17,5 @@ RUN mkdir -p /var/log/uwsgi
 COPY server .
 COPY --from=builder /usr/src/app/client/build /usr/src/app/client/build
 RUN python3 manage.py collectstatic --settings=server.settings.prod
-CMD ["uwsgi", "--ini", "server/uwsgi.ini"]
+CMD ["uwsgi", "--ini", "uwsgi.ini"]
 EXPOSE 8000
