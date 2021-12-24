@@ -1,4 +1,4 @@
-FROM node:14.14-alpine
+FROM node:14.17-alpine
 ENV NODE_ENV=development
 ENV PARCEL_WORKERS=1
 WORKDIR /usr/src/app
