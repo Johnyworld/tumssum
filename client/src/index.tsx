@@ -16,7 +16,8 @@ axios.interceptors.response.use(function (response) {
   return response.data;
 })
 
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_PROXY : '';
+const proxy = process.env.REACT_APP_PROXY || '';
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? proxy : '';
 
 const app = document.getElementById('app');
 render(

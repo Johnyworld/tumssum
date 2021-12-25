@@ -1,6 +1,9 @@
 FROM node:14.17-alpine as builder
 ENV NODE_ENV=production
 ENV PARCEL_WORKERS=1
+ENV KAKAO_JS_KEY=$KAKAO_JS_KEY
+ENV GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID
+ENV GOOGLE_CLIENT_EMAIL=$GOOGLE_CLIENT_EMAIL
 WORKDIR /usr/src/app/client
 COPY client/package.json .
 RUN npm install -g parcel-bundler
