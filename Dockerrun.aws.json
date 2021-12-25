@@ -20,6 +20,13 @@
 				}
 			],
 			"links": ["server"],
+			"mountPoints": [
+        {
+          "sourceVolume": "server",
+          "containerPath": "server",
+          "readOnly": true
+        }
+			],
 			"memory": 128
 		}
 	]
