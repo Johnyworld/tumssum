@@ -1,13 +1,5 @@
 {
 	"AWSEBDockerrunVersion": 2,
-	"volumes": [
-    {
-      "name": "server",
-      "host": {
-        "sourcePath": "/usr/src/app"
-      }
-    }
-  ],
 	"containerDefinitions": [
 		{
 			"name": "server",
@@ -28,13 +20,6 @@
 				}
 			],
 			"links": ["server"],
-			"mountPoints": [
-        {
-          "sourceVolume": "server",
-          "containerPath": "server",
-          "readOnly": true
-        }
-			],
 			"memory": 128
 		}
 	]
