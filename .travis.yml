@@ -11,7 +11,7 @@ script:
 
 after_success:
   # docker-compose up
-  - docker build -t johnyworld/ts-server .
+  - docker build --build-arg _KAKAO_JS_KEY=$KAKAO_JS_KEY --build-arg _GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID --build-arg _GOOGLE_CLIENT_EMAIL=$GOOGLE_CLIENT_EMAIL -t johnyworld/ts-server .
   - docker build -t johnyworld/ts-nginx ./nginx
 
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
