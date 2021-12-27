@@ -17,3 +17,12 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./server:/usr/src/app
+    environment:
+      EMAIL_HOST_USER: $EMAIL_HOST_USER
+      EMAIL_HOST_PASSWORD: $EMAIL_HOST_PASSWORD
+      DJANGO_DB_HOST: $DJANGO_DB_HOST
+      DJANGO_DB_NAME: $DJANGO_DB_NAME
+      DJANGO_DB_USERNAME: $DJANGO_DB_USERNAME
+      DJANGO_DB_PASSWORD: $DJANGO_DB_PASSWORD
+      DJANGO_DB_PORT: $DJANGO_DB_PORT
+      
