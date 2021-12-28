@@ -2,8 +2,8 @@
 Description=uWSGI service
 
 [Service]
-ExecStart=/home/ubuntu/tumssum/venv/bin/uwsgi -i /home/ubuntu/tumssum/server/uwsgi/uwsgi.ini
-; ExecStart=/home/ubuntu/tumssum/venv/bin/uwsgi --http :8000 --home /home/ubuntu/tumssum/venv --chdir /home/ubuntu/tumssum --wsgi-file /home/ubuntu/tumssum/server/uwsgi/wsgi.py
+ExecStart=/home/ubuntu/tumssum/server/venv/bin/uwsgi -i /home/ubuntu/tumssum/server/server/uwsgi/uwsgi.ini
+; ExecStart=/home/ubuntu/tumssum/server/venv/bin/uwsgi --http :8000 --home /home/ubuntu/tumssum/server/venv --chdir /home/ubuntu/tumssum/server --wsgi-file /home/ubuntu/tumssum/server/server/wsgi.py
 
 Restart=always
 KillSignal=SIGQUIT
