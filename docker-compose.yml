@@ -12,17 +12,18 @@ services:
       - server
 
   server:
+    env_file:
+      - .env
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        KAKAO_JS_KEY: $KAKAO_JS_KEY
+        GOOGLE_CLIENT_ID: $GOOGLE_CLIENT_ID
+        GOOGLE_CLIENT_EMAIL: $GOOGLE_CLIENT_EMAIL
     volumes:
       - ./server:/usr/src/app
-    environment:
-      EMAIL_HOST_USER: $EMAIL_HOST_USER
-      EMAIL_HOST_PASSWORD: $EMAIL_HOST_PASSWORD
-      DJANGO_DB_HOST: $DJANGO_DB_HOST
-      DJANGO_DB_NAME: $DJANGO_DB_NAME
-      DJANGO_DB_USERNAME: $DJANGO_DB_USERNAME
-      DJANGO_DB_PASSWORD: $DJANGO_DB_PASSWORD
-      DJANGO_DB_PORT: $DJANGO_DB_PORT
+    ports:
+      - 8000:8000
+
       
