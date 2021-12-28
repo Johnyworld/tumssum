@@ -11,24 +11,24 @@ script:
 
 after_success:
   # docker-compose up
-  - docker build --build-arg _KAKAO_JS_KEY=$KAKAO_JS_KEY --build-arg _GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID --build-arg _GOOGLE_CLIENT_EMAIL=$GOOGLE_CLIENT_EMAIL -t johnyworld/ts-server .
-  - docker build -t johnyworld/ts-nginx ./nginx
+  # - docker build --build-arg _KAKAO_JS_KEY=$KAKAO_JS_KEY --build-arg _GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID --build-arg _GOOGLE_CLIENT_EMAIL=$GOOGLE_CLIENT_EMAIL -t johnyworld/ts-server .
+  # - docker build -t johnyworld/ts-nginx ./nginx
 
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
 
   # - docker push tumssum_server
   # - docker push tumssum_nginx
-  - docker push johnyworld/ts-server
-  - docker push johnyworld/ts-nginx
+  # - docker push johnyworld/ts-server
+  # - docker push johnyworld/ts-nginx
 
-deploy:
-  provider: elasticbeanstalk
-  region: ap-northeast-2
-  app: tumssumapp
-  env: Tumssumapp-env
-  bucket_name: elasticbeanstalk-ap-northeast-2-683369338492
-  bucket_path: tumssumapp
-  on:
-    branch: master 
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key_id: $AWS_SECRET_ACCESS_KEY
+# deploy:
+#   provider: elasticbeanstalk
+#   region: ap-northeast-2
+#   app: tumssumapp
+#   env: Tumssumapp-env
+#   bucket_name: elasticbeanstalk-ap-northeast-2-683369338492
+#   bucket_path: tumssumapp
+#   on:
+#     branch: master 
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_access_key_id: $AWS_SECRET_ACCESS_KEY
