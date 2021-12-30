@@ -17,10 +17,8 @@ const HEIGHT = 168;
 
 const MonthSelector: FunctionalComponent<MonthSelectorProps> = ({ date, today, onChange, onPrev, onNext }) => {
 
-	const split = date.split('-');
+	const [YYYY, MM] = date.split('-');
 	const todaySplit = today.split('-');
-	const YYYY = split[0];
-	const MM = split[1];
 	const thisYear = +todaySplit[0];
 	const thisMonth = +todaySplit[1];
 

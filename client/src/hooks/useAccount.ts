@@ -122,9 +122,7 @@ export default ({ grabbing, handleDrop }: UseAccount) => {
 		if (postAccounts.loading) return;
 		postAccounts.call({
 			accounts: accounts.map(item=> {
-				const split = item.datetime.split('T');
-				const theDate = split[0];
-				const theTime = split[1];
+				const [theDate, theTime] = item.datetime.split('T');
 				const then = new Date(theDate + 'T' + theTime);
 				const datetime = theTime ? then.toISOString() : then.toISOString().substr(0, 10);
 				return {
