@@ -197,7 +197,7 @@ ROOT_URLCONF = 'server.urls'
 STATIC_URL = '/static/'
 STATIC_ROOT = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'client/build'),
+    os.path.join(BASE_DIR, '../client/build'),
 ]
 
 
