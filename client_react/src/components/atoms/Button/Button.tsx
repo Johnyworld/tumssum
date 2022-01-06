@@ -1,4 +1,5 @@
 import React from 'react';
+import './Button.scss';
 
 export interface ButtonProps {
 
@@ -6,9 +7,9 @@ export interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({  }) => {
   return (
-    <div>
+    <button className='button bgc-primary'>
       Hello Button
-    </div>
+    </button>
   )
 }
 
