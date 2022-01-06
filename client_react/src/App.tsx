@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Button from './components/atoms/Button';
+import Button from '~/components/atoms/Button';
 
 const App: React.FC = () => {
   return (
