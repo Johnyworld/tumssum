@@ -41,6 +41,8 @@
   
   &--disabled {
     cursor: not-allowed;
+    background-color: var(--color-gray_strong);
+    color: var(--color-gray_weak);
   }
 
 }

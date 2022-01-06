@@ -16,6 +16,10 @@ module.exports = {
   },
   webpackFinal: async (config, { configType }) => {
     config.resolve.alias['~/src'] = path.resolve(__dirname, '../src')
+    config.resolve.alias['~/utils'] = path.resolve(__dirname, '../src/utils')
+    config.resolve.alias['~/hooks'] = path.resolve(__dirname, '../src/hooks')
+    config.resolve.alias['~/fixtures'] = path.resolve(__dirname, '../src/fixtures')
+    config.resolve.alias['~/components'] = path.resolve(__dirname, '../src/components')
     config.module.rules.push({
       test: /\.scss$/,
       use: [
