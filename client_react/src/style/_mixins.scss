@@ -1,0 +1,178 @@
+@import "./variables";
+
+// ================= Wrapper =================
+@mixin wrapper-wide {
+  max-width: #{$bp-6};
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@mixin wrapper-normal {
+  max-width: #{$bp-3};
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@mixin wrapper-narrow {
+  max-width: #{$bp-1};
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+
+// ================= Size =================
+@mixin height-100vh {
+  height: 100vh;
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+}
+
+
+// ================= Flex =================
+@mixin flex-default($style) {
+  @if $style == 'center' {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } @else if $style == 'end' {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  } @else if $style == 'v-center' {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  } @else {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+
+// ================= Event =================
+@mixin never-drag {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+// ================= Layout =================
+@mixin gap($size) {
+  > * {
+    &:not(:first-child) { margin-top: #{$size} }
+    &:not(:last-child) { margin-bottom: #{$size} } 
+  }
+}
+
+
+// ================= Image =================
+@mixin image-base {
+  background-size: cover;
+	background-position: center;
+	background-color: var(--color-gray_weaker);
+}
+
+
+// ================= Scroll =================
+@mixin hide-scroll {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@mixin scroll-y {
+  overflow-y: auto;
+  overflow-x: hidden;
+  touch-action: pan-y;
+}
+
+
+// ================= Text =================
+@mixin ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+// ================= Break point =================
+@mixin minMobile {
+  @media (min-width: #{$bp-1}) {
+    @content;
+  }
+}
+
+@mixin minTablet {
+  @media (min-width: #{$bp-2}) {
+    @content;
+  }
+}
+
+@mixin minLaptop {
+  @media (min-width: #{$bp-3}) {
+    @content;
+  }
+}
+
+@mixin minDesktop {
+  @media (min-width: #{$bp-4}) {
+    @content;
+  }
+}
+
+@mixin maxMobile {
+  @media (max-width: #{$bp-1 - 1px}) {
+    @content;
+  }
+}
+
+@mixin maxTablet {
+  @media (max-width: #{$bp-2 - 1px}) {
+    @content;
+  }
+}
+
+@mixin maxLaptop {
+  @media (max-width: #{$bp-3 - 1px}) {
+    @content;
+  }
+}
+
+@mixin maxDesktop {
+  @media (max-width: #{$bp-4 - 1px}) {
+    @content;
+  }
+}
+
+
+// ================= Custom =================
+@mixin content-label {
+	font-weight: var(--font-bold);
+	color: var(--color-gray_strong);
+  padding: .5em 0;
+	min-width: 150px;
+}
+
+@mixin content-box {
+  min-height: 1em;
+  line-height: 1.4;
+  border-radius: .25em;
+  padding: .5em .75em;
+  cursor: pointer;
+  white-space: pre-wrap;
+  &:hover {
+    background-color: var(--color-bright_weakest);
+  }
+  &:focus {
+    background-color: var(--color-bright_weakest);
+    box-shadow: var(--shadow-large);
+  }
+}

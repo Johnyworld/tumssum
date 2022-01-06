@@ -1,0 +1,118 @@
+@import "~src/style/mixins";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
+
+html, body {
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	font-family: 'Open Sans', 'Noto Sans KR', sans-serif;
+	font-weight: var(--font-normal);;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #000;
+	color: var(--color-pen);
+	background: #F2F2F4;
+	background: var(--color-bg);
+	
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+	&::-webkit-scrollbar {
+			display: none; /* Chrome, Safari, Opera*/
+	}
+}
+
+body {
+	touch-action: pan-y;
+}
+
+body::-webkit-scrollbar {
+	display: none;
+}
+
+*::-webkit-scrollbar {
+	background-color: rgba(0, 0, 0, 0.5);
+	width: .5rem;
+	height: .5rem;
+}
+
+*::-webkit-scrollbar-track {
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: var(--color-gray_weak);
+	box-shadow: var(--shadow__small);
+	border: 1px solid var(--color-gray);
+}
+
+h1, h2, h3, h4, h5, h6, p, div, li, ul, ol {
+	padding: 0;
+	margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p, th {
+	line-height: 1.4;
+}
+
+body, button, input {
+	font-size: var(--font-regular);
+}
+
+li {
+	list-style-type: none;
+}
+
+a, button {
+	cursor: pointer;
+	line-height: 1;
+}
+
+a {
+	color: var(--color-primary);
+	text-decoration: none;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+h1 {
+	font-size: var(--font-huge);
+}
+
+h2 {
+	font-size: var(--font-big);
+}
+
+h3 {
+	font-size: var(--font-large);
+}
+
+h4 {
+	font-size: var(--font-medium);
+}
+
+h5 {
+	font-size: var(--font-regular);
+}
+
+h6 {
+	font-size: var(--font-small);
+}
+
+input {
+	outline: none;
+	border-radius: 0;
+}
+
+input::placeholder {
+	color: var(--color-gray_weak);
+}
+
+hr {
+	border: none;
+	height: 1px;
+	background-color: var(--color-gray_weak);
+}

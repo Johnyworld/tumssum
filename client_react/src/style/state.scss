@@ -1,0 +1,94 @@
+@import "~src/style/mixins";
+
+input.hide-spin::-webkit-outer-spin-button,
+input.hide-spin::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number].hide-spin {
+  -moz-appearance: textfield;
+}
+
+
+
+.fluid {
+  width: 100%;
+}
+
+.wrap {
+  @include wrapper-normal;
+}
+
+.wrap-narrow {
+  @include wrapper-narrow;
+}
+
+.pos-relative {
+  position: relative;
+}
+
+.pos-full {
+	position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.pos-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.pos-center-y {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.transparent-1 {
+  opacity: 0.1;
+}
+
+.never-drag {
+  @include never-drag;
+}
+
+
+@include maxDesktop {
+  .hide-desktop {
+    display: none;
+  }
+}
+
+
+@include maxLaptop {
+  .hide-laptop {
+    display: none;
+  }
+}
+
+
+@include maxTablet {
+  .hide-tablet {
+    display: none;
+  }
+}
+
+
+@include maxMobile {
+  .hide-mobile {
+    display: none;
+  }
+}

@@ -1,0 +1,57 @@
+@import '~src/style/mixins';
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+	&-column {
+		flex-direction: column;
+	}
+
+	&-inline {
+		display: inline-flex;
+	}
+
+	&-around {
+		justify-content: space-around;
+	}
+
+	&-end {
+		justify-content: flex-end;
+	}
+	
+	&-start {
+		justify-content: flex-start;
+	}
+
+	&-align-end {
+		align-items: flex-end;
+	}
+
+	&-align-start {
+		align-items: flex-start;
+	}
+
+	&-align-center {
+		align-items: center;
+	}
+}
+
+.grid {
+	display: grid;
+}
+
+@for $i from 1 through 6 {
+  .grid-col-#{$i} {
+		grid-template-columns: repeat(#{$i}, 1fr);
+  }
+}
+
+@include maxMobile {
+	.flex-column-mobile {
+		flex-direction: column;	
+		justify-content: flex-start;
+		align-items: flex-start;
+	}
+}

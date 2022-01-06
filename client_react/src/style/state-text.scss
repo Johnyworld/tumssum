@@ -1,0 +1,81 @@
+.f-tiny {
+	font-size: var(--font-tiny);
+}
+
+.f-small {
+	font-size: var(--font-small);
+}
+
+.f-regular {
+	font-size: var(--font-regular);
+}
+
+.f-medium {
+	font-size: var(--font-medium);
+}
+
+.f-large {
+	font-size: var(--font-large);
+}
+
+.f-big {
+	font-size: var(--font-big);
+}
+
+.f-huge {
+	font-size: var(--font-huge);
+}
+
+.f-bold {
+  font-weight: var(--font-bold);
+}
+
+.f-normal {
+  font-weight: var(--font-normal);
+}
+
+.f-thin {
+  font-weight: var(--font-thin);
+}
+
+.f-italic {
+  font-style: italic;
+}
+
+.t-center { 
+  text-align: center;
+}
+
+.t-left { 
+  text-align: left;
+}
+
+.t-right {
+  text-align: right;
+}
+
+.t-underline {
+  text-decoration: underline;
+}
+
+.t-nowrap {
+  white-space: nowrap;
+}
+
+.t-fit {
+  line-height: 1.2;
+}
+
+.pre {
+  white-space: pre-line;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.keep-word {
+  word-break: keep-all;
+}
