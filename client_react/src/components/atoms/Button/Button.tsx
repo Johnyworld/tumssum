@@ -5,11 +5,12 @@ export interface ButtonProps {
 
 }
 
-const Button: React.FC<ButtonProps> = ({  }) => {
+const Button: React.FC<ButtonProps> = ({ children }) => {
   return (
-    <button className='button bgc-primary'>
-      Hello Button
-    </button>
+    <button
+      className='button bgc-primary'
+      children={children || 'Confirm'}
+    />
   )
 }
 
