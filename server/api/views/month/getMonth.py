@@ -7,14 +7,14 @@ from api.views.month.utils import getMonthsData
 def getMonth(request):
   user_id = request.GET.get('user_id')
   bank_id = request.GET.get('bank_id')
-  date = request.GET.get('date')
-  year = date[:4]
+  # date = request.GET.get('date')
+  # year = date[:4]
   months = None
 
   if (bank_id):
-    months = Month.objects.filter(user_id=user_id, bank_id=bank_id, date__startswith=year)
+    months = Month.objects.filter(user_id=user_id, bank_id=bank_id)
   else:
-    months = Month.objects.filter(user_id=user_id, date__startswith=year)
+    months = Month.objects.filter(user_id=user_id)
 
   monthsData = MonthSerializer(months, many=True).data
 
