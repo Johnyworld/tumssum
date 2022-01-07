@@ -9,6 +9,7 @@ interface UserState {
   userInfo: User | null;
 }
 
+
 const initialState: UserState = {
   userInfo: userInfo ? JSON.parse(userInfo) : null,
 }

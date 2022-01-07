@@ -5,6 +5,11 @@ import reportWebVitals from './reportWebVitals';
 import { store } from '~/store';
 import { Provider } from 'react-redux';
 import './style/index.scss';
+import axios from 'axios';
+
+axios.interceptors.response.use(function (response) {
+  return response.data;
+})
 
 ReactDOM.render(
   <React.StrictMode>
