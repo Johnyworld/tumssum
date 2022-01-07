@@ -4,7 +4,6 @@ import { c } from '~/utils/classNames';
 import './NumberInput.scss';
 
 export interface NumberInputProps extends DefaultProps, CommonInputProps {
-	name: string;
 	value: number | string;
 	min: number | false;
 	max: number | false;

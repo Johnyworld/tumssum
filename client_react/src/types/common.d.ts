@@ -8,6 +8,7 @@ declare module 'types' {
   }
 
   interface CommonInputProps {
+    name: string;
     label?: string;
     placeholder?: string;
     fluid?: boolean;

@@ -1,21 +1,21 @@
 import { Story, Meta } from '@storybook/react';
-import EmailInput, { EmailInputProps } from './EmailInput';
+import TextInput, { TextInputProps } from './TextInput';
 
 export default {
-	title: 'Atoms/EmailInput',
-	component: EmailInput,
+	title: 'Atoms/TextInput',
+	component: TextInput,
 	argTypes: {
-
+	
 	}
 } as Meta;
 
-const Template: Story<EmailInputProps> = (args) => <EmailInput {...args} />
+const Template: Story<TextInputProps> = (args) => <TextInput {...args} />
 
 export const Default = Template.bind({});
 Default.args = {
 	value: '',
 	label: 'Label',
-	placeholder: 'Enter email...',
+	placeholder: 'Enter text...',
 	fluid: false,
 	readOnly: false,
 	required: false,
