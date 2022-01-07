@@ -1,0 +1,9 @@
+@import '~/src/style/modules';
+
+.number-input {
+	@include input;
+
+	&--fluid {
+		width: 100%;
+	}
+}
