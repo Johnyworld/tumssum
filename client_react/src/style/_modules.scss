@@ -1,0 +1,23 @@
+@mixin input {
+
+	width: 15rem;
+
+	&__label {
+		font-size: var(--font-small);
+		font-weight: var(--font-bold);
+		text-align: left;
+		line-height: 1;
+		color: var(--color-gray_strong);
+		margin-bottom: .25rem;
+		display: block;
+	}
+	
+	&__box {
+		width: 100%;
+		border: 1px solid var(--color-gray_weak);
+		height: 2.25rem;
+		background: var(--color-paper);
+		color: var(--color-pen);
+		padding: 0 .5rem;
+	}
+}

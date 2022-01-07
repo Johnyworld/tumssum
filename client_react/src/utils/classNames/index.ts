@@ -3,7 +3,7 @@ export const replaceDefaultClassName = (defaultClassName: string | null, str: st
 	return str.replace('&', defaultClassName);
 }
 
-export const c = (...arr: (string | [any, string])[]) => {
+export const c = (...arr: (string | [any, string] | undefined)[]) => {
 	const defaultClassName = typeof arr[0] === 'string' ? arr[0] : null;
 	return arr.reduce<string[]>((prev, curr) => {
 		if (!curr) return prev;
