@@ -1,9 +1,0 @@
-@import '~/src/style/modules';
-
-.email-input {
-	@include input;
-
-	&--fluid {
-		width: 100%;
-	}
-}

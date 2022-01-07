@@ -1,15 +1,15 @@
 import { Story, Meta } from '@storybook/react';
-import TextInput, { TextInputProps } from './TextInput';
+import Input, { InputProps } from './Input';
 
 export default {
-	title: 'Atoms/TextInput',
-	component: TextInput,
+	title: 'Atoms/Input',
+	component: Input,
 	argTypes: {
 	
 	}
 } as Meta;
 
-const Template: Story<TextInputProps> = (args) => <TextInput {...args} />
+const Template: Story<InputProps> = (args) => <Input {...args} />
 
 export const Default = Template.bind({});
 Default.args = {
@@ -19,5 +19,5 @@ Default.args = {
 	fluid: false,
 	readOnly: false,
 	required: false,
-	disabled: false,
+	disabled: false,	
 };

@@ -1,6 +1,6 @@
 @import '~/src/style/modules';
 
-.text-input {
+.input {
 	@include input;
 
 	&--fluid {
