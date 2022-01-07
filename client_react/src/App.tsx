@@ -11,6 +11,7 @@ import ConfirmPage from '~/pages/confirm';
 
 const App: React.FC = () => {
 
+  const userInfo = useSelector(state => state.user.userInfo);
   const isLoggedIn = false;
 
   const theme = useSelector(state => state.mode.theme);
