@@ -1,16 +1,17 @@
 import React from 'react';
-import { Color, DefaultProps } from 'types';
+import { ChromaticColor, DefaultProps } from 'types';
 import { c } from '~/utils/classNames';
 import './Button.scss';
 
 export interface ButtonProps extends DefaultProps {
-  color?: Color;
+  color?: ChromaticColor;
   size?: 'small' | 'regular' | 'large';
   type?: 'button' | 'submit';
   fluid?: boolean;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
+
 
 const Button: React.FC<ButtonProps> = ({ children, className, style, color='primary', size, fluid, disabled, type='button', onClick  }) => {
 
@@ -27,11 +28,12 @@ const Button: React.FC<ButtonProps> = ({ children, className, style, color='prim
     <button
       className={classNames}
       style={style}
-      children={children || 'Confirm'}
       disabled={disabled}
       type={type}
       onClick={onClick}
-    />
+    >
+      <span className='button__text'>{children || 'Confirm'}</span>
+    </button>
   )
 }
 
