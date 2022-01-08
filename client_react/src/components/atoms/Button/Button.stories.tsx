@@ -71,4 +71,5 @@ const TemplateTextOverflow: Story<ButtonProps> = (args) => (
 	</div>
 )
 export const CASE_TextOverflow = TemplateTextOverflow.bind({ describe: 'dfdf'});
+CASE_TextOverflow.parameters = { docs: { storyDescription: '버튼 내부의 텍스트가 2줄이 넘어가면 말줄임표로 처리합니다.' }}
 CASE_TextOverflow.args = { fluid: true }

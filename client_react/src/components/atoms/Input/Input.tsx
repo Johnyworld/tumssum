@@ -40,7 +40,7 @@ const Input: React.FC<InputProps> = (props) => {
 
 	return (
 		<div className={classNames}>
-			{ label && <label htmlFor={name} className='input__label'>{label}</label> }
+			{ label && <label htmlFor={name} className={c('input__label', [error, '&--error'])}>{label}</label> }
 			<input
 				{...inputProps}
 				name={name}

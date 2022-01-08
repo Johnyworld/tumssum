@@ -5,7 +5,6 @@ export default {
 	title: 'Atoms/Input',
 	component: Input,
 	argTypes: {
-	
 	}
 } as Meta;
 
@@ -64,6 +63,7 @@ Disabled.args = {
 const TemplateError: Story<InputProps> = (args) => <Input {...args} />
 export const _Error = TemplateError.bind({});
 _Error.args = {
+	label: 'Label',
 	placeholder: 'error',
 	error: true,
 };
@@ -71,7 +71,25 @@ _Error.args = {
 const TemplateErrorWithMessage: Story<InputProps> = (args) => <Input {...args} />
 export const _ErrorWithMessage = TemplateErrorWithMessage.bind({});
 _ErrorWithMessage.args = {
+	label: 'Label',
 	placeholder: 'error',
 	error: true,
-	errorMessage: 'Error!'
+	errorMessage: 'This is error message!'
+};
+
+const TemplateTooLongLabel: Story<InputProps> = (args) => <Input {...args} />
+export const CASE_TooLongLabel = TemplateTooLongLabel.bind({});
+CASE_TooLongLabel.parameters = { docs: { storyDescription: '라벨은 1줄을 차지합니다. 길이가 넘어가면 말줄임표로 처리합니다.' }}
+CASE_TooLongLabel.args = {
+	label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a libero nec mauris sagittis iaculis at ac turpis.',
+};
+
+const TemplateTooLongErrorMessage: Story<InputProps> = (args) => <Input {...args} />
+export const CASE_TooLongErrorMessage = TemplateTooLongErrorMessage.bind({});
+CASE_TooLongErrorMessage.parameters = { docs: { storyDescription: '에러 메시지는 2줄이 넘어가면 말줄임표로 처리합니다.' }}
+CASE_TooLongErrorMessage.args = {
+	label: 'Label',
+	placeholder: 'error',
+	error: true,
+	errorMessage: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a libero nec mauris sagittis iaculis at ac turpis.',
 };

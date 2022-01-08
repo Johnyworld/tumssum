@@ -1,3 +1,5 @@
+@import './text';
+
 @mixin input {
 
 	width: 15rem;
@@ -7,6 +9,7 @@
 	}
 
 	&__label {
+		@include ellipsis;
 		font-size: var(--font-small);
 		font-weight: var(--font-bold);
 		text-align: left;
@@ -21,8 +24,8 @@
 	}
 
 	&__error-message {
+		@include ellipsisLines(2);
 		font-size: var(--font-small);
-		font-weight: var(--font-bold);
 		color: var(--color-red);
 		margin-top: 2px;
 	}

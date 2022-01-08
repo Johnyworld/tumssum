@@ -6,6 +6,6 @@ const name = 'email';
 const mockChange = jest.fn();
 
 test('render value', () => {
-  render(<TextInput name={name} maxLength={false} minLength={false} value={value} onChange={mockChange} />);
+  render(<TextInput name={name} maxLength={false} value={value} onChange={mockChange} />);
   expect(screen.getByDisplayValue(value)).toBeInTheDocument();
 });
