@@ -1,4 +1,4 @@
-import { ChromaticColor, Size } from "types";
+import { ChromaticColor, ThreeSize } from "types";
 
 export const chromaticColors: ChromaticColor[] = [
 	'primary',
@@ -9,4 +9,10 @@ export const chromaticColors: ChromaticColor[] = [
 export const buttonTypes: ('button' | 'submit')[] = [
 	'button',
 	'submit',
+]
+
+export const threeSizes: ThreeSize[] = [
+	'small',
+	'regular',
+	'large',
 ]

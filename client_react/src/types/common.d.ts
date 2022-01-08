@@ -1,6 +1,10 @@
 declare module 'types' {
 
-  type Size = 'tiny' | 'small' | 'regular' | 'medium' | 'large' | 'big' | 'huge';
+  import {icons} from '~/components/atoms/Icon'
+
+  type ThreeSize = 'small' | 'regular' | 'large';
+
+  type Size = ThreeSize | 'tiny' | 'medium' |'big' | 'huge';
 
 	interface DefaultProps {
     className?: string;
