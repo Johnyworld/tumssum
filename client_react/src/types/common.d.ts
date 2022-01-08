@@ -16,6 +16,7 @@ declare module 'types' {
     required?: boolean;
     disabled?: boolean;
     error?: boolean;
+    errorMessage?: string;
     forwardRef?: React.Ref<HTMLInputElement>;
   }
 }

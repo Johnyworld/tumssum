@@ -16,9 +16,9 @@ export interface InputProps extends DefaultProps, CommonInputProps {
 
 const Input: React.FC<InputProps> = (props) => {
 
-	const { className, style, name, value, type, pattern, min, max, maxLength, minLength, label, placeholder, fluid, readOnly, required, disabled, error, onChange } = props;
+	const { className, style, name, value, type, pattern, min, max, maxLength, minLength, label, placeholder, fluid, readOnly, required, disabled, error, errorMessage, onChange } = props;
 
-	const inputProps = { value, type, pattern, min, max, maxLength, minLength, placeholder, readOnly, required, disabled, error };
+	const inputProps = { value, type, pattern, min, max, maxLength, minLength, placeholder, readOnly, required, disabled };
 
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(e => {
 		if (disabled || readOnly) return;
@@ -49,6 +49,9 @@ const Input: React.FC<InputProps> = (props) => {
 				style={style}
 				onChange={handleChange}
 			/>
+			{error && errorMessage &&
+				<p className='input__error-message'>{errorMessage}</p>
+			}
 		</div>
 	)
 }

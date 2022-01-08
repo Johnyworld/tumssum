@@ -67,3 +67,11 @@ _Error.args = {
 	placeholder: 'error',
 	error: true,
 };
+
+const TemplateErrorWithMessage: Story<InputProps> = (args) => <Input {...args} />
+export const _ErrorWithMessage = TemplateErrorWithMessage.bind({});
+_ErrorWithMessage.args = {
+	placeholder: 'error',
+	error: true,
+	errorMessage: 'Error!'
+};
