@@ -16,6 +16,10 @@
 		display: block;
 	}
 
+	&__label--error {
+		color: var(--color-red);
+	}
+
 	&__error-message {
 		font-size: var(--font-small);
 		font-weight: var(--font-bold);
