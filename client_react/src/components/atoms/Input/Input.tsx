@@ -16,21 +16,35 @@ export interface InputProps extends DefaultProps, CommonInputProps {
 
 const Input: React.FC<InputProps> = (props) => {
 
-	const { className, style, name, value, type, pattern, min, max, maxLength, minLength, label, placeholder, fluid, readOnly, required, disabled, onChange } = props;
+	const { className, style, name, value, type, pattern, min, max, maxLength, minLength, label, placeholder, fluid, readOnly, required, disabled, error, onChange } = props;
 
-	const inputProps = { value, type, pattern, min, max, maxLength, minLength, placeholder, readOnly, required, disabled };
+	const inputProps = { value, type, pattern, min, max, maxLength, minLength, placeholder, readOnly, required, disabled, error };
 
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(e => {
+		if (disabled || readOnly) return;
 		onChange(e.target.value);
 	}, []);
 
+	const classNames = c(
+		'input',
+		className,
+		[fluid, '&--fluid'],
+	)
+
+	const boxClassNames = c(
+		'input__box',
+		[readOnly, '&--readonly'],
+		[disabled, '&--disabled'],
+		[error, '&--error'],
+	)
+
 	return (
-		<div className={c('input', className, [fluid, '&--fluid'])}>
+		<div className={classNames}>
 			{ label && <label htmlFor={name} className='input__label'>{label}</label> }
 			<input
 				{...inputProps}
 				name={name}
-				className='input__box'
+				className={boxClassNames}
 				type={type || 'text'}
 				style={style}
 				onChange={handleChange}

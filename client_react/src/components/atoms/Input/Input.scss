@@ -2,8 +2,4 @@
 
 .input {
 	@include input;
-
-	&--fluid {
-		width: 100%;
-	}
 }

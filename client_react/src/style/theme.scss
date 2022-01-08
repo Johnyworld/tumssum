@@ -6,6 +6,17 @@ $common-theme: (
 	black: #000,
 );
 
+/**
+ * Chromatic colors transparent level
+ * strongest	0.95		f2
+ * stronger 	0.8			cc
+ * strong		 	0.65		a6
+ * normal			0.5			80
+ * weak				0.35		59
+ * weaker			0.2			33
+ * weakest		0.05		0d
+*/
+
 $light-theme: (
 	pen: #000,
 	pencel: #51535A,
@@ -15,6 +26,7 @@ $light-theme: (
 	primary: #8d72d7,
 	blue: #6087d1,
 	red: #f66767,
+	red_t_weak: #f6676759,
 	green: #48C86C,
 	gray_strong: #7F8489,
 	gray: #C0C4C8,

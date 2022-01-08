@@ -2,6 +2,10 @@
 
 	width: 15rem;
 
+	&--fluid {
+		width: 100%;
+	}
+
 	&__label {
 		font-size: var(--font-small);
 		font-weight: var(--font-bold);
@@ -13,11 +17,33 @@
 	}
 	
 	&__box {
+		outline: none;
+		border-radius: 0;
 		width: 100%;
 		border: 1px solid var(--color-gray_weak);
 		height: 2.25rem;
 		background: var(--color-paper);
 		color: var(--color-pen);
 		padding: 0 .5rem;
+
+		&::placeholder {
+			color: var(--color-gray_weak);
+		}
+
+		&--readonly {
+			pointer-events: none;
+		}
+
+		&--disabled {
+			cursor: not-allowed;
+			background: var(--color-dark_weakest);
+		}
+
+		&--error {
+			border-color: var(--color-red);
+			&::placeholder {
+				color: var(--color-red_t_weak);
+			}
+		}
 	}
 }
