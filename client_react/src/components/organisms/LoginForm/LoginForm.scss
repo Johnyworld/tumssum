@@ -1,0 +1,31 @@
+@import '~/src/style/mixins';
+
+.login-form {
+	@include gap(1rem);
+	text-align: center;
+
+	&__title {
+		font-size: var(--font-large);
+	}
+	
+	&__section {
+		@include card(1rem);
+		@include maxMobile {
+			background: none;
+			box-shadow: none;
+			border: none;
+			padding: 0;
+		}
+	}
+
+	&__section-form {
+		@include gap(1rem);
+	}
+
+	&__section-link {
+		> *:not(:first-child) {
+			display: inline-block;
+			margin-left: .5rem;
+		}
+	}
+}

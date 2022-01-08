@@ -16,7 +16,7 @@ export interface InputProps extends DefaultProps, CommonInputProps {
 
 const Input: React.FC<InputProps> = (props) => {
 
-	const { className, style, name, value, type, pattern, min, max, maxLength, minLength, label, placeholder, fluid, readOnly, required, disabled, error, errorMessage, onChange } = props;
+	const { className, style, name, value, type, pattern, min, max, maxLength, minLength, label, placeholder, fluid, readOnly, required, disabled, error, errorMessage, forwardRef, onChange } = props;
 
 	const inputProps = { value, type, pattern, min, max, maxLength, minLength, placeholder, readOnly, required, disabled };
 
@@ -47,6 +47,7 @@ const Input: React.FC<InputProps> = (props) => {
 				className={boxClassNames}
 				type={type || 'text'}
 				style={style}
+				ref={forwardRef}
 				onChange={handleChange}
 			/>
 			{error && errorMessage &&
