@@ -28,5 +28,6 @@ declare module 'types' {
     error?: boolean;
     errorMessage?: string;
     forwardRef?: React.Ref<any>;
+    testId?: string;
   }
 }

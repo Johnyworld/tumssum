@@ -23,12 +23,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ linkRegisterPage, sendingStatus, 
 
 	const handleSubmit: React.FormEventHandler<HTMLFormElement> = useCallback(e => {
 		e.preventDefault();
-		setEmailError('');
-		onLogin(email);
-	}, [email]);
-
-	const handleInvalid: React.FormEventHandler<HTMLFormElement> = useCallback(e => {
-		e.preventDefault();
 		if (!email) {
 			setEmailError('이메일을 입력해주세요.');
 			emailRef.current?.focus();
@@ -36,11 +30,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ linkRegisterPage, sendingStatus, 
 		} else if (!regEmail.test(email)) {
 			setEmailError('이메일 형식에 맞게 입력해주세요.');
 			emailRef.current?.focus();
+			return;
 		}	
+		setEmailError('');
+		onLogin(email);
 	}, [email, emailRef.current]);
 
+
 	return (
-		<form onSubmit={handleSubmit} onInvalid={handleInvalid} className='login-form'>
+		<form data-testid='test-login-form' noValidate onSubmit={handleSubmit} className='login-form'>
 			<h1 className='login-form__title'>로그인</h1>
 
 			<section className='login-form__section login-form__section-form'>
@@ -53,6 +51,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ linkRegisterPage, sendingStatus, 
 					error={!!emailError}
 					errorMessage={emailError}
 					forwardRef={emailRef}
+					testId='test-email'
 					onChange={setEmail}
 				/>
 				<Button type='submit' fluid disabled={sendingStatus === 'SENDING'} children='로그인' />
