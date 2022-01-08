@@ -1,10 +1,16 @@
+
 declare module 'types' {
 
-  import {icons} from '~/components/atoms/Icon'
+  import { icons } from '~/components/atoms/Icon'
+  import { weights } from '~/fixtures/common';
+
+  type IconType = typeof icons[number];
 
   type ThreeSize = 'small' | 'regular' | 'large';
 
   type Size = ThreeSize | 'tiny' | 'medium' |'big' | 'huge';
+
+  type StrokeWidth = typeof weights[number];
 
 	interface DefaultProps {
     className?: string;

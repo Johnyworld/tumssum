@@ -1,11 +1,11 @@
 import React from 'react';
-import { ChromaticColor, DefaultProps } from 'types';
+import { ChromaticColor, DefaultProps, ThreeSize } from 'types';
 import { c } from '~/utils/classNames';
 import './Button.scss';
 
 export interface ButtonProps extends DefaultProps {
   color?: ChromaticColor;
-  size?: 'small' | 'regular' | 'large';
+  size?: ThreeSize;
   type?: 'button' | 'submit';
   fluid?: boolean;
   disabled?: boolean;
