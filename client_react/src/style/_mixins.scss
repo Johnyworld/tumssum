@@ -1,4 +1,6 @@
-@import "./variables";
+@import './variables';
+@import './mixinfiles/module';
+@import './mixinfiles/text';
 
 // ================= Wrapper =================
 @mixin wrapper-wide {
@@ -94,13 +96,6 @@
   touch-action: pan-y;
 }
 
-
-// ================= Text =================
-@mixin ellipsis {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
 
 
 // ================= Break point =================

@@ -1,0 +1,15 @@
+@mixin ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+@mixin ellipsisLines($num) {
+	display:-webkit-box; 
+	word-wrap:break-word; 
+	-webkit-line-clamp: $num; 
+	-webkit-box-orient:vertical; 
+	overflow:hidden; 
+	text-overflow:ellipsis;
+	height: ($num*1.4)rem;
+}
