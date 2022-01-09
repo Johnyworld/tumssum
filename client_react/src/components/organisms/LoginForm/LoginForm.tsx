@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import Button from '~/components/atoms/Button';
 import LinkTo from '~/components/atoms/LinkTo';
 import EmailInput from '~/components/molecules/EmailInput';
+import useForm from '~/hooks/useForm';
 import { regEmail } from '~/utils/regex';
 import './LoginForm.scss';
 
@@ -17,44 +18,27 @@ export interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({ linkRegisterPage, sendingStatus, sendingError, onLogin }) => {
 
-	const emailRef = useRef<HTMLInputElement>(null);
-	const [email, setEmail] = useState('');
-	const [emailError, setEmailError] = useState('');
+	const { values, errors, formRef, onChange, handleSubmit } = useForm([
+		{ name: 'email', required: true, pattern: regEmail },
+	]);
 
-	const handleSubmit: React.FormEventHandler<HTMLFormElement> = useCallback(e => {
-		e.preventDefault();
-		let errs = 0;
-		if (!email) {
-			setEmailError('이메일을 입력해주세요.');
-			emailRef.current?.focus();
-			errs++;
-		} else if (!regEmail.test(email)) {
-			setEmailError('이메일 형식에 맞게 입력해주세요.');
-			emailRef.current?.focus();
-			errs++;
-		}	
-		if (errs) return;
-		setEmailError('');
-		onLogin(email);
-	}, [email, emailRef.current]);
-
+	const onSubmit = () => onLogin(values.email?.trim());
 
 	return (
-		<form className='login-form' noValidate onSubmit={handleSubmit}  data-testid='test-login-form'>
+		<form className='login-form' ref={formRef} noValidate onSubmit={handleSubmit(onSubmit)} data-testid='test-login-form'>
 			<h1 className='login-form__title'>로그인</h1>
 
 			<section className='login-form__section login-form__section-form'>
 				<EmailInput
 					name='email'
 					label='이메일'
-					value={email}
+					value={values.email || ''}
 					fluid
 					required
-					error={!!emailError}
-					errorMessage={emailError}
-					forwardRef={emailRef}
+					error={!!errors.email}
+					errorMessage={errors.email === 'required' ? '이메일을 입력해주세요.' : errors.email === 'pattern' ? '이메일 형식에 맞게 입력해주세요.' : ''}
 					testId='test-email'
-					onChange={setEmail}
+					onChange={value => onChange('email', value)}
 				/>
 				<Button type='submit' fluid disabled={sendingStatus === 'SENDING'} children='로그인' />
 				{ sendingError
