@@ -23,22 +23,24 @@ const LoginForm: React.FC<LoginFormProps> = ({ linkRegisterPage, sendingStatus, 
 
 	const handleSubmit: React.FormEventHandler<HTMLFormElement> = useCallback(e => {
 		e.preventDefault();
+		let errs = 0;
 		if (!email) {
 			setEmailError('이메일을 입력해주세요.');
 			emailRef.current?.focus();
-			return;
+			errs++;
 		} else if (!regEmail.test(email)) {
 			setEmailError('이메일 형식에 맞게 입력해주세요.');
 			emailRef.current?.focus();
-			return;
+			errs++;
 		}	
+		if (errs) return;
 		setEmailError('');
 		onLogin(email);
 	}, [email, emailRef.current]);
 
 
 	return (
-		<form data-testid='test-login-form' noValidate onSubmit={handleSubmit} className='login-form'>
+		<form className='login-form' noValidate onSubmit={handleSubmit}  data-testid='test-login-form'>
 			<h1 className='login-form__title'>로그인</h1>
 
 			<section className='login-form__section login-form__section-form'>

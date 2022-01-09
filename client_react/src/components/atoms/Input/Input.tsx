@@ -23,7 +23,7 @@ const Input: React.FC<InputProps> = (props) => {
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(e => {
 		if (disabled || readOnly) return;
 		onChange(e.target.value);
-	}, []);
+	}, [onChange]);
 
 	const classNames = c(
 		'input',
