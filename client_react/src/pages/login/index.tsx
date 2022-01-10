@@ -7,21 +7,19 @@ import './LoginPage.scss';
 
 const LoginPage: React.FC = () => {
 
-  const googleButtonRef = useRef(null);
+  const googleButtonRef = useRef<HTMLDivElement>(null);
 
 	return (
 		<div className='login-page'>
-			<div className='login-page__container'>
-				<LogoSlogan logoHref='/' />
-				<LoginForm
-					linkRegisterPage='/register'
-					onLogin={() => {}}
-				/>
-				<SocialLoginButtons
-					googleButtonRef={googleButtonRef}	
-					onClickKakao={() => {}}
-				/>
-			</div>
+			<LogoSlogan logoHref='/' />
+			<LoginForm
+				linkRegisterPage='/register'
+				onLogin={() => {}}
+			/>
+			<SocialLoginButtons
+				googleButtonRef={googleButtonRef}	
+				onClickKakao={() => {}}
+			/>
 		</div>
 	)
 }
