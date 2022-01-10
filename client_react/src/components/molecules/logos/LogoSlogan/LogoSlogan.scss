@@ -1,0 +1,11 @@
+@import '~/src/style/mixins';
+
+.logo-slogan {
+	text-align: center;
+
+	&__slogan {
+		margin-top: .25rem;
+		color: var(--color-gray);
+	}
+
+}
