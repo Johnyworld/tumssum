@@ -1,0 +1,15 @@
+.logo {
+	font-size: 24px;
+	font-weight: var(--font-bold);
+	font-style: italic;
+	line-height: 1;
+	color: var(--color-primary);
+
+	&--small {
+		font-size: 16px;
+	}
+
+	&--large {
+		font-size: 32px;
+	}
+}
