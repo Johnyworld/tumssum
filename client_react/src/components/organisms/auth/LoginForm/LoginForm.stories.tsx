@@ -12,25 +12,16 @@ export default {
 const Template: Story<LoginFormProps> = (args) => <LoginForm {...args} />
 export const Default = Template.bind({});
 Default.args = {
+	loading: false,	
 };
 
 
-const TemplateSending: Story<LoginFormProps> = (args) => <LoginForm {...args} />
-export const SendingEmail = TemplateSending.bind({});
-SendingEmail.args = {
-	sendingStatus: 'SENDING',
-};
-
-
-const TemplateSent: Story<LoginFormProps> = (args) => <LoginForm {...args} />
-export const SentEmail = TemplateSent.bind({});
-SentEmail.args = {
-	sendingStatus: 'SENT',
-};
-
-
-const TemplateError: Story<LoginFormProps> = (args) => <LoginForm {...args} />
-export const _Error = TemplateError.bind({});
-_Error.args = {
-	sendingError: '인증 이메일을 보내는데 실패 했어요.',
+const TemplateMessage: Story<LoginFormProps> = (args) => <LoginForm {...args} />
+export const Message = TemplateMessage.bind({});
+Message.args = {
+	loading: false,	
+	message: {
+		color: 'red',
+		text: '유저에게 메시지를 보여줍니다.'
+	}
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Color } from 'types';
 import Button from '~/components/atoms/Button';
 import LinkTo from '~/components/atoms/LinkTo';
 import EmailInput from '~/components/molecules/inputs/EmailInput';
@@ -9,12 +10,16 @@ import { regEmail } from '~/utils/regex';
 export interface RegisterFormProps {
 	linkLoginPage: string;
 	loading: boolean;
+	message?: {
+		color: Color;
+		text: string;
+	};
 	onRegister: (name: string, email: string) => void;
 }
 
 const MAX_NAME_LENGTH = 20;
 
-const RegisterForm: React.FC<RegisterFormProps> = ({ linkLoginPage, loading, onRegister }) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({ linkLoginPage, message, loading, onRegister }) => {
 
 	const { values, errors, formRef, onChange, handleSubmit } = useForm([
 		{ name: 'name', required: true, maxLength: MAX_NAME_LENGTH },
@@ -54,6 +59,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ linkLoginPage, loading, onR
 					onChange={value => onChange('email', value)}
 				/>
 				<Button type='submit' fluid disabled={loading} children='회원가입' />
+				{ message &&
+					<p className={`c-${message.color}`}>{message.text}</p>
+				}
 			</section>
 
 			<section className='login-form__section login-form__section-link'>

@@ -15,7 +15,7 @@ def postUser(request):
 
   try:
     User.objects.get(email = email)
-    res = { 'ok': False, 'code': 'ERR_USER_DOES_EXISTS'}
+    res = { 'ok': False, 'code': 'USER__DOES_EXISTS', 'message': 'User does exists. try to login.'}
     return Response(res)
   
   except User.DoesNotExist:
@@ -25,5 +25,5 @@ def postUser(request):
       first_name = name,
       password = make_password(password),
     )
-    res = { 'ok': True, 'data': UserSerializer(newUser).data }
+    res = { 'ok': True, 'code': 'SUCCESS', 'data': UserSerializer(newUser).data }
     return Response(res)

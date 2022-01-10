@@ -1,4 +1,5 @@
 import React from 'react';
+import { Color } from 'types';
 import Button from '~/components/atoms/Button';
 import LinkTo from '~/components/atoms/LinkTo';
 import EmailInput from '~/components/molecules/inputs/EmailInput';
@@ -11,13 +12,16 @@ export type SendingStatus = 'SENDING' | 'SENT';
 
 export interface LoginFormProps {
 	linkRegisterPage: string;
+	loading: boolean;
 	initialEmail?: string;
-	sendingStatus?: SendingStatus;
-	sendingError?: string;
+	message?: {
+		color: Color;
+		text: string;
+	};
 	onLogin: (email: string) => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ linkRegisterPage, initialEmail, sendingStatus, sendingError, onLogin }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ linkRegisterPage, loading, initialEmail, message, onLogin }) => {
 
 	const { values, errors, formRef, onChange, handleSubmit } = useForm([
 		{ name: 'email', init: initialEmail, required: true, pattern: regEmail },
@@ -41,14 +45,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ linkRegisterPage, initialEmail, s
 					testId='test-email'
 					onChange={value => onChange('email', value)}
 				/>
-				<Button type='submit' fluid disabled={sendingStatus === 'SENDING'} children='로그인' />
-				{ sendingError
-					? <p className='c-red'>{sendingError}</p>
-					: sendingStatus === 'SENDING'
-					? <p>인증 이메일 보내는 중...</p>
-					: sendingStatus === 'SENT'
-					? <p className='c-green'>인증 이메일을 보냈어요! 이메일을 확인해보세요.</p>
-					: null
+				<Button type='submit' fluid disabled={loading} children='로그인' />
+				{ message &&
+					<p className={`c-${message.color}`}>{message.text}</p>
 				}
 			</section>
 

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import LogoSlogan from '~/components/molecules/logos/LogoSlogan';
 import RegisterForm from '~/components/organisms/auth/RegisterForm';
 import SocialLoginButtons from '~/components/organisms/auth/SocialLoginButtons';
@@ -19,6 +19,7 @@ const RegisterPage: React.FC = () => {
 			<LogoSlogan logoHref='/' />
 			<RegisterForm
 				linkLoginPage='/login'
+				message={error ? { color: 'red', text: error } : undefined}
 				loading={loading}
 				onRegister={handleRegister}
 			/>

@@ -11,7 +11,7 @@ export const getAccounts = createAsyncThunk('account/getAccounts', async (_, { r
 
 const initialState = {
   accounts: [] as Account[],
-	error: 0,
+	error: '',
 	loaded: false,
 }
 
@@ -40,7 +40,7 @@ export const accountSlice = createSlice({
   },
 	extraReducers: builder => {
 		builder.addCase(getAccounts.rejected, (state, action) => {
-			state.error = action.payload as number;
+			state.error = action.payload as string;
 			state.loaded = true;
 		});
 		builder.addCase(getAccounts.fulfilled, (state, { payload }) => {

@@ -21,9 +21,17 @@ const LoginPage: React.FC = () => {
 			<LogoSlogan logoHref='/' />
 			<LoginForm
 				linkRegisterPage='/register'
+				loading={loading}
 				initialEmail={email || ''}
-				sendingStatus={isSent ? 'SENT' : loading ? 'SENDING' : undefined}
-				sendingError={error ? '인증 이메일을 보내는데 실패 했어요.' : undefined}
+				message={
+					error
+					? { color: 'red', text: error }
+					: loading
+					? { color: 'pencel', text: '인증 이메일 보내는 중...' }
+					: isSent
+					? { color: 'green', text: '인증 이메일을 보냈어요! 이메일을 확인해보세요.' }
+					: undefined
+				}
 				onLogin={handleSend}
 			/>
 			<SocialLoginButtons

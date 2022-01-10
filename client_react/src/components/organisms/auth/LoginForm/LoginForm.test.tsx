@@ -7,28 +7,15 @@ const mockLogin = jest.fn();
 
 describe('login form renders', () => {
   it('sending email', () => {
-    render(<LoginForm linkRegisterPage={dummyLink} sendingStatus='SENDING' onLogin={mockLogin} />);
+    render(<LoginForm linkRegisterPage={dummyLink} loading={false} message={{ color: 'red', text: '인증 이메일 보내는 중...' }} onLogin={mockLogin} />);
     expect(screen.getByText('인증 이메일 보내는 중...')).toBeInTheDocument();
   });
-  
-  it('sent email', () => {
-    render(<LoginForm linkRegisterPage={dummyLink} sendingStatus='SENT' onLogin={mockLogin} />);
-    expect(screen.getByText('인증 이메일을 보냈어요! 이메일을 확인해보세요.')).toBeInTheDocument();
-  });
-  
-  it('error message', () => {
-    const errorMessage = 'Error!';
-    render(<LoginForm linkRegisterPage={dummyLink} sendingError={errorMessage} sendingStatus='SENT' onLogin={mockLogin} />);
-    expect(screen.getByText(errorMessage)).toBeInTheDocument();
-  });
 });
-
-
 
 describe('login form validation', () => {
 
   it('validate email inputs and provides error messages', async () => {
-    const { getByTestId, queryByText } = render(<LoginForm linkRegisterPage={dummyLink} onLogin={mockLogin} />);
+    const { getByTestId, queryByText } = render(<LoginForm loading={false} linkRegisterPage={dummyLink} onLogin={mockLogin} />);
     await act (async () => {
       fireEvent.change(getByTestId('test-email'), { target: {value: 'email@example.com'} })
     });
@@ -41,7 +28,7 @@ describe('login form validation', () => {
 
 
   it('validate email inputs and provides error messages', async () => {
-    const { getByTestId, getByText } = render(<LoginForm linkRegisterPage={dummyLink} onLogin={mockLogin} />);
+    const { getByTestId, getByText } = render(<LoginForm loading={false} linkRegisterPage={dummyLink} onLogin={mockLogin} />);
     await act (async () => {
       fireEvent.change(getByTestId('test-email'), { target: {value: 'anytext'} })
     });
@@ -53,7 +40,7 @@ describe('login form validation', () => {
 
 
   it('validate email inputs and provides error messages', async () => {
-    const { getByTestId, getByText } = render(<LoginForm linkRegisterPage={dummyLink} onLogin={mockLogin} />);
+    const { getByTestId, getByText } = render(<LoginForm loading={false} linkRegisterPage={dummyLink} onLogin={mockLogin} />);
     await act (async () => {
       fireEvent.change(getByTestId('test-email'), { target: {value: ''} });
     });

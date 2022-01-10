@@ -15,3 +15,13 @@ export const Default = Template.bind({});
 Default.args = {
 	loading: false,	
 };
+
+const TemplateMessage: Story<RegisterFormProps> = (args) => <RegisterForm {...args} />
+export const Message = TemplateMessage.bind({});
+Message.args = {
+	loading: false,	
+	message: {
+		color: 'red',
+		text: '유저에게 메시지를 보여줍니다.'
+	}
+};
