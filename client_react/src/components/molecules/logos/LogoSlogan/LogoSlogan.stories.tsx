@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react';
 import LogoSlogan, { LogoSloganProps } from './LogoSlogan';
 
 export default {
-	title: 'Organisms/LogoSlogan',
+	title: 'Molecules/Logos/LogoSlogan',
 	component: LogoSlogan,
 	argTypes: {
 	

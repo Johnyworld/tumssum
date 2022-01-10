@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react';
 import RegisterForm, { RegisterFormProps } from './RegisterForm';
 
 export default {
-	title: 'Organisms/RegisterForm',
+	title: 'Organisms/Auth/RegisterForm',
 	component: RegisterForm,
 	argTypes: {
 	

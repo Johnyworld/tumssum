@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react';
 import SocialLoginButtons, { SocialLoginButtonsProps } from './SocialLoginButtons';
 
 export default {
-	title: 'Organisms/SocialLoginButtons',
+	title: 'Organisms/Auth/SocialLoginButtons',
 	component: SocialLoginButtons,
 	argTypes: {
 	

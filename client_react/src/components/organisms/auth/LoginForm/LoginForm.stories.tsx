@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react';
 import LoginForm, { LoginFormProps, SendingStatus } from './LoginForm';
 
 export default {
-	title: 'Organisms/LoginForm',
+	title: 'Organisms/Auth/LoginForm',
 	component: LoginForm,
 	argTypes: {
     sendingStatus: { control: { type: 'select', options: ['SENDING', 'SENT'] as SendingStatus[] }},
