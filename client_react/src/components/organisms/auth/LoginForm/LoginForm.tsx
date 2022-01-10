@@ -11,15 +11,16 @@ export type SendingStatus = 'SENDING' | 'SENT';
 
 export interface LoginFormProps {
 	linkRegisterPage: string;
+	initialEmail?: string;
 	sendingStatus?: SendingStatus;
 	sendingError?: string;
 	onLogin: (email: string) => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ linkRegisterPage, sendingStatus, sendingError, onLogin }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ linkRegisterPage, initialEmail, sendingStatus, sendingError, onLogin }) => {
 
 	const { values, errors, formRef, onChange, handleSubmit } = useForm([
-		{ name: 'email', required: true, pattern: regEmail },
+		{ name: 'email', init: initialEmail, required: true, pattern: regEmail },
 	]);
 
 	const onSubmit = () => onLogin(values.email?.trim());

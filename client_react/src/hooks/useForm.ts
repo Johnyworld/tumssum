@@ -5,7 +5,7 @@ import formUtil from '~/utils/formUtil';
 
 export default (registers: RegisterForm[]) => {
 	const formRef = useRef<HTMLFormElement>(null);
-	const [values, setValues] = useState<{[x:string]: string}>({});
+	const [values, setValues] = useState<{[x:string]: string}>(formUtil.getRegisterFormValues(registers));
 	const [errors, setErrors] = useState<{[x:string]: string}>({});
 
 	const onChange = useCallback((name: string, value: string) => {

@@ -8,6 +8,7 @@ declare module 'types' {
 	
 	interface RegisterForm extends ValidOption {
 		name: string;
+		init?: string;
 	}
 
 }
