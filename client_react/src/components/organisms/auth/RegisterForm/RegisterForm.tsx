@@ -27,7 +27,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ linkLoginPage, loading, onR
 
 	return (
 		<form className='login-form' ref={formRef} noValidate onSubmit={handleSubmit(onSubmit)} data-testid='test-register-form'>
-			<h1 className='login-form__title'>로그인</h1>
+			<h1 className='login-form__title'>회원가입</h1>
 
 			<section className='login-form__section login-form__section-form'>
 				<TextInput
@@ -53,7 +53,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ linkLoginPage, loading, onR
 					testId='test-email'
 					onChange={value => onChange('email', value)}
 				/>
-				<Button type='submit' fluid disabled={loading} children='로그인' />
+				<Button type='submit' fluid disabled={loading} children='회원가입' />
 			</section>
 
 			<section className='login-form__section login-form__section-link'>
