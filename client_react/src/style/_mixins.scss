@@ -1,6 +1,7 @@
 @import './variables';
 @import './mixinfiles/module';
 @import './mixinfiles/text';
+@import './mixinfiles/layout';
 
 // ================= Wrapper =================
 @mixin wrapper-wide {
@@ -65,12 +66,7 @@
 
 
 // ================= Layout =================
-@mixin gap($size) {
-  > * {
-    &:not(:first-child) { margin-top: #{$size} }
-    &:not(:last-child) { margin-bottom: #{$size} } 
-  }
-}
+
 
 
 // ================= Image =================

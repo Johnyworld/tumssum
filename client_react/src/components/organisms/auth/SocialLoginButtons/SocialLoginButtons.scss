@@ -1,0 +1,5 @@
+@import '~/src/style/mixins';
+
+.social-login-buttons {
+	@include gap(.5rem);
+}

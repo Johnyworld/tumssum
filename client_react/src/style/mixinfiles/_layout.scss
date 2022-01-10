@@ -1,0 +1,6 @@
+@mixin gap($size) {
+  > * {
+    &:not(:first-child) { margin-top: #{$size} }
+    &:not(:last-child) { margin-bottom: #{$size} } 
+  }
+}
