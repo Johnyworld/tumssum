@@ -1,0 +1,17 @@
+@import '~/src/style/mixins';
+
+.button.google-login-button {
+	border: 1px solid var(--color-gray_weak);
+	color: var(--color-pen);
+	gap: .25rem;
+}
+
+.google-login-button {
+	&__icon {
+		flex-shrink: 0;
+	}
+
+	&__text {
+		@include ellipsisLines(2);
+	}
+}

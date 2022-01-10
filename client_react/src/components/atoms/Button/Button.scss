@@ -1,5 +1,9 @@
 @import '~/src/style/mixins';
 
+.button.bgc-paper {
+  color: var(--color-pen);
+}
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -34,7 +38,4 @@
     background-color: var(--color-gray_strong) !important;
     color: var(--color-gray_weak);
   }
-
 }
-
-

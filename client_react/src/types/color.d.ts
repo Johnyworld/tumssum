@@ -4,6 +4,7 @@ declare module 'types' {
     primary: string;
     red: string;
     green: string;
+    paper: string;
   }
 
 	interface AchromaticColors {
@@ -16,7 +17,6 @@ declare module 'types' {
     black: string;
     pen: string;
     pencel: string;
-    paper: string;
 	}
 
   type ChromaticColor = keyof ChromaticColors;

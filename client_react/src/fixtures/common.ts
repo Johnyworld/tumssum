@@ -4,6 +4,7 @@ export const chromaticColors: ChromaticColor[] = [
 	'primary',
 	'red',
 	'green',
+	'paper',
 ];
 
 export const allColors: Color[] = [
@@ -17,7 +18,6 @@ export const allColors: Color[] = [
 	'black',
 	'pen',
 	'pencel',
-	'paper',
 ];
 
 export const buttonTypes: ('button' | 'submit')[] = [
