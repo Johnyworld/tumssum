@@ -1,18 +1,18 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import LogoSlogan from '~/components/molecules/logos/LogoSlogan';
 import LoginForm from '~/components/organisms/auth/LoginForm';
 import SocialLoginButtons from '~/components/organisms/auth/SocialLoginButtons';
 import useEmailLogin from '~/hooks/auth/useEmailLogin';
+import useGoogleLogin from '~/hooks/auth/useGoogleLogin';
 import useKakaoLogin from '~/hooks/auth/useKakaoLogin';
 import './LoginPage.scss';
 
 
 const LoginPage: React.FC = () => {
 
-  const googleButtonRef = useRef<HTMLDivElement>(null);
-
 	const { isSent, loading, error, handleSend } = useEmailLogin();
 	const kakaoLogin = useKakaoLogin();
+	const googleButtonRef = useGoogleLogin();
 
 	return (
 		<div className='login-page'>

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from './hooks';
-import { changeTheme } from './stores/modeSlice';
 
 import IndexPage from '~/pages';
 import LoginPage from '~/pages/login';
@@ -44,19 +43,10 @@ const App: React.FC = () => {
   const userId = useSelector(state => state.user.userInfo?.id);
   const isLoggedIn = !!userId;
 
-  const theme = useSelector(state => state.mode.theme);
-  const dispatch = useDispatch();
-
-  const handleChangeTheme = () => {
-    dispatch(changeTheme());
-  }
-
   return (
     <BrowserRouter>
       { !isLoggedIn && <AppNotLoggedIn /> }
       { isLoggedIn && <AppLoggedIn /> }
-      <h1>{theme}</h1>
-      <button onClick={handleChangeTheme}>changeTheme</button>
     </BrowserRouter>
   );
 }
