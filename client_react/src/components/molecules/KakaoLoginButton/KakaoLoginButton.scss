@@ -1,0 +1,8 @@
+.button.kakao-login-button {
+	border: 1px solid #d4b519;
+	background: #f7d41e;
+	color: #381E1F;
+	> *:not(:first-child) {
+		margin-left: .25rem;
+	}
+}

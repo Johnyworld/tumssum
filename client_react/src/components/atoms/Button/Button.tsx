@@ -32,7 +32,10 @@ const Button: React.FC<ButtonProps> = ({ children, className, style, color='prim
       type={type}
       onClick={onClick}
     >
-      <span className='button__text'>{children || 'Confirm'}</span>
+      { typeof children === 'string'
+        ? <span className='button__text'>{children || 'Confirm'}</span>
+        : children
+      }
     </button>
   )
 }
