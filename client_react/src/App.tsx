@@ -52,14 +52,12 @@ const AppLoggedIn: React.FC = () => {
 
 const AppNotLoggedIn: React.FC = () => {
   return (
-    <div className='page-container'>
-      <Routes>
-        <Route path='/' element={<LoginPage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/register' element={<RegisterPage />} />
-        <Route path='/confirm' element={<ConfirmPage />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path='/' element={<LoginPage />} />
+      <Route path='/login' element={<LoginPage />} />
+      <Route path='/register' element={<RegisterPage />} />
+      <Route path='/confirm' element={<ConfirmPage />} />
+    </Routes>
   )
 }
 

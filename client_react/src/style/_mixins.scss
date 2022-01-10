@@ -2,6 +2,7 @@
 @import './mixinfiles/module';
 @import './mixinfiles/text';
 @import './mixinfiles/layout';
+@import './mixinfiles/flex';
 
 // ================= Wrapper =================
 @mixin wrapper-wide {
@@ -32,26 +33,6 @@
 }
 
 
-// ================= Flex =================
-@mixin flex-default($style) {
-  @if $style == 'center' {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  } @else if $style == 'end' {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  } @else if $style == 'v-center' {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  } @else {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
 
 
 // ================= Event =================

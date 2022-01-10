@@ -1,0 +1,11 @@
+@import '~/src/style/mixins';
+
+.login-page {
+	@include height-100vh;
+	@include flex-center;
+
+	&__container {
+		@include wrapper-narrow;
+		@include gap(2rem);
+	}
+}
