@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react';
 import GoogleLoginButton, { GoogleLoginButtonProps } from './GoogleLoginButton';
 
 export default {
-	title: 'Molecules/GoogleLoginButton',
+	title: 'Molecules/Buttons/GoogleLoginButton',
 	component: GoogleLoginButton,
 	argTypes: {
 	

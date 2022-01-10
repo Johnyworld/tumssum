@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react';
 import TextInput, { TextInputProps } from './TextInput';
 
 export default {
-	title: 'Molecules/TextInput',
+	title: 'Molecules/Inputs/TextInput',
 	component: TextInput,
 	argTypes: {
 	

@@ -1,7 +1,7 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React from 'react';
 import Button from '~/components/atoms/Button';
 import LinkTo from '~/components/atoms/LinkTo';
-import EmailInput from '~/components/molecules/EmailInput';
+import EmailInput from '~/components/molecules/inputs/EmailInput';
 import useForm from '~/hooks/useForm';
 import { regEmail } from '~/utils/regex';
 import './LoginForm.scss';

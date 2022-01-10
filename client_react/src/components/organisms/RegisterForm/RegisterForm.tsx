@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from '~/components/atoms/Button';
 import LinkTo from '~/components/atoms/LinkTo';
-import EmailInput from '~/components/molecules/EmailInput';
-import TextInput from '~/components/molecules/TextInput';
+import EmailInput from '~/components/molecules/inputs/EmailInput';
+import TextInput from '~/components/molecules/inputs/TextInput';
 import useForm from '~/hooks/useForm';
 import { regEmail } from '~/utils/regex';
 

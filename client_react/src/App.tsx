@@ -8,7 +8,7 @@ import LoginPage from '~/pages/login';
 import RegisterPage from '~/pages/register';
 import ConfirmPage from '~/pages/confirm';
 import { getAccounts } from './stores/accountSlice';
-import EmailInput from './components/molecules/EmailInput';
+import EmailInput from './components/molecules/inputs/EmailInput';
 import Button from './components/atoms/Button';
 import api from './utils/api';
 

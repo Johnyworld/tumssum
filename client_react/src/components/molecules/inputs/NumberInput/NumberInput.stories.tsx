@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react';
 import NumberInput, { NumberInputProps } from './NumberInput';
 
 export default {
-	title: 'Molecules/NumberInput',
+	title: 'Molecules/Inputs/NumberInput',
 	component: NumberInput,
 	argTypes: {
 	

@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react';
 import KakaoLoginButton, { KakaoLoginButtonProps } from './KakaoLoginButton';
 
 export default {
-	title: 'Molecules/KakaoLoginButton',
+	title: 'Molecules/Buttons/KakaoLoginButton',
 	component: KakaoLoginButton,
 	argTypes: {
 		

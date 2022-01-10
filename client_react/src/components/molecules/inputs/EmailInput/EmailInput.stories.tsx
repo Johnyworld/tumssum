@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react';
 import EmailInput, { EmailInputProps } from './EmailInput';
 
 export default {
-	title: 'Molecules/EmailInput',
+	title: 'Molecules/Inputs/EmailInput',
 	component: EmailInput,
 	argTypes: {
 
