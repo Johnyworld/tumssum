@@ -3,7 +3,8 @@ import KakaoLoginButton from '.';
 
 test('renders button text', () => {
   const buttonText = 'Test Button'
-  render(<KakaoLoginButton children={buttonText} />);
+  const mockClick = jest.fn();
+  render(<KakaoLoginButton onClick={mockClick} children={buttonText} />);
   const linkElement = screen.getByText(buttonText);
   expect(linkElement).toBeInTheDocument();
 });

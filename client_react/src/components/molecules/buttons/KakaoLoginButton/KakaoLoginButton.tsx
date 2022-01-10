@@ -4,7 +4,7 @@ import './KakaoLoginButton.scss';
 
 export interface KakaoLoginButtonProps {
 	fluid?: boolean;
-	onClick?: () => void;
+	onClick: () => void;
 }
 
 const KakaoLoginButton: React.FC<KakaoLoginButtonProps> = ({ children, fluid, onClick }) => {
