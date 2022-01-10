@@ -7,9 +7,13 @@ import { Provider } from 'react-redux';
 import './style/index.scss';
 import axios from 'axios';
 
+
+const proxy = process.env.REACT_APP_PROXY || '';
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? proxy : '';
 axios.interceptors.response.use(function (response) {
   return response.data;
 })
+
 
 ReactDOM.render(
   <React.StrictMode>
