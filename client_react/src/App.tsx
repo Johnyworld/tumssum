@@ -7,18 +7,29 @@ import LoginPage from '~/pages/login';
 import RegisterPage from '~/pages/register';
 import ConfirmPage from '~/pages/confirm';
 import { getAccounts } from './stores/accountSlice';
+import RenderConfirm from './RenderConfirm';
+import useConfirm from './hooks/useConfirm';
 
 
 const AppLoggedIn: React.FC = () => {
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAccounts());
-  }, []);
+  const confirm = useConfirm();
+
+  // useEffect(() => {
+  //   dispatch(getAccounts());
+  // }, []);
+
+  const onClick = () => {
+    confirm('Are you sure?', () => {
+      console.log('Okay!');
+    });
+  }
 
   return (
     <div className='page-container'>
+      <button onClick={onClick}>TEST</button>
       <Routes>
         <Route path='/' element={<IndexPage />} />
       </Routes>
@@ -47,6 +58,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       { !isLoggedIn && <AppNotLoggedIn /> }
       { isLoggedIn && <AppLoggedIn /> }
+      <RenderConfirm />
     </BrowserRouter>
   );
 }

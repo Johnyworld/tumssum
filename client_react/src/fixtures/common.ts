@@ -37,3 +37,7 @@ export const strokeWidths = [
 	'bold',
 	'heavy'
 ] as const;
+
+export const tooLongText2 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in sollicitudin augue, congue aliquam elit. In vestibulum lorem eget nibh hendrerit hendrerit. Sed eu sapien et nibh bibendum consectetur accumsan at sapien. Quisque vestibulum neque vel iaculis tempor.';
+export const tooLongText1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in sollicitudin augue, congue aliquam elit.';
+
