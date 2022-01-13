@@ -6,15 +6,13 @@ import Portal from "./Portal";
 const RenderConfirm: React.FC = () => {
 
 	const message = useSelector(state => state.confirm.message);
-
-	if (!message) return null;
-
 	const { handleConfirm, handleCancel } = useConfirmRender();
 
 	return (
-		<Portal>
-			<ConfirmModal message={message} onConfirm={handleConfirm} onCancel={handleCancel} />	
-		</Portal>
+		!message ? null : 
+			<Portal>
+				<ConfirmModal message={message} onConfirm={handleConfirm} onCancel={handleCancel} />	
+			</Portal>
 	)
 }
 

@@ -9,6 +9,8 @@ import ConfirmPage from '~/pages/confirm';
 import { getAccounts } from './stores/accountSlice';
 import RenderConfirm from './RenderConfirm';
 import useConfirm from './hooks/useConfirm';
+import useToast from './hooks/useToast';
+import RenderToast from './RenderToast';
 
 
 const AppLoggedIn: React.FC = () => {
@@ -16,6 +18,7 @@ const AppLoggedIn: React.FC = () => {
   // const dispatch = useDispatch();
 
   const confirm = useConfirm();
+  const toast = useToast();
 
   // useEffect(() => {
   //   dispatch(getAccounts());
@@ -30,6 +33,7 @@ const AppLoggedIn: React.FC = () => {
   return (
     <div className='page-container'>
       <button onClick={onClick}>TEST</button>
+      <button onClick={() => toast('hello', 'green')}>TEST</button>
       <Routes>
         <Route path='/' element={<IndexPage />} />
       </Routes>
@@ -59,6 +63,7 @@ const App: React.FC = () => {
       { !isLoggedIn && <AppNotLoggedIn /> }
       { isLoggedIn && <AppLoggedIn /> }
       <RenderConfirm />
+      <RenderToast />
     </BrowserRouter>
   );
 }
