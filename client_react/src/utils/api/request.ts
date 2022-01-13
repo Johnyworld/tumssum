@@ -2,12 +2,16 @@ import axios, { AxiosResponse } from "axios";
 import errors from "~/fixtures/errors";
 import Err from "../err/Err";
 
+/**
+ * 전체 API 요청을 총괄하는 API Pipeline 입니다.
+ * api.ts 파일에서만 이 함수에 접근할 수 있습니다.
+ */
 export default async <T>(method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE', url: string, payload: any) => {
-	console.log('%c:: 📝 REQUEST :: ', 'color: #bada55', method, url, payload);
+	if (process.env.NODE_ENV !== 'production') console.log('%c:: 📝 REQUEST :: ', 'color: #bada55', method, url, payload);
 
 	try {
 		const res: AxiosResponse<T> = await axios({ method, url, [method === 'GET' ? 'params' : 'data']: payload });
-		console.log('%c:: 📦 RESPONSE :: ', 'color: #00c5ff', method, url, res);
+		if (process.env.NODE_ENV !== 'production') console.log('%c:: 📦 RESPONSE :: ', 'color: #00c5ff', method, url, res);
 
 		const { ok, code, message, data } = res;
 		// Response는 정상적으로 왔지만 서버에서 에러 처리를 한 경우
