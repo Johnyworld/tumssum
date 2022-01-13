@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
-import errors from "~/fixtures/errors";
 import api from "~/utils/api";
+import Err from "~/utils/err/Err";
 
 
 export default () => {
@@ -17,7 +17,10 @@ export default () => {
       setIsSent(true);
 			setError('');
     }
-    catch (err: any) { setError(errors[err.code]) }
+    catch (err) {
+			const { message } = err as Err;
+			setError(message);
+		}
     finally { setLoading(false) }
   }, []);
 	

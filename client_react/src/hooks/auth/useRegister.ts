@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import errors from "~/fixtures/errors";
 import api from "~/utils/api";
+import Err from "~/utils/err/Err";
 
 
 export default () => {
@@ -17,7 +17,10 @@ export default () => {
       alert('가입 되었어요! 로그인해주세요.');
       navigate(`/login?email=${email}`);
 		}	
-		catch (err: any) { setError(errors[err.code]) }
+		catch (err) {
+			const { message } = err as Err;
+			setError(message);
+		}
 		finally { setLoading(false) }
 	}
 	
