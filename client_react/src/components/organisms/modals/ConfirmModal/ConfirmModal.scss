@@ -1,0 +1,43 @@
+@import '~/src/style/mixins';
+
+.confirm-modal {
+	@include flex-center;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	&__dim {
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		z-index: -1;
+		background-color: var(--color-dim);
+	}
+	
+	&__container {
+		margin: 0 2rem;
+		background-color: var(--color-paper);
+		border-radius: .5rem;
+		min-width: 300px;
+		max-width: 500px;
+		box-shadow: var(--shadow-large)
+	}	
+
+	&__content {
+		font-size: var(--font-medium);
+		text-align: center;
+		white-space: pre-line;
+		padding: 2rem 1rem;
+	}	
+
+	&__footer {
+		@include flex-end;		
+		padding: 1rem;
+		gap: .5rem;
+	}	
+
+}
