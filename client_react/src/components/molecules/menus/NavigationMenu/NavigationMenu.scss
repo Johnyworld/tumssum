@@ -12,6 +12,8 @@
 		font-weight: var(--font-bold);
 		color: var(--color-gray);
 		white-space: nowrap;
+		height: var(--header-height);
+		line-height: var(--header-height);
 
 		&--selected {
 			color: var(--color-pen);

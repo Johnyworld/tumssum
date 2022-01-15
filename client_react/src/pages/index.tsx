@@ -1,10 +1,11 @@
 import React from 'react';
+import GlobalHeader from '~/components/organisms/headers/GlobalHeader';
 
 
 const IndexPage: React.FC = () => {
 	return (
 		<div>
-			Hello IndexPage
+			<GlobalHeader />
 		</div>
 	)
 }

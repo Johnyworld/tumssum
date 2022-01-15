@@ -13,18 +13,13 @@ const NavigationMenu = ({ selected, menu }: NavigationMenuProps) => {
 		<nav className='navigation-menu' role='navigation'>
 			<ul className='navigation-menu__list' role='menubar'>
 				{ menu.map(item => (
-					<li
-						className={c(
-							'navigation-menu__list-item',
-							[selected === item.id, '&--selected']
-						)}
-						role='menuitem'
-						children={
-							<LinkTo to={item.href}>
+					<li key={item.id} role='menuitem'>
+						<LinkTo to={item.href}>
+							<div className={c( 'navigation-menu__list-item', [selected === item.id, '&--selected'])}>
 								{item.text}
-							</LinkTo>
-						}
-					/>
+							</div>
+						</LinkTo>
+					</li>
 				))}
 			</ul>
 		</nav>

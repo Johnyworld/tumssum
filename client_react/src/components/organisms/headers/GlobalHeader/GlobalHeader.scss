@@ -1,0 +1,12 @@
+@import '~/src/style/mixins';
+
+.global-header {
+
+	background-color: var(--color-paper);
+
+	&__inner {
+		@include flex-start;
+		@include wrapper-normal;
+		gap: 2rem;
+	}
+}
