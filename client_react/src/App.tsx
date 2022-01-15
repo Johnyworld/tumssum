@@ -16,14 +16,12 @@ import SettingsPage from './pages/settings';
 
 const AppLoggedIn: React.FC = () => {
   return (
-    <div className='page-container'>
-      <Routes>
-        <Route path={routes.home} element={<IndexPage />} />
-        <Route path={routes.category} element={<CategoryPage />} />
-        <Route path={routes.bank} element={<BankPage />} />
-        <Route path={routes.settings} element={<SettingsPage />} />
-      </Routes>
-    </div> 
+    <Routes>
+      <Route path={routes.home} element={<IndexPage />} />
+      <Route path={routes.category} element={<CategoryPage />} />
+      <Route path={routes.bank} element={<BankPage />} />
+      <Route path={routes.settings} element={<SettingsPage />} />
+    </Routes>
   )
 }
 

@@ -1,0 +1,17 @@
+@import '~/src/style/mixins';
+
+.settings-page {
+	@include wrapper-normal;
+	@include gap(1rem);
+	padding-top: 3rem;
+
+	&__title {
+		font-size: var(--font-huge);
+		white-space: pre-line;
+	}
+
+	&__buttons {
+		@include flex-start;
+		gap: 1rem;
+	}
+}

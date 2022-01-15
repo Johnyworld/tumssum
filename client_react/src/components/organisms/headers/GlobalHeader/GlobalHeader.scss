@@ -5,8 +5,10 @@
 	background-color: var(--color-paper);
 
 	&__inner {
-		@include flex-start;
+		@include flex;
 		@include wrapper-normal;
 		gap: 2rem;
+		> * { flex-shrink: 0; };
+		> *:nth-child(2) { flex: 100% };
 	}
 }
