@@ -1,0 +1,10 @@
+@import '~/src/style/mixins';
+
+.icon-area {
+	@include flex-center;
+	font-size: 0;
+
+	&--clickable {
+		cursor: pointer;
+	}
+}
