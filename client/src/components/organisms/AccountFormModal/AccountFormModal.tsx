@@ -146,7 +146,6 @@ const AccountFormModal: FunctionalComponent<AccountFormModalProps> = ({ currentD
 			{ isCreateMode &&
 				<div class='account-form__menu-wrap'>
 					<NavigationMenu
-						selected={mode}
 						hideText='always'
 						onChange={setMode}
 						list={[

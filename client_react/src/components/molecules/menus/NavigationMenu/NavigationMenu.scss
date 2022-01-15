@@ -1,0 +1,20 @@
+@import '~/src/style/mixins';
+
+.navigation-menu {
+	overflow: hidden;
+
+	&__list {
+		@include flex-start;		
+		gap: 1.25rem;
+	}
+
+	&__list-item {
+		font-weight: var(--font-bold);
+		color: var(--color-gray);
+		white-space: nowrap;
+
+		&--selected {
+			color: var(--color-pen);
+		}
+	}
+}
