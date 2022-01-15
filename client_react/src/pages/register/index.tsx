@@ -5,6 +5,7 @@ import SocialLoginButtons from '~/components/organisms/auth/SocialLoginButtons';
 import useGoogleLogin from '~/hooks/auth/useGoogleLogin';
 import useKakaoLogin from '~/hooks/auth/useKakaoLogin';
 import useRegister from '~/hooks/auth/useRegister';
+import routes from '~/utils/routes';
 import './RegisterPage.scss';
 
 
@@ -16,9 +17,9 @@ const RegisterPage: React.FC = () => {
 
 	return (
 		<div className='register-page'>
-			<LogoSlogan logoHref='/' />
+			<LogoSlogan logoHref={routes.home} />
 			<RegisterForm
-				linkLoginPage='/login'
+				linkLoginPage={routes.login}
 				message={error ? { color: 'red', text: error } : undefined}
 				loading={loading}
 				onRegister={handleRegister}

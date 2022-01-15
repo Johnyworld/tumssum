@@ -6,6 +6,7 @@ import useEmailLogin from '~/hooks/auth/useEmailLogin';
 import useGoogleLogin from '~/hooks/auth/useGoogleLogin';
 import useKakaoLogin from '~/hooks/auth/useKakaoLogin';
 import useQuery from '~/hooks/useQuery';
+import routes from '~/utils/routes';
 import './LoginPage.scss';
 
 
@@ -18,9 +19,9 @@ const LoginPage: React.FC = () => {
 
 	return (
 		<div className='login-page'>
-			<LogoSlogan logoHref='/' />
+			<LogoSlogan logoHref={routes.home} />
 			<LoginForm
-				linkRegisterPage='/register'
+				linkRegisterPage={routes.register}
 				loading={loading}
 				initialEmail={email || ''}
 				message={

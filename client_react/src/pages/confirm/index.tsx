@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from '~/hooks';
 import useQuery from '~/hooks/useQuery';
 import { setUser } from '~/stores/userSlice';
+import routes from '~/utils/routes';
 
 
 const ConfirmPage: React.FC = () => {
@@ -14,9 +15,9 @@ const ConfirmPage: React.FC = () => {
   useEffect(() => {
     axios.post('/api/login/', { username: email, password: token }).then(res => {
       if (res.data) dispatch(setUser(res.data));
-      navigate('/');
+      navigate(routes.home);
     }).catch(res => {
-      navigate('/');
+      navigate(routes.home);
     });
   }, []);
   return null;
