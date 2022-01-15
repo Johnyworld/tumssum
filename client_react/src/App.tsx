@@ -1,14 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useSelector } from './utils/reduxHooks';
+import RenderConfirm from './RenderConfirm';
+import RenderToast from './RenderToast';
+import routes from './utils/routes';
 
 import IndexPage from '~/pages';
 import LoginPage from '~/pages/login';
 import RegisterPage from '~/pages/register';
 import ConfirmPage from '~/pages/confirm';
-import RenderConfirm from './RenderConfirm';
-import RenderToast from './RenderToast';
-import routes from './utils/routes';
+import CategoryPage from './pages/category';
+import BankPage from './pages/bank';
+import SettingsPage from './pages/settings';
 
 
 const AppLoggedIn: React.FC = () => {
@@ -16,6 +19,9 @@ const AppLoggedIn: React.FC = () => {
     <div className='page-container'>
       <Routes>
         <Route path={routes.home} element={<IndexPage />} />
+        <Route path={routes.category} element={<CategoryPage />} />
+        <Route path={routes.bank} element={<BankPage />} />
+        <Route path={routes.settings} element={<SettingsPage />} />
       </Routes>
     </div> 
   )
@@ -34,10 +40,8 @@ const AppNotLoggedIn: React.FC = () => {
 
 
 const App: React.FC = () => {
-
   const userId = useSelector(state => state.user.userInfo?.id);
   const isLoggedIn = !!userId;
-
   return (
     <BrowserRouter>
       { !isLoggedIn && <AppNotLoggedIn /> }

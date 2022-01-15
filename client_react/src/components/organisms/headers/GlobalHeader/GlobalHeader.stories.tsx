@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 
  
 export default {
-	title: 'Organisms/headers/GlobalHeader',
+	title: 'Organisms/Headers/GlobalHeader',
 	component: GlobalHeader,
 	argTypes: {
 	
