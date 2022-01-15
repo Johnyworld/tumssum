@@ -1,5 +1,5 @@
 import { ChromaticColor, Color } from 'types';
-import { useDispatch } from '~/hooks';
+import { useDispatch } from '~/utils/reduxHooks';
 import { addToast } from '~/stores/toastSlice';
 
 

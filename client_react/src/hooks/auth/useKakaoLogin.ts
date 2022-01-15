@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from '~/hooks';
+import { useDispatch } from '~/utils/reduxHooks';
 import { setUser } from '~/stores/userSlice';
 import routes from '~/utils/routes';
 

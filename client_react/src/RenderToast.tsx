@@ -1,7 +1,7 @@
 import React from 'react';
 import Toast from './components/organisms/modals/Toast';
 import Portal from './Portal';
-import { useDispatch, useSelector } from './hooks';
+import { useDispatch, useSelector } from './utils/reduxHooks';
 import { removeToast } from './stores/toastSlice';
 
 const RenderToast: React.FC = () => {

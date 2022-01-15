@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useSelector } from './hooks';
+import { useSelector } from './utils/reduxHooks';
 
 import IndexPage from '~/pages';
 import LoginPage from '~/pages/login';

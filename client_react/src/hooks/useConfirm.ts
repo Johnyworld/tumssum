@@ -1,4 +1,4 @@
-import { useDispatch } from "~/hooks";
+import { useDispatch } from "~/utils/reduxHooks";
 import { closeConfirm, openConfirm } from "~/stores/confirmSlice";
 
 let callback: Function | null = null;

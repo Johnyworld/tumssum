@@ -1,5 +1,5 @@
 import ConfirmModal from "./components/organisms/modals/ConfirmModal";
-import { useSelector } from "./hooks";
+import { useSelector } from "./utils/reduxHooks";
 import { useConfirmRender } from "./hooks/useConfirm";
 import Portal from "./Portal";
 
