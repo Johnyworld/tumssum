@@ -53,7 +53,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ linkRegisterPage, loading, initia
 
 			<section className='login-form__section login-form__section-link'>
 				<span>처음 방문하셨나요?</span>
-				<LinkTo to={linkRegisterPage}>회원가입</LinkTo>
+				<LinkTo to={linkRegisterPage} colored>회원가입</LinkTo>
 			</section>
 		</form>
 	)

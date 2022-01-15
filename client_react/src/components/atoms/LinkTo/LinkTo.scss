@@ -1,6 +1,10 @@
 .link-to {
 	display: inline-block;	
 
+	&--colored {
+		color: var(--color-primary);
+	}
+
 	&--underline {
 		text-decoration: underline;
 	}

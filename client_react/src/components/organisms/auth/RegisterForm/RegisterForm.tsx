@@ -66,7 +66,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ linkLoginPage, message, loa
 
 			<section className='login-form__section login-form__section-link'>
 				<span>이미 회원이신가요?</span>
-				<LinkTo to={linkLoginPage}>로그인</LinkTo>
+				<LinkTo to={linkLoginPage} colored>로그인</LinkTo>
 			</section>
 		</form>
 	)

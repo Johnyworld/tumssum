@@ -5,6 +5,7 @@ import './LinkTo.scss';
 
 export interface LinkToProps {
 	to?: string;
+	colored?: boolean;
 	underline?: boolean;
 }
 
@@ -13,13 +14,14 @@ export interface LinkToProps {
  * - **to** props에 `http` 단어가 포함 된 경우, 외부 링크로 인식합니다.
  * - `/profile`과 같이 라우팅만 해주는 경우 react-router-dom의 `<Link />` 컴포넌트와 똑같이 동작합니다.
  */
-const LinkTo: React.FC<LinkToProps> = ({ children, to, underline }) => {
+const LinkTo: React.FC<LinkToProps> = ({ children, to, colored, underline }) => {
 
 	const isExternal = to?.includes('http');
 
 	const classNames = c(
 		'link-to',
 		[underline, '&--underline'],
+		[colored, '&--colored']
 	)
 
 	return (
