@@ -1,6 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MenuItem } from 'types';
-import { FixtureNavigationMenu, navigationMenu } from '~/fixtures/common';
+import { navigationMenu } from '~/fixtures/common';
 import NavigationMenu from '.'
 
 /**
@@ -12,29 +12,16 @@ import NavigationMenu from '.'
  */
 
 test('renders an empty menu', () => {
-	const menus: MenuItem<FixtureNavigationMenu>[] = [];
-	const mockClick = jest.fn();
-	render(<NavigationMenu menus={menus} onChange={mockClick} />);
-	const menu = screen.getByRole('menubar');
-	expect(menu.firstChild).toBeNull();
+	const menu: MenuItem[] = [];
+	render(<NavigationMenu menu={menu} />);
+	const menubar = screen.getByRole('menubar');
+	expect(menubar.firstChild).toBeNull();
 })
 
 test('should render a list of items', () => {
-	const menus: MenuItem<FixtureNavigationMenu>[] = navigationMenu;
-	const mockClick = jest.fn();
-	render(<NavigationMenu menus={menus} onChange={mockClick} />);
+	const menu: MenuItem[] = navigationMenu;
+	render(<NavigationMenu menu={menu} />);
 	const items = screen.getAllByRole('menuitem');
-	expect(items.length).toEqual(menus.length);
-	expect(items.map(item => item.textContent)).toEqual(menus.map(menu => menu.text));
-})
-
-test('it should perform the passed onClick function of each items', () => {
-	const menus: MenuItem<FixtureNavigationMenu>[] = navigationMenu;
-	const mockClick = jest.fn();
-	render(<NavigationMenu menus={menus} onChange={mockClick} />);
-	const items = screen.getAllByRole('menuitem');
-	for (const item of items) {
-		fireEvent.click(item);
-	}
-  expect(mockClick.mock.calls.length).toBe(menus.length);
+	expect(items.length).toEqual(menu.length);
+	expect(items.map(item => item.textContent)).toEqual(menu.map(item => item.text));
 })

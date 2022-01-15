@@ -3,27 +3,25 @@ import LinkTo from '~/components/atoms/LinkTo';
 import { c } from '~/utils/classNames';
 import './NavigationMenu.scss';
 
-export interface NavigationMenuProps<T> {
-	menus: MenuItem<T>[];	
-	selected?: T;
-	onChange: (selected: T) => void;
+export interface NavigationMenuProps {
+	menu: MenuItem[];	
+	selected?: string;
 }
 
-const NavigationMenu = <T extends {}>({ selected, menus, onChange }: NavigationMenuProps<T>) => {
+const NavigationMenu = ({ selected, menu }: NavigationMenuProps) => {
 	return (
 		<nav className='navigation-menu' role='navigation'>
 			<ul className='navigation-menu__list' role='menubar'>
-				{ menus.map(menu => (
+				{ menu.map(item => (
 					<li
 						className={c(
 							'navigation-menu__list-item',
-							[selected === menu.id, '&--selected']
+							[selected === item.id, '&--selected']
 						)}
 						role='menuitem'
-						onClick={() => onChange(menu.id)}
 						children={
-							<LinkTo to={menu.href}>
-								{menu.text}
+							<LinkTo to={item.href}>
+								{item.text}
 							</LinkTo>
 						}
 					/>
