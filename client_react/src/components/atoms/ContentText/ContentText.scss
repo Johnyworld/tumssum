@@ -1,0 +1,24 @@
+.content-text {
+  padding: .125em 0;
+  cursor: text;
+	white-space: pre-wrap;
+}
+
+.content-text[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  display: block;
+  color: var(--color-gray);
+}
+
+.content-text[contenteditable=true]:focus:empty:before{
+  color: rgba(255, 255, 255, 0);
+}
+
+.content-text[contenteditable=true] {
+  position: relative;
+
+	&:focus {
+		cursor: text;
+		outline: none;
+	}
+}
