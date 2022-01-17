@@ -77,3 +77,36 @@
 		}
 	}
 }
+
+@mixin box-input {
+	min-height: 1em;
+  line-height: 1.4;
+  border-radius: .25em;
+  padding: .5em .75em;
+  white-space: pre-wrap;
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-bright_weakest);
+  }
+}
+
+@mixin box-input-pseudos {
+  &:focus {
+		cursor: text;
+		outline: none;
+    background-color: var(--color-bright_weakest);
+    box-shadow: var(--shadow-large);
+  }
+
+	&:empty::before {
+		content: attr(placeholder);
+		display: block;
+		color: var(--color-gray);
+	}
+	
+	&:focus:empty::before{
+		color: rgba(255, 255, 255, 0);
+	}
+}
