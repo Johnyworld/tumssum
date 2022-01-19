@@ -13,7 +13,7 @@ const ContentText: React.FC<ContentTextProps> = ({ className, style, value, plac
 
 	const ref = useRef<HTMLDivElement>(null);
 
-	const defaultValue = useMemo(() => value, []);
+	const defaultValue = useMemo(() => value || '', []);
 
 	const handleInput: React.FormEventHandler<HTMLDivElement> = e => {
 		const newValue = e.currentTarget.innerText;
