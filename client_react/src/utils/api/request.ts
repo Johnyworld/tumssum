@@ -6,7 +6,7 @@ import CustomError from "../customError/CustomError";
  * 전체 API 요청을 총괄하는 API Pipeline 입니다.
  * api.ts 파일에서만 이 함수에 접근할 수 있습니다.
  */
-export default async <T>(method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE', url: string, payload: any) => {
+const request = async <T>(method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE', url: string, payload: any) => {
 	if (process.env.NODE_ENV !== 'production') console.log('%c:: 📝 REQUEST :: ', 'color: #bada55', method, url, payload);
 
 	try {
@@ -33,3 +33,5 @@ export default async <T>(method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE', ur
 		);
 	}
 }
+
+export default request;

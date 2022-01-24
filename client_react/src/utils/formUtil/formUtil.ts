@@ -40,7 +40,9 @@ const getErrors = (registers: RegisterForm[], values: {[x:string]: string}) => {
 }
 
 
-export default {
+const formUtil = {
 	getRegisterFormValues,
 	getErrors,
 }
+
+export default formUtil;

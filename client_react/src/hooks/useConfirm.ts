@@ -5,7 +5,7 @@ let callback: Function | null = null;
 
 export type ConfirmFunction = (message: string, cb?: Function) => void;
 
-export default () => {
+export default function useConfirm () {
 	const dispatch = useDispatch();
 	const confirm: ConfirmFunction = (message, cb) => {
 		callback = cb || null;
@@ -14,7 +14,7 @@ export default () => {
 	return confirm;
 }
 
-export const useConfirmRender = () => {
+export function useConfirmRender () {
 	const dispatch = useDispatch();
 	const handleConfirm = () => {
 		if (callback) {

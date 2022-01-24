@@ -4,7 +4,7 @@ import api from "~/utils/api";
 import CustomError from "~/utils/customError/CustomError";
 
 
-export default () => {
+export default function useRegister () {
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState('');

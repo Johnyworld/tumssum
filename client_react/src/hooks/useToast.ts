@@ -3,7 +3,7 @@ import { useDispatch } from '~/utils/reduxHooks';
 import { addToast } from '~/stores/toastSlice';
 
 
-export default () => {
+export default function useToast () {
 
 	const dispatch = useDispatch();
 

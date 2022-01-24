@@ -7,7 +7,7 @@ import request from "./request";
  * 어떤 parameter를 받고 어떤 값을 return 받는지 한 눈에 파악할 수 있습니다.
  * 성공적으로 API response를 받았을 때 data에 포함되는 타입은 await request<Here> 에 지정합니다.
  */
-export default {
+const api = {
 	auth: {
 		sendEmail: async (email: string) => await request<null>('GET', '/api/login/send/', { email }),
 		register: async (name: string, email: string) => await request<null>('POST', '/api/register/', { name, email }),
@@ -16,3 +16,5 @@ export default {
 		getList: async () => await request<Account[]>('GET', '/api/accounts/', {}),
 	}
 };
+
+export default api;

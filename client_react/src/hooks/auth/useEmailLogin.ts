@@ -3,7 +3,7 @@ import api from "~/utils/api";
 import CustomError from "~/utils/customError/CustomError";
 
 
-export default () => {
+export default function useEmailLogin () {
 
 	const [isSent, setIsSent] = useState(false);
 	const [loading, setLoading] = useState(false);

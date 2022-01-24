@@ -12,7 +12,7 @@ Kakao.init(KAKAO_JS_KEY);
 Kakao.isInitialized()
 
 
-export default () => {
+export default function useKakaoLogin () {
   const { Kakao } = window as any;
   const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -48,7 +48,7 @@ export default () => {
         })
       },
     });
-  }, [Kakao]);
+  }, [Kakao, dispatch, navigate]);
 	
 	return signIn;
 }

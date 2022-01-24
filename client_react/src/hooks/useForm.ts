@@ -3,7 +3,7 @@ import { RegisterForm } from 'types';
 import formUtil from '~/utils/formUtil';
 
 
-export default (registers: RegisterForm[]) => {
+export default function useForm (registers: RegisterForm[]) {
 	const formRef = useRef<HTMLFormElement>(null);
 	const [values, setValues] = useState<{[x:string]: string}>(formUtil.getRegisterFormValues(registers));
 	const [errors, setErrors] = useState<{[x:string]: string}>({});
@@ -21,7 +21,7 @@ export default (registers: RegisterForm[]) => {
 			return;
 		}
 		callback();
-	}, [registers, values, formRef.current]);
+	}, [registers, values]);
 
 	return { values, errors, formRef, onChange, handleSubmit }
 }

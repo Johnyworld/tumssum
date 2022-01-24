@@ -5,17 +5,12 @@ import { useDispatch } from "~/utils/reduxHooks";
 import { setUser } from "~/stores/userSlice";
 
 
-export default () => {
+export default function useGoogleLogin () {
 
   const id = 'google-jssdk';
   const googleButtonRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-  useEffect(() => {
-    createScript();
-    return () => removeScript();
-  }, [googleButtonRef.current])
 
   const googleSDK = useCallback(() => {
     let { gapi } = window as any;
@@ -49,7 +44,7 @@ export default () => {
         })
       }, (error: any) => { alert(JSON.stringify(error, undefined, 2)) });
     });
-  }, [])
+  }, [dispatch, navigate])
 
   const createScript = useCallback(() => {
     const id = 'google-jssdk';
@@ -69,12 +64,17 @@ export default () => {
         fjs.parentNode.insertBefore(js, fjs);
       }
     }
-  }, []);
+  }, [googleSDK]);
 
   const removeScript = useCallback(() => {
     const script = document.getElementById(id);
     script?.remove();
   }, []);
 	
+  useEffect(() => {
+    createScript();
+    return () => removeScript();
+  }, [createScript, removeScript])
+
 	return googleButtonRef;
 }
