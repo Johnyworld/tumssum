@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import api from "~/utils/api";
-import Err from "~/utils/err/Err";
+import CustomError from "~/utils/customError/CustomError";
 
 
 export default () => {
@@ -18,7 +18,7 @@ export default () => {
 			setError('');
     }
     catch (err) {
-			const { message } = err as Err;
+			const { message } = err as CustomError;
 			setError(message);
 		}
     finally { setLoading(false) }
