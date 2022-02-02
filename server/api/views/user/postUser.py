@@ -1,4 +1,4 @@
-from rest_framework.response import Response
+from django.http import JsonResponse
 from api.models import User
 from django.contrib.auth.hashers import make_password
 from api.utils.serializers import UserSerializer
@@ -15,8 +15,8 @@ def postUser(request):
 
   try:
     User.objects.get(email = email)
-    res = { 'ok': False, 'code': 'USER__DOES_EXISTS', 'message': 'User does exists. try to login.'}
-    return Response(res)
+    res = { 'ok': False, 'message': 'user does exists' }
+    return JsonResponse(res, status=409)
   
   except User.DoesNotExist:
     newUser = User.objects.create(
@@ -25,5 +25,5 @@ def postUser(request):
       first_name = name,
       password = make_password(password),
     )
-    res = { 'ok': True, 'code': 'SUCCESS', 'data': UserSerializer(newUser).data }
-    return Response(res)
+    res = { 'ok': True, 'data': UserSerializer(newUser).data }
+    return JsonResponse(res, status=200)

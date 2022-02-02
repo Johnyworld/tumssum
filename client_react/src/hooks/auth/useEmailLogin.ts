@@ -1,33 +1,27 @@
-import { useCallback, useState } from "react";
-import api from "~/utils/api";
-import CustomError from "~/utils/customError/CustomError";
+import { useCallback, useState } from 'react';
+import api from '~/utils/api';
 
+export default function useEmailLogin() {
+  const [isSent, setIsSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-export default function useEmailLogin () {
-
-	const [isSent, setIsSent] = useState(false);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState('');
-
-	const handleSend = useCallback(async (email: string) => {
+  const handleSend = useCallback(async (email: string) => {
     setIsSent(false);
     setLoading(true);
-    try {
-      await api.auth.sendEmail(email)
+    const { ok, message } = await api.auth.sendEmail(email);
+    if (!ok) setError(message);
+    else {
       setIsSent(true);
-			setError('');
+      setError('');
     }
-    catch (err) {
-			const { message } = err as CustomError;
-			setError(message);
-		}
-    finally { setLoading(false) }
+    setLoading(false);
   }, []);
-	
-	return {
-		isSent,
-		loading,
-		error,
-		handleSend,
-	};
+
+  return {
+    isSent,
+    loading,
+    error,
+    handleSend,
+  };
 }

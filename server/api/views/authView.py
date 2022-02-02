@@ -77,9 +77,9 @@ def sendEmail(request):
       return JsonResponse(res, status=200)
 
     except User.DoesNotExist:
-      # 유저가 존재하지 않을 경우 204 코드 전달
-      res = { 'ok': False, 'code': 'USER__DOES_NOT_EXISTS' }
-      return JsonResponse(res)
+      # 유저가 존재하지 않을 경우 404 코드 전달
+      res = { 'ok': False, 'message': 'user does not exists' }
+      return JsonResponse(res, status=404)
 
   elif request.method == 'POST':
     reqData = json.loads(request.body)
