@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { store } from '~/store';
 import { getErrorMessage } from './errors';
 import logging from './logging';
 
@@ -10,11 +11,15 @@ export type Method = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
  */
 const request = async <T>(method: Method, url: string, payload: any) => {
   logging.req(method, url, payload);
+  const userInfo = store.getState().user.userInfo || undefined;
   try {
     const res: AxiosResponse<T> = await axios({
       method,
       url,
-      [method === 'GET' ? 'params' : 'data']: payload,
+      headers: userInfo && {
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+      [method === 'GET' ? 'params' : 'data']: { ...payload, user_id: userInfo?.id },
     });
     logging.res(method, url, res);
     return res;
