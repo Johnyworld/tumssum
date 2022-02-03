@@ -5,7 +5,7 @@ declare module 'types' {
     id: number;
     title: string;
     user: number;
-    items: Bank[];
+    items?: Bank[];
     created_at: string;
     updated_at: string;
   }
@@ -13,12 +13,12 @@ declare module 'types' {
   interface Bank {
     id: number;
     title: string;
+    user: number;
     memo?: string;
     balance?: number;
-    group: number | null;
-    user: number;
+    group?: number;
+    accounts?: Account[];
     created_at: string;
     updated_at: string;
-    accounts?: Account[];
   }
 }

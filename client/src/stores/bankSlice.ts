@@ -4,7 +4,7 @@ import { Bank, BankGroup } from 'types';
 const initialState = {
   banks: [] as Bank[],
   bankGroups: [] as BankGroup[],
-}
+};
 
 export const bankSlice = createSlice({
   name: 'mode',
@@ -26,26 +26,44 @@ export const bankSlice = createSlice({
       state.banks = [...state.banks, payload];
     },
     updateBankGroup: (state, { payload }: PayloadAction<BankGroup>) => {
-      state.bankGroups = state.bankGroups.map(group => group.id !== payload.id ? group : {
-        ...group,
-        ...payload,
-      });
+      state.bankGroups = state.bankGroups.map((group) =>
+        group.id !== payload.id
+          ? group
+          : {
+              ...group,
+              ...payload,
+            }
+      );
     },
     updateBank: (state, { payload }: PayloadAction<Bank>) => {
-      state.banks = state.banks.map(bank => bank.id !== payload.id ? bank : {
-        ...bank,
-        ...payload,
-      });
+      state.banks = state.banks.map((bank) =>
+        bank.id !== payload.id
+          ? bank
+          : {
+              ...bank,
+              ...payload,
+            }
+      );
     },
     removeBankGroup: (state, { payload }: PayloadAction<number>) => {
-      state.bankGroups = state.bankGroups.filter(group => group.id !== payload);
+      state.bankGroups = state.bankGroups.filter((group) => group.id !== payload);
     },
     removeBank: (state, { payload }: PayloadAction<number>) => {
-      state.banks = state.banks.filter(bank => bank.id !== payload);
+      state.banks = state.banks.filter((bank) => bank.id !== payload);
     },
-  }
-})
+  },
+});
 
-export const { setBanks, setBankGroups, addBankGroup, addBanks, addBank, updateBankGroup, updateBank, removeBankGroup, removeBank } = bankSlice.actions;
+export const {
+  setBanks,
+  setBankGroups,
+  addBankGroup,
+  addBanks,
+  addBank,
+  updateBankGroup,
+  updateBank,
+  removeBankGroup,
+  removeBank,
+} = bankSlice.actions;
 
 export default bankSlice.reducer;
