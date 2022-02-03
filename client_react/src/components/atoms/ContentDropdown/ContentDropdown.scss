@@ -1,0 +1,31 @@
+@import '~/src/style/mixins';
+
+.content-dropdown {
+  position: relative;
+
+  &__select {
+    @include box-input;
+    @include box-input-pseudos;
+    appearance: none;
+    border: none;
+    background: none;
+    width: 100%;
+    &:focus {
+      cursor: pointer;
+    }
+    &::-ms-expand {
+      display: none;
+    }
+  }
+
+  &__arrow {
+    position: absolute;
+    right: 0.75rem;
+    top: 44%;
+    width: 8px;
+    height: 8px;
+    transform: translateY(-50%) rotate(45deg);
+    border-right: 2px solid var(--color-gray_strong);
+    border-bottom: 2px solid var(--color-gray_strong);
+  }
+}
