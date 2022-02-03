@@ -1,0 +1,34 @@
+@import '~/src/style/mixins';
+
+.bank-list-item {
+  @include card(1rem);
+
+  &__title {
+    @include ellipsis;
+    font-size: var(--font-large);
+
+    &--disabled {
+      color: var(--color-gray);
+      font-style: italic;
+    }
+  }
+
+  &__memo {
+    @include ellipsis;
+    color: var(--color-pencel);
+  }
+
+  &__balance {
+    text-align: right;
+    font-size: var(--font-large);
+    font-weight: var(--font-bold);
+
+    &--negative {
+      color: var(--color-red);
+    }
+  }
+
+  &--clickable {
+    cursor: pointer;
+  }
+}

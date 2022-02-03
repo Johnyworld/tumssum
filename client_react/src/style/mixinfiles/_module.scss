@@ -1,88 +1,87 @@
 @import './text';
 
 @mixin card($padding) {
-	background-color: var(--color-paper);
-	box-shadow: var(--shadow-small);
-	border: 1px solid var(--color-gray_weak);
-	border-radius: .125rem;
-	transition: transform .3s;
-	padding: $padding;
+  background-color: var(--color-paper);
+  box-shadow: var(--shadow-small);
+  border: 1px solid var(--color-gray_weak);
+  border-radius: 0.25rem;
+  transition: transform 0.3s;
+  padding: $padding;
 
-	&--hover:hover {
-		cursor: pointer;
-		transform: translateY(-1px);
-	}
+  &--hover:hover {
+    cursor: pointer;
+    transform: translateY(-1px);
+  }
 }
 
 @mixin input {
+  width: 15rem;
 
-	width: 15rem;
+  &--fluid {
+    width: 100%;
+  }
 
-	&--fluid {
-		width: 100%;
-	}
+  &__label {
+    @include ellipsis;
+    font-size: var(--font-small);
+    font-weight: var(--font-bold);
+    text-align: left;
+    line-height: 1;
+    color: var(--color-gray_strong);
+    margin-bottom: 0.25rem;
+    display: block;
+  }
 
-	&__label {
-		@include ellipsis;
-		font-size: var(--font-small);
-		font-weight: var(--font-bold);
-		text-align: left;
-		line-height: 1;
-		color: var(--color-gray_strong);
-		margin-bottom: .25rem;
-		display: block;
-	}
+  &__label--error {
+    color: var(--color-red);
+  }
 
-	&__label--error {
-		color: var(--color-red);
-	}
+  &__error-message {
+    @include ellipsisLines(2);
+    font-size: var(--font-small);
+    text-align: left;
+    color: var(--color-red);
+    margin-top: 2px;
+  }
 
-	&__error-message {
-		@include ellipsisLines(2);
-		font-size: var(--font-small);
-		text-align: left;
-		color: var(--color-red);
-		margin-top: 2px;
-	}
-	
-	&__box {
-		outline: none;
-		border-radius: 0;
-		width: 100%;
-		border: 1px solid var(--color-gray_weak);
-		height: 2.25rem;
-		background: var(--color-paper);
-		color: var(--color-pen);
-		padding: 0 .5rem;
+  &__box {
+    outline: none;
+    border-radius: 0;
+    width: 100%;
+    border: 1px solid var(--color-gray_weak);
+    height: 2.25rem;
+    background: var(--color-paper);
+    color: var(--color-pen);
+    padding: 0 0.5rem;
 
-		&::placeholder {
-			color: var(--color-gray_weak);
-		}
+    &::placeholder {
+      color: var(--color-gray_weak);
+    }
 
-		&--readonly {
-			pointer-events: none;
-		}
+    &--readonly {
+      pointer-events: none;
+    }
 
-		&--disabled {
-			cursor: not-allowed;
-			background: var(--color-dark_weakest);
-		}
+    &--disabled {
+      cursor: not-allowed;
+      background: var(--color-dark_weakest);
+    }
 
-		&--error {
-			color: var(--color-red);
-			border-color: var(--color-red);
-			&::placeholder {
-				color: var(--color-red_t_weak);
-			}
-		}
-	}
+    &--error {
+      color: var(--color-red);
+      border-color: var(--color-red);
+      &::placeholder {
+        color: var(--color-red_t_weak);
+      }
+    }
+  }
 }
 
 @mixin box-input {
-	min-height: 1em;
+  min-height: 1em;
   line-height: 1.4;
-  border-radius: .25em;
-  padding: .5em .75em;
+  border-radius: 0.25em;
+  padding: 0.5em 0.75em;
   white-space: pre-wrap;
   position: relative;
   cursor: pointer;
@@ -94,19 +93,19 @@
 
 @mixin box-input-pseudos {
   &:focus {
-		cursor: text;
-		outline: none;
+    cursor: text;
+    outline: none;
     background-color: var(--color-bright_weakest);
     box-shadow: var(--shadow-large);
   }
 
-	&:empty::before {
-		content: attr(placeholder);
-		display: block;
-		color: var(--color-gray);
-	}
-	
-	&:focus:empty::before{
-		color: rgba(255, 255, 255, 0);
-	}
+  &:empty::before {
+    content: attr(placeholder);
+    display: block;
+    color: var(--color-gray);
+  }
+
+  &:focus:empty::before {
+    color: rgba(255, 255, 255, 0);
+  }
 }

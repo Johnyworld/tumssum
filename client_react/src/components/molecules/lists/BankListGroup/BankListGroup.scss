@@ -1,0 +1,21 @@
+@import '~/src/style/mixins';
+
+.bank-list-group {
+  &__title {
+    font-size: var(--font-small);
+    font-weight: var(--font-bold);
+    color: var(--color-gray_strong);
+    margin-bottom: 0.25em;
+    &--disabled {
+      font-style: italic;
+    }
+  }
+
+  &__list {
+    @include gap(0.5rem);
+  }
+
+  &__placeholder {
+    @include textPlaceholder;
+  }
+}

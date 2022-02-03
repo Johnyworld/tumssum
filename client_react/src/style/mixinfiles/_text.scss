@@ -1,3 +1,8 @@
+@mixin textPlaceholder {
+  font-style: italic;
+  color: var(--color-gray);
+}
+
 @mixin ellipsis {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -5,11 +10,11 @@
 }
 
 @mixin ellipsisLines($num) {
-	display:-webkit-box; 
-	word-wrap:break-word; 
-	-webkit-line-clamp: $num; 
-	-webkit-box-orient:vertical; 
-	overflow:hidden; 
-	text-overflow:ellipsis;
-	height: ($num*1.4)rem;
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: $num;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: ($num * 1.4) rem;
 }

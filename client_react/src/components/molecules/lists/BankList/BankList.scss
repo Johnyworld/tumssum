@@ -1,0 +1,9 @@
+@import '~/src/style/mixins';
+
+.bank-list {
+  @include gap(1rem);
+
+  &__placeholder {
+    @include textPlaceholder;
+  }
+}

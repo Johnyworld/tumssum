@@ -1,17 +1,6 @@
-import {
-  ChromaticColor,
-  Color,
-  DropdownOption,
-  MenuItem,
-  ThreeSize,
-} from 'types';
+import { ChromaticColor, Color, DropdownOption, MenuItem, ThreeSize } from 'types';
 
-export const chromaticColors: ChromaticColor[] = [
-  'primary',
-  'red',
-  'green',
-  'paper',
-];
+export const chromaticColors: ChromaticColor[] = ['primary', 'red', 'green', 'paper'];
 
 export const allColors: Color[] = [
   ...chromaticColors,
@@ -25,6 +14,8 @@ export const allColors: Color[] = [
   'pen',
   'pencel',
 ];
+
+export const isoStringNow = new Date().toISOString();
 
 export const buttonTypes: ('button' | 'submit')[] = ['button', 'submit'];
 
