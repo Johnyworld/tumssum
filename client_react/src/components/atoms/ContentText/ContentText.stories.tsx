@@ -18,3 +18,9 @@ Title.args = {
   placeholder: 'Enter a text',
   isTitle: true,
 };
+
+export const Label = Template.bind({});
+Label.args = {
+  placeholder: 'Enter a text',
+  label: 'Label',
+};

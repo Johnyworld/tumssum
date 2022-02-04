@@ -5,24 +5,17 @@ const value = 'Hello world';
 const placeholder = 'placeholder';
 const mockChange = jest.fn();
 
-test('renders a placeholder', () => {
-  render(
-    <ContentText
-      value={value}
-      placeholder={placeholder}
-      onChange={mockChange}
-    />
-  );
+test('render a placeholder', () => {
+  render(<ContentText value={value} placeholder={placeholder} onChange={mockChange} />);
   expect(screen.getByPlaceholderText(placeholder)).toBeInTheDocument();
 });
 
-test('renders a default value', () => {
-  render(
-    <ContentText
-      value={value}
-      placeholder={placeholder}
-      onChange={mockChange}
-    />
-  );
+test('render a label', () => {
+  render(<ContentText value={value} placeholder={placeholder} label='Label' onChange={mockChange} />);
+  expect(screen.getByText('Label')).toBeInTheDocument();
+});
+
+test('render a default value', () => {
+  render(<ContentText value={value} placeholder={placeholder} onChange={mockChange} />);
   expect(screen.getByText(value)).toBeInTheDocument();
 });

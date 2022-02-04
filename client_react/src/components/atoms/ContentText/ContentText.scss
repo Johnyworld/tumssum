@@ -1,15 +1,28 @@
 @import '~/src/style/mixins';
 
 .content-text {
-  @include box-input;
-  @include box-input-pseudos;
+  @include flex;
 
-  &--title {
-    font-size: var(--font-large);
-    font-weight: var(--font-bold);
-    padding: 0;
-    &:focus {
-      box-shadow: none;
+  &__label {
+    @include box-input-label;
+  }
+
+  &__input {
+    @include box-input;
+    @include box-input-pseudos;
+    @include box-input-oneline;
+
+    &--title {
+      font-size: var(--font-large);
+      font-weight: var(--font-bold);
+      padding: 0;
+      &:focus {
+        box-shadow: none;
+        background-color: transparent;
+      }
+      &:hover {
+        background-color: transparent;
+      }
     }
   }
 }
