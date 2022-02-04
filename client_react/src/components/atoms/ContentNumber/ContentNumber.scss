@@ -1,18 +1,24 @@
 @import '~/src/style/mixins';
 
 .content-number {
-  @include box-input;
-  @include box-input-pseudos;
-  font-weight: var(--font-bold);
+  @include flex;
+  position: relative;
+  width: 100%;
 
-  &__container {
-    position: relative;
-    width: 100%;
+  &__label {
+    @include box-input-label;
+  }
+
+  &__input {
+    @include box-input;
+    @include box-input-pseudos;
+    @include box-input-oneline;
+    font-weight: var(--font-bold);
   }
 
   &__svg {
     font-size: 0;
-    right: .5rem;
+    right: 0.5rem;
   }
 
   &--negative,
@@ -24,7 +30,7 @@
       position: absolute;
       left: 0;
       top: 50%;
-      padding-left: .75em;
+      padding-left: 0.75em;
       transform: translateY(-55%);
       font-weight: var(--font-bold);
     }

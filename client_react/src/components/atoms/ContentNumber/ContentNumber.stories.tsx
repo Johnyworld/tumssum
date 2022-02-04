@@ -2,23 +2,26 @@ import { Story, Meta } from '@storybook/react';
 import ContentNumber, { ContentNumberProps } from './ContentNumber';
 
 export default {
-	title: 'Atoms/ContentNumber',
-	component: ContentNumber,
-	argTypes: {
-	
-	}
+  title: 'Atoms/ContentNumber',
+  component: ContentNumber,
+  argTypes: {},
 } as Meta;
 
-const Template: Story<ContentNumberProps> = (args) => <ContentNumber {...args} />
+const Template: Story<ContentNumberProps> = (args) => <ContentNumber {...args} />;
 export const Default = Template.bind({});
 Default.args = {
-	placeholder: 'Enter a number',
+  placeholder: 'Enter a number',
 };
 
-const TemplateNatural: Story<ContentNumberProps> = (args) => <ContentNumber {...args} />
-export const Natural = TemplateNatural.bind({});
+export const Natural = Template.bind({});
 Natural.args = {
-	value: 'df123',
-	placeholder: 'Enter a number',
-	isNatural: true,
+  value: 'df123',
+  placeholder: 'Enter a number',
+  isNatural: true,
+};
+
+export const Label = Template.bind({});
+Label.args = {
+  placeholder: 'Enter a number',
+  label: 'Label',
 };
