@@ -10,15 +10,15 @@ def postBank(request):
   reqData = json.loads(request.body)
 
   user_id = reqData.get('user_id')
-  bank_group_id = reqData.get('bank_group_id')
+  group_id = reqData.get('group_id')
   title = reqData.get('title')
-  balance = reqData.get('balance')
+  memo = reqData.get('memo')
 
   newBank = Bank.objects.create(
     user_id = user_id,
-    group_id = bank_group_id if bank_group_id else None,
+    group_id = group_id if group_id else None,
     title = title,
-    balance = balance,
+    memo = memo,
   )
 
   res = { 'ok': True, 'data': BankSerializer(newBank, many=False).data }

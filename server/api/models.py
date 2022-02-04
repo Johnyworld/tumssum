@@ -44,7 +44,6 @@ class BankGroup(models.Model):
 class Bank(models.Model):
   # Require fields
   title = models.CharField(max_length=20)
-  balance = models.IntegerField()
   # Not Required fields
   memo = models.TextField(max_length=256, blank=True)
   # Required Relations
