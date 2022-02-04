@@ -1,0 +1,15 @@
+@import '~/src/style/mixins';
+
+.content-textarea {
+  @include flex;
+  align-items: flex-start;
+
+  &__label {
+    @include box-input-label;
+  }
+
+  &__input {
+    @include box-input;
+    @include box-input-pseudos;
+  }
+}

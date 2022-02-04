@@ -78,6 +78,7 @@
 }
 
 @mixin box-input {
+  width: 100%;
   min-height: 1em;
   line-height: 1.4;
   border-radius: 0.25em;
@@ -89,6 +90,21 @@
   &:hover {
     background-color: var(--color-bright_weakest);
   }
+}
+
+@mixin box-input-label {
+  @include ellipsis;
+  padding: 0.5em 0;
+  font-weight: var(--font-bold);
+  color: var(--color-gray_strong);
+  max-width: 100px;
+  width: 100%;
+}
+
+@mixin box-input-oneline {
+  @include hide-scroll;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 @mixin box-input-pseudos {
