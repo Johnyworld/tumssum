@@ -74,17 +74,15 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
   }, [setInnerText, value]);
 
   return (
-    <div className='content-number'>
+    <div className={c('content-number', className)} style={style}>
       {label && <p className='content-number__label'>{label}</p>}
       <div
         className={c(
           'content-number__input',
           [!isNatural && isNegative, 'c-red'],
           [!isNatural && followingValue && isNegative, '&--negative'],
-          [!isNatural && followingValue && !isNegative, '&--positive'],
-          className
+          [!isNatural && followingValue && !isNegative, '&--positive']
         )}
-        style={style}
         contentEditable
         placeholder={placeholder}
         ref={ref}

@@ -37,12 +37,11 @@ const ContentText: React.FC<ContentTextProps> = ({
   };
 
   return (
-    <div className='content-text'>
+    <div className={c('content-text', className)} style={style}>
       {label && <p className='content-text__label'>{label}</p>}
 
       <div
-        className={c('content-text__input', className, [isTitle, '&--title'])}
-        style={style}
+        className={c('content-text__input', [isTitle, '&--title'])}
         contentEditable
         placeholder={placeholder}
         ref={ref}
