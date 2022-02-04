@@ -1,14 +1,19 @@
 @import '~/src/style/mixins';
 
 .global-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--color-paper);
 
-	background-color: var(--color-paper);
-
-	&__inner {
-		@include flex;
-		@include wrapper-normal;
-		gap: 2rem;
-		> * { flex-shrink: 0; };
-		> *:nth-child(2) { flex: 100% };
-	}
+  &__inner {
+    @include flex;
+    @include wrapper-normal;
+    gap: 2rem;
+    > * {
+      flex-shrink: 0;
+    }
+    > *:nth-child(2) {
+      flex: 100%;
+    }
+  }
 }
