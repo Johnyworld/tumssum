@@ -1,0 +1,8 @@
+@import '~/src/style/mixins';
+
+.bank-page {
+  &__main {
+    @include wrapper-normal;
+    margin-top: 2rem;
+  }
+}

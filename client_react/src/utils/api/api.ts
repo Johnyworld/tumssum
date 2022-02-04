@@ -1,4 +1,4 @@
-import { Account, Bank, BankGroup } from 'types';
+import { Account, Bank, BankGroup, ReqCreateBank, ReqCreateBankGroup } from 'types';
 import request from './request';
 
 /**
@@ -12,11 +12,15 @@ const api = {
     sendEmail: async (email: string) => await request<null>('GET', '/api/login/send/', { email }),
     register: async (name: string, email: string) => await request<null>('POST', '/api/register/', { name, email }),
   },
+
   accounts: {
     getList: async () => await request<Account[]>('GET', '/api/accounts/', {}),
   },
+
   banks: {
     getBanks: async () => await request<{ banks: Bank[]; groups: BankGroup[] }>('GET', '/api/banks/', {}),
+    createBankGroup: async (body: ReqCreateBankGroup) => await request<BankGroup>('POST', '/api/bank-group', body),
+    createBank: async (body: ReqCreateBank) => await request<BankGroup>('POST', '/api/bank-group', body),
   },
 };
 

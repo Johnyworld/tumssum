@@ -1,17 +1,20 @@
 import React from 'react';
-import BankList from '~/components/molecules/lists/BankList';
 import GlobalHeader from '~/components/organisms/headers/GlobalHeader';
+import BankListContainer from '~/containers/bank/BankListContainer/BankListContainer';
 import bankUtil from '~/utils/bankUtil';
 import { useSelector } from '~/utils/reduxHooks';
+import './BankPage.scss';
 
 const BankPage: React.FC = () => {
   const bankGroup = useSelector((state) => state.bank.bankGroups);
   const banks = useSelector((state) => state.bank.banks);
   const bankTree = bankUtil.getBankTree(bankGroup, banks);
   return (
-    <div>
+    <div className='bank-page'>
       <GlobalHeader />
-      <BankList bankTree={bankTree || []} />
+      <main className='bank-page__main'>
+        <BankListContainer bankTree={bankTree || []} />
+      </main>
     </div>
   );
 };

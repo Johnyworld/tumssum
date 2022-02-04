@@ -1,0 +1,10 @@
+@import '~/src/style/mixins';
+
+.bank-list-container {
+  @include gap(1rem);
+
+  &__buttons {
+    @include flex-end;
+    gap: 0.5rem;
+  }
+}
