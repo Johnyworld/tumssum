@@ -18,4 +18,4 @@ def postBankGroup(request):
   )
 
   res = { 'ok': True, 'data': BankGroupSerializer(newBankGroup, many=False).data }
-  return JsonResponse(res)
+  return JsonResponse(res, status=200)

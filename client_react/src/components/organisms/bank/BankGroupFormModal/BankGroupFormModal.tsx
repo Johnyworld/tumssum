@@ -5,10 +5,12 @@ import ContentText from '~/components/atoms/ContentText';
 import Modal from '../../modals/Modal';
 
 export interface BankGroupFormModalProps {
+  isUpdating: boolean;
   onSubmit: (data: BankGroup) => void;
+  onClose: () => void;
 }
 
-const BankGroupFormModal: React.FC<BankGroupFormModalProps> = ({ onSubmit }) => {
+const BankGroupFormModal: React.FC<BankGroupFormModalProps> = ({ isUpdating, onSubmit, onClose }) => {
   const [title, setTitle] = useState('');
 
   const handleSubmit = () => {
@@ -16,12 +18,14 @@ const BankGroupFormModal: React.FC<BankGroupFormModalProps> = ({ onSubmit }) => 
   };
 
   return (
-    <Modal.Container>
+    <Modal.Container onClose={onClose}>
       <Modal.Content padding>
         <ContentText isTitle value={title} placeholder='뱅크 그룹의 이름을 입력하세요.' onChange={setTitle} />
       </Modal.Content>
       <Modal.Footer flexEnd padding>
-        <Button onClick={handleSubmit}>확인</Button>
+        <Button disabled={isUpdating} onClick={handleSubmit}>
+          확인
+        </Button>
       </Modal.Footer>
     </Modal.Container>
   );
