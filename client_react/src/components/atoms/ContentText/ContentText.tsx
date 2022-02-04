@@ -6,16 +6,11 @@ import './ContentText.scss';
 export interface ContentTextProps extends DefaultProps {
   value: string;
   placeholder: string;
+  isTitle?: boolean;
   onChange: (value: string) => void;
 }
 
-const ContentText: React.FC<ContentTextProps> = ({
-  className,
-  style,
-  value,
-  placeholder,
-  onChange,
-}) => {
+const ContentText: React.FC<ContentTextProps> = ({ className, style, value, placeholder, isTitle, onChange }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [defaultValue] = useState(value);
@@ -34,7 +29,7 @@ const ContentText: React.FC<ContentTextProps> = ({
 
   return (
     <div
-      className={c('content-text', className)}
+      className={c('content-text', className, [isTitle, '&--title'])}
       style={style}
       contentEditable
       placeholder={placeholder}

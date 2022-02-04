@@ -3,4 +3,13 @@
 .content-text {
   @include box-input;
   @include box-input-pseudos;
+
+  &--title {
+    font-size: var(--font-large);
+    font-weight: var(--font-bold);
+    padding: 0;
+    &:focus {
+      box-shadow: none;
+    }
+  }
 }

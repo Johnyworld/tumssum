@@ -12,3 +12,9 @@ export const Default = Template.bind({});
 Default.args = {
   placeholder: 'Enter a text',
 };
+
+export const Title = Template.bind({});
+Title.args = {
+  placeholder: 'Enter a text',
+  isTitle: true,
+};
