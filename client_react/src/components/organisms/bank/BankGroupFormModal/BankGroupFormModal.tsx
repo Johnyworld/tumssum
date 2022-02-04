@@ -24,7 +24,7 @@ const BankGroupFormModal: React.FC<BankGroupFormModalProps> = ({ isUpdating, onS
       </Modal.Content>
       <Modal.Footer flexEnd padding>
         <Button disabled={isUpdating} onClick={handleSubmit}>
-          확인
+          저장
         </Button>
       </Modal.Footer>
     </Modal.Container>

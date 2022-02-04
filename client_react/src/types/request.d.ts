@@ -4,6 +4,7 @@ declare module 'types' {
   }
   interface ReqCreateBank {
     title: string;
+    memo?: string;
     group_id?: number;
   }
 }

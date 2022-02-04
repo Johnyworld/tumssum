@@ -19,8 +19,8 @@ const api = {
 
   banks: {
     getBanks: async () => await request<{ banks: Bank[]; groups: BankGroup[] }>('GET', '/api/banks/', {}),
-    createBankGroup: async (body: ReqCreateBankGroup) => await request<BankGroup>('POST', '/api/bank-group', body),
-    createBank: async (body: ReqCreateBank) => await request<BankGroup>('POST', '/api/bank-group', body),
+    createBankGroup: async (body: ReqCreateBankGroup) => await request<BankGroup>('POST', '/api/bank-group/', body),
+    createBank: async (body: ReqCreateBank) => await request<Bank>('POST', '/api/bank/', body),
   },
 };
 
