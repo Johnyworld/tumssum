@@ -1,9 +1,5 @@
 import { Story, Meta } from '@storybook/react';
-import {
-  selectList,
-  selectListGroups,
-  selectPlaceholder,
-} from '~/fixtures/common';
+import { selectList, selectListGroups, selectPlaceholder } from '~/fixtures/common';
 import ContentDropdown, { ContentDropdownProps } from './ContentDropdown';
 
 export default {
@@ -12,30 +8,29 @@ export default {
   argTypes: {},
 } as Meta;
 
-const Template: Story<ContentDropdownProps> = (args) => (
-  <ContentDropdown {...args} />
-);
+const Template: Story<ContentDropdownProps> = (args) => <ContentDropdown {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   list: selectList,
   placeholder: selectPlaceholder,
 };
 
-const TemplateDefaultValue: Story<ContentDropdownProps> = (args) => (
-  <ContentDropdown {...args} />
-);
-export const DefaultValue = TemplateDefaultValue.bind({});
+export const DefaultValue = Template.bind({});
 DefaultValue.args = {
   list: selectList,
   selected: 'banana',
   placeholder: selectPlaceholder,
 };
 
-const TemplateListWithGroups: Story<ContentDropdownProps> = (args) => (
-  <ContentDropdown {...args} />
-);
-export const ListWithGroups = TemplateListWithGroups.bind({});
+export const ListWithGroups = Template.bind({});
 ListWithGroups.args = {
   list: selectListGroups,
   placeholder: selectPlaceholder,
+};
+
+export const Label = Template.bind({});
+Label.args = {
+  list: selectListGroups,
+  placeholder: selectPlaceholder,
+  label: 'Label',
 };

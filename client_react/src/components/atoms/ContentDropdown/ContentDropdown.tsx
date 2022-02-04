@@ -1,20 +1,17 @@
 import React, { useCallback } from 'react';
 import { DropdownOption } from 'types';
+import { c } from '~/utils/classNames';
 import './ContentDropdown.scss';
 
 export interface ContentDropdownProps {
   list: DropdownOption[];
   selected?: string;
   placeholder?: string;
+  label?: string;
   onSelect: (selected: string) => void;
 }
 
-const ContentDropdown: React.FC<ContentDropdownProps> = ({
-  list,
-  selected,
-  placeholder,
-  onSelect,
-}) => {
+const ContentDropdown: React.FC<ContentDropdownProps> = ({ list, selected, placeholder, label, onSelect }) => {
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = useCallback(
     (e) => onSelect(e.target.value),
     [onSelect]
@@ -22,9 +19,10 @@ const ContentDropdown: React.FC<ContentDropdownProps> = ({
 
   return (
     <div className='content-dropdown'>
+      {label && <p className='content-dropdown__label'>{label}</p>}
       <select
         role='group'
-        className='content-dropdown__select'
+        className={c('content-dropdown__select', [!selected, '&--disabled'])}
         defaultValue={selected || ''}
         placeholder={placeholder}
         onChange={handleChange}

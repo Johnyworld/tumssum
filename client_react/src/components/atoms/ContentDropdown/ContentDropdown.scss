@@ -1,11 +1,17 @@
 @import '~/src/style/mixins';
 
 .content-dropdown {
+  @include flex;
   position: relative;
+
+  &__label {
+    @include box-input-label;
+  }
 
   &__select {
     @include box-input;
     @include box-input-pseudos;
+    font-size: var(--font-regular);
     appearance: none;
     border: none;
     background: none;
@@ -15,6 +21,10 @@
     }
     &::-ms-expand {
       display: none;
+    }
+
+    &--disabled {
+      color: var(--color-gray);
     }
   }
 
