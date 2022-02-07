@@ -49,6 +49,7 @@ const BankListContainer: React.FC<BankListContainerProps> = ({ bankTree }) => {
             isUpdating={bankForm.isUpdating}
             initBank={bankForm.selected}
             onSubmit={bankForm.onSubmit}
+            onDelete={bankForm.onDelete}
             onClose={bankForm.onCloseModal}
           />
         }

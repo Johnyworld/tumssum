@@ -11,10 +11,18 @@ export interface BankFormModalProps {
   isUpdating: boolean;
   initBank?: Bank | null;
   onSubmit: (data: Bank) => void;
+  onDelete: (id: number) => void;
   onClose: () => void;
 }
 
-const BankFormModal: React.FC<BankFormModalProps> = ({ groupList, isUpdating, initBank, onSubmit, onClose }) => {
+const BankFormModal: React.FC<BankFormModalProps> = ({
+  groupList,
+  isUpdating,
+  initBank,
+  onSubmit,
+  onDelete,
+  onClose,
+}) => {
   const [title, setTitle] = useState(initBank?.title || '');
   const [group, setGroup] = useState(initBank?.group ? String(initBank.group) : '');
   const [memo, setMemo] = useState(initBank?.memo || '');
@@ -22,6 +30,10 @@ const BankFormModal: React.FC<BankFormModalProps> = ({ groupList, isUpdating, in
   const handleSubmit = useCallback(() => {
     onSubmit({ id: initBank?.id || undefined, title, memo, group: +group } as Bank);
   }, [initBank, title, memo, group, onSubmit]);
+
+  const handleDelete = useCallback(() => {
+    if (initBank && initBank.id) onDelete(initBank.id);
+  }, [initBank, onDelete]);
 
   return (
     <Modal.Container onClose={onClose}>
@@ -42,7 +54,12 @@ const BankFormModal: React.FC<BankFormModalProps> = ({ groupList, isUpdating, in
         />
         <ContentTextarea label='메모' value={memo} placeholder='메모를 입력하세요.' onChange={setMemo} />
       </Modal.Content>
-      <Modal.Footer flexEnd padding>
+      <Modal.Footer flex padding>
+        {initBank && (
+          <p className='c-red f-bold pointer' onClick={handleDelete}>
+            삭제
+          </p>
+        )}
         <Button disabled={isUpdating} onClick={handleSubmit}>
           저장
         </Button>

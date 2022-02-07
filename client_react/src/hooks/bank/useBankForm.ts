@@ -4,7 +4,7 @@ import useToast from '../useToast';
 import { Bank } from 'types';
 import api from '~/utils/api';
 import useToggle from '../useToggle';
-import { addBank, updateBank } from '~/stores/bankSlice';
+import { addBank, removeBank, updateBank } from '~/stores/bankSlice';
 import useObject from '../useObject';
 
 const useBankForm = () => {
@@ -57,6 +57,22 @@ const useBankForm = () => {
     [handleCreateBank, handleUpdateBank, isUpdating]
   );
 
+  const onDelete = useCallback(
+    async (bank_id: number) => {
+      if (isUpdating) return;
+      setUpdating(true);
+      const { ok, message, data } = await api.banks.deleteBank({ bank_id });
+      if (!ok) toast(message, 'red');
+      else {
+        toast('뱅크를 삭제했습니다.', 'green');
+        dispatch(removeBank(data));
+        editingBank.reset();
+      }
+      setUpdating(false);
+    },
+    [dispatch, editingBank, toast, isUpdating]
+  );
+
   const onCloseModal = useCallback(() => {
     onClose();
     if (editingBank.data) editingBank.reset();
@@ -69,6 +85,7 @@ const useBankForm = () => {
     onSelect: editingBank.set,
     onCloseModal,
     onOpenModal: onOpen,
+    onDelete,
     onSubmit,
   };
 };

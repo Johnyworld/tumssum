@@ -13,4 +13,7 @@ declare module 'types' {
   interface ReqUpdateBank extends ReqCreateBank {
     bank_id: number;
   }
+  interface ReqDeleteBank {
+    bank_id: number;
+  }
 }
