@@ -5,6 +5,7 @@ import {
   ReqCreateBank,
   ReqCreateBankGroup,
   ReqDeleteBank,
+  ReqDeleteBankGroup,
   ReqUpdateBank,
   ReqUpdateBankGroup,
 } from 'types';
@@ -30,6 +31,8 @@ const api = {
     getBanks: async () => await request<{ banks: Bank[]; groups: BankGroup[] }>('GET', '/api/banks/', {}),
     createBankGroup: async (body: ReqCreateBankGroup) => await request<BankGroup>('POST', '/api/bank-group/', body),
     updateBankGroup: async (body: ReqUpdateBankGroup) => await request<BankGroup>('POST', '/api/bank-group/', body),
+    deleteBankGroup: async (body: ReqDeleteBankGroup) =>
+      await request<{ id: number; items: Bank[] }>('DELETE', '/api/bank-group/', body),
     createBank: async (body: ReqCreateBank) => await request<Bank>('POST', '/api/bank/', body),
     updateBank: async (body: ReqUpdateBank) => await request<Bank>('PUT', '/api/bank/', body),
     deleteBank: async (body: ReqDeleteBank) => await request<number>('DELETE', '/api/bank/', body),

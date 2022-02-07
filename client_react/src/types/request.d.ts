@@ -5,6 +5,10 @@ declare module 'types' {
   interface ReqUpdateBankGroup extends ReqCreateBankGroup {
     bank_group_id: number;
   }
+  interface ReqDeleteBankGroup {
+    bank_group_id: number;
+  }
+
   interface ReqCreateBank {
     title: string;
     memo?: string;

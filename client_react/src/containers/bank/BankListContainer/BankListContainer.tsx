@@ -36,6 +36,7 @@ const BankListContainer: React.FC<BankListContainerProps> = ({ bankTree }) => {
             isUpdating={bankGroupForm.isUpdating}
             initGroup={bankGroupForm.selected}
             onSubmit={bankGroupForm.onSubmit}
+            onDelete={bankGroupForm.onDelete}
             onClose={bankGroupForm.onCloseModal}
           />
         }
