@@ -2,6 +2,7 @@ import React from 'react';
 import { BankTree } from 'types';
 import Button from '~/components/atoms/Button';
 import BankList from '~/components/molecules/lists/BankList';
+import Modal from '~/components/organisms/modals/Modal';
 import useToggle from '~/hooks/useToggle';
 import BankFormModalContainer from '../BankFormModalContainer';
 import BankGroupFormModalContainer from '../BankGroupFormModalContainer';
@@ -24,8 +25,9 @@ const BankListContainer: React.FC<BankListContainerProps> = ({ bankTree }) => {
 
       <BankList bankTree={bankTree} />
 
-      <BankGroupFormModalContainer isOpen={isOpenCreateGroup} onClose={onCloseCreateGroup} />
-      <BankFormModalContainer isOpen={isOpenCreateBank} onClose={onCloseCreateBank} />
+      <Modal isOpen={isOpenCreateGroup} children={<BankGroupFormModalContainer onClose={onCloseCreateGroup} />} />
+
+      <Modal isOpen={isOpenCreateBank} children={<BankFormModalContainer onClose={onCloseCreateBank} />} />
     </div>
   );
 };
