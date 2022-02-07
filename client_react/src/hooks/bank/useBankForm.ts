@@ -1,24 +1,22 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useDispatch } from '~/utils/reduxHooks';
+import useToast from '../useToast';
 import { Bank } from 'types';
-import BankFormModal from '~/components/organisms/bank/BankFormModal';
-import useToast from '~/hooks/useToast';
-import { addBank, updateBank } from '~/stores/bankSlice';
 import api from '~/utils/api';
-import { useDispatch, useSelector } from '~/utils/reduxHooks';
+import useToggle from '../useToggle';
+import { addBank, updateBank } from '~/stores/bankSlice';
+import useObject from '../useObject';
 
-export interface BankFormModalContainerProps {
-  initBank?: Bank | null;
-  onClose: () => void;
-}
-
-const BankFormModalContainer: React.FC<BankFormModalContainerProps> = ({ initBank, onClose }) => {
+const useBankForm = () => {
   const dispatch = useDispatch();
   const toast = useToast();
-  const bankGroups = useSelector(state => state.bank.bankGroups);
+  const [isOpen, onOpen, onClose] = useToggle();
+
+  const editingBank = useObject<Bank>();
 
   const [isUpdating, setUpdating] = useState(false);
 
-  const callUpdateBank = useCallback(
+  const handleUpdateBank = useCallback(
     async (bank: Bank) => {
       const { id: bank_id, title, memo, group: group_id } = bank;
       const { ok, message, data } = await api.banks.updateBank({ bank_id, title, memo, group_id });
@@ -26,14 +24,14 @@ const BankFormModalContainer: React.FC<BankFormModalContainerProps> = ({ initBan
       else {
         toast('뱅크를 수정했습니다.', 'green');
         dispatch(updateBank(data));
-        onClose();
+        editingBank.reset();
       }
       setUpdating(false);
     },
-    [dispatch, onClose, toast]
+    [dispatch, editingBank, toast]
   );
 
-  const callCreateBank = useCallback(
+  const handleCreateBank = useCallback(
     async (bank: Bank) => {
       const { title, memo, group: group_id } = bank;
       const { ok, message, data } = await api.banks.createBank({ title, memo, group_id });
@@ -48,26 +46,31 @@ const BankFormModalContainer: React.FC<BankFormModalContainerProps> = ({ initBan
     [dispatch, onClose, toast]
   );
 
-  const handleSubmit = useCallback(
+  const onSubmit = useCallback(
     async (bank: Bank) => {
       if (isUpdating) return;
       setUpdating(true);
-      if (bank.id) callUpdateBank(bank);
-      else callCreateBank(bank);
+      if (bank.id) handleUpdateBank(bank);
+      else handleCreateBank(bank);
       setUpdating(false);
     },
-    [callCreateBank, callUpdateBank, isUpdating]
+    [handleCreateBank, handleUpdateBank, isUpdating]
   );
 
-  return (
-    <BankFormModal
-      groupList={bankGroups}
-      isUpdating={isUpdating}
-      initBank={initBank}
-      onSubmit={handleSubmit}
-      onClose={onClose}
-    />
-  );
+  const onCloseModal = useCallback(() => {
+    onClose();
+    if (editingBank.data) editingBank.reset();
+  }, [editingBank, onClose]);
+
+  return {
+    selected: editingBank.data,
+    isUpdating,
+    isOpenModal: isOpen || !!editingBank.data,
+    onCloseModal,
+    onOpenModal: onOpen,
+    onSubmit,
+    onSelect: editingBank.set,
+  };
 };
 
-export default BankFormModalContainer;
+export default useBankForm;
