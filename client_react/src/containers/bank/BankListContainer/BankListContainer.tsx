@@ -27,13 +27,14 @@ const BankListContainer: React.FC<BankListContainerProps> = ({ bankTree }) => {
         <Button size='small' onClick={bankForm.onOpenModal} children='뱅크 추가하기' />
       </div>
 
-      <BankList bankTree={bankTree} onClick={bankForm.onSelect} />
+      <BankList bankTree={bankTree} onClickBank={bankForm.onSelect} onClickGroup={bankGroupForm.onSelect} />
 
       <Modal
         isOpen={bankGroupForm.isOpenModal}
         children={
           <BankGroupFormModal
             isUpdating={bankGroupForm.isUpdating}
+            initGroup={bankGroupForm.selected}
             onSubmit={bankGroupForm.onSubmit}
             onClose={bankGroupForm.onCloseModal}
           />

@@ -2,10 +2,23 @@
 
 .bank-list-group {
   &__title {
+    display: inline-block;
+    padding: 0.25em 0;
+    margin-bottom: 0.25em;
     font-size: var(--font-small);
     font-weight: var(--font-bold);
     color: var(--color-gray_strong);
-    margin-bottom: 0.25em;
+    &--clickable {
+      cursor: pointer;
+
+      &:hover::after {
+        content: 'edit';
+        display: inline-block;
+        color: var(--color-primary);
+        font-weight: var(--font-normal);
+        margin-left: 0.5em;
+      }
+    }
     &--disabled {
       font-style: italic;
     }

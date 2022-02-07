@@ -1,20 +1,23 @@
 import React from 'react';
-import { Bank, BankTree } from 'types';
+import { Bank, BankGroup, BankTree } from 'types';
 import BankListGroup from '../BankListGroup';
 import './BankList.scss';
 
 export interface BankListProps {
   bankTree: BankTree;
-  onClick?: (bank: Bank) => void;
+  onClickBank?: (bank: Bank) => void;
+  onClickGroup?: (group: BankGroup) => void;
 }
 
-const BankList: React.FC<BankListProps> = ({ bankTree, onClick }) => {
+const BankList: React.FC<BankListProps> = ({ bankTree, onClickBank, onClickGroup }) => {
   return (
     <div className='bank-list'>
       {!bankTree?.length ? (
         <p className='bank-list__placeholder'>뱅크가 없어요.</p>
       ) : (
-        bankTree.map((group) => <BankListGroup key={group.id} bankGroup={group} onClick={onClick} />)
+        bankTree.map(group => (
+          <BankListGroup key={group.id} bankGroup={group} onClickBank={onClickBank} onClickGroup={onClickGroup} />
+        ))
       )}
     </div>
   );

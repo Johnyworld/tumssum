@@ -6,15 +6,16 @@ import Modal from '../../modals/Modal';
 
 export interface BankGroupFormModalProps {
   isUpdating: boolean;
+  initGroup?: BankGroup | null;
   onSubmit: (data: BankGroup) => void;
   onClose: () => void;
 }
 
-const BankGroupFormModal: React.FC<BankGroupFormModalProps> = ({ isUpdating, onSubmit, onClose }) => {
-  const [title, setTitle] = useState('');
+const BankGroupFormModal: React.FC<BankGroupFormModalProps> = ({ isUpdating, initGroup, onSubmit, onClose }) => {
+  const [title, setTitle] = useState(initGroup?.title || '');
 
   const handleSubmit = () => {
-    onSubmit({ title } as BankGroup);
+    onSubmit({ id: initGroup?.id || undefined, title } as BankGroup);
   };
 
   return (
