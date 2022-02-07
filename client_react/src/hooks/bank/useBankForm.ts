@@ -66,10 +66,10 @@ const useBankForm = () => {
     selected: editingBank.data,
     isUpdating,
     isOpenModal: isOpen || !!editingBank.data,
+    onSelect: editingBank.set,
     onCloseModal,
     onOpenModal: onOpen,
     onSubmit,
-    onSelect: editingBank.set,
   };
 };
 

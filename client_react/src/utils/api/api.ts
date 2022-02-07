@@ -1,4 +1,4 @@
-import { Account, Bank, BankGroup, ReqCreateBank, ReqCreateBankGroup, ReqUpdateBank } from 'types';
+import { Account, Bank, BankGroup, ReqCreateBank, ReqCreateBankGroup, ReqUpdateBank, ReqUpdateBankGroup } from 'types';
 import request from './request';
 
 /**
@@ -20,6 +20,7 @@ const api = {
   banks: {
     getBanks: async () => await request<{ banks: Bank[]; groups: BankGroup[] }>('GET', '/api/banks/', {}),
     createBankGroup: async (body: ReqCreateBankGroup) => await request<BankGroup>('POST', '/api/bank-group/', body),
+    updateBankGroup: async (body: ReqUpdateBankGroup) => await request<BankGroup>('POST', '/api/bank-group/', body),
     createBank: async (body: ReqCreateBank) => await request<Bank>('POST', '/api/bank/', body),
     updateBank: async (body: ReqUpdateBank) => await request<Bank>('PUT', '/api/bank/', body),
   },
