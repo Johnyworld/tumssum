@@ -1,4 +1,4 @@
-import { Category } from 'types';
+import { Category, CategoryGroup } from 'types';
 import { isoStringNow } from './common';
 
 export const fixtureCategoryItemA: Category = {
@@ -11,4 +11,13 @@ export const fixtureCategoryItemA: Category = {
   created_at: isoStringNow,
   updated_at: isoStringNow,
   accounts: [],
+};
+
+export const fixtureCategoryGroupA: CategoryGroup = {
+  id: 1,
+  title: '고정지출',
+  user: 1,
+  items: [fixtureCategoryItemA],
+  created_at: isoStringNow,
+  updated_at: isoStringNow,
 };

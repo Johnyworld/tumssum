@@ -1,4 +1,14 @@
 declare module 'types' {
+  interface CategoryGroup {
+    id: number;
+    title: string;
+    user: number;
+    items: Category[];
+    budget?: number;
+    created_at: string;
+    updated_at: string;
+  }
+
   interface Category {
     id: number;
     title: string;
