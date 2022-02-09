@@ -12,7 +12,8 @@ import { useSelector } from '~/utils/reduxHooks';
 const CategoryListContainer: React.FC = () => {
   const categoryGroups = useSelector(state => state.category.categoryGroups);
   const categories = useSelector(state => state.category.categories);
-  const categoryTree = categoryUtil.getCategoryTree(categoryGroups, categories);
+  const budgets = useSelector(state => state.budget.budgets);
+  const categoryTree = categoryUtil.getCategoryTree(categoryGroups, categories, budgets);
 
   const categoryForm = useCategoryForm();
   const categoryGroupForm = useCategoryGroupForm();

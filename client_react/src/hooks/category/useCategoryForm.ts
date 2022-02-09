@@ -6,6 +6,7 @@ import api from '~/utils/api';
 import useToggle from '../useToggle';
 import useObject from '../useObject';
 import { addCategory, removeCategory, updateCategory } from '~/stores/categorySlice';
+import { addOrUpdateOrRemoveBudget } from '~/stores/budgetSlice';
 
 const useCategoryForm = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const useCategoryForm = () => {
         category_id,
         title,
         memo,
-        budget,
+        budget: budget || null,
         category_group_id,
         yyyymm: '2022-02',
       });
@@ -31,6 +32,7 @@ const useCategoryForm = () => {
       else {
         toast('카테고리를 수정했습니다.', 'green');
         dispatch(updateCategory(data.category));
+        dispatch(addOrUpdateOrRemoveBudget(data.budget));
         editingCategory.reset();
       }
       setUpdating(false);
@@ -52,6 +54,7 @@ const useCategoryForm = () => {
       else {
         toast('카테고리를 추가했습니다.', 'green');
         dispatch(addCategory(data.category));
+        dispatch(addOrUpdateOrRemoveBudget(data.budget));
         onClose();
       }
       setUpdating(false);

@@ -34,7 +34,7 @@ declare module 'types' {
   interface ReqCreateCategory {
     title: string;
     memo?: string;
-    budget?: number;
+    budget?: number | null;
     category_group_id?: number;
     yyyymm: string;
   }

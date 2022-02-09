@@ -57,10 +57,14 @@ const api = {
     deleteCategoryGroup: async (body: ReqDeleteCategoryGroup) =>
       await request<{ id: number; items: Category[] }>('DELETE', '/api/category-group/', body),
     createCategory: async (body: ReqCreateCategory) =>
-      await request<{ category: Category; budget: Budget }>('POST', '/api/category/', body),
+      await request<{ category: Category; budget: Budget | number }>('POST', '/api/category/', body),
     updateCategory: async (body: ReqUpdateCategory) =>
-      await request<{ category: Category; budget: Budget }>('PUT', '/api/category/', body),
+      await request<{ category: Category; budget: Budget | number }>('PUT', '/api/category/', body),
     deleteCategory: async (body: ReqDeleteCategory) => await request<number>('DELETE', '/api/category/', body),
+  },
+
+  budgets: {
+    getBudgets: async () => await request<Budget[]>('GET', '/api/budgets/', {}),
   },
 };
 

@@ -4,6 +4,7 @@ import userReducer from './stores/userSlice';
 import accountReducer from './stores/accountSlice';
 import bankReducer from './stores/bankSlice';
 import categoryReducer from './stores/categorySlice';
+import budgetReducer from './stores/budgetSlice';
 import confirmReducer from './stores/confirmSlice';
 import toastReducer from './stores/toastSlice';
 
@@ -14,6 +15,7 @@ export const store = configureStore({
     account: accountReducer,
     bank: bankReducer,
     category: categoryReducer,
+    budget: budgetReducer,
     confirm: confirmReducer,
     toast: toastReducer,
   },

@@ -80,3 +80,42 @@ export const fixtureCategories = [
   fixtureCategoryItemC,
   fixtureCategoryItemD,
 ];
+
+export const fixtureBudgets = [
+  {
+    id: 1,
+    budget: 50_000,
+    user: 1,
+    date: '2022-02',
+    category: 1,
+    created_at: isoStringNow,
+    updated_at: isoStringNow,
+  },
+  {
+    id: 2,
+    budget: 50_000,
+    user: 1,
+    date: '2022-02',
+    category: 2,
+    created_at: isoStringNow,
+    updated_at: isoStringNow,
+  },
+  {
+    id: 3,
+    budget: 70_000,
+    user: 1,
+    date: '2022-02',
+    category: 3,
+    created_at: isoStringNow,
+    updated_at: isoStringNow,
+  },
+  {
+    id: 4,
+    budget: 150_000,
+    user: 1,
+    date: '2022-02',
+    category: 4,
+    created_at: isoStringNow,
+    updated_at: isoStringNow,
+  },
+];

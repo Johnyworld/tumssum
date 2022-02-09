@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Category, CategoryGroup } from 'types';
 import api from '~/utils/api';
 
-export const getCategories = createAsyncThunk('banks/getCategories', async (_, { rejectWithValue }) => {
+export const getCategories = createAsyncThunk('categories/getCategories', async (_, { rejectWithValue }) => {
   const { ok, message, data } = await api.categories.getCategories();
   if (!ok) throw rejectWithValue(message);
   else return data;

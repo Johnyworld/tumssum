@@ -16,6 +16,7 @@ import SettingsPage from './pages/settings';
 import { getAccounts } from './stores/accountSlice';
 import { getBanks } from './stores/bankSlice';
 import { getCategories } from './stores/categorySlice';
+import { getBudgets } from './stores/budgetSlice';
 
 const AppLoggedIn: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const AppLoggedIn: React.FC = () => {
     dispatch(getAccounts());
     dispatch(getBanks());
     dispatch(getCategories());
+    dispatch(getBudgets());
   }, [dispatch]);
 
   return (
