@@ -32,7 +32,7 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
   }, []);
 
   const handleInput: React.FormEventHandler<HTMLDivElement> = useCallback(
-    (e) => {
+    e => {
       const newValue = e.currentTarget.innerText;
       onChange(isNegative ? -newValue : +newValue);
       setFollowingValue(newValue);
@@ -41,7 +41,7 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
   );
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = useCallback(
-    (e) => {
+    e => {
       if (!isNatural && (e.key === '+' || e.key === '=')) {
         setNegative(false);
         e.preventDefault();
@@ -59,7 +59,7 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
   );
 
   const handleBlur: React.FocusEventHandler<HTMLDivElement> = useCallback(
-    (e) => {
+    e => {
       const removeCharacters = numberUtil.removeCharacters(ref.current?.innerText || '');
       const addCommas = numberUtil.getComma(removeCharacters);
       onChange(isNegative ? -removeCharacters : +removeCharacters);
@@ -71,7 +71,8 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
 
   useEffect(() => {
     if (ref.current) setInnerText(numberUtil.removeCharacters(String(value || '')));
-  }, [setInnerText, value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setInnerText]);
 
   return (
     <div className={c('content-number', className)} style={style}>

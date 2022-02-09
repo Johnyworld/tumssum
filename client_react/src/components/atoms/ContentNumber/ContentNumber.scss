@@ -14,6 +14,10 @@
     @include box-input-pseudos;
     @include box-input-oneline;
     font-weight: var(--font-bold);
+
+    &:empty::before {
+      font-weight: var(--font-normal);
+    }
   }
 
   &__svg {
