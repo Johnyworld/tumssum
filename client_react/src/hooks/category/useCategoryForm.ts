@@ -63,8 +63,8 @@ const useCategoryForm = () => {
     async (category: Category) => {
       if (isUpdating) return;
       setUpdating(true);
-      if (category.id) handleUpdateCategory(category);
-      else handleCreateCategory(category);
+      if (category.id) await handleUpdateCategory(category);
+      else await handleCreateCategory(category);
       setUpdating(false);
     },
     [handleCreateCategory, handleUpdateCategory, isUpdating]

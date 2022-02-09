@@ -55,7 +55,7 @@ const api = {
     updateCategoryGroup: async (body: ReqUpdateCategoryGroup) =>
       await request<CategoryGroup>('PUT', '/api/category-group/', body),
     deleteCategoryGroup: async (body: ReqDeleteCategoryGroup) =>
-      await request<{ id: number; items: Category[] }>('DELETE', '/api/bank-group/', body),
+      await request<{ id: number; items: Category[] }>('DELETE', '/api/category-group/', body),
     createCategory: async (body: ReqCreateCategory) =>
       await request<{ category: Category; budget: Budget }>('POST', '/api/category/', body),
     updateCategory: async (body: ReqUpdateCategory) =>
