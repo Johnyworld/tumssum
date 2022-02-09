@@ -1,0 +1,26 @@
+@import '~/src/style/mixins';
+
+.category-list-item {
+  @include card(0.5rem);
+
+  &__title {
+    @include ellipsis;
+    font-weight: var(--font-bold);
+
+    &--disabled {
+      color: var(--color-gray);
+      font-style: italic;
+    }
+  }
+
+  &__memo {
+    @include ellipsis;
+    color: var(--color-pencel);
+  }
+
+  &__budget {
+    text-align: right;
+    color: var(--color-primary);
+    font-weight: var(--font-bold);
+  }
+}
