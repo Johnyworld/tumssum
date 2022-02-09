@@ -35,14 +35,14 @@ const BankGroupFormModal: React.FC<BankGroupFormModalProps> = ({
         <ContentText isTitle value={title} placeholder='뱅크 그룹의 이름을 입력하세요.' onChange={setTitle} />
       </Modal.Content>
       <Modal.Footer flex padding>
+        <Button disabled={isUpdating} onClick={handleSubmit}>
+          저장
+        </Button>
         {initGroup && (
           <p className='c-red f-bold pointer' onClick={handleDelete}>
             삭제
           </p>
         )}
-        <Button disabled={isUpdating} onClick={handleSubmit}>
-          저장
-        </Button>
       </Modal.Footer>
     </Modal.Container>
   );

@@ -95,7 +95,7 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({
       className={c(
         'modal__footer',
         className,
-        [flex, 'flex'],
+        [flex, '&--flex'],
         [flexEnd, 'flex flex-end gap-small'],
         [padding, 'p-large p-regular-mobile'],
         [sticky, '&--sticky']
