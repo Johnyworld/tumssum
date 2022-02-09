@@ -12,7 +12,7 @@ declare module 'types' {
   interface Category {
     id: number;
     title: string;
-    memo: string;
+    memo?: string;
     group: number | null;
     user: number;
     budget?: number;
