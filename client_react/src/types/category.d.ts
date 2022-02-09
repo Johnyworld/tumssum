@@ -13,7 +13,7 @@ declare module 'types' {
     id: number;
     title: string;
     memo?: string;
-    group: number | null;
+    group?: number;
     user: number;
     budget?: number;
     created_at: string;

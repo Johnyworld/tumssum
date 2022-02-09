@@ -14,7 +14,18 @@ export const fixtureCategoryItemA: Category = {
 };
 
 export const fixtureCategoryItemB: Category = {
-  id: 1,
+  id: 2,
+  title: '공과금',
+  group: 1,
+  user: 1,
+  budget: 50_000,
+  created_at: isoStringNow,
+  updated_at: isoStringNow,
+  accounts: [],
+};
+
+export const fixtureCategoryItemC: Category = {
+  id: 3,
   title: '간식',
   group: 2,
   user: 1,
@@ -24,11 +35,21 @@ export const fixtureCategoryItemB: Category = {
   accounts: [],
 };
 
+export const fixtureCategoryItemD: Category = {
+  id: 4,
+  title: '경조사',
+  user: 1,
+  budget: 150_000,
+  created_at: isoStringNow,
+  updated_at: isoStringNow,
+  accounts: [],
+};
+
 export const fixtureCategoryGroupA: CategoryGroup = {
   id: 1,
   title: '고정지출',
   user: 1,
-  items: [fixtureCategoryItemA],
+  items: [fixtureCategoryItemA, fixtureCategoryItemB],
   created_at: isoStringNow,
   updated_at: isoStringNow,
 };
@@ -37,7 +58,7 @@ export const fixtureCategoryGroupB: CategoryGroup = {
   id: 2,
   title: '용돈지출',
   user: 1,
-  items: [fixtureCategoryItemB],
+  items: [fixtureCategoryItemC],
   created_at: isoStringNow,
   updated_at: isoStringNow,
 };
@@ -52,3 +73,10 @@ export const fixtureCategoryGroupC: CategoryGroup = {
 };
 
 export const fixtureCategoryTree = [fixtureCategoryGroupA, fixtureCategoryGroupB, fixtureCategoryGroupC];
+
+export const fixtureCategories = [
+  fixtureCategoryItemA,
+  fixtureCategoryItemB,
+  fixtureCategoryItemC,
+  fixtureCategoryItemD,
+];
