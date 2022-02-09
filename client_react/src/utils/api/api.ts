@@ -2,14 +2,21 @@ import {
   Account,
   Bank,
   BankGroup,
+  Budget,
   Category,
   CategoryGroup,
   ReqCreateBank,
   ReqCreateBankGroup,
+  ReqCreateCategory,
+  ReqCreateCategoryGroup,
   ReqDeleteBank,
   ReqDeleteBankGroup,
+  ReqDeleteCategory,
+  ReqDeleteCategoryGroup,
   ReqUpdateBank,
   ReqUpdateBankGroup,
+  ReqUpdateCategory,
+  ReqUpdateCategoryGroup,
 } from 'types';
 import request from './request';
 
@@ -32,7 +39,7 @@ const api = {
   banks: {
     getBanks: async () => await request<{ banks: Bank[]; groups: BankGroup[] }>('GET', '/api/banks/', {}),
     createBankGroup: async (body: ReqCreateBankGroup) => await request<BankGroup>('POST', '/api/bank-group/', body),
-    updateBankGroup: async (body: ReqUpdateBankGroup) => await request<BankGroup>('POST', '/api/bank-group/', body),
+    updateBankGroup: async (body: ReqUpdateBankGroup) => await request<BankGroup>('PUT', '/api/bank-group/', body),
     deleteBankGroup: async (body: ReqDeleteBankGroup) =>
       await request<{ id: number; items: Bank[] }>('DELETE', '/api/bank-group/', body),
     createBank: async (body: ReqCreateBank) => await request<Bank>('POST', '/api/bank/', body),
@@ -43,6 +50,17 @@ const api = {
   categories: {
     getCategories: async () =>
       await request<{ categories: Category[]; groups: CategoryGroup[] }>('GET', '/api/categories/', {}),
+    createCategoryGroup: async (body: ReqCreateCategoryGroup) =>
+      await request<CategoryGroup>('POST', '/api/category-group/', body),
+    updateCategoryGroup: async (body: ReqUpdateCategoryGroup) =>
+      await request<CategoryGroup>('PUT', '/api/category-group/', body),
+    deleteCategoryGroup: async (body: ReqDeleteCategoryGroup) =>
+      await request<{ id: number; items: Category[] }>('DELETE', '/api/bank-group/', body),
+    createCategory: async (body: ReqCreateCategory) =>
+      await request<{ category: Category; budget: Budget }>('POST', '/api/category/', body),
+    updateCategory: async (body: ReqUpdateCategory) =>
+      await request<{ category: Category; budget: Budget }>('PUT', '/api/category/', body),
+    deleteCategory: async (body: ReqDeleteCategory) => await request<number>('DELETE', '/api/category/', body),
   },
 };
 

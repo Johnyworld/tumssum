@@ -49,23 +49,22 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
         />
         <ContentDropdown
           label='그룹'
-          list={[...groupList, { id: 0, title: '그룹 미지정' }].map(group => ({ id: group.id, text: group.title }))}
-          selected={group}
-          placeholder='카테고리 그룹을 선택하세요.'
+          list={[{ id: 0, title: '그룹 미지정' }, ...groupList].map(group => ({ id: group.id, text: group.title }))}
+          selected={group || 0}
           onSelect={setGroup}
         />
         <ContentNumber label='예산' isNatural placeholder='예산을 입력하세요.' value={budget} onChange={setBudget} />
         <ContentTextarea label='메모' value={memo} placeholder='메모를 입력하세요.' onChange={setMemo} />
       </Modal.Content>
       <Modal.Footer flex padding>
+        <Button disabled={isUpdating} onClick={handleSubmit}>
+          저장
+        </Button>
         {initCategory && (
           <p className='c-red f-bold pointer' onClick={handleDelete}>
             삭제
           </p>
         )}
-        <Button disabled={isUpdating} onClick={handleSubmit}>
-          저장
-        </Button>
       </Modal.Footer>
     </Modal.Container>
   );

@@ -14,9 +14,9 @@ def putCategory(request):
   category_id = reqData.get('category_id')
   title = reqData.get('title')
   memo = reqData.get('memo')
-  group_id = reqData.get('group_id')
+  category_group_id = reqData.get('category_group_id')
   budget = reqData.get('budget')
-  date = reqData.get('date')
+  date = reqData.get('yyyymm')
   res_json = None
 
   budgetData = {
@@ -28,12 +28,13 @@ def putCategory(request):
   res = requests.post(
     'http://127.0.0.1:8000/api/budget/', json=budgetData, headers=request.headers)
   res_json = res.json()
-  
+
   category = get_object_or_404(Category, pk=category_id)
   category.title = title
   category.memo = memo
-  category.group_id = group_id
+  category.group_id = category_group_id if category_group_id else None
   category.save()
+
 
   data = {
     'category': CategorySerializer(category, many=False).data,
