@@ -3,6 +3,7 @@ import modeReducer from './stores/modeSlice';
 import userReducer from './stores/userSlice';
 import accountReducer from './stores/accountSlice';
 import bankReducer from './stores/bankSlice';
+import categoryReducer from './stores/categorySlice';
 import confirmReducer from './stores/confirmSlice';
 import toastReducer from './stores/toastSlice';
 
@@ -12,6 +13,7 @@ export const store = configureStore({
     user: userReducer,
     account: accountReducer,
     bank: bankReducer,
+    category: categoryReducer,
     confirm: confirmReducer,
     toast: toastReducer,
   },

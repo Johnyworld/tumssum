@@ -2,6 +2,8 @@ import {
   Account,
   Bank,
   BankGroup,
+  Category,
+  CategoryGroup,
   ReqCreateBank,
   ReqCreateBankGroup,
   ReqDeleteBank,
@@ -36,6 +38,11 @@ const api = {
     createBank: async (body: ReqCreateBank) => await request<Bank>('POST', '/api/bank/', body),
     updateBank: async (body: ReqUpdateBank) => await request<Bank>('PUT', '/api/bank/', body),
     deleteBank: async (body: ReqDeleteBank) => await request<number>('DELETE', '/api/bank/', body),
+  },
+
+  categories: {
+    getCategories: async () =>
+      await request<{ categories: Category[]; groups: CategoryGroup[] }>('GET', '/api/categories/', {}),
   },
 };
 

@@ -15,6 +15,7 @@ import SettingsPage from './pages/settings';
 
 import { getAccounts } from './stores/accountSlice';
 import { getBanks } from './stores/bankSlice';
+import { getCategories } from './stores/categorySlice';
 
 const AppLoggedIn: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const AppLoggedIn: React.FC = () => {
   useEffect(() => {
     dispatch(getAccounts());
     dispatch(getBanks());
+    dispatch(getCategories());
   }, [dispatch]);
 
   return (
@@ -46,7 +48,7 @@ const AppNotLoggedIn: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const userId = useSelector((state) => state.user.userInfo?.id);
+  const userId = useSelector(state => state.user.userInfo?.id);
   const isLoggedIn = !!userId;
   return (
     <BrowserRouter>
