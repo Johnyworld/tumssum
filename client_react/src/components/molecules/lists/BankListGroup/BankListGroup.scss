@@ -2,7 +2,7 @@
 
 .bank-list-group {
   &__title {
-    display: inline-block;
+    @include ellipsis;
     padding: 0.25em 0;
     margin-bottom: 0.25em;
     font-size: var(--font-small);
