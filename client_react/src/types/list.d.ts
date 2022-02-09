@@ -4,7 +4,7 @@ declare module 'types' {
     text: string;
   }
 
-  interface DropdownOption extends OptionItem {
+  interface DropdownOption {
     id: string | number;
     text: string | number;
     children?: DropdownOption[];
