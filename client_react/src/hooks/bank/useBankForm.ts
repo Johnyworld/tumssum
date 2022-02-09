@@ -50,8 +50,8 @@ const useBankForm = () => {
     async (bank: Bank) => {
       if (isUpdating) return;
       setUpdating(true);
-      if (bank.id) handleUpdateBank(bank);
-      else handleCreateBank(bank);
+      if (bank.id) await handleUpdateBank(bank);
+      else await handleCreateBank(bank);
       setUpdating(false);
     },
     [handleCreateBank, handleUpdateBank, isUpdating]
