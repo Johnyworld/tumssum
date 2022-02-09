@@ -19,15 +19,16 @@ def putCategory(request):
   date = reqData.get('yyyymm')
   res_json = None
 
-  budgetData = {
-    'user_id': user_id,
-    'category_id': category_id,
-    'date': date,
-    'budget': budget,
-  }
-  res = requests.post(
-    'http://127.0.0.1:8000/api/budget/', json=budgetData, headers=request.headers)
-  res_json = res.json()
+  if budget:
+    budgetData = {
+      'user_id': user_id,
+      'category_id': category_id,
+      'date': date,
+      'budget': budget,
+    }
+    res = requests.post(
+      'http://127.0.0.1:8000/api/budget/', json=budgetData, headers=request.headers)
+    res_json = res.json()
 
   category = get_object_or_404(Category, pk=category_id)
   category.title = title
