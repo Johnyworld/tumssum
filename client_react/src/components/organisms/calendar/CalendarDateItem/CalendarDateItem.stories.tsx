@@ -14,6 +14,25 @@ export const Default = Template.bind({});
 Default.args = {
   day: {
     yyyymmdd: '2022-02-10',
+    isThisMonth: true,
+    accounts: fixtureAccounts,
+  },
+};
+
+export const IsToday = Template.bind({});
+IsToday.args = {
+  day: {
+    yyyymmdd: '2022-02-10',
+    isThisMonth: true,
+    isToday: true,
+    accounts: fixtureAccounts,
+  },
+};
+
+export const CASE_NotThisMonth = Template.bind({});
+CASE_NotThisMonth.args = {
+  day: {
+    yyyymmdd: '2022-01-31',
     accounts: fixtureAccounts,
   },
 };
@@ -22,5 +41,6 @@ export const CASE_NoItems = Template.bind({});
 CASE_NoItems.args = {
   day: {
     yyyymmdd: '2022-02-10',
+    isThisMonth: true,
   },
 };

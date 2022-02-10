@@ -1,6 +1,7 @@
 @import '~/src/style/mixins';
 
 .calendar-date-item {
+  position: relative;
   background-color: var(--color-bg_weak);
   min-height: 100px;
   flex: 1 0;
@@ -12,6 +13,29 @@
     height: 32px;
     padding-left: 0.25rem;
     padding-right: 0.5rem;
+
+    &--disabled {
+      p {
+        color: var(--color-gray);
+      }
+    }
+  }
+
+  &__date {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+
+    &--today {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+      font-weight: var(--font-bold);
+      border-radius: 50%;
+    }
   }
 
   &__body {
