@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from 'types';
-import { CustomLocalStorage } from '~/utils/CustomLocalStorage';
+import CustomLocalStorage from '~/utils/CustomLocalStorage';
 
 const customLocalStorage = new CustomLocalStorage();
 
