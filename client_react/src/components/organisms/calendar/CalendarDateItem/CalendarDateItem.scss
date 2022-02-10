@@ -3,6 +3,8 @@
 .calendar-date-item {
   background-color: var(--color-bg_weak);
   min-height: 100px;
+  flex: 1 0;
+  overflow: hidden;
 
   &__topbar {
     @include flex;

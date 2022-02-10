@@ -12,12 +12,15 @@ const Template: Story<CalendarDateItemProps> = args => <CalendarDateItem {...arg
 
 export const Default = Template.bind({});
 Default.args = {
-  date: '1',
-  accounts: fixtureAccounts,
+  day: {
+    yyyymmdd: '2022-02-10',
+    accounts: fixtureAccounts,
+  },
 };
 
 export const CASE_NoItems = Template.bind({});
 CASE_NoItems.args = {
-  date: '1',
-  accounts: [],
+  day: {
+    yyyymmdd: '2022-02-10',
+  },
 };

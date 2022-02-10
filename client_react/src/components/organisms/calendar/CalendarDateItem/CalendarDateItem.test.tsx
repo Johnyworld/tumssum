@@ -3,11 +3,11 @@ import { fixtureAccounts } from '~/fixtures/account.fixture';
 import CalendarDateItem from './CalendarDateItem';
 
 test('renders a date', () => {
-  render(<CalendarDateItem date='5' accounts={fixtureAccounts} />);
-  expect(screen.getByText('5')).toBeInTheDocument();
+  render(<CalendarDateItem day={{ yyyymmdd: '2021-05-22' }} />);
+  expect(screen.getByText('22')).toBeInTheDocument();
 });
 
 test('renders account list', () => {
-  render(<CalendarDateItem date='5' accounts={fixtureAccounts} />);
+  render(<CalendarDateItem day={{ yyyymmdd: '2021-05-22', accounts: fixtureAccounts }} />);
   expect(screen.getByRole('list').childNodes.length).toEqual(fixtureAccounts.length);
 });
