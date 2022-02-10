@@ -1,0 +1,39 @@
+@import '~/src/style/mixins';
+
+.calendar-account-item {
+  @include card(0.25rem);
+
+  &__title {
+    @include ellipsis;
+    font-size: var(--font-small);
+    font-weight: var(--font-bold);
+
+    &--disabled {
+      color: var(--color-gray);
+      font-style: italic;
+    }
+  }
+
+  &__memo {
+    @include ellipsis;
+    font-size: var(--font-small);
+    color: var(--color-pencel);
+  }
+
+  &__balance {
+    font-size: var(--font-small);
+    text-align: right;
+
+    &--positive {
+      color: var(--color-blue);
+    }
+
+    &--negative {
+      color: var(--color-red);
+    }
+  }
+
+  &--clickable {
+    cursor: pointer;
+  }
+}
