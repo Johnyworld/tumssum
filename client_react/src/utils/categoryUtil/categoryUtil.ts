@@ -35,15 +35,18 @@ export const getCategoryAligned: GetCategoryAligned = (categories, budgets) => {
 
 /** private */
 type GetBudgetOfCategory = (category_id: number, budgets: Budget[], currentDate: string) => number | undefined;
+/**
+ * 현재 날짜에서 가장 가까운 날짜이며 category_id가 일치하는 budget의 값을 리턴한다.
+ */
 export const getBudgetOfCategory: GetBudgetOfCategory = (category_id, budgets, currentDate) => {
   const filtered = budgets.filter(budget => budget.category === category_id);
-  if (filtered.length) return findBudgetWithDate(filtered, currentDate, 12)?.budget;
+  if (filtered.length) return findBudgetWithDate(filtered, currentDate)?.budget;
   else return undefined;
 };
 
 /** private */
-type FindBudgetWithDate = (budgets: Budget[], currentDate: string, count: number) => Budget | null;
-export const findBudgetWithDate: FindBudgetWithDate = (budgets, currentDate, count) => {
+type FindBudgetWithDate = (budgets: Budget[], currentDate: string, count?: number) => Budget | null;
+export const findBudgetWithDate: FindBudgetWithDate = (budgets, currentDate, count = 12) => {
   const exists = budgets.find(budget => budget.date === currentDate);
   if (exists) return exists;
   if (count <= 0) return null;
