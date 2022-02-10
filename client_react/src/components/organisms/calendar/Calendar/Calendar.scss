@@ -1,0 +1,24 @@
+.calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+
+  &__week {
+    display: flex;
+  }
+  &__week-item {
+    flex: 1 0;
+    padding: 0.25rem;
+    font-size: var(--font-small);
+    color: var(--color-gray_strong);
+    text-align: center;
+
+    &--sun {
+      color: var(--color-red);
+    }
+
+    &--sat {
+      color: var(--color-primary);
+    }
+  }
+}
