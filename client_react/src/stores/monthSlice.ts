@@ -9,7 +9,7 @@ export const getMonths = createAsyncThunk('months/getMonths', async (_, { reject
 });
 
 const initialState = {
-  monthes: [] as Month[],
+  months: [] as Month[],
   error: '',
   loaded: false,
 };
@@ -19,13 +19,13 @@ export const monthSlice = createSlice({
   initialState,
   reducers: {
     setMonths: (state, { payload }: PayloadAction<Month[]>) => {
-      state.monthes = payload;
+      state.months = payload;
     },
     updateOrAddMonths: (state, { payload }: PayloadAction<Month[]>) => {
       const news: Month[] = [];
       for (const month of payload) {
         let isMatch = false;
-        state.monthes = state.monthes.map(m => {
+        state.months = state.months.map(m => {
           if (m.id === month.id) {
             isMatch = true;
             return month;
@@ -35,7 +35,7 @@ export const monthSlice = createSlice({
         });
         if (!isMatch) news.push(month);
       }
-      state.monthes = [...state.monthes, ...news];
+      state.months = [...state.months, ...news];
     },
   },
 
@@ -45,7 +45,7 @@ export const monthSlice = createSlice({
       state.loaded = true;
     });
     builder.addCase(getMonths.fulfilled, (state, { payload }) => {
-      state.monthes = payload;
+      state.months = payload;
       state.error = '';
       state.loaded = true;
     });

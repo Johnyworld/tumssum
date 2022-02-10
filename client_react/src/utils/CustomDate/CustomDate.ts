@@ -53,6 +53,13 @@ export default class CustomDate {
   }
 
   /**
+   * 달을 변경합니다.
+   */
+  setMonth(sum: number): void {
+    this.date.setMonth(this.date.getMonth() + sum);
+  }
+
+  /**
    * 지역의 시간 String을 리턴합니다.
    * @returns 12:00:00
    */
