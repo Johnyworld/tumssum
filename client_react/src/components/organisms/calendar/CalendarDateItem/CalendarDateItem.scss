@@ -1,0 +1,19 @@
+@import '~/src/style/mixins';
+
+.calendar-date-item {
+  background-color: var(--color-bg_weak);
+  min-height: 100px;
+
+  &__topbar {
+    @include flex;
+    flex-direction: row-reverse;
+    height: 32px;
+    padding-left: 0.25rem;
+    padding-right: 0.5rem;
+  }
+
+  &__body {
+    padding: 0 0.5rem 0.5rem;
+    @include gap(0.25rem);
+  }
+}
