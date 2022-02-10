@@ -7,7 +7,7 @@ export const fixtureBankItemA: Bank = {
   memo: 'memo',
   group: 1,
   user: 1,
-  balance: 300_000,
+  balance: 100_000,
   created_at: isoStringNow,
   updated_at: isoStringNow,
 };
@@ -17,7 +17,6 @@ export const fixtureBankItemB: Bank = {
   title: 'My Bank B',
   group: 1,
   user: 1,
-  balance: -100_000,
   created_at: isoStringNow,
   updated_at: isoStringNow,
 };
@@ -27,7 +26,6 @@ export const fixtureBankItemC: Bank = {
   title: 'My Bank B',
   group: 2,
   user: 1,
-  balance: -30_000,
   created_at: isoStringNow,
   updated_at: isoStringNow,
 };
@@ -36,7 +34,6 @@ export const fixtureBankItemD: Bank = {
   id: 4,
   title: 'My Bank B',
   user: 1,
-  balance: -30_000,
   created_at: isoStringNow,
   updated_at: isoStringNow,
 };
