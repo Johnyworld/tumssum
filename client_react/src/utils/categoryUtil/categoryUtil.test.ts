@@ -4,8 +4,7 @@ import {
   fixtureCategories,
   fixtureBudgets,
 } from '~/fixtures/category.fixture';
-import { isoStringNow } from '~/fixtures/common';
-import { getCategoryAligned, getCategoryTree, findBudgetWithDate } from './categoryUtil';
+import { getCategoryAligned, getCategoryTree } from './categoryUtil';
 
 /**
  * testing getBankAligned function
@@ -26,16 +25,4 @@ test('testing getCategoryTree function', () => {
     { ...fixtureCategoryGroupB, items: [fixtureCategories[2]] },
     { id: 0, items: [fixtureCategories[3]] },
   ]);
-});
-
-test('testing findBudgetWithDate function', () => {
-  expect(findBudgetWithDate(fixtureBudgets, '2022-02')).toEqual({
-    id: 1,
-    budget: 50_000,
-    user: 1,
-    date: '2022-02',
-    category: 1,
-    created_at: isoStringNow,
-    updated_at: isoStringNow,
-  });
 });
