@@ -5,6 +5,7 @@ import {
   Budget,
   Category,
   CategoryGroup,
+  Month,
   ReqCreateBank,
   ReqCreateBankGroup,
   ReqCreateCategory,
@@ -65,6 +66,10 @@ const api = {
 
   budgets: {
     getBudgets: async () => await request<Budget[]>('GET', '/api/budgets/', {}),
+  },
+
+  months: {
+    getMonths: async () => await request<Month[]>('GET', '/api/months/', {}),
   },
 };
 

@@ -17,6 +17,7 @@ import { getAccounts } from './stores/accountSlice';
 import { getBanks } from './stores/bankSlice';
 import { getCategories } from './stores/categorySlice';
 import { getBudgets } from './stores/budgetSlice';
+import { getMonths } from './stores/monthSlice';
 
 const AppLoggedIn: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const AppLoggedIn: React.FC = () => {
     dispatch(getBanks());
     dispatch(getCategories());
     dispatch(getBudgets());
+    dispatch(getMonths());
   }, [dispatch]);
 
   return (

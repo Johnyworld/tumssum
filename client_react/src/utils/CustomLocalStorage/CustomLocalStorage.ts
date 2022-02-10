@@ -2,7 +2,7 @@ import { User } from 'types';
 
 const USER_INFO = 'tmsmusrinfo';
 
-export class CustomLocalStorage {
+export default class CustomLocalStorage {
   static instance: any;
   constructor() {
     if (CustomLocalStorage.instance) return CustomLocalStorage.instance;
