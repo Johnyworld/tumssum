@@ -1,18 +1,16 @@
-
 declare module 'types' {
-
-  import { icons } from '~/components/atoms/Icon'
-  import { weights } from '~/fixtures/common';
+  import { icons } from '~/components/atoms/Icon/Icon';
+  import { strokeWidths } from '~/fixtures/common';
 
   type IconType = typeof icons[number];
 
   type ThreeSize = 'small' | 'regular' | 'large';
 
-  type Size = ThreeSize | 'tiny' | 'medium' |'big' | 'huge';
+  type Size = ThreeSize | 'tiny' | 'medium' | 'big' | 'huge';
 
-  type StrokeWidth = typeof weights[number];
+  type StrokeWidth = typeof strokeWidths[number];
 
-	interface DefaultProps {
+  interface DefaultProps {
     className?: string;
     style?: React.CSSProperties;
   }

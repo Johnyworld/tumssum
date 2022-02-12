@@ -1,9 +1,12 @@
 .icon {
-	display: inline-block;
-	position: relative;
-	width: 16px;
-	height: 16px;
-  font-size: 0;
+  display: inline-block;
+  position: relative;
+  width: 16px;
+  height: 16px;
+
+  &__container {
+    font-size: 0;
+  }
 
   &--large {
     width: 24px;
@@ -15,7 +18,7 @@
     height: 12px;
   }
 
-	svg {
+  svg {
     position: absolute;
     top: 0;
     left: 0;
@@ -23,7 +26,13 @@
     height: 100%;
     fill: none;
 
-    polygon, path, polyline, rect, line, circle, ellipse {
+    polygon,
+    path,
+    polyline,
+    rect,
+    line,
+    circle,
+    ellipse {
       stroke-linecap: round;
       stroke-linejoin: round;
       stroke-miterlimit: 10;
