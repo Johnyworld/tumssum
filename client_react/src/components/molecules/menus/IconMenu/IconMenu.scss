@@ -1,0 +1,6 @@
+@import '~/src/style/mixins';
+
+.icon-menu {
+  @include flex-start;
+  gap: 0.25rem;
+}
