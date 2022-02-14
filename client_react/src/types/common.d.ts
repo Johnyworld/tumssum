@@ -28,4 +28,9 @@ declare module 'types' {
     forwardRef?: React.Ref<any>;
     testId?: string;
   }
+
+  interface Vec2 {
+    x: number;
+    y: number;
+  }
 }

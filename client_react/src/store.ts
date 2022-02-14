@@ -7,6 +7,7 @@ import monthReducer from './stores/monthSlice';
 import categoryReducer from './stores/categorySlice';
 import budgetReducer from './stores/budgetSlice';
 import confirmReducer from './stores/confirmSlice';
+import calendarReducer from './stores/calendarSlice';
 import toastReducer from './stores/toastSlice';
 
 export const store = configureStore({
@@ -19,6 +20,7 @@ export const store = configureStore({
     category: categoryReducer,
     budget: budgetReducer,
     confirm: confirmReducer,
+    calendar: calendarReducer,
     toast: toastReducer,
   },
 });
