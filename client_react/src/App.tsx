@@ -5,7 +5,7 @@ import RenderConfirm from './RenderConfirm';
 import RenderToast from './RenderToast';
 import routes from './utils/routes';
 
-import IndexPage from '~/pages';
+import IndexPage from '~/pages/index';
 import LoginPage from '~/pages/login';
 import RegisterPage from '~/pages/register';
 import ConfirmPage from '~/pages/confirm';
