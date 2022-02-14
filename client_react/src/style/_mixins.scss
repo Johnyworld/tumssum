@@ -1,8 +1,10 @@
 @import './variables';
-@import './mixinfiles/module';
 @import './mixinfiles/text';
 @import './mixinfiles/layout';
 @import './mixinfiles/flex';
+@import './mixinModules/input';
+@import './mixinModules/box-input';
+@import './mixinModules/card';
 
 // ================= Wrapper =================
 @mixin wrapper-wide {
@@ -23,7 +25,6 @@
   padding: 0 1rem;
 }
 
-
 // ================= Size =================
 @mixin height-100vh {
   height: 100vh;
@@ -31,9 +32,6 @@
     height: -webkit-fill-available;
   }
 }
-
-
-
 
 // ================= Event =================
 @mixin never-drag {
@@ -45,15 +43,12 @@
   user-select: none;
 }
 
-
-
 // ================= Image =================
 @mixin image-base {
   background-size: cover;
-	background-position: center;
-	background-color: var(--color-gray_weaker);
+  background-position: center;
+  background-color: var(--color-gray_weaker);
 }
-
 
 // ================= Scroll =================
 @mixin hide-scroll {
@@ -69,8 +64,6 @@
   overflow-x: hidden;
   touch-action: pan-y;
 }
-
-
 
 // ================= Break point =================
 @mixin minMobile {
@@ -121,20 +114,19 @@
   }
 }
 
-
 // ================= Custom =================
 @mixin content-label {
-	font-weight: var(--font-bold);
-	color: var(--color-gray_strong);
-  padding: .5em 0;
-	min-width: 150px;
+  font-weight: var(--font-bold);
+  color: var(--color-gray_strong);
+  padding: 0.5em 0;
+  min-width: 150px;
 }
 
 @mixin content-box {
   min-height: 1em;
   line-height: 1.4;
-  border-radius: .25em;
-  padding: .5em .75em;
+  border-radius: 0.25em;
+  padding: 0.5em 0.75em;
   cursor: pointer;
   white-space: pre-wrap;
   &:hover {
