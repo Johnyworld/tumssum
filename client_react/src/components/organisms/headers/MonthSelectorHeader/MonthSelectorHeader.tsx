@@ -4,7 +4,7 @@ import './MonthSelectorHeader.scss';
 
 export interface MonthSelectorHeaderProps {
   yyyymm: string;
-  onClickOpenPicker: () => void;
+  onClickOpenPicker: React.MouseEventHandler<HTMLDivElement>;
   onClickPrev: () => void;
   onClickNext: () => void;
 }
@@ -16,6 +16,7 @@ const MonthSelectorHeader: React.FC<MonthSelectorHeaderProps> = ({
   onClickNext,
 }) => {
   const [YYYY, MM] = yyyymm.split('-');
+
   return (
     <div className='month-selector-header'>
       <div className='month-selector-header__icon' data-testid='month-selector-prev' onClick={onClickPrev}>
