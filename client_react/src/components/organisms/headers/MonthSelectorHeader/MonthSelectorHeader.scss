@@ -1,0 +1,47 @@
+@import '~/src/style/mixins';
+
+.month-selector-header {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  height: var(--header-height);
+  background-color: var(--color-paper);
+
+  &__date {
+    @include never-drag;
+    cursor: pointer;
+    position: absolute;
+    left: 1rem;
+    border-radius: 0.25rem;
+    transition: 0.2s;
+    &:hover {
+      background-color: var(--color-bright_weakest);
+    }
+  }
+
+  &__icons {
+    @include flex;
+  }
+
+  &__icon {
+    width: var(--header-height);
+    height: var(--header-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+
+@include minLaptop {
+  .month-selector-header {
+    justify-content: center;
+    &__date {
+      position: static;
+      padding: 0 1rem;
+      margin: 0 1rem;
+    }
+  }
+}
