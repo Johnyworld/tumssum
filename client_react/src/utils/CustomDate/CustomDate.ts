@@ -25,8 +25,16 @@ export default class CustomDate {
    * @returns 2022-02-10T12:00:00 (from 2022-02-10T03:00:00.000Z)
    */
   getLocalDatetime(): string {
+    return `${this.getLocalDate()}T${this.getLocalTime()}`;
+  }
+
+  /**
+   * 지역의 연도-월 String을 리턴합니다.
+   * @returns 2022-02
+   */
+  getLocalDate(): string {
     const DATE = this.date.getDate();
-    return `${this.getLocalYearMonth()}-${getZeroNumber(DATE)}T${this.getLocalTime()}`;
+    return `${this.getLocalYearMonth()}-${getZeroNumber(DATE)}`;
   }
 
   /**
