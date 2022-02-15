@@ -13,11 +13,13 @@ const Calendar: React.FC<CalendarProps> = ({ weeks }) => {
     <div className='calendar'>
       <ul className='calendar__week'>
         {['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].map(item => (
-          <li className={c('calendar__week-item', `&--${item}`)}>{item}</li>
+          <li key={item} className={c('calendar__week-item', `&--${item}`)}>
+            {item}
+          </li>
         ))}
       </ul>
-      {weeks.map(week => (
-        <CalendarDateRow days={week} />
+      {weeks.map((week, i) => (
+        <CalendarDateRow key={i} days={week} />
       ))}
     </div>
   );
