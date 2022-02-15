@@ -16,7 +16,7 @@ const DateSelectorContainer: React.FC = () => {
   const handleNext = () => dispatch(modifyMonth(1));
 
   return (
-    <div className='date-selector-container'>
+    <>
       <MonthSelectorHeader
         yyyymm={yyyymm}
         onClickOpenPicker={onOpenPicker}
@@ -25,7 +25,7 @@ const DateSelectorContainer: React.FC = () => {
       />
 
       {pos && <MonthPicker pos={pos} yyyymm={yyyymm} onChange={handleChange} onClose={onClosePicker} />}
-    </div>
+    </>
   );
 };
 
