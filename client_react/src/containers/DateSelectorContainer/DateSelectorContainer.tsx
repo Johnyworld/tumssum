@@ -3,6 +3,7 @@ import MonthSelectorHeader from '~/components/organisms/headers/MonthSelectorHea
 import MonthPicker from '~/components/organisms/pickers/MonthPicker';
 import usePicker from '~/hooks/usePicker';
 import { modifyMonth, setCalendarMonth } from '~/stores/calendarSlice';
+import Portal from '~/utils/Portal';
 import { useDispatch, useSelector } from '~/utils/reduxHooks';
 
 const DateSelectorContainer: React.FC = () => {
@@ -24,7 +25,11 @@ const DateSelectorContainer: React.FC = () => {
         onClickNext={handleNext}
       />
 
-      <MonthPicker pos={pos} yyyymm={yyyymm} onChange={handleChange} onClose={onClosePicker} />
+      {pos && (
+        <Portal>
+          <MonthPicker pos={pos} yyyymm={yyyymm} onChange={handleChange} onClose={onClosePicker} />
+        </Portal>
+      )}
     </>
   );
 };

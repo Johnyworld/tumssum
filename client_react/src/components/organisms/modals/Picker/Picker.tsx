@@ -1,11 +1,10 @@
 import React from 'react';
 import { Vec2 } from 'types';
 import Icon from '~/components/atoms/Icon';
-import Portal from '~/utils/Portal';
 import './Picker.scss';
 
 export interface PickerProps {
-  pos: Vec2 | null;
+  pos: Vec2;
   onClose: () => void;
 }
 
@@ -24,15 +23,13 @@ interface PickerFooterProps {
 }
 
 const Picker: React.FC<PickerProps> = ({ children, pos, onClose }) => {
-  return !pos ? null : (
-    <Portal>
-      <div className='picker'>
-        <div className='picker__dim' onClick={onClose} />
-        <div className='picker__content' style={{ top: pos.y, left: pos.x }}>
-          {children}
-        </div>
+  return (
+    <div className='picker'>
+      <div className='picker__dim' onClick={onClose} />
+      <div className='picker__content' style={{ top: pos.y, left: pos.x }}>
+        {children}
       </div>
-    </Portal>
+    </div>
   );
 };
 

@@ -7,7 +7,7 @@ import Picker from '../../modals/Picker';
 import './MonthPicker.scss';
 
 export interface MonthPickerProps {
-  pos: Vec2 | null;
+  pos: Vec2;
   yyyymm: string;
   onChange: (yyyymm: string) => void;
   onClose: () => void;
