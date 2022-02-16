@@ -1,0 +1,16 @@
+.flexable-side-layout {
+  display: flex;
+
+  &__left {
+    flex: 100%;
+  }
+
+  &__bar {
+    flex: 1 0 1rem;
+    cursor: ew-resize;
+  }
+
+  &__right {
+    flex: 1 0 300px;
+  }
+}
