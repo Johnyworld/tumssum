@@ -1,0 +1,21 @@
+@import '~/src/style/mixins';
+
+.time-picker {
+  @include flex-around;
+  padding: 0.5rem;
+
+  &__input {
+    @include flex-v-center;
+  }
+
+  &__input-input {
+    @include hide-spin;
+    background: var(--color-bg);
+    border: 1px solid var(--color-gray_weak);
+    padding: 0.25em 0.5em;
+    margin: 0.25em 0;
+    font-size: var(--font-large);
+    color: var(--color-pen);
+    text-align: center;
+  }
+}

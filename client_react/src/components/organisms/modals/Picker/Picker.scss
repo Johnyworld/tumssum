@@ -41,8 +41,9 @@
   }
 
   &-footer {
-    @include flex-end;
-    padding: 0.5rem;
+    @include flex;
+    flex-direction: row-reverse;
+    padding: 0.75rem;
 
     &__buttons {
       display: flex;
@@ -55,7 +56,6 @@
       font-size: var(--font-small);
       font-weight: var(--font-bold);
       text-align: right;
-      padding: var(--size-regular);
       cursor: pointer;
     }
 

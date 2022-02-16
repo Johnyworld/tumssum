@@ -60,13 +60,13 @@ const PickerFooter: React.FC<PickerFooterProps> = ({
 }) => {
   return (
     <div className='picker-footer'>
-      {onClear && <p className='picker-footer__clear'>Clear</p>}
       <div className='picker-footer__buttons'>
         {onClickSecondary && secondaryText && (
-          <p className='picker_footer__secondary' onClick={onClickSecondary} children={secondaryText} />
+          <p className='picker-footer__secondary' onClick={onClickSecondary} children={secondaryText} />
         )}
-        <p className='picker_footer__primary' onClick={onClickPrimary} children={primaryText} />
+        <p className='picker-footer__primary' onClick={onClickPrimary} children={primaryText} />
       </div>
+      {onClear && <p className='picker-footer__clear'>Clear</p>}
     </div>
   );
 };

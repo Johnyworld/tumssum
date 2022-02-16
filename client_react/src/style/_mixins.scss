@@ -114,6 +114,18 @@
   }
 }
 
+// ================= Input =================
+@mixin hide-spin {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
 // ================= Custom =================
 @mixin content-label {
   font-weight: var(--font-bold);

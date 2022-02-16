@@ -19,3 +19,10 @@ test('returns number with zero as string type', () => {
   expect(numberUtil.getZeroNumber(10)).toEqual('10');
   expect(numberUtil.getZeroNumber(5)).toEqual('05');
 });
+
+test('tests getLimit function', () => {
+  expect(numberUtil.getLimit(60, 24)).toEqual(12);
+  expect(numberUtil.getLimit(-1, 24)).toEqual(23);
+  expect(numberUtil.getLimit(-24, 24)).toEqual(0);
+  expect(numberUtil.getLimit(-26, 24)).toEqual(22);
+});
