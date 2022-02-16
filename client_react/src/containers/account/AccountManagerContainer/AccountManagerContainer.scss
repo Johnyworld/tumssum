@@ -1,0 +1,10 @@
+@import '~/src/style/mixins';
+
+.account-manager-container {
+  @include card(0);
+  overflow: hidden;
+  &__topbar {
+    @include flex;
+    padding: 1rem;
+  }
+}

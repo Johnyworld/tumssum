@@ -2,8 +2,7 @@
 
 .index-page {
   &__main {
-    @include wrapper-normal;
-    margin-top: 2rem;
+    padding: 1rem;
     padding-bottom: 8rem;
   }
 }

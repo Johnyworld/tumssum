@@ -27,7 +27,7 @@ const userSlice = createSlice({
     },
     logout: state => {
       state.userInfo = null;
-      customLocalStorage.removeUserInfo();
+      customLocalStorage.removeItem('tmsmusrinfo');
     },
   },
 });
