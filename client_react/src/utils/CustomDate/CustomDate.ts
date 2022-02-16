@@ -49,14 +49,21 @@ export default class CustomDate {
 
   /**
    * 국가별 날짜 표기를 리턴합니다.
-   * @returns 2022. 02. 10 | 10 Feb 2022
+   * @returns 2022. 02. 10. | 10 Feb 2022
    */
   getLocalString(): string {
-    const YEAR_STRING = this.date.getFullYear();
-    const MONTH_STRING = this.getMonthString();
-    const DATE_STRING = this.date.getDate();
-    const arr = [getZeroNumber(DATE_STRING), MONTH_STRING, YEAR_STRING];
-    if (i18next.language === 'ko') return arr.reverse().join('. ');
+    const arr = [this.date.getDate(), this.getMonthString(), this.date.getFullYear()];
+    if (i18next.language === 'ko') return arr.reverse().join('. ') + '.';
+    return arr.join(' ');
+  }
+
+  /**
+   * 국가별 날짜 표기를 리턴합니다.
+   * @returns 2022. 02. | Feb 2022
+   */
+  getLocalStringYearAndMonth(): string {
+    const arr = [this.getMonthString(), this.date.getFullYear()];
+    if (i18next.language === 'ko') return arr.reverse().join('. ') + '.';
     return arr.join(' ');
   }
 
@@ -84,7 +91,7 @@ export default class CustomDate {
    */
   private getMonthString(): string {
     const M = this.date.getMonth();
-    if (i18next.language === 'ko') return getZeroNumber(M + 1);
+    if (i18next.language === 'ko') return String(M + 1);
     return englishMonthes[M];
   }
 }

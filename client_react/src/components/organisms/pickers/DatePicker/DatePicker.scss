@@ -1,0 +1,48 @@
+@import '~/src/style/mixins';
+
+.date-picker {
+  padding: 0.25rem;
+
+  &__days {
+    @include flex;
+  }
+
+  &__day {
+    flex: 0 0 1;
+    padding: 0.375em 0;
+    text-align: center;
+    width: 100%;
+    font-size: var(--font-tiny);
+    color: var(--color-gray);
+    border-radius: 0.25rem;
+  }
+
+  &__row {
+    @include flex;
+  }
+
+  &__date {
+    flex: 0 0 1;
+    padding: 0.375em;
+    width: 100%;
+    text-align: center;
+    font-size: var(--font-small);
+    border-radius: 0.25rem;
+
+    &:hover {
+      background-color: var(--color-bg);
+    }
+
+    &--today {
+      color: var(--color-white);
+      background-color: var(--color-primary);
+      &:hover {
+        background-color: var(--color-primary);
+      }
+    }
+
+    &--selected {
+      background-color: var(--color-bg);
+    }
+  }
+}

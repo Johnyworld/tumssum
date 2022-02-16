@@ -15,5 +15,5 @@ test('returns local year and month', () => {
 });
 
 test('returns local string', () => {
-  expect(customDate.getLocalString()).toEqual('01 Feb 2022');
+  expect(customDate.getLocalString()).toEqual('1 Feb 2022');
 });
