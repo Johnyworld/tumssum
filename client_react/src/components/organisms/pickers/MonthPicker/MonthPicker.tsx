@@ -1,13 +1,13 @@
 import { useMemo, useState } from 'react';
 import { Vec2 } from 'types';
-import PickerHeader from '~/components/molecules/buttons/PickerHeader';
 import { c } from '~/utils/classNames';
 import CustomDate from '~/utils/CustomDate';
 import numberUtil from '~/utils/numberUtil';
+import Picker from '../../modals/Picker';
 import './MonthPicker.scss';
 
 export interface MonthPickerProps {
-  pos: Vec2;
+  pos: Vec2 | null;
   yyyymm: string;
   onChange: (yyyymm: string) => void;
   onClose: () => void;
@@ -25,11 +25,11 @@ const MonthPicker: React.FC<MonthPickerProps> = ({ pos, yyyymm, onChange, onClos
   const isCurrentYear = thisYear === viewYear;
   const isSelectedYear = yyyy === viewYear;
 
-  const handlePrevMonth = () => {
+  const handlePrevYear = () => {
     setViewYear(viewYear - 1);
   };
 
-  const handleNextMonth = () => {
+  const handleNextYear = () => {
     setViewYear(viewYear + 1);
   };
 
@@ -45,31 +45,26 @@ const MonthPicker: React.FC<MonthPickerProps> = ({ pos, yyyymm, onChange, onClos
   };
 
   return (
-    <div className='month-picker'>
-      <div className='month-picker__dim' onClick={onClose} />
-      <div className='month-picker__calendar' style={{ top: pos.y, left: pos.x }}>
-        <PickerHeader title={viewYear} onClickPrev={handlePrevMonth} onClickNext={handleNextMonth} />
+    <Picker pos={pos} onClose={onClose}>
+      <Picker.Header title={viewYear} onClickPrev={handlePrevYear} onClickNext={handleNextYear} />
 
-        <div className='month-picker__months'>
-          {[...Array(12)].map((_, i) => (
-            <div
-              key={i}
-              className={c(
-                'month-picker__month',
-                [thisMonth === i + 1 && isCurrentYear, '&--this-month'],
-                [mm === i + 1 && isSelectedYear, '&--selected']
-              )}
-              children={i + 1}
-              onClick={() => handleSelect(i + 1)}
-            />
-          ))}
-        </div>
-
-        <div className='month-picker__today-wrap'>
-          <p className='month-picker__today' onClick={handleToday} children={'Today'} />
-        </div>
+      <div className='month-picker'>
+        {[...Array(12)].map((_, i) => (
+          <div
+            key={i}
+            className={c(
+              'month-picker__month',
+              [thisMonth === i + 1 && isCurrentYear, '&--this-month'],
+              [mm === i + 1 && isSelectedYear, '&--selected']
+            )}
+            children={i + 1}
+            onClick={() => handleSelect(i + 1)}
+          />
+        ))}
       </div>
-    </div>
+
+      <Picker.Footer primaryText='Today' onClickPrimary={handleToday} />
+    </Picker>
   );
 };
 

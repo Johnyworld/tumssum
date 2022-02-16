@@ -1,29 +1,11 @@
 @import '~/src/style/mixins';
 
 .month-picker {
-  &__dim {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-
-  &__calendar {
-    position: fixed;
-    width: 180px;
-    background-color: var(--color-paper);
-    box-shadow: var(--shadow-large);
-    border: 1px solid var(--color-gray_weak);
-  }
-
-  &__months {
-    display: grid;
-    gap: 0.25rem;
-    width: 100%;
-    padding: 0.5rem;
-    grid-template-columns: repeat(6, 1fr);
-  }
+  display: grid;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 0.5rem;
+  grid-template-columns: repeat(6, 1fr);
 
   &__month {
     padding: 0.375em 0;
@@ -44,17 +26,5 @@
         background-color: var(--color-primary);
       }
     }
-  }
-
-  &__today-wrap {
-    @include flex-end;
-  }
-
-  &__today {
-    font-size: var(--font-small);
-    font-weight: var(--font-bold);
-    text-align: right;
-    padding: var(--size-regular);
-    cursor: pointer;
   }
 }

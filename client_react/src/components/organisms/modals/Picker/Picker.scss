@@ -1,0 +1,67 @@
+@import '~src/style/mixins';
+
+.picker {
+  &__dim {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &__content {
+    position: fixed;
+    width: 180px;
+    background-color: var(--color-paper);
+    box-shadow: var(--shadow-large);
+    border: 1px solid var(--color-gray_weak);
+  }
+
+  &-header {
+    padding: 0.5rem;
+    padding-right: 0.25rem;
+
+    @include flex;
+
+    &__arrows {
+      @include flex;
+    }
+
+    &__arrow {
+      font-size: var(--font-small);
+      cursor: pointer;
+      padding: var(--size-small);
+      border-radius: 0.25rem;
+
+      @include never-drag;
+
+      &:hover {
+        background-color: var(--color-bg);
+      }
+    }
+  }
+
+  &-footer {
+    @include flex-end;
+    padding: 0.5rem;
+
+    &__buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    &__clear,
+    &__secondary,
+    &__primary {
+      font-size: var(--font-small);
+      font-weight: var(--font-bold);
+      text-align: right;
+      padding: var(--size-regular);
+      cursor: pointer;
+    }
+
+    &__clear {
+      color: var(--color-red);
+    }
+  }
+}

@@ -24,7 +24,7 @@ const DateSelectorContainer: React.FC = () => {
         onClickNext={handleNext}
       />
 
-      {pos && <MonthPicker pos={pos} yyyymm={yyyymm} onChange={handleChange} onClose={onClosePicker} />}
+      <MonthPicker pos={pos} yyyymm={yyyymm} onChange={handleChange} onClose={onClosePicker} />
     </>
   );
 };
