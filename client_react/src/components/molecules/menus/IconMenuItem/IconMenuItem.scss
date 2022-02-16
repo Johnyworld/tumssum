@@ -20,5 +20,9 @@
     width: 100%;
     font-size: var(--font-tiny);
     font-weight: var(--font-bold);
+    color: var(--color-gray);
+    &--selected {
+      color: var(--color-pen);
+    }
   }
 }
