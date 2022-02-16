@@ -1,0 +1,14 @@
+@import '~/src/style/mixins';
+
+.content-date {
+  @include flex;
+
+  &__label {
+    @include box-input-label;
+  }
+
+  &__content {
+    @include box-input;
+    @include box-input-pseudos;
+  }
+}

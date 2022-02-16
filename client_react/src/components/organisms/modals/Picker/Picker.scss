@@ -1,6 +1,8 @@
 @import '~src/style/mixins';
 
 .picker {
+  z-index: var(--layer-modal);
+
   &__dim {
     position: absolute;
     top: 0;
