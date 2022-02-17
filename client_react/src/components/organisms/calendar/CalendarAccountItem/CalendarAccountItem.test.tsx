@@ -7,7 +7,7 @@ test('render a listitem', () => {
   render(<CalendarAccountItem account={fixtureAccountA} />);
   expect(screen.getByText(fixtureAccountA.title)).toBeInTheDocument();
   expect(screen.getByText(fixtureAccountA.memo!)).toBeInTheDocument();
-  expect(screen.getByText(numberUtil.getComma(fixtureAccountA.account))).toBeInTheDocument();
+  expect(screen.getByText(numberUtil.getComma(fixtureAccountA.account!))).toBeInTheDocument();
 });
 
 test('render a empty title', () => {

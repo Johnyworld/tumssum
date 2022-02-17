@@ -14,7 +14,7 @@ const CalendarAccountItem: React.FC<CalendarAccountItemProps> = ({ account }) =>
     <li className='calendar-account-item'>
       <p className={c('calendar-account-item__title', [!title, '&--disabled'])}>{title || '제목 없음'}</p>
       <p className='calendar-account-item__memo'>{memo}</p>
-      <p className={c('calendar-account-item__balance', amount < 0 ? '&--negative' : amount > 0 ? '&--positive' : '')}>
+      <p className={c('calendar-account-item__balance', !amount ? '' : amount < 0 ? '&--negative' : '&--positive')}>
         {numberUtil.getComma(amount || 0)}
       </p>
     </li>
