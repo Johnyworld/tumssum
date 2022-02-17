@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DefaultProps } from 'types';
 import { c } from '~/utils/classNames';
 import numberUtil from '~/utils/numberUtil';
@@ -9,7 +9,7 @@ export interface ContentNumberProps extends DefaultProps {
   placeholder: string;
   label?: string;
   isNatural?: boolean;
-  onChange: (value: number) => void;
+  onChange: (value: string) => void;
 }
 
 const ContentNumber: React.FC<ContentNumberProps> = ({
@@ -23,7 +23,14 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const [isNegative, setNegative] = useState(+value < 0 ? true : false);
+  const defaultNegative = useMemo(() => {
+    if (isNatural) return false;
+    if (+value > 0) return false;
+    return true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isNatural]);
+
+  const [isNegative, setNegative] = useState(defaultNegative);
 
   const [followingValue, setFollowingValue] = useState(value);
 
@@ -34,7 +41,7 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
   const handleInput: React.FormEventHandler<HTMLDivElement> = useCallback(
     e => {
       const newValue = e.currentTarget.innerText;
-      onChange(isNegative ? -newValue : +newValue);
+      onChange(isNegative ? `${-newValue}` : newValue);
       setFollowingValue(newValue);
     },
     [isNegative, onChange]
@@ -62,12 +69,19 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
     e => {
       const removeCharacters = numberUtil.removeCharacters(ref.current?.innerText || '');
       const addCommas = numberUtil.getComma(removeCharacters);
-      onChange(isNegative ? -removeCharacters : +removeCharacters);
+      onChange(isNegative ? `${-removeCharacters}` : removeCharacters);
       setFollowingValue(addCommas);
       setInnerText(addCommas);
     },
     [isNegative, onChange, setInnerText]
   );
+
+  const handleFocus: React.FocusEventHandler<HTMLDivElement> = e => {
+    const removeCharacters = numberUtil.removeCharacters(ref.current?.innerText || '');
+    onChange(isNegative ? `${-removeCharacters}` : removeCharacters);
+    setFollowingValue(removeCharacters);
+    setInnerText(removeCharacters);
+  };
 
   useEffect(() => {
     if (ref.current) setInnerText(numberUtil.removeCharacters(String(value || '')));
@@ -90,6 +104,7 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
         onInput={handleInput}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
+        onFocus={handleFocus}
       />
       {!isNatural && (
         <div className='content-number__svg pos-center-y pointer never-drag' onClick={() => setNegative(!isNegative)}>

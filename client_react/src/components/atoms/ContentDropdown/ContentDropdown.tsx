@@ -5,7 +5,7 @@ import './ContentDropdown.scss';
 
 export interface ContentDropdownProps extends DefaultProps {
   list: DropdownOption[];
-  selected?: string | number;
+  selected?: string;
   placeholder?: string;
   label?: string;
   onSelect: (selected: string) => void;

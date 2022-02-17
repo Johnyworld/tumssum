@@ -11,7 +11,7 @@
   &__select {
     @include box-input;
     @include box-input-pseudos;
-    color: var(--color-pencel);
+    color: var(--color-pen);
     font-size: var(--font-regular);
     appearance: none;
     border: none;
