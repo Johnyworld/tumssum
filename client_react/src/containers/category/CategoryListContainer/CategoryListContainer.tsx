@@ -33,6 +33,7 @@ const CategoryListContainer: React.FC = () => {
 
       <Modal
         isOpen={categoryForm.isOpenModal}
+        onClose={categoryForm.onCloseModal}
         children={
           <CategoryFormModal
             groupList={categoryGroups}
@@ -40,20 +41,19 @@ const CategoryListContainer: React.FC = () => {
             initCategory={categoryForm.selected}
             onSubmit={categoryForm.onSubmit}
             onDelete={categoryForm.onDelete}
-            onClose={categoryForm.onCloseModal}
           />
         }
       />
 
       <Modal
         isOpen={categoryGroupForm.isOpenModal}
+        onClose={categoryGroupForm.onCloseModal}
         children={
           <CategoryGroupFormModal
             isUpdating={categoryGroupForm.isUpdating}
             initGroup={categoryGroupForm.selected}
             onSubmit={categoryGroupForm.onSubmit}
             onDelete={categoryGroupForm.onDelete}
-            onClose={categoryGroupForm.onCloseModal}
           />
         }
       />

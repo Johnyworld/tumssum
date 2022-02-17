@@ -12,17 +12,9 @@ export interface BankFormModalProps {
   initBank?: Bank | null;
   onSubmit: (data: Bank) => void;
   onDelete: (id: number) => void;
-  onClose: () => void;
 }
 
-const BankFormModal: React.FC<BankFormModalProps> = ({
-  groupList,
-  isUpdating,
-  initBank,
-  onSubmit,
-  onDelete,
-  onClose,
-}) => {
+const BankFormModal: React.FC<BankFormModalProps> = ({ groupList, isUpdating, initBank, onSubmit, onDelete }) => {
   const [title, setTitle] = useState(initBank?.title || '');
   const [group, setGroup] = useState(initBank?.group ? String(initBank.group) : '');
   const [memo, setMemo] = useState(initBank?.memo || '');
@@ -36,7 +28,7 @@ const BankFormModal: React.FC<BankFormModalProps> = ({
   }, [initBank, onDelete]);
 
   return (
-    <Modal.Container onClose={onClose}>
+    <Modal.Container>
       <Modal.Content padding>
         <ContentText
           isTitle
@@ -48,7 +40,7 @@ const BankFormModal: React.FC<BankFormModalProps> = ({
         <ContentDropdown
           label='그룹'
           list={[{ id: 0, title: '그룹 미지정' }, ...groupList].map(group => ({ id: group.id, text: group.title }))}
-          selected={group || 0}
+          selected={group}
           onSelect={setGroup}
         />
         <ContentTextarea label='메모' value={memo} placeholder='메모를 입력하세요.' onChange={setMemo} />

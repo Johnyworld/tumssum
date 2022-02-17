@@ -9,7 +9,6 @@ export interface CategoryGroupFormModalProps {
   initGroup?: CategoryGroup | null;
   onSubmit: (data: CategoryGroup) => void;
   onDelete: (id: number) => void;
-  onClose: () => void;
 }
 
 const CategoryGroupFormModal: React.FC<CategoryGroupFormModalProps> = ({
@@ -17,7 +16,6 @@ const CategoryGroupFormModal: React.FC<CategoryGroupFormModalProps> = ({
   initGroup,
   onSubmit,
   onDelete,
-  onClose,
 }) => {
   const [title, setTitle] = useState(initGroup?.title || '');
 
@@ -30,7 +28,7 @@ const CategoryGroupFormModal: React.FC<CategoryGroupFormModalProps> = ({
   }, [initGroup, onDelete]);
 
   return (
-    <Modal.Container onClose={onClose}>
+    <Modal.Container>
       <Modal.Content padding>
         <ContentText isTitle value={title} placeholder='카테고리 그룹 이름을 입력하세요.' onChange={setTitle} />
       </Modal.Content>

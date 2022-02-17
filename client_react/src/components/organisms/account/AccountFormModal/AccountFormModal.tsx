@@ -17,7 +17,6 @@ export interface AccountFormModalProps {
   initAccount?: Account;
   onSubmit: (data: Account) => void;
   onDelete: (id: number) => void;
-  onClose: () => void;
 }
 
 const AccountFormModal: React.FC<AccountFormModalProps> = ({
@@ -27,7 +26,6 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({
   initAccount,
   onSubmit,
   onDelete,
-  onClose,
 }) => {
   const [title, setTitle] = useState(initAccount?.title || '');
   const [account, setAccount] = useState<string>(
@@ -55,7 +53,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({
   }, [initAccount, onDelete]);
 
   return (
-    <Modal.Container onClose={onClose}>
+    <Modal.Container>
       <Modal.Content padding>
         <ContentText
           isTitle

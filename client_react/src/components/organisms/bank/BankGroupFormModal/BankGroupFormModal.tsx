@@ -9,16 +9,9 @@ export interface BankGroupFormModalProps {
   initGroup?: BankGroup | null;
   onSubmit: (data: BankGroup) => void;
   onDelete: (id: number) => void;
-  onClose: () => void;
 }
 
-const BankGroupFormModal: React.FC<BankGroupFormModalProps> = ({
-  isUpdating,
-  initGroup,
-  onSubmit,
-  onDelete,
-  onClose,
-}) => {
+const BankGroupFormModal: React.FC<BankGroupFormModalProps> = ({ isUpdating, initGroup, onSubmit, onDelete }) => {
   const [title, setTitle] = useState(initGroup?.title || '');
 
   const handleSubmit = useCallback(() => {
@@ -30,7 +23,7 @@ const BankGroupFormModal: React.FC<BankGroupFormModalProps> = ({
   }, [initGroup, onDelete]);
 
   return (
-    <Modal.Container onClose={onClose}>
+    <Modal.Container>
       <Modal.Content padding>
         <ContentText isTitle value={title} placeholder='뱅크 그룹의 이름을 입력하세요.' onChange={setTitle} />
       </Modal.Content>

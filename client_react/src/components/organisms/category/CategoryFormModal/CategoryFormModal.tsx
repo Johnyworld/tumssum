@@ -13,7 +13,6 @@ export interface CategoryFormModalProps {
   initCategory?: Category | null;
   onSubmit: (data: Category) => void;
   onDelete: (id: number) => void;
-  onClose: () => void;
 }
 
 const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
@@ -22,7 +21,6 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
   initCategory,
   onSubmit,
   onDelete,
-  onClose,
 }) => {
   const [title, setTitle] = useState(initCategory?.title || '');
   const [group, setGroup] = useState(initCategory?.group ? String(initCategory.group) : '');
@@ -38,7 +36,7 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
   }, [initCategory, onDelete]);
 
   return (
-    <Modal.Container onClose={onClose}>
+    <Modal.Container>
       <Modal.Content padding>
         <ContentText
           isTitle
@@ -50,7 +48,7 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
         <ContentDropdown
           label='그룹'
           list={[{ id: 0, title: '그룹 미지정' }, ...groupList].map(group => ({ id: group.id, text: group.title }))}
-          selected={group || 0}
+          selected={group}
           onSelect={setGroup}
         />
         <ContentNumber label='예산' isNatural placeholder='예산을 입력하세요.' value={budget} onChange={setBudget} />

@@ -6,11 +6,10 @@ import './Modal.scss';
 
 interface ModalProps extends DefaultProps {
   isOpen: boolean;
-}
-
-interface ModalContainerProps extends DefaultProps {
   onClose?: () => void;
 }
+
+interface ModalContainerProps extends DefaultProps {}
 
 interface ModalHeaderProps extends DefaultProps {
   sticky?: boolean;
@@ -30,16 +29,12 @@ interface ModalFooterProps extends DefaultProps {
   sticky?: boolean;
 }
 
-const Modal: React.FC<ModalProps> = ({ children, isOpen }) => {
+const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'auto';
   }, [isOpen]);
 
-  return !isOpen ? null : <Portal>{children}</Portal>;
-};
-
-export const ModalContainer: React.FC<ModalContainerProps> = ({ children, onClose }) => {
   useEffect(() => {
     if (!onClose) return;
     const keyEvent = (ev: KeyboardEvent) => ev.key === 'Escape' && onClose();
@@ -47,12 +42,18 @@ export const ModalContainer: React.FC<ModalContainerProps> = ({ children, onClos
     return () => window.removeEventListener('keydown', keyEvent);
   }, [onClose]);
 
-  return (
-    <div className='modal'>
-      <div className='modal__dim dim' onClick={onClose} />
-      <div className='modal__container'>{children}</div>
-    </div>
+  return !isOpen ? null : (
+    <Portal>
+      <div className='modal'>
+        <div className='modal__dim dim' onClick={onClose} />
+        {children}
+      </div>
+    </Portal>
   );
+};
+
+export const ModalContainer: React.FC<ModalContainerProps> = ({ children }) => {
+  return <div className='modal__container'>{children}</div>;
 };
 
 export const ModalHeader: React.FC<ModalHeaderProps> = ({ style, className, children, sticky, shadow, onClose }) => {

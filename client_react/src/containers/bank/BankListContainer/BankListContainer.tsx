@@ -31,19 +31,20 @@ const BankListContainer: React.FC<BankListContainerProps> = ({ bankTree }) => {
 
       <Modal
         isOpen={bankGroupForm.isOpenModal}
+        onClose={bankGroupForm.onCloseModal}
         children={
           <BankGroupFormModal
             isUpdating={bankGroupForm.isUpdating}
             initGroup={bankGroupForm.selected}
             onSubmit={bankGroupForm.onSubmit}
             onDelete={bankGroupForm.onDelete}
-            onClose={bankGroupForm.onCloseModal}
           />
         }
       />
 
       <Modal
         isOpen={bankForm.isOpenModal}
+        onClose={bankForm.onCloseModal}
         children={
           <BankFormModal
             groupList={bankGroups}
@@ -51,7 +52,6 @@ const BankListContainer: React.FC<BankListContainerProps> = ({ bankTree }) => {
             initBank={bankForm.selected}
             onSubmit={bankForm.onSubmit}
             onDelete={bankForm.onDelete}
-            onClose={bankForm.onCloseModal}
           />
         }
       />
