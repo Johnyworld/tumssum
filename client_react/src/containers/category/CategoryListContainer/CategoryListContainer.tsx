@@ -6,14 +6,12 @@ import CategoryGroupFormModal from '~/components/organisms/category/CategoryGrou
 import Modal from '~/components/organisms/modals/Modal';
 import useCategoryForm from '~/hooks/category/useCategoryForm';
 import useCategoryGroupForm from '~/hooks/category/useCategoryGroupForm';
-import categoryUtil from '~/utils/categoryUtil';
+import useCategoryTree from '~/hooks/category/useCategoryTree';
 import { useSelector } from '~/utils/reduxHooks';
 
 const CategoryListContainer: React.FC = () => {
+  const categoryTree = useCategoryTree();
   const categoryGroups = useSelector(state => state.category.categoryGroups);
-  const categories = useSelector(state => state.category.categories);
-  const budgets = useSelector(state => state.budget.budgets);
-  const categoryTree = categoryUtil.getCategoryTree(categoryGroups, categories, budgets);
 
   const categoryForm = useCategoryForm();
   const categoryGroupForm = useCategoryGroupForm();

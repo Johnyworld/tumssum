@@ -1,9 +1,11 @@
 declare module 'types' {
+  type CategoryTree = CategoryGroup[];
+
   interface CategoryGroup {
     id: number;
     title: string;
     user: number;
-    items: Category[];
+    items?: Category[];
     budget?: number;
     created_at: string;
     updated_at: string;
