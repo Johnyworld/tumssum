@@ -1,4 +1,23 @@
 declare module 'types' {
+  /**
+   * Account
+   */
+  interface ReqCreateAccount {
+    datetime: string;
+    title?: string;
+    account?: number;
+    memo?: string;
+    category_id?: number;
+    bank_id?: number;
+    to_id?: number;
+  }
+  interface ReqUpdateAccount extends ReqCreateAccount {
+    id: number;
+  }
+
+  /**
+   * BankGroup
+   */
   interface ReqCreateBankGroup {
     title: string;
   }
@@ -9,6 +28,9 @@ declare module 'types' {
     bank_group_id: number;
   }
 
+  /**
+   * Bank
+   */
   interface ReqCreateBank {
     title: string;
     memo?: string;
@@ -21,6 +43,9 @@ declare module 'types' {
     bank_id: number;
   }
 
+  /**
+   * CategoryGroup
+   */
   interface ReqCreateCategoryGroup {
     title: string;
   }
@@ -31,6 +56,9 @@ declare module 'types' {
     category_group_id: number;
   }
 
+  /**
+   * Category
+   */
   interface ReqCreateCategory {
     title: string;
     memo?: string;

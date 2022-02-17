@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { BankTree, CategoryTree } from 'types';
 import Button from '~/components/atoms/Button';
 import IconMenu from '~/components/molecules/menus/IconMenu';
+import AccountFormModal from '~/components/organisms/account/AccountFormModal';
 import Calendar from '~/components/organisms/calendar/Calendar';
+import Modal from '~/components/organisms/modals/Modal';
+import useAccountForm from '~/hooks/account/useAccountForm';
 import useAccountManagerMenu from '~/hooks/account/useAccountManagerMenu';
 import CalendarBase from '~/utils/CalendarBase';
 import { useSelector } from '~/utils/reduxHooks';
 import './AccountManagerContainer.scss';
 
-const AccountManagerContainer: React.FC = () => {
+interface Props {
+  categoryTree: CategoryTree;
+  bankTree: BankTree;
+}
+
+const AccountManagerContainer: React.FC<Props> = ({ categoryTree, bankTree }) => {
   const yyyymm = useSelector(state => state.calendar.yyyymm);
   const accounts = useSelector(state => state.account.accounts);
 
+  const accountForm = useAccountForm();
+
   const accountManagerMenu = useAccountManagerMenu();
+  const calendarBase = useMemo(() => new CalendarBase(yyyymm, accounts).getCalendar(), [yyyymm, accounts]);
 
   return (
     <div className='account-manager-container'>
@@ -21,9 +33,26 @@ const AccountManagerContainer: React.FC = () => {
           selected={accountManagerMenu.selected}
           onSelect={accountManagerMenu.onSelect}
         />
-        <Button size='small'>+ 새로 추가</Button>
+        <Button size='small' onClick={accountForm.onOpenModal}>
+          + 새로 추가
+        </Button>
       </div>
-      <Calendar weeks={new CalendarBase(yyyymm, accounts).getCalendar()} />
+      <Calendar weeks={calendarBase} />
+
+      <Modal
+        isOpen={accountForm.isOpenModal}
+        onClose={accountForm.onCloseModal}
+        children={
+          <AccountFormModal
+            categoryTree={categoryTree}
+            bankTree={bankTree}
+            isUpdating={accountForm.isUpdating}
+            initAccount={accountForm.selected}
+            onSubmit={accountForm.onSubmit}
+            onDelete={accountForm.onDelete}
+          />
+        }
+      />
     </div>
   );
 };

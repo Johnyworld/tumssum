@@ -14,7 +14,7 @@ export interface AccountFormModalProps {
   bankTree: BankTree;
   categoryTree: CategoryTree;
   isUpdating: boolean;
-  initAccount?: Account;
+  initAccount?: Account | null;
   onSubmit: (data: Account) => void;
   onDelete: (id: number) => void;
 }
@@ -40,7 +40,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({
     onSubmit({
       id: initAccount?.id || undefined,
       title,
-      account: account ? +account : account === '' ? null : 0,
+      account: +account,
       datetime,
       memo,
       category: +category || null,
@@ -66,11 +66,11 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({
         <ContentDropdown
           label='카테고리'
           list={[
-            { id: 0, text: '그룹 미지정' },
+            { id: '', text: '그룹 미지정' },
             ...categoryTree.map(group => ({
               id: group.id,
-              text: group.title,
-              children: group.items?.map(category => ({ id: category.id, text: category.title })),
+              text: group.title || '이름 없음',
+              children: group.items?.map(category => ({ id: category.id, text: category.title || '이름 없음' })),
             })),
           ]}
           selected={category}
@@ -79,11 +79,11 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({
         <ContentDropdown
           label='뱅크'
           list={[
-            { id: 0, text: '그룹 미지정' },
+            { id: '', text: '그룹 미지정' },
             ...bankTree.map(group => ({
               id: group.id,
-              text: group.title,
-              children: group.items?.map(bank => ({ id: bank.id, text: bank.title })),
+              text: group.title || '이름 없음',
+              children: group.items?.map(bank => ({ id: bank.id, text: bank.title || '이름 없음' })),
             })),
           ]}
           selected={bank}

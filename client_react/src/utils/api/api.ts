@@ -6,6 +6,7 @@ import {
   Category,
   CategoryGroup,
   Month,
+  ReqCreateAccount,
   ReqCreateBank,
   ReqCreateBankGroup,
   ReqCreateCategory,
@@ -35,6 +36,8 @@ const api = {
 
   accounts: {
     getList: async () => await request<Account[]>('GET', '/api/accounts/', {}),
+    createAccount: async (body: ReqCreateAccount) =>
+      await request<{ account: Account; months: Month[] }>('POST', '/api/account/', body),
   },
 
   banks: {

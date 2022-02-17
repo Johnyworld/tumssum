@@ -1,9 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
-import { store } from '~/store';
 import { getErrorMessage } from './errors';
 import logging from './logging';
+import CustomLocalStorage from '../CustomLocalStorage';
 
 export type Method = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
+
+const storage = new CustomLocalStorage();
 
 /**
  * 전체 API 요청을 총괄하는 API Pipeline 입니다.
@@ -11,7 +13,7 @@ export type Method = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
  */
 const request = async <T>(method: Method, url: string, payload: any) => {
   logging.req(method, url, payload);
-  const userInfo = store.getState().user.userInfo || undefined;
+  const userInfo = storage.getUserInfo() || undefined;
   try {
     const res: AxiosResponse<T> = await axios({
       method,
@@ -24,11 +26,12 @@ const request = async <T>(method: Method, url: string, payload: any) => {
     logging.res(method, url, res);
     return res;
   } catch (err: any) {
+    console.log(err);
     const data = {
       ...err.response.data,
       message: getErrorMessage(err.response.data?.message),
     };
-    logging.err(method, url, data);
+    logging.err(method, url, err.response.data);
     return data as AxiosResponse<T>;
   }
 };
