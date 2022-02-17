@@ -16,6 +16,7 @@ import {
   ReqDeleteBankGroup,
   ReqDeleteCategory,
   ReqDeleteCategoryGroup,
+  ReqUpdateAccount,
   ReqUpdateBank,
   ReqUpdateBankGroup,
   ReqUpdateCategory,
@@ -39,6 +40,8 @@ const api = {
     getList: async () => await request<Account[]>('GET', '/api/accounts/', {}),
     createAccount: async (body: ReqCreateAccount) =>
       await request<{ account: Account; months: Month[] }>('POST', '/api/account/', body),
+    updateAccount: async (body: ReqUpdateAccount) =>
+      await request<{ account: Account; months: Month[] }>('PUT', '/api/account/', body),
     deleteAccount: async (body: ReqDeleteAccount) =>
       await request<{ account: number; months: Month[] }>('DELETE', '/api/account/', body),
   },

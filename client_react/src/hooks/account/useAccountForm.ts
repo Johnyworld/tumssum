@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { Account } from 'types';
 import { useDispatch } from '~/utils/reduxHooks';
-import { addAccount, removeAccount } from '~/stores/accountSlice';
+import { addAccount, removeAccount, updateAccount } from '~/stores/accountSlice';
 import useObject from '../useObject';
 import useToast from '../useToast';
 import useToggle from '../useToggle';
@@ -21,6 +21,19 @@ const useAccountForm = () => {
     if (editingAccount.data) editingAccount.reset();
   }, [editingAccount, onClose]);
 
+  const handleUpdateAccount = useCallback(
+    async (accountData: Account) => {
+      const { ok, message, data } = await api.accounts.updateAccount(accountData);
+      if (!ok) toast(message, 'red');
+      else {
+        toast('가계부를 수정했습니다.', 'green');
+        dispatch(updateAccount(data.account));
+        onCloseModal();
+      }
+    },
+    [dispatch, onCloseModal, toast]
+  );
+
   const handleCreateAccount = useCallback(
     async (accountData: Account) => {
       const { ok, message, data } = await api.accounts.createAccount(accountData);
@@ -30,7 +43,6 @@ const useAccountForm = () => {
         dispatch(addAccount(data.account));
         onClose();
       }
-      setUpdating(false);
     },
     [dispatch, onClose, toast]
   );
@@ -39,12 +51,11 @@ const useAccountForm = () => {
     async (account: Account) => {
       if (isUpdating) return;
       setUpdating(true);
-      await handleCreateAccount(account);
-      // if (account.id) await handleUpdateBank(account);
-      // else await handleCreateAccount(account);
+      if (account.id) await handleUpdateAccount(account);
+      else await handleCreateAccount(account);
       setUpdating(false);
     },
-    [handleCreateAccount, isUpdating]
+    [handleCreateAccount, handleUpdateAccount, isUpdating]
   );
 
   const onDelete = useCallback(

@@ -11,10 +11,10 @@ def putAccount(request):
   reqData = json.loads(request.body)
   headers = request.headers
 
-  account_id = reqData.get('account_id')
+  account_id = reqData.get('id')
   account = reqData.get('account')
   user_id = reqData.get('user_id')
-  bank_id = reqData.get('bank_id')
+  bank_id = reqData.get('bank')
   to_id = reqData.get('to')
   datetime = reqData.get('datetime')
 

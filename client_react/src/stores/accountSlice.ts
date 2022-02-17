@@ -27,17 +27,17 @@ export const accountSlice = createSlice({
     addAccounts: (state, { payload }: PayloadAction<Account[]>) => {
       state.accounts = [...state.accounts, ...payload];
     },
-    updateAccount: (state, { payload: { id, data } }: PayloadAction<{ id: number; data: Account }>) => {
-      state.accounts = state.accounts.map((account) => {
-        if (account.id === id) return { ...account, ...data };
+    updateAccount: (state, { payload }: PayloadAction<Account>) => {
+      state.accounts = state.accounts.map(account => {
+        if (account.id === payload.id) return { ...account, ...payload };
         return account;
       });
     },
     removeAccount: (state, { payload }: PayloadAction<number>) => {
-      state.accounts = state.accounts.filter((account) => account.id !== payload);
+      state.accounts = state.accounts.filter(account => account.id !== payload);
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(getAccounts.rejected, (state, { payload }) => {
       state.error = payload as string;
       state.loaded = true;
