@@ -11,13 +11,14 @@ export interface ContentDateProps {
 }
 
 const ContentDate: React.FC<ContentDateProps> = ({ label, yyyymmdd, onChange }) => {
-  const then = new CustomDate();
+  const then = new CustomDate(yyyymmdd);
 
   const [pos, showPicker, closePicker] = usePicker();
 
   return (
     <div className='content-date'>
-      {label && <p className='content-dropdown__label'>{label}</p>}
+      {label && <p className='content-date__label'>{label}</p>}
+
       <div className='content-date__content' onClick={showPicker}>
         {then.getLocalString()}
       </div>
