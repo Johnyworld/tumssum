@@ -10,5 +10,9 @@
   &__content {
     @include box-input;
     @include box-input-pseudos;
+
+    &--disabled {
+      color: var(--color-gray);
+    }
   }
 }

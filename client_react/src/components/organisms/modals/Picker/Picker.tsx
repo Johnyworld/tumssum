@@ -66,7 +66,11 @@ const PickerFooter: React.FC<PickerFooterProps> = ({
         )}
         <p className='picker-footer__primary' onClick={onClickPrimary} children={primaryText} />
       </div>
-      {onClear && <p className='picker-footer__clear'>Clear</p>}
+      {onClear && (
+        <p className='picker-footer__clear' onClick={onClear}>
+          Clear
+        </p>
+      )}
     </div>
   );
 };

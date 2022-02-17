@@ -25,7 +25,8 @@ const TimePicker: React.FC<TimePickerProps> = ({ pos, time, onChange, onClose })
 
   const handleSubmit = useCallback(() => {
     onChange(numberUtil.getZeroNumber(hours) + ':' + numberUtil.getZeroNumber(minutes));
-  }, [hours, minutes, onChange]);
+    onClose();
+  }, [hours, minutes, onChange, onClose]);
 
   const handleClear = useCallback(() => {
     onChange('');
