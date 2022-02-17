@@ -1,14 +1,15 @@
 import React from 'react';
-import { DayItem } from 'types';
+import { Account, DayItem } from 'types';
 import { c } from '~/utils/classNames';
 import CalendarAccountItem from '../CalendarAccountItem';
 import './CalendarDateItem.scss';
 
 export interface CalendarDateItemProps {
   day: DayItem;
+  onClickAccount: (account: Account) => void;
 }
 
-const CalendarDateItem: React.FC<CalendarDateItemProps> = ({ day }) => {
+const CalendarDateItem: React.FC<CalendarDateItemProps> = ({ day, onClickAccount }) => {
   const { yyyymmdd, accounts, isThisMonth, isToday } = day;
   const date = yyyymmdd.split('-')[2];
   return (
@@ -19,7 +20,7 @@ const CalendarDateItem: React.FC<CalendarDateItemProps> = ({ day }) => {
       {accounts && (
         <ul className='calendar-date-item__body'>
           {accounts.map(account => (
-            <CalendarAccountItem key={account.id} account={account} />
+            <CalendarAccountItem key={account.id} account={account} onClick={() => onClickAccount(account)} />
           ))}
         </ul>
       )}

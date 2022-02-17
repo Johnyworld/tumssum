@@ -2,7 +2,6 @@ import { Story, Meta } from '@storybook/react';
 import { Account } from 'types';
 import { fixtureBankTree } from '~/fixtures/bank.fixture';
 import { fixtureCategoryTree } from '~/fixtures/category.fixture';
-import { isoStringNow } from '~/fixtures/common';
 import AccountFormModal, { AccountFormModalProps } from './AccountFormModal';
 
 export default {

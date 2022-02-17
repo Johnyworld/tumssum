@@ -17,8 +17,8 @@ def postAccount(request):
   user_id = reqData.get('user_id')
   memo = reqData.get('memo') # Not Required
   location = reqData.get('location') # Not Required
-  category_id = reqData.get('category_id') # Not Required
-  bank_id = reqData.get('bank_id') # Not Required
+  category_id = reqData.get('category') # Not Required
+  bank_id = reqData.get('bank') # Not Required
   to_id = reqData.get('to') # Not Required
 
   month = None

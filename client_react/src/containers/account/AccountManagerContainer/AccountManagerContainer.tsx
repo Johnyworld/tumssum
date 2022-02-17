@@ -37,7 +37,8 @@ const AccountManagerContainer: React.FC<Props> = ({ categoryTree, bankTree }) =>
           + 새로 추가
         </Button>
       </div>
-      <Calendar weeks={calendarBase} />
+
+      <Calendar weeks={calendarBase} onClickAccount={accountForm.onSelect} />
 
       <Modal
         isOpen={accountForm.isOpenModal}

@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { Account } from 'types';
 import { useDispatch } from '~/utils/reduxHooks';
-import { addAccount } from '~/stores/accountSlice';
+import { addAccount, removeAccount } from '~/stores/accountSlice';
 import useObject from '../useObject';
 import useToast from '../useToast';
 import useToggle from '../useToggle';
@@ -16,18 +16,14 @@ const useAccountForm = () => {
 
   const [isUpdating, setUpdating] = useState(false);
 
+  const onCloseModal = useCallback(() => {
+    onClose();
+    if (editingAccount.data) editingAccount.reset();
+  }, [editingAccount, onClose]);
+
   const handleCreateAccount = useCallback(
     async (accountData: Account) => {
-      const { title, datetime, account, memo, category: category_id, bank: bank_id, to: to_id } = accountData;
-      const { ok, message, data } = await api.accounts.createAccount({
-        title,
-        datetime,
-        account,
-        memo,
-        category_id,
-        bank_id,
-        to_id,
-      });
+      const { ok, message, data } = await api.accounts.createAccount(accountData);
       if (!ok) toast(message, 'red');
       else {
         toast('가계부를 추가했습니다.', 'green');
@@ -51,12 +47,19 @@ const useAccountForm = () => {
     [handleCreateAccount, isUpdating]
   );
 
-  const onDelete = useCallback(async (account_id: number) => {}, []);
-
-  const onCloseModal = useCallback(() => {
-    onClose();
-    if (editingAccount.data) editingAccount.reset();
-  }, [editingAccount, onClose]);
+  const onDelete = useCallback(
+    async (id: number) => {
+      const { ok, message, data } = await api.accounts.deleteAccount({ id });
+      if (!ok) toast(message, 'red');
+      else {
+        toast('가계부를 삭제했습니다.', 'green');
+        dispatch(removeAccount(data.account));
+        onCloseModal();
+      }
+      setUpdating(false);
+    },
+    [dispatch, onCloseModal, toast]
+  );
 
   return {
     selected: editingAccount.data,

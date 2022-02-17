@@ -7,11 +7,14 @@ declare module 'types' {
     title?: string;
     account?: number;
     memo?: string;
-    category_id?: number;
-    bank_id?: number;
-    to_id?: number;
+    category?: number;
+    bank?: number;
+    to?: number;
   }
   interface ReqUpdateAccount extends ReqCreateAccount {
+    id: number;
+  }
+  interface ReqDeleteAccount {
     id: number;
   }
 

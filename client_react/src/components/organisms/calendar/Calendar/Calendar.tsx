@@ -1,14 +1,15 @@
 import React from 'react';
-import { DayItem } from 'types';
+import { Account, DayItem } from 'types';
 import { c } from '~/utils/classNames';
 import CalendarDateRow from '../CalendarDateRow';
 import './Calendar.scss';
 
 export interface CalendarProps {
   weeks: DayItem[][];
+  onClickAccount: (account: Account) => void;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ weeks }) => {
+const Calendar: React.FC<CalendarProps> = ({ weeks, onClickAccount }) => {
   return (
     <div className='calendar'>
       <ul className='calendar__week'>
@@ -19,7 +20,7 @@ const Calendar: React.FC<CalendarProps> = ({ weeks }) => {
         ))}
       </ul>
       {weeks.map((week, i) => (
-        <CalendarDateRow key={i} days={week} />
+        <CalendarDateRow key={i} days={week} onClickAccount={onClickAccount} />
       ))}
     </div>
   );

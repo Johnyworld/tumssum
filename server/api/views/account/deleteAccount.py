@@ -11,7 +11,7 @@ def deleteAccount(request):
   headers = request.headers
 
   user_id = reqData.get('user_id')
-  account_id = reqData.get('account_id')
+  account_id = reqData.get('id')
 
   months = None
 
