@@ -84,7 +84,11 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
   };
 
   useEffect(() => {
-    if (ref.current) setInnerText(numberUtil.removeCharacters(String(value || '')));
+    if (ref.current) {
+      const removeCharacters = numberUtil.removeCharacters(String(value || ''));
+      const addCommas = numberUtil.getComma(removeCharacters);
+      setInnerText(addCommas);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setInnerText]);
 

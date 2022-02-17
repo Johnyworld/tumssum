@@ -7,7 +7,7 @@ export default {
   argTypes: {},
 } as Meta;
 
-const Template: Story<ContentNumberProps> = (args) => <ContentNumber {...args} />;
+const Template: Story<ContentNumberProps> = args => <ContentNumber {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   placeholder: 'Enter a number',
@@ -15,7 +15,7 @@ Default.args = {
 
 export const Natural = Template.bind({});
 Natural.args = {
-  value: 'df123',
+  value: 'df123555',
   placeholder: 'Enter a number',
   isNatural: true,
 };
