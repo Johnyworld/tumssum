@@ -8,6 +8,7 @@ export interface ContentTextProps extends DefaultProps {
   placeholder: string;
   label?: string;
   isTitle?: boolean;
+  isChangeOnBlur?: boolean;
   onChange: (value: string) => void;
 }
 
@@ -18,18 +19,19 @@ const ContentText: React.FC<ContentTextProps> = ({
   placeholder,
   label,
   isTitle,
+  isChangeOnBlur,
   onChange,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [defaultValue] = useState(value);
 
-  const handleInput: React.FormEventHandler<HTMLDivElement> = (e) => {
+  const handleInput: React.FormEventHandler<HTMLDivElement> = e => {
     const newValue = e.currentTarget.innerText;
     onChange(newValue);
   };
 
-  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
+  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = e => {
     if (e.key === 'Enter') {
       e.preventDefault();
       setTimeout(() => ref.current?.blur());
@@ -45,7 +47,8 @@ const ContentText: React.FC<ContentTextProps> = ({
         contentEditable
         placeholder={placeholder}
         ref={ref}
-        onInput={handleInput}
+        onInput={isChangeOnBlur ? undefined : handleInput}
+        onBlur={isChangeOnBlur ? handleInput : undefined}
         onKeyDown={handleKeyDown}
         dangerouslySetInnerHTML={{ __html: defaultValue }}
       />
