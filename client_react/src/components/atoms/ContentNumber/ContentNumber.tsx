@@ -9,6 +9,8 @@ export interface ContentNumberProps extends DefaultProps {
   placeholder: string;
   label?: string;
   isNatural?: boolean;
+  isHideIcon?: boolean;
+  isChangeOnBlur?: boolean;
   onChange: (value: string) => void;
 }
 
@@ -19,6 +21,8 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
   placeholder,
   label,
   isNatural,
+  isHideIcon,
+  isChangeOnBlur,
   onChange,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -34,17 +38,25 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
 
   const [followingValue, setFollowingValue] = useState(value);
 
+  const getMinusSign = useCallback(
+    (str: string) => {
+      return (!isNatural && isNegative && str !== '' && str !== '0' ? '- ' : '') + str;
+    },
+    [isNatural, isNegative]
+  );
+
   const setInnerText = useCallback((newValue: string) => {
     if (ref.current) ref.current.innerText = newValue;
   }, []);
 
   const handleInput: React.FormEventHandler<HTMLDivElement> = useCallback(
     e => {
+      if (isChangeOnBlur) return;
       const newValue = e.currentTarget.innerText;
       onChange(isNegative ? `${-newValue}` : newValue);
       setFollowingValue(newValue);
     },
-    [isNegative, onChange]
+    [isChangeOnBlur, isNegative, onChange]
   );
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = useCallback(
@@ -71,9 +83,9 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
       const addCommas = numberUtil.getComma(removeCharacters);
       onChange(isNegative ? `${-removeCharacters}` : removeCharacters);
       setFollowingValue(addCommas);
-      setInnerText(addCommas);
+      setInnerText(getMinusSign(addCommas));
     },
-    [isNegative, onChange, setInnerText]
+    [getMinusSign, isNegative, onChange, setInnerText]
   );
 
   const handleFocus: React.FocusEventHandler<HTMLDivElement> = e => {
@@ -87,7 +99,7 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
     if (ref.current) {
       const removeCharacters = numberUtil.removeCharacters(String(value || ''));
       const addCommas = numberUtil.getComma(removeCharacters);
-      setInnerText(addCommas);
+      setInnerText(getMinusSign(addCommas));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setInnerText]);
@@ -110,7 +122,7 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
         onBlur={handleBlur}
         onFocus={handleFocus}
       />
-      {!isNatural && (
+      {!isNatural && !isHideIcon && (
         <div className='content-number__svg pos-center-y pointer never-drag' onClick={() => setNegative(!isNegative)}>
           {isNegative ? (
             <svg width='25' height='16' viewBox='0 0 25 16' fill='none' xmlns='http://www.w3.org/2000/svg'>

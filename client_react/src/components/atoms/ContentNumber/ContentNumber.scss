@@ -13,6 +13,30 @@
     @include box-input;
     @include box-input-pseudos;
     @include box-input-oneline;
+
+    &--positive,
+    &--negative {
+      padding-left: 1.5em;
+
+      &:focus::after {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        padding-left: 0.75em;
+        transform: translateY(-55%);
+        font-weight: var(--font-bold);
+      }
+    }
+
+    &--positive:focus::after {
+      content: '+';
+    }
+
+    &--negative:focus::after {
+      content: '-';
+    }
+
     font-weight: var(--font-bold);
 
     &:empty::before {
@@ -23,28 +47,5 @@
   &__svg {
     font-size: 0;
     right: 0.5rem;
-  }
-
-  &--negative,
-  &--positive {
-    padding-left: 1.5em;
-
-    &::after {
-      display: block;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      padding-left: 0.75em;
-      transform: translateY(-55%);
-      font-weight: var(--font-bold);
-    }
-  }
-
-  &--negative:after {
-    content: '-';
-  }
-
-  &--positive:after {
-    content: '+';
   }
 }
