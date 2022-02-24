@@ -28,7 +28,7 @@ const ContentText: React.FC<ContentTextProps> = ({
 
   const handleInput: React.FormEventHandler<HTMLDivElement> = e => {
     const newValue = e.currentTarget.innerText;
-    onChange(newValue);
+    if (newValue !== value) onChange(newValue);
   };
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = e => {

@@ -81,16 +81,16 @@ const ContentNumber: React.FC<ContentNumberProps> = ({
     e => {
       const removeCharacters = numberUtil.removeCharacters(ref.current?.innerText || '');
       const addCommas = numberUtil.getComma(removeCharacters);
-      onChange(isNegative ? `${-removeCharacters}` : removeCharacters);
+      const changingValue = isNegative ? `${-removeCharacters}` : removeCharacters;
+      if (value !== +changingValue && value !== changingValue) onChange(changingValue);
       setFollowingValue(addCommas);
       setInnerText(getMinusSign(addCommas));
     },
-    [getMinusSign, isNegative, onChange, setInnerText]
+    [getMinusSign, isNegative, onChange, setInnerText, value]
   );
 
   const handleFocus: React.FocusEventHandler<HTMLDivElement> = e => {
     const removeCharacters = numberUtil.removeCharacters(ref.current?.innerText || '');
-    onChange(isNegative ? `${-removeCharacters}` : removeCharacters);
     setFollowingValue(removeCharacters);
     setInnerText(removeCharacters);
   };

@@ -5,10 +5,10 @@ import './ContentDropdown.scss';
 
 export interface ContentDropdownProps extends DefaultProps {
   list: DropdownOption[];
-  selected?: string;
+  selected?: any;
   placeholder?: string;
   label?: string;
-  onSelect: (selected: string) => void;
+  onSelect: (selected: any) => void;
 }
 
 const ContentDropdown: React.FC<ContentDropdownProps> = ({
@@ -43,7 +43,7 @@ const ContentDropdown: React.FC<ContentDropdownProps> = ({
 
         {list.map(item =>
           item.children ? (
-            <optgroup key={item.id} label={item.text + ''}>
+            <optgroup key={'group-' + item.id} label={item.text + ''}>
               {item.children.map(child => (
                 <option key={child.id} role='listbox' value={child.id}>
                   {child.text || '이름 없음'}
