@@ -3,6 +3,7 @@ import { BankTree, CategoryTree } from 'types';
 import Button from '~/components/atoms/Button';
 import IconMenu from '~/components/molecules/menus/IconMenu';
 import AccountFormModal from '~/components/organisms/account/AccountFormModal';
+import AccountList from '~/components/organisms/account/AccountList';
 import Calendar from '~/components/organisms/calendar/Calendar';
 import Modal from '~/components/organisms/modals/Modal';
 import useAccountForm from '~/hooks/account/useAccountForm';
@@ -38,7 +39,18 @@ const AccountManagerContainer: React.FC<Props> = ({ categoryTree, bankTree }) =>
         </Button>
       </div>
 
-      <Calendar weeks={calendarBase} onClickAccount={accountForm.onSelect} />
+      {accountManagerMenu.selected === 'calendar' && (
+        <Calendar weeks={calendarBase} onClickAccount={accountForm.onSelect} />
+      )}
+
+      {accountManagerMenu.selected === 'list' && (
+        <AccountList
+          accounts={accounts}
+          categoryTree={categoryTree}
+          bankTree={bankTree}
+          onChange={accountForm.onPatch}
+        />
+      )}
 
       <Modal
         isOpen={accountForm.isOpenModal}

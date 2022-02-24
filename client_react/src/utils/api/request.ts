@@ -12,8 +12,9 @@ const storage = new CustomLocalStorage();
  * api.ts 파일에서만 이 함수에 접근할 수 있습니다.
  */
 const request = async <T>(method: Method, url: string, payload: any) => {
-  logging.req(method, url, payload);
   const userInfo = storage.getUserInfo() || undefined;
+  const payloadData = { ...payload, user_id: userInfo?.id };
+  logging.req(method, url, payloadData);
   try {
     const res: AxiosResponse<T> = await axios({
       method,
@@ -21,7 +22,7 @@ const request = async <T>(method: Method, url: string, payload: any) => {
       headers: userInfo && {
         Authorization: `Bearer ${userInfo.access}`,
       },
-      [method === 'GET' ? 'params' : 'data']: { ...payload, user_id: userInfo?.id },
+      [method === 'GET' ? 'params' : 'data']: payloadData,
     });
     logging.res(method, url, res);
     return res;

@@ -23,11 +23,11 @@ const AppLoggedIn: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAccounts());
     dispatch(getBanks());
     dispatch(getCategories());
     dispatch(getBudgets());
     dispatch(getMonths());
+    dispatch(getAccounts());
   }, [dispatch]);
 
   return (

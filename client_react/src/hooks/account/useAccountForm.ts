@@ -58,6 +58,22 @@ const useAccountForm = () => {
     [handleCreateAccount, handleUpdateAccount, isUpdating]
   );
 
+  const onPatch = useCallback(
+    async (accountData: Account) => {
+      if (isUpdating) return;
+      setUpdating(true);
+      const { ok, message, data } = await api.accounts.patchAccount(accountData);
+      if (!ok) toast(message, 'red');
+      else {
+        toast('가계부를 수정했습니다.', 'green');
+        dispatch(updateAccount(data.account));
+        onCloseModal();
+      }
+      setUpdating(false);
+    },
+    [dispatch, isUpdating, onCloseModal, toast]
+  );
+
   const onDelete = useCallback(
     async (id: number) => {
       const { ok, message, data } = await api.accounts.deleteAccount({ id });
@@ -79,8 +95,9 @@ const useAccountForm = () => {
     onSelect: editingAccount.set,
     onCloseModal,
     onOpenModal: onOpen,
-    onDelete,
     onSubmit,
+    onPatch,
+    onDelete,
   };
 };
 

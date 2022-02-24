@@ -9,7 +9,7 @@ export default class CustomDate {
   hasTime: boolean;
   constructor(defaultDate?: string) {
     this.date = defaultDate ? new Date(defaultDate) : new Date();
-    this.hasTime = !!defaultDate && defaultDate.includes('T') && defaultDate.length > 19;
+    this.hasTime = !!defaultDate && defaultDate.includes('T') && defaultDate.length > 15;
   }
 
   /**
@@ -30,7 +30,7 @@ export default class CustomDate {
 
   /**
    * 지역의 연도-월 String을 리턴합니다.
-   * @returns 2022-02
+   * @returns 2022-02-10
    */
   getLocalDate(): string {
     const DATE = this.date.getDate();
@@ -78,7 +78,8 @@ export default class CustomDate {
    * 지역의 시간 String을 리턴합니다.
    * @returns 12:00:00
    */
-  private getLocalTime(): string {
+  getLocalTime(): string {
+    if (!this.hasTime) return '';
     const h = this.date.getHours();
     const m = this.date.getMinutes();
     const s = this.date.getSeconds();

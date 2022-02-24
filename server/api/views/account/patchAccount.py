@@ -11,10 +11,12 @@ def patchAccount(request):
   reqData = json.loads(request.body)
   headers = request.headers
 
-  account_id = reqData.get('account_id')
+  account_id = reqData.get('id')
+  title = reqData.get('title')
   account = reqData.get('account')
   user_id = reqData.get('user_id')
-  bank_id = reqData.get('bank_id')
+  bank_id = reqData.get('bank')
+  category_id = reqData.get('category')
   datetime = reqData.get('datetime')
 
   accountData = get_object_or_404(Account, pk=account_id)
@@ -95,11 +97,25 @@ def patchAccount(request):
   if new_month_id != None:
     accountData.month_id = new_month_id
 
-  for k in reqData:
-    setattr(accountData, k, reqData[k])
+
+  if title != None:
+    accountData.title = title
+
+  if account != None:
+    accountData.account = account
+
+  if datetime != None:
+    accountData.datetime = datetime
 
   if bank_id == 0:
     accountData.bank_id = None 
+  elif bank_id != None:
+    accountData.bank_id = bank_id 
+
+  if category_id == 0:
+    accountData.category_id = None 
+  elif category_id != None:
+    accountData.category_id = category_id 
 
   accountData.save()
 

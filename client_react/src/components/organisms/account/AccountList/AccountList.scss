@@ -1,0 +1,33 @@
+.account-list {
+  border-spacing: 0;
+  width: 100%;
+
+  th {
+    color: var(--color-gray);
+    font-size: var(--font-small);
+    padding: 0.25rem 0.75rem;
+    z-index: var(--layer-on);
+    white-space: nowrap;
+    background-color: var(--color-paper);
+  }
+
+  tbody {
+    tr {
+      &:hover {
+        background-color: var(--color-dark_weakest);
+      }
+    }
+  }
+
+  td {
+    border-top: 1px solid var(--color-gray_weaker);
+    .content-date__content,
+    .content-time__content,
+    select {
+      text-align: center;
+    }
+    .content-dropdown__arrow {
+      display: none;
+    }
+  }
+}

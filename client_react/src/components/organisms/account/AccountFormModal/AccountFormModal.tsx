@@ -66,7 +66,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({
         <ContentDropdown
           label='카테고리'
           list={[
-            { id: '', text: '그룹 미지정' },
+            { id: '', text: '미분류' },
             ...categoryTree.map(group => ({
               id: group.id,
               text: group.title || '이름 없음',
@@ -79,7 +79,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({
         <ContentDropdown
           label='뱅크'
           list={[
-            { id: '', text: '그룹 미지정' },
+            { id: '', text: '미분류' },
             ...bankTree.map(group => ({
               id: group.id,
               text: group.title || '이름 없음',

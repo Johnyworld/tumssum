@@ -42,6 +42,8 @@ const api = {
       await request<{ account: Account; months: Month[] }>('POST', '/api/account/', body),
     updateAccount: async (body: ReqUpdateAccount) =>
       await request<{ account: Account; months: Month[] }>('PUT', '/api/account/', body),
+    patchAccount: async (body: ReqUpdateAccount) =>
+      await request<{ account: Account; months: Month[] }>('PATCH', '/api/account/', body),
     deleteAccount: async (body: ReqDeleteAccount) =>
       await request<{ account: number; months: Month[] }>('DELETE', '/api/account/', body),
   },
