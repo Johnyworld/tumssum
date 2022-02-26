@@ -1,3 +1,5 @@
+@import '~/src/style/mixins';
+
 .calendar {
   display: flex;
   flex-direction: column;
@@ -20,5 +22,19 @@
     &--sat {
       color: var(--color-primary);
     }
+  }
+
+  &--grabbing {
+    @include never-drag;
+    .calendar-date-item:hover {
+      background-color: var(--color-primary_transparent);
+    }
+  }
+
+  &__grabbed-item {
+    position: fixed;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 10;
   }
 }

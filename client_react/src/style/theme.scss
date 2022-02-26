@@ -2,8 +2,8 @@
 @import './variables';
 
 $common-theme: (
-	white: #fff,
-	black: #000,
+  white: #fff,
+  black: #000,
 );
 
 /**
@@ -18,169 +18,179 @@ $common-theme: (
 */
 
 $light-theme: (
-	pen: #000,
-	pencel: #51535A,
-	paper: #fff,
-	bg: #e6e7ec,
-	bg_weak: #fafafc,
-	primary: #8d72d7,
-	blue: #6087d1,
-	red: #f66767,
-	red_t_weak: #f6676759,
-	green: #34cb5e,
-	gray_strong: #7F8489,
-	gray: #C0C4C8,
-	gray_weak: #E5E6EA,
-	gray_weaker: #efeff7,
-	bright_weakest: rgba(250, 252, 255, 0.05),
-	dark_weakest: rgba(0, 0, 0, 0.03),
-	dim: rgba(255, 255, 255, 0.3),
+  pen: #000,
+  pencel: #51535a,
+  paper: #fff,
+  bg: #e6e7ec,
+  bg_weak: #fafafc,
+  primary: #8d72d7,
+  primary_transparent: #8d72d733,
+  blue: #6087d1,
+  red: #f66767,
+  red_t_weak: #f6676759,
+  green: #34cb5e,
+  gray_strong: #7f8489,
+  gray: #c0c4c8,
+  gray_weak: #e5e6ea,
+  gray_weaker: #efeff7,
+  bright_weakest: rgba(250, 252, 255, 0.05),
+  dark_weakest: rgba(0, 0, 0, 0.03),
+  dim: rgba(255, 255, 255, 0.3),
 );
 
 $dark-theme: (
-	pen: #fff,
-	pencel: #c1c4ce,
-	paper: #212225,
-	bg: #141516,
-	bg_weak: #191a1b,
-	gray_strong: #7F8489,
-	gray: #4d5154,
-	gray_weak: #37383b,
-	gray_weaker: #262729,
-	bright_weakest: rgba(255, 255, 255, 0.04),
-	dark_weakest: rgba(0, 0, 0, 0.08),
-	dim: rgba(0, 0, 0, 0.7),
+  pen: #fff,
+  pencel: #c1c4ce,
+  paper: #212225,
+  bg: #141516,
+  bg_weak: #191a1b,
+  gray_strong: #7f8489,
+  gray: #4d5154,
+  gray_weak: #37383b,
+  gray_weaker: #262729,
+  bright_weakest: rgba(255, 255, 255, 0.04),
+  dark_weakest: rgba(0, 0, 0, 0.08),
+  dim: rgba(0, 0, 0, 0.7),
 );
 
 $sizes: (
-	none: 0,
-	micro: .125rem,
-	tiny: .25rem,
-	small: .5rem,
-	regular: 1rem,
-	medium: 1.25rem,
-	large: 1.5rem,
-	big: 2rem,
-	huge: 3rem,
+  none: 0,
+  micro: 0.125rem,
+  tiny: 0.25rem,
+  small: 0.5rem,
+  regular: 1rem,
+  medium: 1.25rem,
+  large: 1.5rem,
+  big: 2rem,
+  huge: 3rem,
 );
 
 @each $key, $value in $common-theme {
-	.bgc-#{''+$key} {
-		background-color: var(--color-#{$key})
-	}
-	.c-#{''+$key} {
-		color: var(--color-#{$key})
-	}
+  .bgc-#{'' + $key} {
+    background-color: var(--color-#{$key});
+  }
+  .c-#{'' + $key} {
+    color: var(--color-#{$key});
+  }
 }
 
 @each $key, $value in $light-theme {
-	.bgc-#{''+$key} {
-		background-color: var(--color-#{$key})
-	}
-	.c-#{''+$key} {
-		color: var(--color-#{$key})
-	}
+  .bgc-#{'' + $key} {
+    background-color: var(--color-#{$key});
+  }
+  .c-#{'' + $key} {
+    color: var(--color-#{$key});
+  }
 }
 
 @each $key, $value in $sizes {
-	.gap-#{''+$key} {
-		gap: var(--size-#{$key})
-	}
-	.p-#{''+$key} {
-		padding: var(--size-#{$key})
-	}
-	.pv-#{''+$key} {
-		padding-top: var(--size-#{$key});
-		padding-bottom: var(--size-#{$key});
-	}
-	.mv-#{''+$key} {
-		&:not(:first-child) { margin-top: var(--size-#{$key}) }
-		&:not(:last-child) { margin-bottom: var(--size-#{$key}) }
-	}
-	.gap-mv-#{''+$key} {
-    > * {
-      &:not(:first-child) { margin-top: var(--size-#{$key}) }
-      &:not(:last-child) { margin-bottom: var(--size-#{$key}) } 
+  .gap-#{'' + $key} {
+    gap: var(--size-#{$key});
+  }
+  .p-#{'' + $key} {
+    padding: var(--size-#{$key});
+  }
+  .pv-#{'' + $key} {
+    padding-top: var(--size-#{$key});
+    padding-bottom: var(--size-#{$key});
+  }
+  .mv-#{'' + $key} {
+    &:not(:first-child) {
+      margin-top: var(--size-#{$key});
+    }
+    &:not(:last-child) {
+      margin-bottom: var(--size-#{$key});
     }
   }
-	.gap-mh-#{''+$key} {
+  .gap-mv-#{'' + $key} {
     > * {
-      &:not(:first-child) { margin-left: var(--size-#{$key}) }
-      &:not(:last-child) { margin-right: var(--size-#{$key}) } 
+      &:not(:first-child) {
+        margin-top: var(--size-#{$key});
+      }
+      &:not(:last-child) {
+        margin-bottom: var(--size-#{$key});
+      }
     }
   }
-	@include maxTablet {
-		.p-#{''+$key+'-tablet'} {
-			padding: var(--size-#{$key})
-		}
-	}
-	@include maxMobile {
-		.p-#{''+$key+'-mobile'} {
-			padding: var(--size-#{$key})
-		}
-	}
+  .gap-mh-#{'' + $key} {
+    > * {
+      &:not(:first-child) {
+        margin-left: var(--size-#{$key});
+      }
+      &:not(:last-child) {
+        margin-right: var(--size-#{$key});
+      }
+    }
+  }
+  @include maxTablet {
+    .p-#{'' + $key + '-tablet'} {
+      padding: var(--size-#{$key});
+    }
+  }
+  @include maxMobile {
+    .p-#{'' + $key + '-mobile'} {
+      padding: var(--size-#{$key});
+    }
+  }
 }
 
+:root {
+  --font-tiny: 0.625rem;
+  --font-small: 0.75rem;
+  --font-regular: 0.875rem;
+  --font-medium: 1rem;
+  --font-large: 1.25rem;
+  --font-big: 1.5rem;
+  --font-huge: 2rem;
 
-:root{
+  --font-thin: 100;
+  --font-normal: 400;
+  --font-bold: 700;
 
-	--font-tiny: 0.625rem;
-	--font-small: 0.75rem;
-	--font-regular: 0.875rem;
-	--font-medium: 1rem;
-	--font-large: 1.25rem;
-	--font-big: 1.5rem;
-	--font-huge: 2rem;
+  --bp-1: #{$bp-1};
+  --bp-2: #{$bp-2};
+  --bp-3: #{$bp-3};
+  --bp-4: #{$bp-4};
 
-	--font-thin: 100;
-	--font-normal: 400;
-	--font-bold: 700;
+  --shadow-small: 0 2px 2px rgba(0, 0, 0, 0.08);
+  --shadow-large: 0 20px 25px rgba(0, 0, 0, 0.4);
 
-	--bp-1: #{$bp-1};
-	--bp-2: #{$bp-2};
-	--bp-3: #{$bp-3};
-	--bp-4: #{$bp-4};
+  --layer-toast: 70;
+  --layer-alert: 60;
+  --layer-ui: 50;
+  --layer-modal: 40;
+  --layer-aside: 30;
+  --layer-header: 20;
+  --layer-on: 1;
 
-	--shadow-small: 0 2px 2px rgba(0, 0, 0, 0.08);
-	--shadow-large: 0 20px 25px rgba(0, 0, 0, 0.4);
+  --header-height: 60px;
+  --indicator-height: 4rem;
+  --aside-width: 250px;
+  --aside-width_wide: 320px;
 
-	--layer-toast: 70;
-	--layer-alert: 60;
-	--layer-ui: 50;
-	--layer-modal: 40;
-	--layer-aside: 30;
-	--layer-header: 20;
-	--layer-on: 1;
+  @each $key, $value in $common-theme {
+    #{"--color-" + $key}: #{$value};
+  }
 
-	--header-height: 60px;
-	--indicator-height: 4rem;
-	--aside-width: 250px;
-	--aside-width_wide: 320px;
+  @each $key, $value in $light-theme {
+    #{"--color-" + $key}: #{$value};
+  }
 
-	@each $key, $value in $common-theme {
-		#{"--color-" + $key}: #{$value};
-	}
-
-	@each $key, $value in $light-theme {
-		#{"--color-" + $key}: #{$value};
-	}
-
-	@each $key, $value in $sizes {
-		#{"--size-" + $key}: #{$value};
-	}
+  @each $key, $value in $sizes {
+    #{"--size-" + $key}: #{$value};
+  }
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
+  --shadow-small: 0 2px 2px rgba(0, 0, 0, 0.2);
 
-	--shadow-small: 0 2px 2px rgba(0, 0, 0, 0.2);
-
-	@each $key, $value in $dark-theme {
-		#{"--color-" + $key}: #{$value};
-	}
+  @each $key, $value in $dark-theme {
+    #{"--color-" + $key}: #{$value};
+  }
 }
 
 @include minTablet {
-	:root {
-		--indicator-height: 6rem;
-	}
+  :root {
+    --indicator-height: 6rem;
+  }
 }
