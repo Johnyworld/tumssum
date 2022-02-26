@@ -1,6 +1,10 @@
 .account-list {
-  border-spacing: 0;
-  width: 100%;
+  overflow-x: auto;
+
+  table {
+    border-spacing: 0;
+    width: 100%;
+  }
 
   th {
     color: var(--color-gray);

@@ -10,6 +10,7 @@
   &__content {
     @include box-input;
     @include box-input-pseudos;
+    white-space: nowrap;
 
     &--disabled {
       color: var(--color-gray);
