@@ -40,11 +40,7 @@ const AccountManagerContainer: React.FC<Props> = ({ categoryTree, bankTree }) =>
       </div>
 
       {accountManagerMenu.selected === 'calendar' && (
-        <Calendar
-          weeks={calendarBase}
-          onClickAccount={accountForm.onSelect}
-          onDrop={(id, datetime) => console.log('Dropped ==', id, datetime)}
-        />
+        <Calendar weeks={calendarBase} onClickAccount={accountForm.onSelect} onDrop={accountForm.onPatch} />
       )}
 
       {accountManagerMenu.selected === 'list' && (

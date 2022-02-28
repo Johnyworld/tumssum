@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { Account, GrabbingData } from 'types';
 
 interface UseCalendarDragProps {
-  onDrop: (id: number, datetime: string) => void;
+  onDrop: (account: Account) => void;
 }
 
 const useCalendarDrag = ({ onDrop }: UseCalendarDragProps) => {
@@ -30,7 +30,10 @@ const useCalendarDrag = ({ onDrop }: UseCalendarDragProps) => {
     (yyyymmdd: string) => () => {
       if (grabbingData) {
         const time = grabbingData.data.datetime.split('T')[1];
-        onDrop(grabbingData.data.id, yyyymmdd + (time ? `T${time}` : ''));
+        onDrop({
+          id: grabbingData.data.id,
+          datetime: yyyymmdd + (time ? `T${time}` : ''),
+        } as Account);
       }
       handleLeave();
     },
