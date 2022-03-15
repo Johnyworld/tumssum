@@ -29,11 +29,12 @@ const useCalendarDrag = ({ onDrop }: UseCalendarDragProps) => {
   const handleDrop: (yyyymmdd: string) => React.MouseEventHandler<HTMLLIElement> = useCallback(
     (yyyymmdd: string) => () => {
       if (grabbingData) {
-        const time = grabbingData.data.datetime.split('T')[1];
-        onDrop({
-          id: grabbingData.data.id,
-          datetime: yyyymmdd + (time ? `T${time}` : ''),
-        } as Account);
+        const [date, time] = grabbingData.data.datetime.split('T');
+        if (date !== yyyymmdd)
+          onDrop({
+            id: grabbingData.data.id,
+            datetime: yyyymmdd + (time ? `T${time}` : ''),
+          } as Account);
       }
       handleLeave();
     },
