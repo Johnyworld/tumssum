@@ -2,10 +2,10 @@ import React from 'react';
 import { Account, DayItem } from 'types';
 import { c } from '~/utils/classNames';
 import CalendarDateRow from '../CalendarDateRow';
-import CalendarDragging from './CalendarDragging';
+import DragWrapper from '../../../wrappers/DragWrapper';
+import CalendarAccountItem from '../CalendarAccountItem';
 import useCalendarDrag from '~/hooks/account/useCalendarDrag';
 import './Calendar.scss';
-import CalendarAccountItem from '../CalendarAccountItem';
 
 export interface CalendarProps {
   weeks: DayItem[][];
@@ -17,7 +17,7 @@ const Calendar: React.FC<CalendarProps> = ({ weeks, onClickAccount, onDrop }) =>
   const { grabbingData, isGrabbing, handleGrap, handleLeave, handleDrop } = useCalendarDrag({ onDrop });
 
   return (
-    <CalendarDragging
+    <DragWrapper
       itemPos={grabbingData?.itemPos}
       clickPos={grabbingData?.clickPos}
       onLeave={handleLeave}

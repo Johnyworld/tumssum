@@ -1,14 +1,14 @@
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { Vec2 } from 'types';
 
-export interface CalendarDraggingProps {
+export interface DragWrapperProps {
   itemPos: Vec2 | undefined;
   clickPos: Vec2 | undefined;
   render: (pos: Vec2 | null) => ReactNode;
   onLeave: () => void;
 }
 
-const CalendarDragging: React.FC<CalendarDraggingProps> = ({ children, itemPos, clickPos, render, onLeave }) => {
+const DragWrapper: React.FC<DragWrapperProps> = ({ children, itemPos, clickPos, render, onLeave }) => {
   const [pos, setPos] = useState<Vec2 | null>(null);
 
   const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = useCallback(
@@ -35,4 +35,4 @@ const CalendarDragging: React.FC<CalendarDraggingProps> = ({ children, itemPos, 
   );
 };
 
-export default CalendarDragging;
+export default DragWrapper;
