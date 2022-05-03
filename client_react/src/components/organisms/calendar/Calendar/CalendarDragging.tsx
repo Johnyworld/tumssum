@@ -1,47 +1,36 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { GrabbingData, Vec2 } from 'types';
-import CalendarAccountItem from '../CalendarAccountItem';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import { Vec2 } from 'types';
 
 export interface CalendarDraggingProps {
-  grabbingData: GrabbingData | null;
+  itemPos: Vec2 | undefined;
+  clickPos: Vec2 | undefined;
+  render: (pos: Vec2 | null) => ReactNode;
   onLeave: () => void;
 }
 
-const CalendarDragging: React.FC<CalendarDraggingProps> = ({ children, grabbingData, onLeave }) => {
+const CalendarDragging: React.FC<CalendarDraggingProps> = ({ children, itemPos, clickPos, render, onLeave }) => {
   const [pos, setPos] = useState<Vec2 | null>(null);
 
-  const onMouseMove: React.MouseEventHandler<HTMLDivElement> = useCallback(
+  const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = useCallback(
     e => {
-      if (grabbingData) {
+      if (itemPos && clickPos) {
         setPos({
-          x: grabbingData.pos.x + (e.clientX - grabbingData.client.x), // 기존위치 + 이동거리(현재점 - 찍은점)
-          y: grabbingData.pos.y + (e.clientY - grabbingData.client.y), // 기존위치 + 이동거리(현재점 - 찍은점)
+          x: itemPos.x + (e.clientX - clickPos.x), // 기존위치 + 이동거리(현재점 - 찍은점)
+          y: itemPos.y + (e.clientY - clickPos.y), // 기존위치 + 이동거리(현재점 - 찍은점)
         });
       }
     },
-    [grabbingData]
+    [clickPos, itemPos]
   );
 
   useEffect(() => {
-    if (!grabbingData) setPos(null);
-  }, [grabbingData]);
+    if (!(itemPos && clickPos)) setPos(null);
+  }, [clickPos, itemPos]);
 
   return (
-    <div className='calendar-dragging' onMouseMove={onMouseMove} onMouseLeave={onLeave}>
+    <div className='calendar-dragging' onMouseMove={handleMouseMove} onMouseLeave={onLeave}>
       {children}
-
-      {grabbingData && pos && (
-        <CalendarAccountItem
-          account={grabbingData.data}
-          className='calendar__grabbed-item'
-          style={{
-            top: pos.y + 'px',
-            left: pos.x + 'px',
-            width: grabbingData.width + 'px',
-            height: grabbingData.height + 'px',
-          }}
-        />
-      )}
+      {render(pos)}
     </div>
   );
 };

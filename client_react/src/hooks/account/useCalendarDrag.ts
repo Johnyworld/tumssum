@@ -16,8 +16,8 @@ const useCalendarDrag = ({ onDrop }: UseCalendarDragProps) => {
     data => e => {
       const rect = e.currentTarget.getBoundingClientRect();
       setGrabbingData({
-        pos: { x: rect.x, y: rect.y },
-        client: { x: e.clientX, y: e.clientY },
+        itemPos: { x: rect.x, y: rect.y },
+        clickPos: { x: e.clientX, y: e.clientY },
         width: rect.width,
         height: rect.height,
         data,
