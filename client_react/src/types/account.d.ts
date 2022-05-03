@@ -1,10 +1,10 @@
 declare module 'types' {
-  interface GrabbingData {
+  interface GrabbingData<T> {
     itemPos: Vec2; // 아이템 기존 위치
     clickPos: Vec2; // 드래그 시작 위치 (마우스 찍은 위치)
     width: number;
     height: number;
-    data: Account;
+    data: T;
   }
 
   interface Account {

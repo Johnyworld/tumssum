@@ -1,30 +1,13 @@
-import { useCallback, useState } from 'react';
-import { Account, GrabbingData } from 'types';
+import { useCallback } from 'react';
+import { Account } from 'types';
+import useDrag from '../useDrag';
 
 interface UseCalendarDragProps {
   onDrop: (account: Account) => void;
 }
 
 const useCalendarDrag = ({ onDrop }: UseCalendarDragProps) => {
-  const [grabbingData, setGrabbingData] = useState<GrabbingData | null>(null);
-
-  const handleLeave = useCallback(() => {
-    setGrabbingData(null);
-  }, []);
-
-  const handleGrap: (data: Account) => React.MouseEventHandler<HTMLLIElement> = useCallback(
-    data => e => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      setGrabbingData({
-        itemPos: { x: rect.x, y: rect.y },
-        clickPos: { x: e.clientX, y: e.clientY },
-        width: rect.width,
-        height: rect.height,
-        data,
-      });
-    },
-    []
-  );
+  const { grabbingData, isGrabbing, handleLeave, handleGrap } = useDrag<Account>();
 
   const handleDrop: (yyyymmdd: string) => React.MouseEventHandler<HTMLLIElement> = useCallback(
     (yyyymmdd: string) => () => {
@@ -42,11 +25,11 @@ const useCalendarDrag = ({ onDrop }: UseCalendarDragProps) => {
   );
 
   return {
-    grabbingData, // CalendarDragging 컴포넌트에 주입
-    isGrabbing: !!grabbingData,
-    handleLeave, // CalendarDragging 컴포넌트에 주입
-    handleGrap, // CalendarDateRow 컴포넌트에 주입
-    handleDrop, // CalendarDateRow 컴포넌트에 주입
+    grabbingData,
+    isGrabbing,
+    handleLeave,
+    handleGrap,
+    handleDrop,
   };
 };
 
