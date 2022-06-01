@@ -1,24 +1,27 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
+import { HHmmss, YYYYMMDD, YYYYMMDDHHmmss } from 'types';
 import CustomDate from '~/utils/CustomDate';
 
-const useDatetimeInput = (defaultDatetime?: string) => {
-  const [defaultDate, defaultTime] = useMemo(() => {
-    const datetime = defaultDatetime || new CustomDate().getLocalYYYYMMDD();
-    const [date, time] = datetime.split('T');
-    return [date, time || ''];
-  }, [defaultDatetime]);
+const useDatetimeInput = (defaultDatetime?: YYYYMMDDHHmmss) => {
 
-  const [date, setDate] = useState(defaultDate);
-  const [time, setTime] = useState(defaultTime);
+  const [customDate, setDate] = useState(new CustomDate(defaultDatetime));
 
-  const datetime = time ? `${date}T${time}` : date;
+  const handleChangeDate = useCallback((date: YYYYMMDD)=> {
+    const then = new CustomDate(customDate.getLocalYYYYMMDDHHmmss());
+    then.setYYYYMMDD(date);
+    setDate(then);
+  }, [customDate]);
+
+  const handleChangeTime = useCallback((time: HHmmss) => {
+    const then = new CustomDate(customDate.getLocalYYYYMMDDHHmmss());
+    then.setHHmmss(time);
+    setDate(then);
+  }, [customDate]);
 
   return {
-    yyyymmdd: date,
-    time,
-    datetime,
-    setDate,
-    setTime,
+    customDate,
+    handleChangeDate,
+    handleChangeTime,
   };
 };
 

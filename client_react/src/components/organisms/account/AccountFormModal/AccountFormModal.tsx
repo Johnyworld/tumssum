@@ -33,7 +33,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({
   );
   const [category, setCategory] = useState(String(initAccount?.category || ''));
   const [bank, setBank] = useState(String(initAccount?.bank || ''));
-  const { datetime, yyyymmdd, time, setDate, setTime } = useDatetimeInput(initAccount?.datetime);
+  const { customDate, handleChangeDate, handleChangeTime } = useDatetimeInput(initAccount?.datetime);
   const [memo, setMemo] = useState(initAccount?.memo || '');
 
   const handleSubmit = useCallback(() => {
@@ -41,12 +41,12 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({
       id: initAccount?.id || undefined,
       title,
       account: +account,
-      datetime,
+      datetime: customDate.getLocalYYYYMMDDHHmmss(),
       memo,
       category: +category || null,
       bank: +bank || null,
     } as Account);
-  }, [initAccount, title, account, datetime, memo, category, bank, onSubmit]);
+  }, [onSubmit, initAccount?.id, title, account, customDate, memo, category, bank]);
 
   const handleDelete = useCallback(() => {
     if (initAccount && initAccount.id) onDelete(initAccount.id);
@@ -89,8 +89,8 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({
           selected={bank}
           onSelect={setBank}
         />
-        <ContentDate label='날짜' placeholder='비어있음' value={yyyymmdd} onChange={setDate} />
-        <ContentTime label='시간' placeholder='비어있음' value={time} onChange={setTime} />
+        <ContentDate label='날짜' placeholder='비어있음' value={customDate.getLocalYYYYMMDD()} onChange={handleChangeDate} />
+        <ContentTime label='시간' placeholder='비어있음' value={customDate.getLocalHHmm()} onChange={handleChangeTime} />
         <ContentTextarea label='메모' value={memo} placeholder='메모를 입력하세요.' onChange={setMemo} />
       </Modal.Content>
       <Modal.Footer padding flex>

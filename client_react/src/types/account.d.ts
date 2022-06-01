@@ -13,7 +13,7 @@ declare module 'types' {
     account?: number;
     /** 타 뱅크로 전송 */
     to?: number;
-    datetime: string;
+    datetime: YYYYMMDDHHmmss;
     location?: string;
     memo?: string;
     user: number;
