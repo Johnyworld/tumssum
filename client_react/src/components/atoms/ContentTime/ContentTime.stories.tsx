@@ -11,6 +11,6 @@ const Template: Story<ContentTimeProps> = args => <ContentTime {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  time: '14:20:22.333z',
+  value: '14:20:22.333z',
   label: 'Label',
 };

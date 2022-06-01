@@ -1,22 +1,23 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Vec2 } from 'types';
+import { HHmm, HHmmss, Vec2 } from 'types';
 import numberUtil from '~/utils/numberUtil';
 import Picker from '../../modals/Picker';
 import TimePickerInput from './TimePickerInput';
 import './TimePicker.scss';
+import CustomDate from '~/utils/CustomDate';
 
 export interface TimePickerProps {
   pos: Vec2;
-  time: string;
-  onChange: (yyyymmdd: string) => void;
+  value: HHmmss | HHmm | '';
+  onChange: (value: HHmm) => void;
   onClose: () => void;
 }
 
-const TimePicker: React.FC<TimePickerProps> = ({ pos, time, onChange, onClose }) => {
+const TimePicker: React.FC<TimePickerProps> = ({ pos, value, onChange, onClose }) => {
   const [hh, mm] = useMemo(() => {
-    const [hh, mm] = time.split(':');
+    const [hh, mm] = (value || new CustomDate().getLocalHHmm()).split(':');
     return [+hh, +mm];
-  }, [time]);
+  }, [value]);
 
   const now = useMemo(() => new Date(), []);
 

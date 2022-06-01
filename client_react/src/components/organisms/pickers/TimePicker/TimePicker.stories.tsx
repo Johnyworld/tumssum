@@ -11,6 +11,6 @@ const Template: Story<TimePickerProps> = args => <TimePicker {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  time: '17:00:22.000z',
+  value: '17:00:22.000z',
   pos: { x: 0, y: 0 },
 };

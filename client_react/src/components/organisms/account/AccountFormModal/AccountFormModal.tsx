@@ -90,7 +90,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({
           onSelect={setBank}
         />
         <ContentDate label='날짜' placeholder='비어있음' value={yyyymmdd} onChange={setDate} />
-        <ContentTime label='시간' placeholder='비어있음' time={time} onChange={setTime} />
+        <ContentTime label='시간' placeholder='비어있음' value={time} onChange={setTime} />
         <ContentTextarea label='메모' value={memo} placeholder='메모를 입력하세요.' onChange={setMemo} />
       </Modal.Content>
       <Modal.Footer padding flex>

@@ -55,7 +55,7 @@ const AccountListItem: React.FC<AccountListItemProps> = ({
       <td>
         {
           <ContentTime
-            time={customDate.getLocalHHmm()}
+            value={customDate.getLocalHHmm()}
             placeholder='비어있음'
             onChange={handleChangeTime}
           />
