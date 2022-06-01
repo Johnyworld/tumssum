@@ -25,6 +25,34 @@
 - ~~AWS EB~~ => AWS CodeDeploy
 - Travis CI
 
+## 개발환경설정
+
+### 서버
+
+파이썬 3 설치
+[파이썬 홈페이지](https://www.python.org/)에서 다운로드/설치
+
+mysql 설치
+```
+brew install mysql
+```
+
+가상환경 설정
+```
+// 설치
+tumssum/server> python3 -m venv ./venv
+
+// 가상 환경 진입
+tumssum/server> source venv/bin/activate
+```
+
+의존성 설치
+```
+pip3 install -r requirements.txt
+```
+
+
+
 ## Environments
 
 ### .env files
