@@ -96,7 +96,31 @@ export default class CustomDate {
     this.date.setMonth(this.date.getMonth() + sum);
   }
 
- 
+  /**
+   * 날짜를 변경합니다.
+   */
+  setYYYYMMDD(YYYYMMDD: YYYYMMDD): void {
+    const [YYYY, MM, DD] = YYYYMMDD.substring(0, 10).split('-');
+    if (YYYY !== undefined) this.date.setFullYear(+YYYY);
+    if (MM !== undefined) this.date.setMonth((+MM) - 1);
+    if (DD !== undefined) this.date.setDate(+DD);
+  }
+
+  /**
+   * 시간을 변경합니다.
+   */
+  setHHmmss(HHmmss: HHmmss | ''): void {
+    if (!HHmmss) {
+      this.hasTime = false;
+    } else {
+      const [HH, mm, ss] = HHmmss.split(':');
+      if (HH !== undefined) this.date.setHours(+HH);
+      if (mm !== undefined) this.date.setMinutes(+mm);
+      if (ss !== undefined) this.date.setSeconds(+ss);
+      this.hasTime = true;
+    }
+
+  }
 
   /**
    * 국가별 달 표기를 리턴합니다.

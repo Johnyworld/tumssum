@@ -31,8 +31,27 @@ test('returns local string year and month', () => {
 });
 
 test('set month', () => {
-  customDate.setMonth(2);
-  expect(customDate.getLocalYYYYMM()).toEqual('2022-04');
-  customDate.setMonth(-3);
-  expect(customDate.getLocalStringYM()).toEqual('Jan 2022');
+  const testingDate = new CustomDate('2022-01-31T22:30:55.100Z');
+  testingDate.setMonth(2);
+  expect(testingDate.getLocalYYYYMM()).toEqual('2022-04');
+  testingDate.setMonth(-3);
+  expect(testingDate.getLocalStringYM()).toEqual('Jan 2022');
 });
+
+test('set date', () => {
+  const testingDate = new CustomDate('2022-01-31T22:30:55.100Z');
+  testingDate.setYYYYMMDD('2019-11-20');
+  expect(testingDate.getLocalYYYYMMDD()).toEqual('2019-11-20');
+  testingDate.setYYYYMMDD('2019-11-20T12:22:10'); // 시간이 같이 들어가도 무시 돼야 함
+  expect(testingDate.getLocalYYYYMMDD()).toEqual('2019-11-20');
+})
+
+test('set time', () => {
+  const testingDate = new CustomDate('2022-01-31T22:30:55.100Z');
+  testingDate.setHHmmss('03:12:33');
+  expect(testingDate.getLocalHHmmss()).toEqual('03:12:33');
+  testingDate.setHHmmss('');
+  expect(testingDate.hasTime).toEqual(false);
+  expect(testingDate.getLocalHHmmss()).toEqual('');
+})
+
