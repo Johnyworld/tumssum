@@ -11,6 +11,6 @@ const Template: Story<ContentDateProps> = args => <ContentDate {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  yyyymmdd: '2022-02-10',
+  value: '2022-02-10',
   label: 'Label',
 };

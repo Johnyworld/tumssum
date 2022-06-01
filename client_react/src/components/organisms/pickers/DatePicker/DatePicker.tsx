@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Vec2 } from 'types';
+import { Vec2, YYYYMMDD } from 'types';
 import CalendarBase from '~/utils/CalendarBase';
 import { c } from '~/utils/classNames';
 import CustomDate from '~/utils/CustomDate';
@@ -9,16 +9,16 @@ import './DatePicker.scss';
 
 export interface DatePickerProps {
   pos: Vec2;
-  yyyymmdd: string;
-  onChange: (yyyymmdd: string) => void;
+  value: YYYYMMDD | '';
+  onChange: (value: YYYYMMDD) => void;
   onClose: () => void;
 }
 
-const DatePicker: React.FC<DatePickerProps> = ({ pos, yyyymmdd, onChange, onClose }) => {
+const DatePicker: React.FC<DatePickerProps> = ({ pos, value, onChange, onClose }) => {
   const [yyyymm, dd] = useMemo(() => {
-    const [yyyy, mm, dd] = yyyymmdd.split('-');
+    const [yyyy, mm, dd] = (value || new CustomDate().getLocalYYYYMMDD()).split('-');
     return [`${yyyy}-${mm}`, dd];
-  }, [yyyymmdd]);
+  }, [value]);
 
   const today = useMemo(() => new CustomDate().getLocalYYYYMMDD().split('-')[2], []);
 
