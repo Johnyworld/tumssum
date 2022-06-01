@@ -49,6 +49,28 @@ export default class CustomDate {
   }
 
   /**
+ * 지역의 시간 String을 리턴합니다.
+ * @returns 12:00:00
+ */
+  getLocalTime(): HHmmss {
+    if (!this.hasTime) return '';
+    const hm = this.getLocalHoursMinutes();
+    const s = this.date.getSeconds();
+    return `${hm}:${getZeroNumber(s)}`;
+  }
+
+  /**
+ * 지역의 시간 String을 리턴합니다.
+ * @returns 12:00:00
+ */
+  getLocalHoursMinutes(): HHmmss {
+    if (!this.hasTime) return '';
+    const h = this.date.getHours();
+    const m = this.date.getMinutes();
+    return `${getZeroNumber(h)}:${getZeroNumber(m)}`;
+  }
+
+  /**
    * 국가별 날짜 표기를 리턴합니다.
    * @returns 2022. 02. 10. | 10 Feb 2022
    */
@@ -75,17 +97,7 @@ export default class CustomDate {
     this.date.setMonth(this.date.getMonth() + sum);
   }
 
-  /**
-   * 지역의 시간 String을 리턴합니다.
-   * @returns 12:00:00
-   */
-  getLocalTime(): HHmmss {
-    if (!this.hasTime) return '';
-    const h = this.date.getHours();
-    const m = this.date.getMinutes();
-    const s = this.date.getSeconds();
-    return `${getZeroNumber(h)}:${getZeroNumber(m)}:${getZeroNumber(s)}`;
-  }
+ 
 
   /**
    * 국가별 달 표기를 리턴합니다.
