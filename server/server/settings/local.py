@@ -4,7 +4,7 @@ import environ
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env()
 
-DJANGO_DB_NAME = env('DJANGO_DB_NAME') + '-dev'
+DJANGO_DB_NAME = env('DJANGO_DB_NAME')
 DJANGO_DB_USERNAME = env("DJANGO_DB_USERNAME")
 DJANGO_DB_PASSWORD = env("DJANGO_DB_PASSWORD")
 DJANGO_DB_HOST = env("DJANGO_DB_HOST")
