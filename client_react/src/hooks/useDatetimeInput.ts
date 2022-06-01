@@ -3,7 +3,7 @@ import CustomDate from '~/utils/CustomDate';
 
 const useDatetimeInput = (defaultDatetime?: string) => {
   const [defaultDate, defaultTime] = useMemo(() => {
-    const datetime = defaultDatetime || new CustomDate().getLocalDate();
+    const datetime = defaultDatetime || new CustomDate().getLocalYYYYMMDD();
     const [date, time] = datetime.split('T');
     return [date, time || ''];
   }, [defaultDatetime]);

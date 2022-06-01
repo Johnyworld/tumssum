@@ -4,7 +4,7 @@ import CustomDate from '~/utils/CustomDate';
 const now = new CustomDate();
 
 const initialState = {
-  yyyymm: now.getLocalYearMonth(),
+  yyyymm: now.getLocalYYYYMM(),
 };
 
 export const budgetSlice = createSlice({
@@ -17,7 +17,7 @@ export const budgetSlice = createSlice({
     modifyMonth: (state, { payload }: PayloadAction<number>) => {
       const then = new CustomDate(state.yyyymm);
       then.setMonth(payload);
-      state.yyyymm = then.getLocalYearMonth();
+      state.yyyymm = then.getLocalYYYYMM();
     },
   },
 });

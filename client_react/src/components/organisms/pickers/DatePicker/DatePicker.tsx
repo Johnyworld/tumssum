@@ -20,25 +20,25 @@ const DatePicker: React.FC<DatePickerProps> = ({ pos, yyyymmdd, onChange, onClos
     return [`${yyyy}-${mm}`, dd];
   }, [yyyymmdd]);
 
-  const today = useMemo(() => new CustomDate().getLocalDate().split('-')[2], []);
+  const today = useMemo(() => new CustomDate().getLocalYYYYMMDD().split('-')[2], []);
 
   const [viewMonth, setViewMonth] = useState(yyyymm);
 
   const handlePrevMonth = useCallback(() => {
     const then = new CustomDate(viewMonth);
     then.setMonth(-1);
-    setViewMonth(then.getLocalYearMonth());
+    setViewMonth(then.getLocalYYYYMM());
   }, [viewMonth]);
 
   const handleNextMonth = useCallback(() => {
     const then = new CustomDate(viewMonth);
     then.setMonth(+1);
-    setViewMonth(then.getLocalYearMonth());
+    setViewMonth(then.getLocalYYYYMM());
   }, [viewMonth]);
 
   const handleToday = useCallback(() => {
     const then = new CustomDate();
-    onChange(then.getLocalDate());
+    onChange(then.getLocalYYYYMMDD());
     onClose();
   }, [onChange, onClose]);
 
@@ -56,7 +56,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ pos, yyyymmdd, onChange, onClos
   return (
     <Picker pos={pos} onClose={onClose}>
       <Picker.Header
-        title={new CustomDate(viewMonth).getLocalStringYearAndMonth()}
+        title={new CustomDate(viewMonth).getLocalStringYM()}
         onClickPrev={handlePrevMonth}
         onClickNext={handleNextMonth}
       />

@@ -7,7 +7,7 @@ type GetOldestBudget = (budgets: Budget[]) => Budget | null;
 type FindBudget = (filteredBudgets: Budget[], yyyymm: string, count: number) => Budget | null;
 
 const getCurrentBudget: GetCurrentBudget = (months, category_id, yyyymm?) => {
-  const currentDate = yyyymm || new CustomDate().getLocalYearMonth();
+  const currentDate = yyyymm || new CustomDate().getLocalYYYYMM();
   const filtered = months.filter(month => month.category === category_id);
   if (!filtered.length) return null;
   else {
@@ -38,7 +38,7 @@ export const findBudget: FindBudget = (filteredMonths, yyyymm, count) => {
   else {
     const then = new CustomDate(yyyymm);
     then.setMonth(-1);
-    return findBudget(filteredMonths, then.getLocalYearMonth(), count - 1);
+    return findBudget(filteredMonths, then.getLocalYYYYMM(), count - 1);
   }
 };
 

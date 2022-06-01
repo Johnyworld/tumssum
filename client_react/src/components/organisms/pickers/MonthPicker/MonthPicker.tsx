@@ -35,7 +35,7 @@ const MonthPicker: React.FC<MonthPickerProps> = ({ pos, yyyymm, onChange, onClos
 
   const handleToday = () => {
     const then = new CustomDate();
-    onChange(then.getLocalYearMonth());
+    onChange(then.getLocalYYYYMM());
     onClose();
   };
 

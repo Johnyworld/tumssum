@@ -51,11 +51,11 @@ const AccountListItem: React.FC<AccountListItemProps> = ({
   return (
     <tr>
       <td className='t-center'>{index + 1}</td>
-      <td>{<ContentDate yyyymmdd={customDate.getLocalDate()} placeholder='비어있음' onChange={handleChangeDate} />}</td>
+      <td>{<ContentDate yyyymmdd={customDate.getLocalYYYYMMDD()} placeholder='비어있음' onChange={handleChangeDate} />}</td>
       <td>
         {
           <ContentTime
-            time={customDate.getLocalTime().substring(0, 5)}
+            time={customDate.getLocalHHmm()}
             placeholder='비어있음'
             onChange={handleChangeTime}
           />

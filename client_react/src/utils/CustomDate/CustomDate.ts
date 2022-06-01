@@ -1,5 +1,5 @@
 import i18next from 'i18next';
-import { HHmmss, ISOString, LocalStringM, LocalStringYM, LocalStringYMD, YYYYMM, YYYYMMDD, YYYYMMDDHHmmss } from 'types';
+import { HHmm, HHmmss, ISOString, LocalStringM, LocalStringYM, LocalStringYMD, YYYYMM, YYYYMMDD, YYYYMMDDHHmmss } from 'types';
 import numberUtil from '../numberUtil';
 
 const { getZeroNumber } = numberUtil;
@@ -25,24 +25,24 @@ export default class CustomDate {
    * ISO String과 같은 형식의 Local Date String을 리턴합니다.
    * @returns 2022-02-10T12:00:00 (from 2022-02-10T03:00:00.000Z)
    */
-  getLocalDatetime(): YYYYMMDDHHmmss {
-    return `${this.getLocalDate()}T${this.getLocalTime()}`;
+  getLocalYYYYMMDDHHmmss(): YYYYMMDDHHmmss {
+    return `${this.getLocalYYYYMMDD()}T${this.getLocalHHmmss()}`;
   }
 
   /**
    * 지역의 연도-월 String을 리턴합니다.
    * @returns 2022-02-10
    */
-  getLocalDate(): YYYYMMDD {
+  getLocalYYYYMMDD(): YYYYMMDD {
     const DATE = this.date.getDate();
-    return `${this.getLocalYearMonth()}-${getZeroNumber(DATE)}`;
+    return `${this.getLocalYYYYMM()}-${getZeroNumber(DATE)}`;
   }
 
   /**
    * 지역의 연도-월 String을 리턴합니다.
    * @returns 2022-02
    */
-  getLocalYearMonth(): YYYYMM {
+  getLocalYYYYMM(): YYYYMM {
     const YEAR = this.date.getFullYear();
     const MONTH = this.date.getMonth() + 1;
     return `${YEAR}-${getZeroNumber(MONTH)}`;
@@ -52,18 +52,17 @@ export default class CustomDate {
  * 지역의 시간 String을 리턴합니다.
  * @returns 12:00:00
  */
-  getLocalTime(): HHmmss {
+  getLocalHHmmss(): HHmmss {
     if (!this.hasTime) return '';
-    const hm = this.getLocalHoursMinutes();
     const s = this.date.getSeconds();
-    return `${hm}:${getZeroNumber(s)}`;
+    return `${this.getLocalHHmm()}:${getZeroNumber(s)}`;
   }
 
   /**
  * 지역의 시간 String을 리턴합니다.
  * @returns 12:00:00
  */
-  getLocalHoursMinutes(): HHmmss {
+  getLocalHHmm(): HHmm {
     if (!this.hasTime) return '';
     const h = this.date.getHours();
     const m = this.date.getMinutes();
@@ -84,7 +83,7 @@ export default class CustomDate {
    * 국가별 날짜 표기를 리턴합니다.
    * @returns 2022. 02. | Feb 2022
    */
-  getLocalStringYearAndMonth(): LocalStringYM {
+  getLocalStringYM(): LocalStringYM {
     const arr = [this.getMonthString(), this.date.getFullYear()];
     if (i18next.language === 'ko') return arr.reverse().join('. ') + '.';
     return arr.join(' ');

@@ -7,7 +7,7 @@ type GetOldestMonth = (months: Month[]) => Month | null;
 type FindMonth = (filteredMonths: Month[], yyyymm: string, count: number) => Month | null;
 
 const getCurrentMonth: GetCurrentMonth = (months, bank_id, yyyymm?) => {
-  const currentDate = yyyymm || new CustomDate().getLocalYearMonth();
+  const currentDate = yyyymm || new CustomDate().getLocalYYYYMM();
   const filtered = months.filter(month => month.bank === bank_id);
   if (!filtered.length) return null;
   else {
@@ -38,7 +38,7 @@ export const findMonth: FindMonth = (filteredMonths, yyyymm, count) => {
   else {
     const then = new CustomDate(yyyymm);
     then.setMonth(-1);
-    return findMonth(filteredMonths, then.getLocalYearMonth(), count - 1);
+    return findMonth(filteredMonths, then.getLocalYYYYMM(), count - 1);
   }
 };
 

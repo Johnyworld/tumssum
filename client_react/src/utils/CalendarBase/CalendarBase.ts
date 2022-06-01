@@ -16,7 +16,7 @@ export default class CalendarBase {
 
   constructor(yyyymm?: string, accounts?: Account[]) {
     this.now = new CustomDate();
-    const [yyyy, mm] = yyyymm ? yyyymm.split('-') : this.now.getLocalYearMonth().split('-');
+    const [yyyy, mm] = yyyymm ? yyyymm.split('-') : this.now.getLocalYYYYMM().split('-');
     this.calendar = [[]];
     this.accounts = accounts ? accountUtil.getDataAligned(accounts) : null;
     this.days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -113,7 +113,7 @@ export default class CalendarBase {
     return {
       yyyymmdd,
       isThisMonth: true,
-      isToday: this.now.getLocalDate() === yyyymmdd,
+      isToday: this.now.getLocalYYYYMMDD() === yyyymmdd,
       accounts: this.getAccounts(yyyymmdd),
     };
   }
