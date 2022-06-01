@@ -8,9 +8,17 @@ const englishMonthes = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 
 export default class CustomDate {
   date: Date;
   hasTime: boolean;
-  constructor(defaultDate?: string) {
-    this.date = defaultDate ? new Date(defaultDate) : new Date();
-    this.hasTime = !!defaultDate && defaultDate.includes('T') && defaultDate.length > 15;
+  constructor(defaultDate?: string | Date | CustomDate) {
+    if (defaultDate instanceof CustomDate) {
+      this.date = defaultDate.date;
+      this.hasTime = defaultDate.hasTime;
+    } else if (defaultDate instanceof Date) {
+      this.date = defaultDate;
+      this.hasTime = true;
+    } else {
+      this.date = defaultDate ? new Date(defaultDate) : new Date();
+      this.hasTime = !!defaultDate && defaultDate.includes('T') && defaultDate.length > 15;
+    }
   }
 
   /**

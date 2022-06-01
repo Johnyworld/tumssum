@@ -7,13 +7,13 @@ const useDatetimeInput = (defaultDatetime?: YYYYMMDDHHmmss) => {
   const [customDate, setDate] = useState(new CustomDate(defaultDatetime));
 
   const handleChangeDate = useCallback((date: YYYYMMDD)=> {
-    const then = new CustomDate(customDate.getLocalYYYYMMDDHHmmss());
+    const then = new CustomDate(customDate);
     then.setYYYYMMDD(date);
     setDate(then);
   }, [customDate]);
 
   const handleChangeTime = useCallback((time: HHmmss) => {
-    const then = new CustomDate(customDate.getLocalYYYYMMDDHHmmss());
+    const then = new CustomDate(customDate);
     then.setHHmmss(time);
     setDate(then);
   }, [customDate]);
