@@ -64,6 +64,7 @@
     "@storybook/preset-create-react-app": "^4.0.0",
     "@storybook/react": "^6.4.9",
     "jest-watcher": "^27.4.6",
+    "prettier": "^2.6.2",
     "sass": "^1.46.0",
     "sass-loader": "^12.4.0",
     "sass-resources-loader": "^2.2.4"
